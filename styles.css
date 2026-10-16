@@ -376,3 +376,13 @@ a:hover { color: var(--gold-light); }
   .manifest-text .w { color: var(--bone); }
   .embers { display: none; }
 }
+
+/* ---------- Logo ---------- */
+.logo { display: inline-flex; line-height: 0; }
+.logo img { height: 60px; width: auto; transition: height .4s var(--ease); }
+.site-header.solid .logo img { height: 48px; }
+.footer-logo { height: 40px; width: auto; }
+.contact-logo { height: clamp(88px, 12vw, 140px); width: auto; }
+@media (max-width: 760px) {
+  .logo img, .site-header.solid .logo img { height: 40px; }
+}
