@@ -248,7 +248,7 @@ a:hover { color: var(--gold-light); }
 
 /* Hero media sits under everything, darkened so type stays readable */
 .hero-media { position: absolute; inset: 0; z-index: 0; background: #000; }
-.hero-media::after { border: 0; align-items: flex-end; justify-content: flex-start; padding: 0 0 18vh clamp(20px, 4vw, 48px); opacity: .5; }
+.hero-media::after { display: none; }
 .hero-media::before { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,.75) 70%), linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.15) 45%); }
 .hero-video { transform: scale(1.08); transform-origin: center; transition: transform 3s var(--ease); }
 .loaded .hero-video { transform: scale(1); }
