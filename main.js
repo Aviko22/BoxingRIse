@@ -24,19 +24,19 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לשמוע על אימון נ�
 
   /* ---------- Media slots: show the photo/video once it loads, keep the placeholder otherwise ---------- */
   document.querySelectorAll('.media').forEach((fig) => {
-    const el = fig.querySelector('img, video');
-    if (!el) return;
-    const ok = () => fig.classList.add('loaded');
-    const fail = () => { el.classList.add('missing'); fig.classList.remove('loaded'); };
-    if (el.tagName === 'IMG') {
-      if (el.complete && el.naturalWidth) ok();
-      else { el.addEventListener('load', ok); el.addEventListener('error', fail); }
-    } else {
-      const src = el.querySelector('source');
-      el.addEventListener('loadeddata', ok);
-      (src || el).addEventListener('error', fail);
-      if (reduce) { el.removeAttribute('autoplay'); el.pause(); }
-    }
+    fig.querySelectorAll('img, video').forEach((el) => {
+      const ok = () => fig.classList.add('loaded');
+      const fail = () => el.classList.add('missing');
+      if (el.tagName === 'IMG') {
+        if (el.complete && el.naturalWidth) ok();
+        else { el.addEventListener('load', ok); el.addEventListener('error', fail); }
+      } else {
+        const src = el.querySelector('source');
+        el.addEventListener('loadeddata', ok);
+        (src || el).addEventListener('error', fail);
+        if (reduce) { el.removeAttribute('autoplay'); el.pause(); }
+      }
+    });
   });
 
   /* ---------- Booking form → ready-made WhatsApp message ---------- */
