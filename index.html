@@ -79,7 +79,7 @@
     <section id="rounds" class="rounds" aria-labelledby="rounds-title">
       <div class="container">
         <h2 id="rounds-title" class="h2"><span class="line"><span>שלושה סיבובים</span></span><span class="line"><span>בכל אימון.</span></span></h2>
-        <p class="section-sub reveal-up">כל אימון בנוי משלושה חלקים: טכניקה, עבודת כריות וכוח. הדגש משתנה משבוע לשבוע, המבנה נשאר.</p>
+        <p class="section-sub reveal-up">שישים דקות, אחד על אחד, בפארק. כל אימון בנוי משלושה חלקים: טכניקה, עבודת כריות וכוח. הדגש משתנה משבוע לשבוע, המבנה נשאר.</p>
       </div>
 
       <article class="round" aria-labelledby="r1">
@@ -186,24 +186,6 @@
       </div>
     </section>
 
-    <!-- ========== First session ========== -->
-    <section id="method" class="method" aria-labelledby="method-title">
-      <div class="container method-grid">
-        <div class="method-head">
-          <h2 id="method-title" class="h2"><span class="line"><span>האימון</span></span><span class="line"><span>הראשון שלך</span></span></h2>
-          <p class="method-sub">שישים דקות, אחד על אחד, בפארק. צריך רק בגדים נוחים ובקבוק מים.</p>
-          <p class="method-trial"><span class="trial-price">אימון ניסיון: <b dir="ltr">49 ₪</b> <s dir="ltr">250 ₪</s></span></p>
-        </div>
-        <ol class="steps">
-          <li class="step"><span class="step-num" dir="ltr">01</span><div><h3>מכירים</h3><p>שיחה קצרה על המטרות, הניסיון והגוף שלכם, כדי להתחיל מהמקום הנכון.</p></div></li>
-          <li class="step"><span class="step-num" dir="ltr">02</span><div><h3>מוצאים את הרגליים</h3><p>עמידה, שמירה ותנועה. הבסיס שכל מכה טובה נשענת עליו.</p></div></li>
-          <li class="step"><span class="step-num" dir="ltr">03</span><div><h3>פוגשים את הכריות</h3><p>מכות ראשונות מול המאמן, עם תיקון מיידי. בדרך כלל כאן מגיע החיוך הראשון.</p></div></li>
-          <li class="step"><span class="step-num" dir="ltr">04</span><div><h3>יוצאים עם תוכנית</h3><p>מסכמים מה עבד, ובונים יחד את הצעד הבא.</p></div></li>
-          <li class="steps-track" aria-hidden="true"><span></span></li>
-        </ol>
-      </div>
-    </section>
-
     <!-- ========== Package ========== -->
     <section id="package" class="package" aria-labelledby="package-title">
       <div class="container package-grid">
@@ -282,79 +264,6 @@
       </div>
     </section>
 
-    <!-- ========== Booking form ========== -->
-    <section id="book" class="book" aria-labelledby="book-title">
-      <div class="container book-grid">
-        <div class="book-head">
-          <h2 id="book-title" class="h2"><span class="line"><span>מה מביא</span></span><span class="line"><span>אתכם לכאן?</span></span></h2>
-          <p class="section-sub reveal-up">כמה פרטים קצרים, ואחזור אליכם בוואטסאפ לתאם אימון ניסיון.</p>
-          <ul class="book-promise reveal-up">
-            <li>אימון ניסיון ב-49 ₪ במקום 250 ₪</li>
-            <li>מותאם לכל רמה, גם בלי ניסיון</li>
-            <li>תשובה אישית ממני, לא מבוט</li>
-          </ul>
-        </div>
-
-        <form class="book-form reveal-up" id="book-form" novalidate>
-          <fieldset class="field">
-            <legend>מה המטרה העיקרית שלך?</legend>
-            <div class="chips">
-              <label class="chip"><input type="radio" name="goal" value="ללמוד אגרוף" required><span>ללמוד אגרוף</span></label>
-              <label class="chip"><input type="radio" name="goal" value="להיכנס לכושר"><span>להיכנס לכושר</span></label>
-              <label class="chip"><input type="radio" name="goal" value="לפרוק לחץ ולהתמקד"><span>לפרוק לחץ ולהתמקד</span></label>
-              <label class="chip"><input type="radio" name="goal" value="לבנות ביטחון עצמי"><span>לבנות ביטחון עצמי</span></label>
-            </div>
-          </fieldset>
-
-          <div class="field">
-            <label for="level">ניסיון באגרוף</label>
-            <select id="level" name="level">
-              <option value="בלי ניסיון בכלל">בלי ניסיון בכלל</option>
-              <option value="התאמנתי קצת בעבר">התאמנתי קצת בעבר</option>
-              <option value="יש לי ניסיון">יש לי ניסיון</option>
-            </select>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="name">שם</label>
-              <input id="name" name="name" type="text" autocomplete="name" required>
-            </div>
-            <div class="field">
-              <label for="time">מתי נוח לך להתאמן?</label>
-              <select id="time" name="time">
-                <option value="בוקר">בוקר</option>
-                <option value="צהריים">צהריים</option>
-                <option value="ערב">ערב</option>
-                <option value="גמיש">גמיש</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="note">יש משהו שכדאי שאדע? <span class="opt">(לא חובה)</span></label>
-            <textarea id="note" name="note" rows="3"></textarea>
-          </div>
-
-          <p class="form-error" id="form-error" role="alert" hidden></p>
-
-          <button class="btn btn-gold btn-lg magnetic" type="submit">
-            <span>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
-              שליחה בוואטסאפ
-            </span>
-          </button>
-
-          <div class="form-done" id="form-done" hidden>
-            <p class="form-done-title">ההודעה שלך מוכנה</p>
-            <pre class="form-preview" id="form-preview"></pre>
-            <p class="form-done-note" id="form-done-note">אם וואטסאפ לא נפתח, אפשר להעתיק את ההודעה ולשלוח אותה ידנית.</p>
-            <button class="btn btn-line btn-sm" type="button" id="copy-msg"><span>העתקת ההודעה</span></button>
-          </div>
-        </form>
-      </div>
-    </section>
-
     <!-- ========== FAQ ========== -->
     <section id="faq" class="faq" aria-labelledby="faq-title">
       <div class="container faq-grid">
@@ -367,6 +276,10 @@
           <details class="qa">
             <summary>כמה עולה אימון ניסיון?</summary>
             <div class="qa-body"><p>49 ₪ במקום 250 ₪. אימון מלא של שעה, אחד על אחד, כדי שתרגישו את השיטה לפני שמחליטים על התוכנית.</p></div>
+          </details>
+          <details class="qa">
+            <summary>מה קורה באימון הניסיון?</summary>
+            <div class="qa-body"><p>מתחילים בשיחה קצרה על המטרות, הניסיון והגוף שלכם. אחר כך עמידה ותנועה, מכות ראשונות על הכריות עם תיקון מיידי, ובסוף בונים יחד את הצעד הבא.</p></div>
           </details>
           <details class="qa">
             <summary>צריך ניסיון באגרוף?</summary>
@@ -410,6 +323,7 @@
         <img class="contact-logo reveal-up" src="/brand/logo.webp" alt="" width="1202" height="468" loading="lazy">
         <h2 id="contact-title" class="h2 h2-xl"><span class="line"><span>הסיבוב הראשון מחכה.</span></span></h2>
         <p class="contact-sub reveal-up">האימון הראשון מתחיל בהודעה אחת.</p>
+        <p class="hero-trial reveal-up"><span class="trial-price">אימון ניסיון: <b dir="ltr">49 ₪</b> <s dir="ltr">250 ₪</s></span></p>
         <a class="btn btn-gold btn-lg magnetic reveal-up js-whatsapp" href="https://wa.me/972502734456" target="_blank" rel="noopener"><span>קביעת אימון ניסיון</span></a>
       </div>
     </section>
