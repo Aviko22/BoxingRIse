@@ -252,7 +252,18 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
   const contact = document.querySelector('.contact');
   const fillWord = document.querySelector('.fill-word');
   const heroEl = document.querySelector('.hero');
-  let heroSun = 0;
+  const heroStage = document.querySelector('.hero-stage');
+  let heroSun = 0, heroStruck = false;
+  // where the pad sits on screen: square clip, object-fit cover, object-position as in the CSS
+  const placePad = () => {
+    if (!heroStage) return;
+    const w = heroStage.clientWidth, h = heroStage.clientHeight, mobile = window.innerWidth <= 760;
+    const px = mobile ? 0.56 : 0.5, py = mobile ? 0.40 : 0.26, sc = Math.max(w / 1072, h / 1072), v = 1072 * sc;
+    const x = (w - v) * px + v * 0.53, y = (h - v) * py + v * 0.24;
+    heroEl.style.setProperty('--padx', (x / w * 100).toFixed(2) + '%');
+    heroEl.style.setProperty('--pady', (y / h * 100).toFixed(2) + '%');
+  };
+  placePad(); window.addEventListener('resize', placePad);
   const ghosts = Array.from(document.querySelectorAll('.round-ghost'));
   const gallery = document.querySelector('.gallery');
   const track = document.querySelector('.gallery-track');
@@ -276,6 +287,11 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
       const span = heroEl.offsetHeight - vh;
       heroSun = span > 0 ? clamp(-heroEl.getBoundingClientRect().top / span) : 0;
       heroEl.style.setProperty('--sun', heroSun.toFixed(4));
+      // the punch lands at 62% of the sunrise; scrolling back up re-arms it
+      if (!heroStruck && heroSun >= 0.62) {
+        heroStruck = true; heroEl.classList.add('struck');
+        heroStage.classList.remove('shake'); void heroStage.offsetWidth; heroStage.classList.add('shake');
+      } else if (heroStruck && heroSun < 0.5) { heroStruck = false; heroEl.classList.remove('struck'); }
     }
 
     if (manifest) {

@@ -622,3 +622,43 @@ a:hover { color: var(--gold-light); }
     rgba(255, 222, 150, calc(.18 + var(--sun, 0) * .6)), rgba(240, 170, 70, calc(.06 + var(--sun, 0) * .25)) 45%, transparent 70%); }
 }
 @media (prefers-reduced-motion: reduce) { .hero-film .hero-video { transform: none; } }
+
+/* ============================================================
+   Hero: black & gold → colour, camera pushes into the pad,
+   and at 62% of the scroll the punch lands: flash, ring, shake,
+   and RISE is knocked up over the horizon.
+   ============================================================ */
+.hero-film .hero-video {
+  filter: grayscale(clamp(0, 1 - var(--sun, 0) * 1.6, 1)) sepia(clamp(0, .85 - var(--sun, 0) * 1.1, .85))
+          saturate(clamp(.75, 1.6 - var(--sun, 0) * 1.2, 1.6)) contrast(1.08) brightness(calc(.42 + var(--sun, 0) * .45));
+  transform: scale(calc(1 + var(--sun, 0) * .5)); transform-origin: var(--padx, 55%) var(--pady, 28%); }
+.hero-tint { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply;
+  background: linear-gradient(180deg, #E8C27A, #7A5A1C); opacity: calc((1 - var(--sun, 0) * 1.6) * .5); }
+.hero-flare { background: radial-gradient(calc(14% + var(--sun, 0) * 24%) calc(18% + var(--sun, 0) * 28%) at var(--padx, 55%) var(--pady, 28%),
+  rgba(255, 222, 150, calc(.12 + var(--sun, 0) * .5)), rgba(240, 170, 70, calc(var(--sun, 0) * .2)) 45%, transparent 70%); }
+
+.hero-hit, .hero-ring { position: absolute; z-index: 3; left: var(--padx, 55%); top: var(--pady, 28%); pointer-events: none; opacity: 0; border-radius: 50%; }
+.hero-hit { width: 46vmin; height: 46vmin; margin: -23vmin 0 0 -23vmin;
+  background: radial-gradient(circle, rgba(255, 246, 215, 1), rgba(255, 210, 120, .55) 28%, transparent 62%); }
+.hero-ring { width: 10vmin; height: 10vmin; margin: -5vmin 0 0 -5vmin; border: 3px solid var(--gold-light); }
+.hero.struck .hero-hit { animation: heroHit .75s ease-out; }
+.hero.struck .hero-ring { animation: heroRing .75s ease-out; }
+@keyframes heroHit { 0% { opacity: 0; transform: scale(.3); } 18% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.9); } }
+@keyframes heroRing { 0% { opacity: 1; transform: scale(.4); } 100% { opacity: 0; transform: scale(7); } }
+.hero-stage.shake { animation: heroShake .32s linear; }
+@keyframes heroShake { 0%,100% { transform: none; } 25% { transform: translate(-7px, 4px); } 50% { transform: translate(6px, -4px); } 75% { transform: translate(-3px, 2px); } }
+
+/* RISE waits below the horizon and is knocked up by the punch */
+.loaded .hero-word span { transform: translateY(115%); opacity: 1; transition: none; }
+.hero.struck .hero-word span { animation: knockUp .85s cubic-bezier(.2, .9, .2, 1) forwards; }
+.hero.struck .hero-word span:nth-child(2) { animation-delay: .05s; }
+.hero.struck .hero-word span:nth-child(3) { animation-delay: .1s; }
+.hero.struck .hero-word span:nth-child(4) { animation-delay: .15s; }
+@keyframes knockUp { 0% { transform: translateY(115%); } 50% { transform: translateY(-12%); } 72% { transform: translateY(3%); } 100% { transform: translateY(0); } }
+.hero-word { filter: brightness(1.05) drop-shadow(0 0 30px rgba(240, 190, 100, .5)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-film .hero-video { transform: none; }
+  .loaded .hero-word span, .hero-word span { transform: none !important; opacity: 1 !important; animation: none !important; }
+}
+.hero-top { opacity: clamp(0, 1 - var(--sun, 0) * 2.2, 1); transform: translateY(calc(var(--sun, 0) * -12vh)); }
