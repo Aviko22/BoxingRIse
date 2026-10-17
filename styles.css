@@ -427,3 +427,7 @@ a:hover { color: var(--gold-light); }
 @media (prefers-reduced-motion: reduce) {
   .js .weeks .bar-fill { transform: none !important; }
 }
+
+.price { display: flex; flex-direction: column; gap: 6px; line-height: 1; }
+.price > span { text-align: right; }
+.price-note { font-family: var(--body); font-weight: 600; font-size: 16px; color: #6B6459; }
