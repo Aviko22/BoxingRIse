@@ -90,6 +90,81 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לשמוע על אימון נ�
     });
   }
 
+  /* ---------- Gold buttons react to a click like a pad takes a punch ---------- */
+  document.querySelectorAll('.btn-gold, .wa-float').forEach((btn) => {
+    btn.addEventListener('pointerdown', () => {
+      btn.classList.remove('punch'); void btn.offsetWidth; btn.classList.add('punch');
+    });
+    btn.addEventListener('animationend', (e) => { if (e.animationName === 'punchRing') btn.classList.remove('punch'); });
+  });
+
+  /* ---------- Jab test: 10 seconds, as many punches as possible ---------- */
+  const pad = document.getElementById('jab-pad');
+  if (pad) {
+    const section = document.getElementById('jab');
+    const countEl = document.getElementById('jab-count');
+    const timeEl = document.getElementById('jab-time');
+    const hint = document.getElementById('jab-hint');
+    const result = document.getElementById('jab-result');
+    const verdict = document.getElementById('jab-verdict');
+    const bestEl = document.getElementById('jab-best');
+    const cta = document.getElementById('jab-cta');
+    const again = document.getElementById('jab-again');
+    const DURATION = 10000;
+    let state = 'idle', hits = 0, start = 0, raf = 0;
+    const readBest = () => { try { return +localStorage.getItem('br-jab-best') || 0; } catch (e) { return 0; } };
+    const saveBest = (n) => { try { localStorage.setItem('br-jab-best', String(n)); } catch (e) { /* storage unavailable */ } };
+    const rate = (n) => n >= 70 ? 'ידיים של מקצוען.' : n >= 50 ? 'יד מהירה מאוד.' : n >= 30 ? 'יש פה מהירות.' : 'התחלה טובה.';
+
+    const effects = (x, y) => {
+      if (reduce) return;
+      const ring = document.createElement('span');
+      ring.className = 'shock'; ring.style.left = x + 'px'; ring.style.top = y + 'px';
+      pad.appendChild(ring); ring.addEventListener('animationend', () => ring.remove());
+      for (let i = 0; i < 6; i++) {
+        const s = document.createElement('span'); const a = Math.random() * Math.PI * 2; const d = 40 + Math.random() * 50;
+        s.className = 'spark'; s.style.left = x + 'px'; s.style.top = y + 'px';
+        s.style.setProperty('--dx', Math.cos(a) * d + 'px'); s.style.setProperty('--dy', Math.sin(a) * d + 'px');
+        pad.appendChild(s); s.addEventListener('animationend', () => s.remove());
+      }
+      pad.classList.remove('hit'); void pad.offsetWidth; pad.classList.add('hit');
+      section.classList.remove('shake'); void section.offsetWidth; section.classList.add('shake');
+      countEl.classList.remove('pop'); void countEl.offsetWidth; countEl.classList.add('pop');
+    };
+    const tick = () => {
+      const left = Math.max(0, DURATION - (performance.now() - start));
+      timeEl.textContent = (left / 1000).toFixed(1);
+      timeEl.classList.toggle('low', left < 3000);
+      if (left > 0) raf = requestAnimationFrame(tick); else finish();
+    };
+    const finish = () => {
+      state = 'done'; pad.disabled = true;
+      const best = Math.max(readBest(), hits); saveBest(best);
+      verdict.textContent = hits + ' מכות. ' + rate(hits);
+      bestEl.textContent = hits >= best && hits > 0 ? 'זה השיא שלך באתר.' : 'השיא שלך: ' + best + ' מכות.';
+      if (WHATSAPP_NUMBER) cta.href = waLink('היי אבי, הוצאתי ' + hits + ' מכות ב-10 שניות באתר. אשמח לתאם אימון ניסיון ב-BoxingRise');
+      hint.textContent = 'נגמר הזמן';
+      result.hidden = false;
+      setTimeout(() => { pad.disabled = false; hint.textContent = 'לסיבוב נוסף לחצו על ״עוד סיבוב״'; }, 1200);
+    };
+    const hit = (x, y) => {
+      if (state === 'done') return;
+      if (state === 'idle') { state = 'running'; start = performance.now(); hint.textContent = 'עוד, עוד, עוד!'; raf = requestAnimationFrame(tick); }
+      hits++; countEl.textContent = hits; effects(x, y);
+    };
+    pad.addEventListener('pointerdown', (e) => {
+      const r = pad.getBoundingClientRect(); hit(e.clientX - r.left, e.clientY - r.top);
+    });
+    pad.addEventListener('click', (e) => {
+      if (e.detail === 0) { const r = pad.getBoundingClientRect(); hit(r.width / 2, r.height / 2); } // keyboard
+    });
+    again.addEventListener('click', () => {
+      cancelAnimationFrame(raf); state = 'idle'; hits = 0; pad.disabled = false;
+      countEl.textContent = '0'; timeEl.textContent = '10.0'; timeEl.classList.remove('low');
+      result.hidden = true; hint.textContent = 'מכה ראשונה מתחילה את השעון'; pad.focus();
+    });
+  }
+
   /* ---------- Manifest: split into words so they can light up on scroll ---------- */
   const manifest = document.querySelector('[data-words]');
   let words = [];
