@@ -3,7 +3,7 @@
    ============================================================ */
 // WhatsApp number in international format, digits only (e.g. 972501234567). Leave empty until ready.
 const WHATSAPP_NUMBER = '972502734456';
-const WHATSAPP_MESSAGE = 'היי אבי, אשמח לשמוע על אימון ניסיון ב-BoxingRise';
+const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסיון ב-BoxingRise (49 ₪)';
 
 /* ============================================================ */
 
