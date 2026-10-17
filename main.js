@@ -90,6 +90,10 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
     });
   }
 
+  /* ---------- Hero film: respect reduced motion ---------- */
+  const film = document.querySelector('.hero-video');
+  if (film && reduce) { film.removeAttribute('autoplay'); film.pause(); }
+
   /* ---------- RISE: light grows as you scroll down ---------- */
   const setRise = () => {
     const max = document.documentElement.scrollHeight - window.innerHeight;
