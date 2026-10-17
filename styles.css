@@ -549,3 +549,51 @@ a:hover { color: var(--gold-light); }
 .loaded .hero-dawn { opacity: 1; }
 .hero::after { display: none; }
 @media (prefers-reduced-motion: reduce) { .hero-dawn { opacity: 1; } }
+
+/* ============================================================
+   HERO SUNRISE. The hero is pinned while you scroll through it.
+   --sun goes 0 → 1: RISE climbs out of the horizon letter by letter,
+   turns from dim bronze to glowing gold, the dawn spreads,
+   the sparks speed up, and the headline steps aside.
+   ============================================================ */
+.hero { height: 240vh; min-height: 0; padding: 0; overflow: visible; display: block; }
+.hero-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; flex-direction: column;
+  padding-top: clamp(110px, 15vh, 170px); }
+.hero-top { transform: translateY(calc(var(--sun, 0) * -16vh)); opacity: calc(1 - var(--sun, 0) * 1.1); }
+.hero-word { bottom: -0.12em; filter: brightness(calc(.55 + var(--sun, 0) * .6)) drop-shadow(0 0 calc(var(--sun, 0) * 46px) rgba(240, 190, 100, calc(var(--sun, 0) * .55))); }
+.hero-word span:nth-child(1) { --depth: 62%; }
+.hero-word span:nth-child(2) { --depth: 70%; }
+.hero-word span:nth-child(3) { --depth: 78%; }
+.hero-word span:nth-child(4) { --depth: 86%; }
+.loaded .hero-word span { transform: translateY(calc((1 - var(--sun, 0)) * var(--depth, 70%))); }
+.hero-dawn { opacity: 1; transition: none;
+  background:
+    radial-gradient(calc(60% + var(--sun, 0) * 80%) calc(26% + var(--sun, 0) * 60%) at 50% 100%,
+      rgba(240, 190, 100, calc(.20 + var(--sun, 0) * .5)), rgba(201, 140, 60, calc(.06 + var(--sun, 0) * .22)) 45%, transparent 75%),
+    linear-gradient(to top, rgba(110, 65, 20, calc(var(--sun, 0) * .55)), transparent 70%); }
+.js .hero-dawn { opacity: 0; transition: opacity 2s ease .3s; }
+.loaded .hero-dawn { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero { height: auto; --sun: .75; }
+  .hero-stage { position: relative; height: auto; min-height: 100svh; padding-bottom: 40vh; }
+  .hero-top { transform: none; opacity: 1; }
+}
+
+/* Horizon: a black "ground" the letters climb out from behind. Its top edge
+   catches the light; the stage ends black, so it flows into the next section. */
+.hero-stage { --ground: 15vh; }
+.hero-ground { position: absolute; inset: auto 0 0 0; height: var(--ground); z-index: 3; background: #000;
+  box-shadow: 0 -1px 0 rgba(241, 213, 138, calc(.15 + var(--sun, 0) * .7)), 0 -18px 40px rgba(240, 190, 100, calc(var(--sun, 0) * .25)); }
+.hero-word { bottom: calc(var(--ground) - .1em); z-index: 2; }
+.hero-word span:nth-child(1) { --depth: 78%; }
+.hero-word span:nth-child(2) { --depth: 88%; }
+.hero-word span:nth-child(3) { --depth: 98%; }
+.hero-word span:nth-child(4) { --depth: 108%; }
+.hero-dawn {
+  background:
+    radial-gradient(calc(55% + var(--sun, 0) * 80%) calc(22% + var(--sun, 0) * 55%) at 50% calc(100% - var(--ground)),
+      rgba(240, 190, 100, calc(.22 + var(--sun, 0) * .5)), rgba(201, 140, 60, calc(.06 + var(--sun, 0) * .22)) 45%, transparent 75%),
+    linear-gradient(to top, rgba(110, 65, 20, calc(var(--sun, 0) * .5)) var(--ground), transparent 75%); }
+.hero-top { z-index: 4; }
+@media (max-width: 760px) { .hero-stage { --ground: 12vh; } }

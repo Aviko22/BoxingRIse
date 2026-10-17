@@ -247,7 +247,8 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
   const stepsList = document.querySelector('.steps');
   const contact = document.querySelector('.contact');
   const fillWord = document.querySelector('.fill-word');
-  const heroLetters = document.querySelectorAll('.hero-word span');
+  const heroEl = document.querySelector('.hero');
+  let heroSun = 0;
   const ghosts = Array.from(document.querySelectorAll('.round-ghost'));
   const gallery = document.querySelector('.gallery');
   const track = document.querySelector('.gallery-track');
@@ -266,8 +267,11 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
 
     meter.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
 
-    if (y < vh * 1.2) {
-      heroLetters.forEach((l, i) => l.style.setProperty('--py', (-y * (0.12 + i * 0.05)).toFixed(1) + 'px'));
+    // hero sunrise: 0 when the page opens, 1 when the pinned hero has been scrolled through
+    if (heroEl) {
+      const span = heroEl.offsetHeight - vh;
+      heroSun = span > 0 ? clamp(-heroEl.getBoundingClientRect().top / span) : 0;
+      heroEl.style.setProperty('--sun', heroSun.toFixed(4));
     }
 
     if (manifest) {
@@ -335,7 +339,7 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
       if (!running) return;
       ctx.clearRect(0, 0, w, h);
       for (const s of sparks) {
-        s.y -= s.vy;
+        s.y -= s.vy * (1 + heroSun * 2.6);
         s.x += Math.sin(t / 1400 + s.phase) * s.sway * 0.3;
         if (s.y < -10) Object.assign(s, spawn(false));
         const fade = Math.min(1, s.y / (h * 0.9)) * s.life;
