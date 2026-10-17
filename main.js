@@ -90,6 +90,19 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לשמוע על אימון נ�
     });
   }
 
+  /* ---------- RISE: light grows as you scroll down ---------- */
+  const setRise = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    root.style.setProperty('--rise', Math.pow(p, 1.35).toFixed(4));
+  };
+  let riseTick = false;
+  window.addEventListener('scroll', () => {
+    if (!riseTick) { riseTick = true; requestAnimationFrame(() => { setRise(); riseTick = false; }); }
+  }, { passive: true });
+  window.addEventListener('resize', setRise);
+  setRise();
+
   /* ---------- Gold buttons react to a click like a pad takes a punch ---------- */
   document.querySelectorAll('.btn-gold, .wa-float').forEach((btn) => {
     btn.addEventListener('pointerdown', () => {

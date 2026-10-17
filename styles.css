@@ -508,3 +508,23 @@ a:hover { color: var(--gold-light); }
 }
 .jab-result[hidden] { display: none; }
 @media (max-width: 760px) { .jab-stats { margin-top: 20px; } .jab-num { font-size: 64px; } }
+
+/* ============================================================
+   RISE: the page brightens like a sunrise as you scroll.
+   --rise goes 0 → 1 from top to bottom (set in main.js).
+   Dark sections are transparent so the light shows through.
+   ============================================================ */
+.dawn {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(130% 75% at 50% calc(135% - var(--rise, 0) * 75%),
+      rgba(240, 190, 100, calc(.04 + var(--rise, 0) * .42)) 0%,
+      rgba(201, 140, 60, calc(var(--rise, 0) * .16)) 38%,
+      transparent 72%),
+    linear-gradient(to top, rgba(70, 45, 18, calc(var(--rise, 0) * .6)), transparent 65%),
+    #000;
+}
+.contact { background: transparent; }
+.book { background: radial-gradient(ellipse at 85% 0%, rgba(201, 162, 75, .08), transparent 55%); }
+.jab { background: radial-gradient(ellipse at 25% 55%, rgba(201, 162, 75, .14), transparent 55%); }
+.site-footer { background: rgba(0, 0, 0, .25); }
