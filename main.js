@@ -53,7 +53,7 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לשמוע על אימון נ�
       const goal = data.get('goal');
       const name = (data.get('name') || '').toString().trim();
       if (!goal || !name) {
-        err.textContent = !goal ? 'בחר מטרה אחת כדי שאדע איך לבנות את האימון.' : 'כתוב את השם שלך כדי שאדע למי לחזור.';
+        err.textContent = !goal ? 'יש לבחור מטרה אחת, כדי שאדע איך לבנות את האימון.' : 'יש לכתוב שם, כדי שאדע למי לחזור.';
         err.hidden = false;
         (!goal ? form.querySelector('input[name="goal"]') : form.querySelector('#name')).focus();
         return;
