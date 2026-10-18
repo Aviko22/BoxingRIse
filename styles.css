@@ -668,3 +668,8 @@ a:hover { color: var(--gold-light); }
 .hero-stage::after { content: ""; position: absolute; inset: auto 0 0 0; height: 30vh; z-index: 3; pointer-events: none;
   background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, .6) 45%, transparent 100%); }
 .hero-film::after { background: linear-gradient(90deg, rgba(0, 0, 0, calc(.10 * (1 - var(--sun, 0)))), rgba(0, 0, 0, calc(.78 * (1 - var(--sun, 0) * .7))) 72%); }
+
+/* No punch effect: the morning light sits on the sun in the clip, not on the pad */
+.hero-flare { background: radial-gradient(calc(14% + var(--sun, 0) * 24%) calc(18% + var(--sun, 0) * 28%)
+  at calc(var(--padx, 55%) + 6%) calc(var(--pady, 28%) - 6%),
+  rgba(255, 222, 150, calc(.10 + var(--sun, 0) * .35)), rgba(240, 170, 70, calc(var(--sun, 0) * .12)) 45%, transparent 70%); }

@@ -253,7 +253,7 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
   const fillWord = document.querySelector('.fill-word');
   const heroEl = document.querySelector('.hero');
   const heroStage = document.querySelector('.hero-stage');
-  let heroSun = 0, heroStruck = false;
+  let heroSun = 0;
   // where the pad sits on screen: square clip, object-fit cover, object-position as in the CSS
   const placePad = () => {
     if (!heroStage) return;
@@ -287,11 +287,6 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
       const span = heroEl.offsetHeight - vh;
       heroSun = span > 0 ? clamp(-heroEl.getBoundingClientRect().top / span) : 0;
       heroEl.style.setProperty('--sun', heroSun.toFixed(4));
-      // the punch lands at 62% of the sunrise; scrolling back up re-arms it
-      if (!heroStruck && heroSun >= 0.62) {
-        heroStruck = true; heroEl.classList.add('struck');
-        heroStage.classList.remove('shake'); void heroStage.offsetWidth; heroStage.classList.add('shake');
-      } else if (heroStruck && heroSun < 0.5) { heroStruck = false; heroEl.classList.remove('struck'); }
     }
 
     if (manifest) {
