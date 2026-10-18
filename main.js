@@ -186,9 +186,10 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
   const manifest = document.querySelector('[data-words]');
   let words = [];
   if (manifest) {
-    const goldWords = ['RISE', 'לצמוח.'];
-    manifest.innerHTML = manifest.textContent.trim().split(/\s+/).map((w) => {
-      const gold = goldWords.some((g) => w.includes(g));
+    const all = manifest.textContent.trim().split(/\s+/);
+    const goldFrom = all.length - 4; /* the closing line glows gold */
+    manifest.innerHTML = all.map((w, i) => {
+      const gold = i >= goldFrom;
       return '<span class="w' + (gold ? ' gold' : '') + '">' + w + '</span>';
     }).join(' ');
     words = Array.from(manifest.querySelectorAll('.w'));
