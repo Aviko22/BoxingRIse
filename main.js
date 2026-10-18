@@ -225,8 +225,20 @@ const WHATSAPP_MESSAGE = 'היי אבי, אשמח לקבוע אימון ניסי
       setTimeout(() => el.classList.add('in'), delay);
       io.unobserve(el);
     });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+  }, { rootMargin: '0px 0px 12% 0px', threshold: 0 });
   revealTargets.forEach((el) => { if (!el.closest('.hero')) io.observe(el); });
+
+  /* ---------- Floating WhatsApp steps aside near the closing CTA ---------- */
+  const waFloat = document.querySelector('.wa-float');
+  const ctaZones = document.querySelectorAll('#contact, .site-footer');
+  if (waFloat && ctaZones.length) {
+    const seen = new Set();
+    const waIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+      waFloat.classList.toggle('away', seen.size > 0);
+    }, { threshold: 0.15 });
+    ctaZones.forEach((z) => waIO.observe(z));
+  }
 
   /* ---------- Package number counts up ---------- */
   const countIO = new IntersectionObserver((entries) => {

@@ -673,3 +673,34 @@ a:hover { color: var(--gold-light); }
 .hero-flare { background: radial-gradient(calc(14% + var(--sun, 0) * 24%) calc(18% + var(--sun, 0) * 28%)
   at calc(var(--padx, 55%) + 6%) calc(var(--pady, 28%) - 6%),
   rgba(255, 222, 150, calc(.10 + var(--sun, 0) * .35)), rgba(240, 170, 70, calc(var(--sun, 0) * .12)) 45%, transparent 70%); }
+
+/* ---------- Polish pass: what works / what doesn't ---------- */
+/* No placeholder text while photos load */
+.media::after { content: none; }
+/* Hero text shows immediately, without waiting for scripts */
+.js .hero .line > span { animation: jab .62s cubic-bezier(.16, 1, .3, 1) .1s both; }
+.js .hero .line:nth-child(2) > span { animation-delay: .2s; }
+.js .hero .reveal-up { opacity: 1; transform: none; animation: heroUp .6s ease .3s both; }
+@keyframes heroUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hero-title .line > span { text-wrap: balance; }
+/* Faster reveals so fast scrolling never lands on an empty screen */
+.js .clip-reveal img { transition: clip-path .9s var(--ease), transform .9s var(--ease); }
+.js .reveal-up { transition: opacity .4s ease, transform .45s cubic-bezier(.16, 1, .3, 1); }
+/* Round label in Hebrew */
+.round-num { font-family: var(--body); font-weight: 700; font-size: 16px; letter-spacing: .04em; }
+/* Three facts in one row */
+.facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.facts div:nth-child(n) { border-top: 0; }
+.facts div + div { border-right: 1px solid #CFC6B6; padding-right: clamp(12px, 2vw, 24px); }
+/* Price and button after the eight weeks */
+.program .package-cta { margin-top: clamp(40px, 6vh, 64px); }
+/* Floating WhatsApp steps aside where the page already has a button */
+.wa-float { transition: transform .4s var(--ease), opacity .3s ease; }
+.wa-float.away { opacity: 0; transform: scale(.6); pointer-events: none; }
+@media (max-width: 760px) {
+  .wa-float { width: 50px; height: 50px; bottom: 14px; left: 14px; }
+  .faq { padding-bottom: 120px; }
+  .round { padding: 56px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) { .js .hero .line > span, .js .hero .reveal-up { animation: none; opacity: 1; transform: none; } }
