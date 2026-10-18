@@ -700,6 +700,9 @@ a:hover { color: var(--gold-light); }
 @media (max-width: 760px) {
   .wa-float { width: 50px; height: 50px; bottom: 14px; left: 14px; }
   .faq { padding-bottom: 120px; }
+  .facts div:nth-child(n) { border-top: 0; }
+  .facts div:nth-child(odd) + div, .facts div:nth-child(even) + div { border-right: 1px solid #CFC6B6; padding-right: 12px; }
+  .facts dt { font-size: 14px; }
   .round { padding: 56px 0; }
 }
 
