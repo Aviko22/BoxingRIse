@@ -79,8 +79,9 @@ HE = {
 
     "about_h": "אני אבי (Aviko) אניחוביץ.",
     "about": [
-        "עשור של מואי תאי, חמש שנים של אגרוף קלאסי וחגורה שחורה בג׳ו־ג׳יטסו יפני. למדתי בישראל ובתאילנד.",
-        "אני לא מאמן כדי לייצר לוחמים. אני מאמן כדי שתצאו מכל אימון חזקים יותר ממה שנכנסתם, בלי אגו ובלי צעקות.",
+        "בשבילי אגרוף הוא לא אלימות, הוא שקט. שעה שבה הראש מתרכז בדבר אחד, והגוף לומד לעמוד יציב.",
+        "אני לא מאמן כדי לייצר לוחמים. אני מאמן כדי שתצאו מכל אימון חזקים יותר ממה שנכנסתם.",
+        "אני עובד עם מתחילים, בקצב שלהם, עם הסבר לכל תנועה. בלי צעקות, בלי לחץ, ועם הרבה סבלנות.",
     ],
     "about_creds": ["10 שנים מואי תאי", "5 שנים אגרוף קלאסי", "חגורה שחורה, ג׳ו־ג׳יטסו יפני", "הכשרה בישראל ובתאילנד"],
     "about_alt": "אבי אניחוביץ, מאמן האגרוף של BoxingRise, באולם אגרוף",
@@ -199,8 +200,9 @@ EN = {
 
     "about_h": "I'm Avi (Aviko) Anihovich.",
     "about": [
-        "A decade of Muay Thai, five years of classic boxing and a black belt in Japanese jujutsu. I trained in Israel and in Thailand.",
-        "I don't coach to make fighters. I coach so you leave every session stronger than you came in, with no ego and no shouting.",
+        "To me boxing isn't violence, it's quiet. An hour where your mind holds one thing, and your body learns to stand steady.",
+        "I don't coach to make fighters. I coach so you leave every session stronger than you came in.",
+        "I work with beginners, at their pace, explaining every move. No shouting, no pressure, and a lot of patience.",
     ],
     "about_creds": ["10 years of Muay Thai", "5 years of classic boxing", "Black belt, Japanese jujutsu", "Trained in Israel and Thailand"],
     "about_alt": "Avi Anihovich, BoxingRise boxing coach, in a boxing gym",
