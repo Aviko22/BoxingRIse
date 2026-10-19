@@ -407,3 +407,14 @@ html[dir="ltr"] .h1 .w > span { --from: -60%; }
   .hero-inner > * { max-width: 54%; }
   .hero-inner > .h1 { max-width: 60%; }
 }
+/* phone: anchor the vertical clip to the top so heads stay in frame */
+@media (max-width: 999px) { .hero-video { object-position: 50% 0%; } .hero-media .hero-shade { background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 72%, #000 100%); } }
+/* phone v3: the clip is vertical, so it fills the whole phone screen and the words sit over the floor */
+@media (max-width: 999px) {
+  .hero { min-height: 100svh; padding-bottom: 28px; justify-content: flex-end; }
+  .hero-media { inset: 0; height: auto; }
+  .hero-inner { padding-top: 0; }
+  .hero-video { object-position: 50% 30%; }
+  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 14%, rgba(0,0,0,0) 42%, rgba(0,0,0,.78) 64%, #000 92%); }
+}
+@media (max-width: 999px) and (max-height: 620px) { .hero-inner { padding-top: 0; } }
