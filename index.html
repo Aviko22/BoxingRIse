@@ -2,364 +2,152 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow"><!-- remove before launch on boxingrise.com -->
+  <script>document.documentElement.classList.add('js')</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>BoxingRise | אימון אגרוף אישי אחד על אחד</title>
-  <meta name="description" content="אימון אגרוף אישי, אחד על אחד, באזור המרכז: בפארק הירקון או בפארק ליד הבית. למנהלים, לנשים ולצעירים. לא צריך להיות לוחם, צריך רק להתחיל.">
-  <meta property="og:title" content="BoxingRise | לא צריך להיות לוחם. צריך רק להתחיל.">
-  <meta property="og:description" content="אימון אגרוף אישי, אחד על אחד, בפארק הירקון או בפארק ליד הבית.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://boxingrise.vercel.app/media/og.jpg">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="description" content="אימון אגרוף אישי, אחד על אחד, 60 דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז. למנהלים, לנשים ולצעירים. אימון ניסיון ב־49 ₪.">
+  <meta name="robots" content="noindex, nofollow">
+  <!-- TODO: before launch on boxingrise.com set "noindex": false in src/config.json and rebuild -->
+  <link rel="canonical" href="https://boxingrise.com/">
+  <link rel="alternate" hreflang="he" href="https://boxingrise.com/">
+  <link rel="alternate" hreflang="en" href="https://boxingrise.com/en">
+  <link rel="alternate" hreflang="x-default" href="https://boxingrise.com/">
   <meta name="theme-color" content="#000000">
-  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BoxingRise">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:title" content="BoxingRise | אימון אגרוף אישי אחד על אחד">
+  <meta property="og:description" content="אימון אגרוף אישי, אחד על אחד, בפארק. אימון ניסיון ב־49 ₪.">
+  <meta property="og:url" content="https://boxingrise.com/">
+  <meta property="og:image" content="https://boxingrise.com/media/og.jpg">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Karantina:wght@400;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preload" href="/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="/fonts/karantina-bold.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css?v=6">
+  <script src="/config.js?v=6" defer></script>
+  <script src="/assets/site.js?v=6" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": ["SportsActivityLocation", "LocalBusiness"], "name": "BoxingRise", "description": "אימון אגרוף אישי, אחד על אחד, 60 דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז. למנהלים, לנשים ולצעירים. אימון ניסיון ב־49 ₪.", "url": "https://boxingrise.com/", "image": "https://boxingrise.com/media/og.jpg", "logo": "https://boxingrise.com/brand/icon-512.png", "telephone": "+972502734456", "priceRange": "₪₪", "founder": {"@type": "Person", "name": "Avi Anihovich", "alternateName": "Aviko"}, "areaServed": [{"@type": "City", "name": "Tel Aviv-Yafo"}, {"@type": "AdministrativeArea", "name": "Central District, Israel"}], "address": {"@type": "PostalAddress", "addressLocality": "Tel Aviv-Yafo", "addressCountry": "IL"}, "geo": {"@type": "GeoCoordinates", "latitude": 32.0995, "longitude": 34.8137}, "sport": "Boxing", "inLanguage": "he", "paymentAccepted": "Cash, Bit, PayBox", "currenciesAccepted": "ILS", "makesOffer": {"@type": "Offer", "name": "אימון ניסיון", "price": "49", "priceCurrency": "ILS"}}</script>
 </head>
-<body>
-  <a class="skip-link" href="#main">דלג לתוכן</a>
-
-  <div class="dawn" aria-hidden="true"></div>
-  <div class="rise-meter" aria-hidden="true"><span></span></div>
-  <div class="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"></span></div>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="/"><img src="/brand/logo.webp" alt="BoxingRise, לעמוד הבית" width="1202" height="468"></a>
-      <nav class="nav" aria-label="ניווט ראשי">
-        <a href="#rounds">השיטה</a>
-        <a href="#package">החבילה</a>
-        <a href="#about">מי אני</a>
-        <a href="#faq">שאלות</a>
-        <a class="btn btn-gold btn-sm magnetic js-whatsapp" href="https://wa.me/972502734456" target="_blank" rel="noopener"><span>לאימון ניסיון</span></a>
-      </nav>
+<body class="home">
+<a class="skip" href="#main">דילוג לתוכן</a>
+<header class="site-head" id="top">
+  <div class="wrap head-row">
+    <a class="logo" href="/" aria-label="BoxingRise"><img src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468"></a>
+    <nav class="main-nav" aria-label="ניווט ראשי"><ul><li><a href="#what">האימון</a></li><li><a href="#for">למי</a></li><li><a href="#program">BoxingRise 8</a></li><li><a href="#about">מי אני</a></li><li><a href="#faq">שאלות</a></li></ul></nav>
+    <div class="head-actions">
+      <a class="lang-switch" href="/en" hreflang="en" lang="en"><span aria-hidden="true">EN</span><span class="sr-only">English</span></a>
+      <a class="btn btn-gold btn-sm head-cta js-wa" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener" ><span>לאימון ניסיון</span><span class="sr-only"> (נפתח בוואטסאפ)</span></a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main id="main">
-    <!-- ========== Hero ========== -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-stage">
-      <div class="hero-film" aria-hidden="true">
-        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/media/hero-film.jpg">
-          <source src="/media/hero-film.mp4" type="video/mp4">
-        </video>
-        <div class="hero-tint"></div>
-        <div class="hero-flare"></div>
-      </div>
-      <div class="hero-dawn" aria-hidden="true"></div>
-      <div class="container hero-top">
-        <h1 id="hero-title" class="hero-title">
-          <span class="line"><span>לא צריך להיות לוחם.</span></span>
-          <span class="line"><span>צריך רק להתחיל.</span></span>
-        </h1>
-        <div class="hero-side">
-          <p class="hero-lead reveal-up">אימון אגרוף אישי, אחד על אחד, לכל רמה. בפארק הירקון או בפארק ליד הבית שלכם, באזור המרכז.</p>
-          <div class="actions reveal-up">
-            <a class="btn btn-gold magnetic js-whatsapp" href="https://wa.me/972502734456" target="_blank" rel="noopener"><span>קביעת אימון ניסיון</span></a>
-            <a class="btn btn-line" href="#rounds"><span>איך זה עובד</span></a>
-          </div>
-          <p class="hero-trial reveal-up"><span class="trial-price">אימון ניסיון: <b dir="ltr">49 ₪</b> <s dir="ltr">250 ₪</s></span></p>
-        </div>
-      </div>
-      </div>
-    </section>
-
-    <!-- ========== Manifest ========== -->
-    <section id="manifest" class="manifest">
-      <div class="container">
-        <p class="manifest-text" data-words>כולנו סוחבים משהו: לחץ בעבודה, יום ארוך, ספק קטן בראש. אחרי שישים דקות מול הכרית הוא נשאר מאחור. ומה שנשאר איתכם זו תחושה שקשה לתאר עד שמרגישים אותה: יש לי את זה.</p>
-      </div>
-    </section>
-
-    <!-- ========== Rounds ========== -->
-    <section id="rounds" class="rounds" aria-labelledby="rounds-title">
-      <div class="container">
-        <h2 id="rounds-title" class="h2"><span class="line"><span>שלושה סיבובים</span></span><span class="line"><span>בכל אימון.</span></span></h2>
-        <p class="section-sub reveal-up">שישים דקות, אחד על אחד, בפארק. כל אימון בנוי משלושה חלקים: טכניקה, עבודת כריות וכוח. הדגש משתנה משבוע לשבוע, המבנה נשאר.</p>
-      </div>
-
-      <article class="round" aria-labelledby="r1">
-        <span class="round-ghost" aria-hidden="true">טכניקה</span>
-        <div class="container round-grid">
-          <figure class="round-media media clip-reveal" data-label="תמונה: עמידה ושמירה מול המאמן">
-            <img src="/media/round-1.jpg" alt="מתאמנת בעמידת אגרוף מול כרית המאמן" loading="lazy">
-          </figure>
-          <div class="round-text">
-            <p class="round-num">סיבוב 1</p>
-            <h3 id="r1" class="h3"><span class="line"><span>בונים טכניקה.</span></span></h3>
-            <p class="reveal-up">עמידה, שמירה, תנועה והמכה הנכונה. לומדים בקצב שלכם, עם מקום לטעות ומאמן שמתקן בזמן אמת.</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="round" aria-labelledby="r2">
-        <span class="round-ghost" aria-hidden="true">כריות</span>
-        <div class="container round-grid">
-          <figure class="round-media media clip-reveal" data-label="תמונה: עבודת כריות">
-            <img src="/media/round-2.jpg" alt="מתאמנת שולחת ג׳אב לכרית" loading="lazy">
-          </figure>
-          <div class="round-text">
-            <p class="round-num">סיבוב 2</p>
-            <h3 id="r2" class="h3"><span class="line"><span>עובדים על הכריות.</span></span></h3>
-            <p class="reveal-up">מחברים מכות לקומבינציות מול המאמן. כאן הטכניקה פוגשת תזמון ותנועה, והגוף מתחיל לזרום בלי לחשוב.</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="round" aria-labelledby="r3">
-        <span class="round-ghost" aria-hidden="true">כוח</span>
-        <div class="container round-grid">
-          <figure class="round-media media clip-reveal" data-label="תמונה: הוק לכרית">
-            <img src="/media/round-3.jpg" alt="מתאמנת מכה הוק לכרית באימון על הגג" loading="lazy">
-          </figure>
-          <div class="round-text">
-            <p class="round-num">סיבוב 3</p>
-            <h3 id="r3" class="h3"><span class="line"><span>מסיימים חזקים יותר.</span></span></h3>
-            <p class="reveal-up">כוח וסיבולת במשקל גוף, בעצימות שמתאימה לכם. העומס עולה רק כשאתם מוכנים.</p>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <!-- ========== Gallery strip ========== -->
-    <section class="gallery" aria-label="תמונות מהאימונים">
-      <div class="gallery-track">
-        <figure class="media g-item" data-label="תמונה מאימון"><img src="/media/gallery-1.jpg" alt="אגרוף ישר לכרית, מנקודת המבט של המאמן" loading="lazy"></figure>
-        <figure class="media g-item g-tall" data-label="תמונה מאימון"><img src="/media/gallery-2.jpg" alt="מתאמנת בשמירה אחרי ג׳אב" loading="lazy"></figure>
-        <figure class="media g-item" data-label="תמונה מאימון"><img src="/media/gallery-3.jpg" alt="הכפפה פוגשת את הכרית" loading="lazy"></figure>
-        <figure class="media g-item g-tall" data-label="תמונה מאימון"><img src="/media/gallery-4.jpg" alt="מתאמנת אחרי הוק, עם השמירה למעלה" loading="lazy"></figure>
-        <figure class="media g-item" data-label="תמונה מאימון"><img src="/media/gallery-5.jpg" alt="מאמן ומתאמנת בעבודת כריות על הגג" loading="lazy"></figure>
-      </div>
-    </section>
-
-    <!-- ========== Who ========== -->
-    <section id="who" class="who" aria-labelledby="who-title">
-      <div class="container">
-        <h2 id="who-title" class="h2"><span class="line"><span>למי זה מתאים</span></span></h2>
-        <ul class="who-list">
-          <li class="who-item spot">
-            <h3>מנהלים ואנשים עסוקים</h3>
-            <p>שעה שבה הטלפון בצד. פורקים לחץ, מחדדים פוקוס וחוזרים ליום עם ראש נקי. האימונים נקבעים לפי הלו״ז שלכם.</p>
-          </li>
-          <li class="who-item spot">
-            <h3>נשים</h3>
-            <p>כוח, כושר וביטחון שמרגישים גם מחוץ לאימון. סביבה אישית ובטוחה, בלי השוואות ובלי קהל.</p>
-          </li>
-          <li class="who-item spot">
-            <h3>צעירים</h3>
-            <p>משמעת, ביטחון עצמי ודרך בריאה להוציא אנרגיה. אגרוף מלמד לעמוד חזק, בזירה ובחיים.</p>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ========== Jab test ========== -->
-    <section id="jab" class="jab" aria-labelledby="jab-title">
-      <div class="container jab-grid">
-        <div class="jab-text">
-          <h2 id="jab-title" class="h2"><span class="line"><span>כמה מהיר</span></span><span class="line"><span>הג׳אב שלך?</span></span></h2>
-          <p class="section-sub reveal-up">עשר שניות, כמה שיותר מכות לכרית. השעון מתחיל במכה הראשונה.</p>
-          <div class="jab-stats reveal-up" aria-hidden="true">
-            <div><span class="jab-num" id="jab-count" dir="ltr">0</span><span class="jab-label">מכות</span></div>
-            <div><span class="jab-num jab-time" id="jab-time" dir="ltr">10.0</span><span class="jab-label">שניות</span></div>
-          </div>
-          <div class="jab-result" id="jab-result" aria-live="polite" hidden>
-            <p class="jab-verdict" id="jab-verdict"></p>
-            <p class="jab-best" id="jab-best"></p>
-            <div class="actions">
-              <a class="btn btn-gold magnetic" id="jab-cta" href="https://wa.me/972502734456" target="_blank" rel="noopener"><span>נשפר את זה באימון ניסיון</span></a>
-              <button class="btn btn-line" type="button" id="jab-again"><span>עוד סיבוב</span></button>
-            </div>
-          </div>
-        </div>
-        <div class="jab-stage">
-          <button class="pad" id="jab-pad" type="button" aria-label="כרית אגרוף. כל לחיצה היא מכה">
-            <span class="pad-ring" aria-hidden="true"></span>
-            <img class="pad-mark" src="/brand/logo-mark.png" alt="" width="413" height="307">
-          </button>
-          <p class="pad-hint" id="jab-hint">מכה ראשונה מתחילה את השעון</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== Package ========== -->
-    <section id="package" class="package" aria-labelledby="package-title">
-      <div class="container package-grid">
-        <div class="package-num" aria-hidden="true"><span class="count" dir="ltr" data-to="8">0</span><span class="package-num-label">שבועות</span></div>
-        <div class="package-body">
-          <h2 id="package-title" class="h2"><span class="line"><span>BoxingRise 8</span></span></h2>
-          <p class="section-sub reveal-up">תוכנית הדגל: שמונה שבועות, שני אימונים אישיים בשבוע. בכל שבוע מתמקדים בפן אחר של האגרוף, ובסוף התוכנית יש לכם בסיס של לוחם.</p>
-          <dl class="facts reveal-up">
-            <div><dt>אימונים</dt><dd dir="ltr">16</dd></div>
-            <div><dt>אימונים בשבוע</dt><dd dir="ltr">2</dd></div>
-            <div><dt>אימון אישי</dt><dd dir="ltr">1:1</dd></div>
-          </dl>
-          <ul class="includes reveal-up">
-            <li>תוכנית שמותאמת לרמה ולמטרות שלכם</li>
-            <li>נושא חדש בכל שבוע, שנבנה על השבוע הקודם</li>
-            <li>כפפות וכריות עליי</li>
-            <li>זמינות בוואטסאפ גם בין האימונים</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="container program">
-        <h3 class="program-title"><span class="line"><span>שבוע אחרי שבוע.</span></span></h3>
-        <ol class="weeks reveal-up">
-          <li class="week" style="--n:1"><span class="week-bar" aria-hidden="true"><span class="bar-fill"></span></span><span class="week-num">שבוע 1</span><h4>עמידה ותנועה</h4><p>עמידה, שמירה ותנועת רגליים. הבסיס לכל מה שבא אחר כך.</p></li>
-          <li class="week" style="--n:2"><span class="week-bar" aria-hidden="true"><span class="bar-fill"></span></span><span class="week-num">שבוע 2</span><h4>המכות הישרות</h4><p>ג׳אב וישר. טכניקה נכונה, מרחק ותזמון.</p></li>
-          <li class="week" style="--n:3"><span class="week-bar" aria-hidden="true"><span class="bar-fill"></span></span><span class="week-num">שבוע 3</span><h4>הוקים ואפרקאטים</h4><p>המכות המעגליות, וסיבוב הגוף שנותן להן כוח.</p></li>
-          <li class="week" style="--n:4"><span class="week-bar" aria-hidden="true"><span class="bar-fill"></span></span><span class="week-num">שבוע 4</span><h4>קומבינציות</h4><p>מחברים מכות לרצפים שזורמים על הכריות.</p></li>
-          <li class="week" style="--n:5"><span class="week-bar" aria-hidden="true"><span class="bar-fill"></span></span><span class="week-num">שבוע 5</span><h4>הגנה</h4><p>חסימות, התחמקויות וגלגולים. לא רק לתת, גם לא לחטוף.</p></li>
-          <li class="week" style="--n:6"><span class="week-bar" aria-hidden="true"><span class="bar-fill"></span></span><span class="week-num">שבוע 6</span><h4>מכות נגד</h4><p>מגנים ומחזירים מיד. כאן ההגנה וההתקפה נפגשות.</p></li>
-          <li class="week" style="--n:7"><span class="week-bar" aria-hidden="true"><span class="bar-fill"></span></span><span class="week-num">שבוע 7</span><h4>כושר קרב</h4><p>סיבובים מלאים תחת עייפות, ושומרים על הטכניקה גם כשקשה.</p></li>
-          <li class="week" style="--n:8"><span class="week-bar" aria-hidden="true"><span class="bar-fill"></span></span><span class="week-num">שבוע 8</span><h4>בסיס של לוחם</h4><p>מחברים את הכול לסיבובים מלאים, ומסיימים עם תוכנית להמשך.</p></li>
-        </ol>
-        <div class="package-cta reveal-up">
-            <p class="price"><span dir="ltr">3,500 ₪</span><span class="price-note">לתוכנית המלאה</span></p>
-            <a class="btn btn-gold magnetic js-whatsapp" href="https://wa.me/972502734456" target="_blank" rel="noopener"><span>מתחילים באימון ניסיון</span></a>
-          </div>
-      </div>
-    </section>
-
-    <!-- ========== About ========== -->
-    <section id="about" class="about" aria-labelledby="about-title">
-      <div class="container about-grid">
-        <figure class="about-photo media clip-reveal" data-label="תמונה: אבי עם כריות">
-          <img src="/media/avi.jpg" alt="אבי, מאמן האגרוף ומייסד BoxingRise, מחזיק כריות" loading="lazy">
-        </figure>
-        <div class="about-text">
-          <h2 id="about-title" class="h2"><span class="line"><span>בלי אגו. בלי לחץ.</span></span><span class="line"><span>רק התקדמות.</span></span></h2>
-          <p class="reveal-up">אני אבי אניחוביץ. למדתי אגרוף בישראל ובתאילנד, ומכל מה שלמדתי בניתי שיטה שמתאימה גם למי שמעולם לא עמד מול כרית.</p>
-          <blockquote class="pull reveal-up">״המטרה היא לא לנצח מישהו אחר. המטרה היא לצאת מכל אימון חזק יותר ממה שנכנסתם.״</blockquote>
-          <ul class="creds reveal-up">
-            <li>5 שנים באגרוף קלאסי</li>
-            <li>עשור באגרוף תאילנדי</li>
-            <li>חגורה שחורה בג׳ו־ג׳יטסו יפני</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== Testimonials ========== -->
-    <section id="reviews" class="reviews" aria-labelledby="reviews-title" hidden>
-      <div class="container">
-        <h2 id="reviews-title" class="h2"><span class="line"><span>מה אומרים המתאמנים</span></span></h2>
-        <div class="quotes">
-          <figure class="quote reveal-up">
-            <blockquote>[ציטוט מהמתאמנת: מה האימונים נתנו לה]</blockquote>
-            <figcaption>[שם או ראשי תיבות], מתאמנת בחבילה</figcaption>
-          </figure>
-          <figure class="quote reveal-up">
-            <blockquote>[ציטוט מהמנכ״ל: מה האימונים נתנו לו]</blockquote>
-            <figcaption>[מנכ״ל חברת הייטק], מתאמן בחבילה</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== FAQ ========== -->
-    <section id="faq" class="faq" aria-labelledby="faq-title">
-      <div class="container faq-grid">
-        <h2 id="faq-title" class="h2"><span class="line"><span>לפני</span></span><span class="line"><span>שמתחילים.</span></span></h2>
-        <div class="faq-list">
-          <details class="qa">
-            <summary>איפה מתאמנים?</summary>
-            <div class="qa-body"><p>באזור המרכז: בפארק הירקון, או בפארק הקרוב לבית שלכם. את המקום המדויק נסגור יחד כשנקבע את האימון הראשון.</p></div>
-          </details>
-          <details class="qa">
-            <summary>כמה עולה אימון ניסיון?</summary>
-            <div class="qa-body"><p>49 ₪ במקום 250 ₪. אימון מלא של שעה, אחד על אחד, כדי שתרגישו את השיטה לפני שמחליטים על התוכנית.</p></div>
-          </details>
-          <details class="qa">
-            <summary>מה קורה באימון הניסיון?</summary>
-            <div class="qa-body"><p>מתחילים בשיחה קצרה על המטרות, הניסיון והגוף שלכם. אחר כך עמידה ותנועה, מכות ראשונות על הכריות עם תיקון מיידי, ובסוף בונים יחד את הצעד הבא.</p></div>
-          </details>
-          <details class="qa">
-            <summary>צריך ניסיון באגרוף?</summary>
-            <div class="qa-body"><p>לא. אפשר להתחיל מאפס, והאימון הראשון בנוי בדיוק בשביל זה.</p></div>
-          </details>
-          <details class="qa">
-            <summary>מה זה BoxingRise 8?</summary>
-            <div class="qa-body"><p>תוכנית הדגל: שמונה שבועות, שני אימונים אישיים בשבוע, 16 אימונים בסך הכול. בכל שבוע מתמקדים בפן אחר של האגרוף, ובסוף יש לכם בסיס של לוחם.</p></div>
-          </details>
-          <details class="qa">
-            <summary>מה קורה אחרי 8 השבועות?</summary>
-            <div class="qa-body"><p>ממשיכים בקצב שמתאים לכם: אימונים בודדים כשבא לכם, או מנוי חודשי עם אימונים קבועים. בסוף התוכנית נבנה יחד את ההמשך, והפרטים והמחירים בוואטסאפ.</p></div>
-          </details>
-          <details class="qa">
-            <summary>אפשר לבטל או להזיז אימון?</summary>
-            <div class="qa-body"><p>כן, עד 24 שעות לפני האימון, בהודעה בוואטסאפ. ביטול מאוחר יותר נחשב כאימון שהתקיים.</p></div>
-          </details>
-          <details class="qa">
-            <summary>מה קורה כשיורד גשם או כשחם מאוד?</summary>
-            <div class="qa-body"><p>אם יש מקום מקורה בקרבת מקום, עוברים אליו. אם לא, מזיזים את האימון למועד אחר, בלי חיוב.</p></div>
-          </details>
-          <details class="qa">
-            <summary>איך משלמים?</summary>
-            <div class="qa-body"><p>בביט, בפייבוקס או במזומן.</p></div>
-          </details>
-          <details class="qa">
-            <summary>ומה אם צריך לעצור באמצע?</summary>
-            <div class="qa-body"><p>אפשר להקפיא את התוכנית פעם אחת עד 4 שבועות, למשל במחלה, פציעה, מילואים או נסיעה. אם צריך להפסיק לגמרי, מקבלים החזר על האימונים שלא נוצלו, בניכוי דמי ביטול.</p></div>
-          </details>
-          <details class="qa">
-            <summary>צריך להיות בכושר כדי להתחיל?</summary>
-            <div class="qa-body"><p>לא. העצימות מותאמת אישית ועולה בהדרגה. הכושר נבנה תוך כדי.</p></div>
-          </details>
-          <details class="qa">
-            <summary>זה אגרוף או אימון כושר?</summary>
-            <div class="qa-body"><p>שניהם. לומדים טכניקת אגרוף אמיתית, ובדרך עושים אימון כוח וסיבולת מלא.</p></div>
-          </details>
-          <details class="qa">
-            <summary>חייבים להתאגרף (ספארינג)?</summary>
-            <div class="qa-body"><p>לא. האימונים מבוססים על עבודת כריות, טכניקה וכושר. ספארינג רק למי שרוצה, ורק כשמגיעים לזה מוכנים.</p></div>
-          </details>
-          <details class="qa">
-            <summary>כמה זמן נמשך אימון?</summary>
-            <div class="qa-body"><p>שישים דקות, כולל חימום וסיכום.</p></div>
-          </details>
-          <details class="qa">
-            <summary>איזה ציוד צריך להביא?</summary>
-            <div class="qa-body"><p>בגדים נוחים, נעלי ספורט ובקבוק מים. כפפות וכריות אני מביא.</p></div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== Final CTA ========== -->
-    <section id="contact" class="contact" aria-labelledby="contact-title">
-      <div class="fill-word" aria-hidden="true" dir="ltr">
-        <span class="fill-outline">RISE</span>
-        <span class="fill-gold">RISE</span>
-      </div>
-      <div class="container contact-inner">
-        <img class="contact-logo reveal-up" src="/brand/logo.webp" alt="" width="1202" height="468" loading="lazy">
-        <h2 id="contact-title" class="h2 h2-xl"><span class="line"><span>הסיבוב הראשון מחכה.</span></span></h2>
-        <p class="contact-sub reveal-up">האימון הראשון מתחיל בהודעה אחת.</p>
-        <p class="hero-trial reveal-up"><span class="trial-price">אימון ניסיון: <b dir="ltr">49 ₪</b> <s dir="ltr">250 ₪</s></span></p>
-        <a class="btn btn-gold btn-lg magnetic reveal-up js-whatsapp" href="https://wa.me/972502734456" target="_blank" rel="noopener"><span>קביעת אימון ניסיון</span></a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <img class="footer-logo" src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468" loading="lazy">
-      <a href="/accessibility.html">הצהרת נגישות</a>
-      <span dir="ltr">© <span id="year">2026</span> boxingrise.com</span>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="hero-media" aria-hidden="true">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-film.jpg"><source src="/media/hero-film.mp4" type="video/mp4"></video>
+      <div class="hero-shade"></div>
     </div>
-  </footer>
+    <div class="wrap hero-inner">
+      <h1 class="h1" id="hero-h"><span class="h1-line"><span class="w"><span>לא</span></span> <span class="w"><span>צריך</span></span> <span class="w"><span>להיות</span></span> <span class="w"><span>לוחם.</span></span></span><span class="h1-line"><span class="w"><span>צריך</span></span> <span class="w"><span>רק</span></span> <span class="w"><span>להתחיל.</span></span></span></h1>
+      <p class="hero-sub">אימון אגרוף אישי, אחד על אחד. שישים דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז.</p>
+      <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener" ><span>לאימון ניסיון ב־49 ₪</span><span class="sr-only"> (נפתח בוואטסאפ)</span></a><p class="hero-instead">במקום <s>250 ₪</s></p></div>
+      <p class="hero-note">כפפות וכריות עליי. אתם מביאים רק את עצמכם.</p>
+    </div>
+  </section>
 
-  <a class="wa-float js-whatsapp" href="https://wa.me/972502734456" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
-  </a>
+  <section class="sec pain" aria-labelledby="pain-h">
+    <div class="wrap narrow">
+      <h2 class="h2" id="pain-h">מכירים את זה?</h2>
+      <ul class="pain-list reveal"><li>הראש ממשיך לרוץ, גם כשהיום כבר נגמר.</li><li>חדר הכושר משעמם אחרי שבועיים.</li><li>רציתם להתחיל לפני חצי שנה. ועוד לא התחלתם.</li><li>הגוף יכול יותר ממה שאתם נותנים לו.</li></ul>
+      <p class="pain-turn reveal">שעה אחת מול הכרית משנה את הכיוון.</p>
+    </div>
+  </section>
 
-  <script src="/main.js" defer></script>
+  <section class="sec what" id="what" aria-labelledby="what-h">
+    <div class="wrap">
+      <div class="split">
+        <h2 class="h2" id="what-h">אגרוף אמיתי. רק אתם והמאמן.</h2>
+        <div><p class="lead">אגרוף קלאסי, בלי בעיטות ובלי קהל: עבודת כריות, עבודת גוף ותנועה. כל אימון נבנה סביבכם, מהמכה הראשונה.</p><dl class="facts reveal"><div class="fact"><dt>רק אתם והמאמן</dt><dd><span class="num" data-count="1:1" dir="ltr">1:1</span></dd></div><div class="fact"><dt>דקות לאימון</dt><dd><span class="num" data-count="60" dir="ltr">60</span></dd></div><div class="fact"><dt>ציוד להביא</dt><dd><span class="num" data-count="0" dir="ltr">0</span></dd></div></dl></div>
+      </div>
+      <h3 class="h3 rounds-h">שלושה סיבובים בכל אימון</h3>
+      <ol class="rounds" tabindex="0" aria-label="שלושה סיבובים בכל אימון"><li class="round"><figure><picture><source type="image/webp" srcset="/media/opt/round-1-480.webp 480w, /media/opt/round-1-900.webp 900w" sizes="(max-width: 760px) 80vw, 30vw"><img class="round-img" src="/media/round-1.jpg" alt="מתאמנת בעמידת אגרוף מול המאמן" width="900" height="1125" loading="lazy" decoding="async"></picture><figcaption><h4>טכניקה</h4><p>עמידה, שמירה ומכה נכונה. בקצב שלכם, עם תיקון בזמן אמת.</p></figcaption></figure></li><li class="round"><figure><picture><source type="image/webp" srcset="/media/opt/round-2-480.webp 480w, /media/opt/round-2-900.webp 900w" sizes="(max-width: 760px) 80vw, 30vw"><img class="round-img" src="/media/round-2.jpg" alt="עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות" width="900" height="1125" loading="lazy" decoding="async"></picture><figcaption><h4>כריות</h4><p>מחברים מכות לקומבינציות מול המאמן, והגוף מתחיל לזרום.</p></figcaption></figure></li><li class="round"><figure><picture><source type="image/webp" srcset="/media/opt/round-3-480.webp 480w, /media/opt/round-3-900.webp 900w" sizes="(max-width: 760px) 80vw, 30vw"><img class="round-img" src="/media/round-3.jpg" alt="סיום אימון בעצימות גבוהה על הכריות" width="900" height="1125" loading="lazy" decoding="async"></picture><figcaption><h4>כוח</h4><p>סבב קצר בעצימות גבוהה, כשאתם כבר מוכנים לו.</p></figcaption></figure></li></ol>
+    </div>
+  </section>
+
+  <section class="sec for" id="for" aria-labelledby="for-h">
+    <div class="wrap">
+      <h2 class="h2" id="for-h">בשביל מי זה</h2>
+      <div class="aud-grid"><article class="aud reveal"><div class="aud-media"><div class="ph" role="img" aria-label="מנהל באמצע עבודת כריות, אור בוקר בירקון"><span class="ph-mark" aria-hidden="true"></span><span class="ph-text">תמונה לצילום: מנהל באמצע עבודת כריות, אור בוקר בירקון</span></div></div><div class="aud-body"><p class="aud-who">מנהלים ובכירים</p><h3>שעה שהיא רק שלכם.</h3><p class="aud-pain">כל היום מחליטים בשביל אחרים, והלחץ נשאר בגוף.</p><p class="aud-change">כאן אין טלפון ואין ישיבות. יש רק את המכה הבאה. הלחץ יוצא דרך הכפפות, והראש חוזר חד.</p></div></article><article class="aud reveal"><div class="aud-media"><picture><source type="image/webp" srcset="/media/opt/gallery-2-480.webp 480w, /media/opt/gallery-2-900.webp 900w" sizes="(max-width: 760px) 100vw, 33vw"><img class="card-img" src="/media/gallery-2.jpg" alt="מתאמנת בשמירה אחרי ג׳אב" width="760" height="949" loading="lazy" decoding="async"></picture></div><div class="aud-body"><p class="aud-who">נשים</p><h3>כוח שנשאר איתך גם אחרי האימון.</h3><p class="aud-pain">לא כל מקום מרגיש בטוח להתחיל בו.</p><p class="aud-change">אחת על אחד, בקצב שלך, בלי קהל ובלי השוואות. לומדות לעמוד יציב, להגן ולהכות, והביטחון חוזר איתך הביתה.</p></div></article><article class="aud reveal"><div class="aud-media"><div class="ph" role="img" aria-label="צעיר מתאמן מול כריות בפארק"><span class="ph-mark" aria-hidden="true"></span><span class="ph-text">תמונה לצילום: צעיר מתאמן מול כריות בפארק</span></div></div><div class="aud-body"><p class="aud-who">צעירים</p><h3>מיקוד שבונים בידיים.</h3><p class="aud-pain">מסכים, הסחות, ואנרגיה שלא ברור לאן לכוון.</p><p class="aud-change">משמעת של סיבובים, מטרה קטנה בכל שבוע, ודימוי עצמי שנבנה מבפנים. מתחת לגיל 18, באישור הורה.</p></div></article></div>
+    </div>
+  </section>
+
+  <section class="sec trial" id="trial" aria-labelledby="trial-h">
+    <div class="wrap">
+      <h2 class="h2" id="trial-h">איך עובד אימון הניסיון</h2>
+      <ol class="steps"><li class="step reveal"><span class="step-n" dir="ltr">1</span><h3>שולחים הודעה</h3><p>לחיצה על הכפתור פותחת וואטסאפ עם הודעה מוכנה.</p></li><li class="step reveal"><span class="step-n" dir="ltr">2</span><h3>קובעים מקום ושעה</h3><p>פארק הירקון או פארק ליד הבית, בשעה שנוחה לכם.</p></li><li class="step reveal"><span class="step-n" dir="ltr">3</span><h3>מתאמנים</h3><p>שישים דקות, אחד על אחד. אחרי זה תדעו אם זה בשבילכם.</p></li></ol>
+      <div class="trial-foot reveal"><p class="trial-why">למה 49 ₪ ולא חינם? כי סכום סמלי אומר שבאתם ברצינות. וגם אני.</p><a class="btn btn-gold magnetic js-wa" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener" ><span>לאימון ניסיון ב־49 ₪</span><span class="sr-only"> (נפתח בוואטסאפ)</span></a></div>
+    </div>
+  </section>
+
+  <section class="sec program" id="program" aria-labelledby="prog-h">
+    <div class="wrap">
+      <div class="split">
+        <div><h2 class="h2 prog-title" id="prog-h" dir="ltr">BoxingRise 8</h2><p class="lead">תוכנית הדגל. שמונה שבועות, שני אימונים בשבוע. כל שבוע מתמקד ביסוד אחר, ובסוף יש לכם בסיס של לוחם.</p><dl class="facts facts-light reveal"><div class="fact"><dt>שבועות</dt><dd><span class="num" data-count="8" dir="ltr">8</span></dd></div><div class="fact"><dt>אימונים</dt><dd><span class="num" data-count="16" dir="ltr">16</span></dd></div><div class="fact"><dt>בשבוע</dt><dd><span class="num" data-count="2" dir="ltr">2</span></dd></div></dl></div>
+        <div class="timeline-wrap"><ol class="timeline" style="--fill:0"><li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">שבוע <span dir="ltr">1</span></p><h3>עמידה ותנועה</h3><p>עמידה, שמירה ותנועת רגליים. הבסיס לכל מה שבא אחר כך.</p></li><li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">שבוע <span dir="ltr">2</span></p><h3>המכות הישרות</h3><p>ג׳אב וישר. טכניקה, מרחק ותזמון.</p></li><li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">שבוע <span dir="ltr">3</span></p><h3>הוקים ואפרקאטים</h3><p>המכות המעגליות, וסיבוב הגוף שנותן להן כוח.</p></li><li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">שבוע <span dir="ltr">4</span></p><h3>קומבינציות</h3><p>מחברים מכות לרצפים שזורמים על הכריות.</p></li><li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">שבוע <span dir="ltr">5</span></p><h3>הגנה</h3><p>חסימות, התחמקויות וגלגולים. לא רק לתת, גם לא לחטוף.</p></li><li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">שבוע <span dir="ltr">6</span></p><h3>מכות נגד</h3><p>מגנים ומחזירים מיד. כאן ההגנה וההתקפה נפגשות.</p></li><li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">שבוע <span dir="ltr">7</span></p><h3>כושר קרב</h3><p>סיבובים מלאים תחת עייפות, והטכניקה נשארת גם כשקשה.</p></li><li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">שבוע <span dir="ltr">8</span></p><h3>בסיס של לוחם</h3><p>מחברים הכול לסיבובים מלאים, ומסיימים עם תוכנית להמשך.</p></li></ol></div>
+      </div>
+      <div class="prog-foot reveal"><p class="prog-price">המחיר? נדבר על זה אחרי הניסיון.</p><a class="btn btn-dark magnetic js-wa" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener" ><span>לאימון ניסיון ב־49 ₪</span><span class="sr-only"> (נפתח בוואטסאפ)</span></a></div>
+    </div>
+  </section>
+
+  <section class="sec about" id="about" aria-labelledby="about-h">
+    <div class="wrap about-grid">
+      <figure class="about-photo"><picture><source type="image/webp" srcset="/media/opt/avi-480.webp 480w, /media/opt/avi-900.webp 900w" sizes="(max-width: 760px) 100vw, 40vw"><img class="about-img" src="/media/avi.jpg" alt="אבי אניחוביץ מחזיק כריות אגרוף" width="870" height="1087" loading="lazy" decoding="async"></picture></figure>
+      <div class="about-text">
+        <h2 class="h2" id="about-h">אני אבי (Aviko) אניחוביץ.</h2>
+        <p>עשור של מואי תאי, חמש שנים של אגרוף קלאסי וחגורה שחורה בג׳ו־ג׳יטסו יפני. למדתי בישראל ובתאילנד.</p><p>אני לא מאמן כדי לייצר לוחמים. אני מאמן כדי שתצאו מכל אימון חזקים יותר ממה שנכנסתם, בלי אגו ובלי צעקות.</p>
+        <ul class="creds"><li>10 שנים מואי תאי</li><li>5 שנים אגרוף קלאסי</li><li>חגורה שחורה, ג׳ו־ג׳יטסו יפני</li><li>הכשרה בישראל ובתאילנד</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap"><h2 class="h2" id="rv-h">מה אומרים המתאמנים</h2><div class="rv-grid"><figure class="rv"><blockquote><p>המלצה של מתאמן תתווסף כאן, באישורו</p></blockquote><figcaption>שם פרטי, תחום</figcaption></figure><figure class="rv"><blockquote><p>המלצה של מתאמן תתווסף כאן, באישורו</p></blockquote><figcaption>שם פרטי, תחום</figcaption></figure><figure class="rv"><blockquote><p>המלצה של מתאמן תתווסף כאן, באישורו</p></blockquote><figcaption>שם פרטי, תחום</figcaption></figure></div></div></section>
+
+  <section class="sec faq" id="faq" aria-labelledby="faq-h">
+    <div class="wrap narrow">
+      <h2 class="h2" id="faq-h">שאלות לפני שמתחילים</h2>
+      <div class="qa-list"><details class="qa"><summary><span>צריך ניסיון קודם?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>לא. רוב המתאמנים מתחילים מאפס, והאימון הראשון בנוי בדיוק לזה.</p></div></details><details class="qa"><summary><span>מה להביא?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>בגדי ספורט, נעליים נוחות ובקבוק מים. כפפות וכריות עליי.</p></div></details><details class="qa"><summary><span>מתאים לגיל ולכושר שלי?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>האימון נבנה לפי הרמה שלכם, אז לא צריך להיות בכושר כדי להתחיל. לפני האימון הראשון ממלאים הצהרת בריאות. מתחת לגיל 18, באישור הורה.</p></div></details><details class="qa"><summary><span>איפה מתאמנים?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>בפארק הירקון, או בפארק ליד הבית שלכם באזור המרכז.</p></div></details><details class="qa"><summary><span>כמה זמן נמשך אימון?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>שישים דקות.</p></div></details><details class="qa"><summary><span>חייבים להתאגרף עם מישהו?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>לא. אין ספארינג חובה. עובדים על כריות, טכניקה ותנועה.</p></div></details><details class="qa"><summary><span>מה קורה כשיורד גשם או כשחם מאוד?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>אם יש מקום מקורה בקרבת מקום, עוברים אליו. אם לא, מזיזים את האימון למועד אחר, בלי חיוב.</p></div></details><details class="qa"><summary><span>אפשר לבטל או להזיז אימון?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>כן, עד 24 שעות לפני האימון, בהודעה בוואטסאפ. ביטול מאוחר יותר נחשב כאימון שהתקיים.</p></div></details><details class="qa"><summary><span>איך משלמים?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>בביט, בפייבוקס או במזומן.</p></div></details><details class="qa"><summary><span>מה קורה אחרי 8 השבועות?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>ממשיכים בקצב שמתאים לכם: אימונים בודדים או מנוי חודשי. בסוף התוכנית נבנה יחד את ההמשך.</p></div></details><details class="qa"><summary><span>ומה אם צריך לעצור באמצע?</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>אפשר להקפיא את התוכנית פעם אחת, עד 4 שבועות. אם צריך להפסיק לגמרי, מקבלים החזר על האימונים שלא נוצלו, בניכוי דמי ביטול.</p></div></details></div>
+    </div>
+  </section>
+
+  <section class="final" id="final" aria-labelledby="final-h">
+    <div class="wrap final-inner">
+      <h2 class="final-h" id="final-h">הסיבוב הראשון מחכה.</h2>
+      <p class="final-sub">שעה אחת. 49 ₪. ואז תדעו.</p>
+      <a class="btn btn-gold btn-lg magnetic js-wa" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener" ><span>לאימון ניסיון ב־49 ₪</span><span class="sr-only"> (נפתח בוואטסאפ)</span></a>
+      <p class="trial-line"><span>אימון ניסיון</span> <b dir="ltr">49 ₪</b> <span>במקום</span> <s>250 ₪</s></p>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <img class="foot-logo" src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468" loading="lazy">
+      <p class="foot-tag">אימון אגרוף אישי · פארק הירקון והמרכז</p>
+    </div>
+    <nav aria-label="עמודים משפטיים"><ul class="foot-links"><li><a href="/privacy">מדיניות פרטיות</a></li><li><a href="/terms">תנאי שימוש</a></li><li><a href="/cancellation">ביטולים והחזרים</a></li><li><a href="/health">הצהרת בריאות</a></li><li><a href="/minors">אימון קטינים</a></li><li><a href="/accessibility">הצהרת נגישות</a></li><li><button type="button" class="linklike js-cookie-settings">הגדרות עוגיות</button></li></ul></nav>
+  </div>
+  <div class="wrap foot-base"><p>© <span class="js-year">2026</span> BoxingRise · אבי אניחוביץ · כל הזכויות שמורות</p></div>
+</footer>
+<div class="cookie" id="cookie" role="region" aria-label="עוגיות" hidden>
+  <p>אנחנו משתמשים בכלי מדידה אנונימי כדי להבין איך משתמשים באתר. הוא נטען רק אם תאשרו. <a href="/privacy">מדיניות פרטיות</a></p>
+  <div class="cookie-actions"><button type="button" class="btn btn-gold btn-sm js-consent" data-consent="yes">אישור</button><button type="button" class="btn btn-line btn-sm js-consent" data-consent="no">לא, תודה</button></div>
+</div>
+<a class="wa-float js-wa" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ (נפתח בוואטסאפ)"><svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+<div class="sticky-bar" aria-hidden="false">
+  <a class="sticky-cta js-wa" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener"><svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg><span>לאימון ניסיון ב־49 ₪</span><s>250 ₪</s><span class="sr-only"> (נפתח בוואטסאפ)</span></a>
+</div>
 </body>
 </html>

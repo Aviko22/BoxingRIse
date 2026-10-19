@@ -1,0 +1,16 @@
+{
+  "whatsapp_number": "972502734456",
+  "whatsapp_message": {
+    "he": "היי אבי, אשמח לקבוע אימון ניסיון ב-BoxingRise (49 ₪)",
+    "en": "Hi Avi, I'd like to book a BoxingRise trial session (49 ILS)"
+  },
+  "site_url": "https://boxingrise.com",
+  "trial_price": 49,
+  "trial_regular_price": 250,
+  "show_testimonials": true,
+  "noindex": true,
+  "accessibility_coordinator": {
+    "he": "אבי אניחוביץ",
+    "en": "Avi Anihovich"
+  }
+}
