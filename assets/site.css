@@ -374,3 +374,24 @@ html[dir="ltr"] .h1 .w > span { --from: -60%; }
 .prog-outcome p { font-size: clamp(19px, 2.4vw, 24px); line-height: 1.5; max-width: 40em; }
 .prog-outcome b { color: var(--gold-hi); }
 .prog-foot { margin-top: 32px; }
+/* phone test fixes: hero button on the first screen, bigger tap targets */
+.logo { display: inline-flex; align-items: center; min-height: 44px; }
+.wk-d summary { min-height: 44px; }
+@media (max-width: 999px) {
+  .hero-media { height: 44svh; }
+  .hero-inner { padding-top: calc(44svh - 56px); }
+  .hero { padding-bottom: 28px; }
+  .h1 { font-size: clamp(50px, 14vw, 96px); }
+  .hero-sub { margin-top: 14px; font-size: 17px; line-height: 1.55; }
+  .hero-cta { margin-top: 18px; }
+  .hero-note { margin-top: 10px; font-size: 14px; }
+}
+@media (max-width: 999px) and (max-height: 620px) {
+  .hero-media { height: 36svh; }
+  .hero-inner { padding-top: calc(36svh - 48px); }
+  .h1 { font-size: clamp(44px, 12.5vw, 80px); }
+  .hero-sub { font-size: 16px; }
+  .btn-lg { min-height: 52px; font-size: 17px; }
+}
+@media (max-width: 999px) { .hero { min-height: 0; } .hero-inner { padding-top: calc(44svh - 40px); } }
+@media (max-width: 999px) and (max-height: 620px) { .hero-inner { padding-top: calc(36svh - 36px); } }
