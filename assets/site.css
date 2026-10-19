@@ -348,3 +348,7 @@ html[dir="ltr"] .h1 .w > span { --from: -60%; }
 /* hero in full colour, slightly warmed so it sits with the black and gold */
 .hero-video { filter: sepia(.12) saturate(1.1) brightness(.9) contrast(1.06); }
 @media (max-width: 999px) { .hero-shade { background: linear-gradient(180deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 72%, #000 100%); } }
+/* pain lines light up one by one as you reach them */
+.pain-list li { color: #8f897f; transition: color .5s ease; }
+.pain-list li.lit { color: var(--white); }
+.pain-turn { text-wrap: balance; }

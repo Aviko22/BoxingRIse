@@ -21,10 +21,10 @@ HE = {
 
     "pain_h": "מכירים את זה?",
     "pain": [
+        "יושבים מול מסך עשר שעות ביום, והגוף מרגיש את זה.",
         "הראש ממשיך לרוץ, גם כשהיום כבר נגמר.",
-        "חדר הכושר משעמם אחרי שבועיים.",
-        "רציתם להתחיל לפני חצי שנה. ועוד לא התחלתם.",
-        "הגוף יכול יותר ממה שאתם נותנים לו.",
+        "ניסיתם חדר כושר. זה לא החזיק.",
+        "אמרתם ״מחר מתחילים״. כבר כמה חודשים.",
     ],
     "pain_turn": "שעה אחת מול הכרית משנה את הכיוון.",
 
@@ -142,10 +142,10 @@ EN = {
 
     "pain_h": "Sound familiar?",
     "pain": [
+        "Ten hours a day at a screen, and your body feels it.",
         "Your mind keeps racing long after the day is over.",
-        "The gym gets boring after two weeks.",
-        "You meant to start six months ago. You haven't yet.",
-        "Your body can do more than you ask of it.",
+        "You tried the gym. It didn't stick.",
+        "You said \"I'll start tomorrow\". That was months ago.",
     ],
     "pain_turn": "One hour on the pads changes the direction.",
 

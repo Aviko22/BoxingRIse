@@ -28,12 +28,15 @@
   var video = document.querySelector('.hero-video');
   var timeline = document.querySelector('.timeline');
   var weeks = timeline ? Array.prototype.slice.call(timeline.querySelectorAll('.wk')) : [];
+  var pains = Array.prototype.slice.call(document.querySelectorAll('.pain-list li'));
+  if (reduce) pains.forEach(function (li) { li.classList.add('lit'); });
   var ticking = false;
   function onScroll() {
     ticking = false;
     var y = window.scrollY;
     if (head) head.classList.toggle('scrolled', y > 24);
     if (!reduce && video && y < window.innerHeight) video.style.setProperty('--py', (y * 0.18).toFixed(1) + 'px');
+    pains.forEach(function (li) { if (li.getBoundingClientRect().top < window.innerHeight * 0.72) li.classList.add('lit'); });
     if (timeline) {
       var r = timeline.getBoundingClientRect();
       var mid = window.innerHeight * 0.62;
