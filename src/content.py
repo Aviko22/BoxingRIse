@@ -52,11 +52,11 @@ HE = {
 
     "trial_h": "איך עובד אימון הניסיון",
     "trial_steps": [
-        ("שולחים הודעה", "לחיצה על הכפתור פותחת וואטסאפ עם הודעה מוכנה."),
+        ("שולחים הודעה", "לחיצה על הכפתור פותחת וואטסאפ עם הודעה מוכנה. אני עונה באותו יום."),
         ("קובעים מקום ושעה", "פארק הירקון או פארק ליד הבית, בשעה שנוחה לכם."),
-        ("מתאמנים", "שישים דקות, אחד על אחד. אחרי זה תדעו אם זה בשבילכם."),
+        ("מתאמנים", "שישים דקות, אחד על אחד: מכירים, מדברים על המטרות שלך, ולומדים עמידה ומכה ראשונה. בלי שום התחייבות להמשך."),
     ],
-    "trial_why": "למה 49 ₪ ולא חינם? כי סכום סמלי אומר שבאתם ברצינות. וגם אני.",
+    "trial_why": "למה 49 ₪ ולא חינם? כי סכום סמלי שומר על רצינות, משני הצדדים.",
 
     "prog_h": "BoxingRise 8",
     "prog_lead": "תוכנית הדגל. שמונה שבועות, שני אימונים בשבוע. כל שבוע מתמקד ביסוד אחר, ובסוף יש לכם בסיס של לוחם.",
@@ -169,11 +169,11 @@ EN = {
 
     "trial_h": "How the trial works",
     "trial_steps": [
-        ("Send a message", "The button opens WhatsApp with a ready message."),
+        ("Send a message", "The button opens WhatsApp with a ready message. I reply the same day."),
         ("Pick a place and time", "Yarkon Park or a park near you, when it suits you."),
-        ("Train", "Sixty minutes, one on one. Afterwards you'll know if it's for you."),
+        ("Train", "Sixty minutes, one on one: we meet, talk about your goals, and learn your stance and first punch. No commitment to continue."),
     ],
-    "trial_why": "Why 49 ₪ and not free? A small fee means you came to work. So did I.",
+    "trial_why": "Why 49 ₪ and not free? A small fee keeps it serious, on both sides.",
 
     "prog_h": "BoxingRise 8",
     "prog_lead": "The flagship program. Eight weeks, two sessions a week. Each week builds a different fundamental, and you finish with a fighter's foundation.",
