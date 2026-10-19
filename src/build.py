@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "9"  # bump to bust caches of css/js
+VER = "10"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -210,7 +210,7 @@ def home(t):
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
       <div class="split">
-        <h2 class="h2" id="what-h">{e(t['what_h'])}</h2>
+        <h2 class="h2" id="what-h">{e(t['what_h']).replace('. ', '.<br>', 1)}</h2>
         <div><p class="lead">{e(t['what_lead'])}</p><dl class="facts reveal">{facts}</dl></div>
       </div>
       <h3 class="h3 rounds-h">{e(t['rounds_h'])}</h3>

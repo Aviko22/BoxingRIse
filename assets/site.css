@@ -352,3 +352,6 @@ html[dir="ltr"] .h1 .w > span { --from: -60%; }
 .pain-list li { color: #8f897f; transition: color .5s ease; }
 .pain-list li.lit { color: var(--white); }
 .pain-turn { text-wrap: balance; }
+/* rounds carousel: first card keeps the page margin */
+.rounds { scroll-padding-inline: var(--pad); }
+.fact { justify-content: flex-end; }
