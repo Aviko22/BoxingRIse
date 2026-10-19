@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "11"  # bump to bust caches of css/js
+VER = "12"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -174,7 +174,7 @@ def home(t):
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain">{e(c["pain"])}</p><p class="aud-change">{e(c["change"])}</p></div></article>')
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
-    weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">{e(t["week_word"])} <span dir="ltr">{i}</span></p><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["weeks"], 1))
+    weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">{e(t["week_word"])} <span dir="ltr">{i}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
     about = "".join(f"<p>{e(p)}</p>" for p in t["about"])
     creds = "".join(f"<li>{e(c)}</li>" for c in t["about_creds"])
     reviews = ""
@@ -236,9 +236,10 @@ def home(t):
   <section class="sec program" id="program" aria-labelledby="prog-h">
     <div class="wrap">
       <div class="split">
-        <div><h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2><p class="lead">{e(t['prog_lead'])}</p><dl class="facts facts-light reveal">{pfacts}</dl></div>
+        <div><h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2><p class="lead">{e(t['prog_lead'])}</p><dl class="facts facts-light reveal">{pfacts}</dl><p class="prog-kids">{e(t['prog_kids'])}</p></div>
         <div class="timeline-wrap"><ol class="timeline" style="--fill:0">{weeks}</ol></div>
       </div>
+      <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
       <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['cta_trial'], 'btn btn-dark magnetic')}</div>
     </div>
   </section>

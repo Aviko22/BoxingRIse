@@ -357,3 +357,20 @@ html[dir="ltr"] .h1 .w > span { --from: -60%; }
 .fact { justify-content: flex-end; }
 /* two audiences: women, and their kids */
 @media (min-width: 760px) { .aud-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } .aud-media { aspect-ratio: 16 / 10; } }
+/* program: weeks fold on phones, outcome line */
+.wk-d summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; }
+.wk-d summary::-webkit-details-marker { display: none; }
+.wk-d summary h3 { font-size: 21px; margin-top: 2px; }
+.wk-x { position: relative; flex: none; width: 14px; height: 14px; }
+.wk-x::before, .wk-x::after { content: ""; position: absolute; inset: 50% 0 auto 0; height: 2px; margin-top: -1px; background: var(--gold-deep); transition: transform .25s var(--ease); }
+.wk-x::after { transform: rotate(90deg); }
+.wk-d[open] .wk-x::after { transform: rotate(0); }
+.wk-d p { color: #4a453c; font-size: 16px; margin-top: 2px; }
+.wk { padding-bottom: 18px; }
+.wk:last-child .wk-d summary h3 { color: var(--gold-deep); }
+@media (min-width: 760px) { .wk-x { display: none; } .wk-d summary { cursor: default; pointer-events: none; } .wk { padding-bottom: 26px; } }
+.prog-kids { margin-top: 14px; font-size: 16px; font-weight: 600; color: var(--gold-deep); }
+.prog-outcome { margin-top: 48px; padding: 24px 22px; border-radius: 8px; background: var(--ink); color: var(--text); }
+.prog-outcome p { font-size: clamp(19px, 2.4vw, 24px); line-height: 1.5; max-width: 40em; }
+.prog-outcome b { color: var(--gold-hi); }
+.prog-foot { margin-top: 32px; }

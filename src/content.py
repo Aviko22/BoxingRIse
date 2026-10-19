@@ -73,6 +73,9 @@ HE = {
     ],
     "week_word": "שבוע",
     "prog_price": "המחיר? נדבר על זה אחרי הניסיון.",
+    "prog_outcome_h": "אחרי 8 שבועות:",
+    "prog_outcome": "את יודעת לעמוד יציב, להגן על עצמך ולהכות נכון. ומרגישה את זה גם מחוץ לאימון.",
+    "prog_kids": "מתאימה גם לילדים מגיל 10.",
 
     "about_h": "אני אבי (Aviko) אניחוביץ.",
     "about": [
@@ -190,6 +193,9 @@ EN = {
     ],
     "week_word": "Week",
     "prog_price": "The price? Let's talk after your trial.",
+    "prog_outcome_h": "After 8 weeks:",
+    "prog_outcome": "You know how to stand steady, protect yourself and punch right. And you feel it outside the session too.",
+    "prog_kids": "Also suitable for kids from age 10.",
 
     "about_h": "I'm Avi (Aviko) Anihovich.",
     "about": [

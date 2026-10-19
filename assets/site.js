@@ -13,6 +13,12 @@
     document.querySelectorAll('.js-wa').forEach(function (a) { a.href = href; });
   }
 
+  /* weeks: open on larger screens, tap to open on phones */
+  var wide = window.matchMedia('(min-width: 760px)');
+  function syncWeeks() { document.querySelectorAll('.wk-d').forEach(function (d) { d.open = wide.matches; }); }
+  syncWeeks();
+  if (wide.addEventListener) wide.addEventListener('change', syncWeeks);
+
   document.querySelectorAll('.js-year').forEach(function (n) { n.textContent = new Date().getFullYear(); });
   document.querySelectorAll('.js-print').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 
