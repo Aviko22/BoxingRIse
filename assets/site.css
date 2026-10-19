@@ -320,3 +320,28 @@ html[dir="ltr"] .h1 .w > span { --from: -60%; }
 .hero-instead { text-decoration: none; }
 .hero-instead s, .trial-line s { text-decoration-thickness: 1.5px; }
 .sticky-bar.hold { transform: translateY(120%); opacity: 0; pointer-events: none; }
+
+/* ---------- hero v2: the photo and the words don't fight ---------- */
+.btn-was { font-weight: 500; font-size: .8em; opacity: .65; text-decoration-thickness: 1.5px; }
+.hero-note { margin-top: 14px; }
+@media (max-width: 999px) {
+  /* phone: video sits on top, text on clean black below */
+  .hero { padding-top: 0; padding-bottom: 104px; flex-direction: column; justify-content: flex-end; }
+  .hero-media { inset: 0 0 auto 0; height: 50svh; }
+  .hero-video { object-position: 50% 35%; }
+  .hero-shade { background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.2) 70%, #000 100%); }
+  .hero-inner { padding-top: calc(50svh - 40px); }
+}
+@media (min-width: 1000px) {
+  /* desktop: video on one side, words on the dark side */
+  .hero { align-items: center; padding-block: 120px 80px; }
+  .hero-media { inset-inline-start: 34%; inset-inline-end: 0; }
+  .hero-video { object-position: 50% 30%; }
+  html[dir="rtl"] .hero-shade { background: linear-gradient(to left, #000 0%, rgba(0,0,0,.6) 18%, rgba(0,0,0,.1) 45%, rgba(0,0,0,.25) 100%), linear-gradient(180deg, rgba(0,0,0,.5), transparent 25%, transparent 75%, #000); }
+  html[dir="ltr"] .hero-shade { background: linear-gradient(to right, #000 0%, rgba(0,0,0,.6) 18%, rgba(0,0,0,.1) 45%, rgba(0,0,0,.25) 100%), linear-gradient(180deg, rgba(0,0,0,.5), transparent 25%, transparent 75%, #000); }
+  .hero-inner > * { max-width: 46%; }
+  .hero-inner > .h1 { max-width: 52%; }
+  .h1 { font-size: clamp(80px, 8.4vw, 150px); }
+  html[lang="en"] .h1 { font-size: clamp(54px, 5.6vw, 96px); }
+}
+.hero-media { overflow: hidden; }
