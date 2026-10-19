@@ -268,8 +268,7 @@ def home(t):
     <div class="wrap final-inner">
       <h2 class="final-h" id="final-h">{e(t['final_h'])}</h2>
       <p class="final-sub">{e(t['final_sub'])}</p>
-      {btn(t, t['cta_trial'], 'btn btn-gold btn-lg magnetic')}
-      {trial_line}
+      <a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
     </div>
   </section>
 </main>
