@@ -127,7 +127,7 @@ PAGES = {
 },
 "minors": {
  "he": {"title": "אימון קטינים", "blocks": [
-  ("p", "BoxingRise מאמן גם צעירים מתחת לגיל 18, בתנאים האלה:"),
+  ("p", "BoxingRise מאמן גם ילדים ונוער מגיל 10 ועד 18, בתנאים האלה:"),
   ("ul", ["אישור הורה או אפוטרופוס בכתב לפני האימון הראשון, כולל חתימה על הצהרת הבריאות.",
           "התיאום מתבצע מול ההורה. ההורה מוזמן להגיע לאימון הניסיון ולכל אימון אחר.",
           "האימונים מתקיימים במקום ציבורי ופתוח, בפארק.",
@@ -135,7 +135,7 @@ PAGES = {
   ("p", "לשאלות אפשר לפנות בוואטסאפ: {wa_display}."),
  ]},
  "en": {"title": "Training minors", "blocks": [
-  ("p", "BoxingRise also coaches young people under 18, on these conditions:"),
+  ("p", "BoxingRise also coaches children and teens aged 10 to 18, on these conditions:"),
   ("ul", ["Written consent from a parent or guardian before the first session, including signing the health declaration.",
           "Scheduling is done with the parent, who is welcome to attend the trial and any other session.",
           "Sessions take place in a public, open space, in the park.",

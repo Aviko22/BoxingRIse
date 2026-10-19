@@ -355,3 +355,5 @@ html[dir="ltr"] .h1 .w > span { --from: -60%; }
 /* rounds carousel: first card keeps the page margin */
 .rounds { scroll-padding-inline: var(--pad); }
 .fact { justify-content: flex-end; }
+/* two audiences: women, and their kids */
+@media (min-width: 760px) { .aud-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } .aud-media { aspect-ratio: 16 / 10; } }
