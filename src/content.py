@@ -4,7 +4,7 @@
 HE = {
     "lang": "he", "dir": "rtl", "locale": "he_IL",
     "title": "BoxingRise | אימון אגרוף אישי אחד על אחד",
-    "description": "אימון אגרוף אישי, אחד על אחד, 60 דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז. למנהלים, לנשים ולצעירים. אימון ניסיון ב־49 ₪.",
+    "description": "אימון אגרוף אישי, אחד על אחד, 60 דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז. לנשים ולילדים מגיל 10. אימון ניסיון ב־49 ₪.",
     "og_description": "אימון אגרוף אישי, אחד על אחד, בפארק. אימון ניסיון ב־49 ₪.",
     "skip": "דילוג לתוכן",
     "nav": [("#what", "האימון"), ("#for", "למי"), ("#program", "BoxingRise 8"), ("#about", "מי אני"), ("#faq", "שאלות")],
@@ -16,7 +16,7 @@ HE = {
     "new_tab": "(נפתח בוואטסאפ)",
 
     "hero_h1": ["לא צריך להיות לוחם.", "צריך רק להתחיל."],
-    "hero_sub": "אימון אגרוף אישי, אחד על אחד. שישים דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז.",
+    "hero_sub": "אימון אגרוף אישי לנשים ולילדים. אחד על אחד, בפארק הירקון או בפארק ליד הבית, באזור המרכז.",
     "hero_note": "כפפות וכריות עליי. אתם מביאים רק את עצמכם.",
 
     "pain_h": "מכירים את זה?",
@@ -44,7 +44,7 @@ HE = {
          "pain": "לא כל מקום מרגיש בטוח להתחיל בו. חדר כושר מלא, מבטים, השוואות.",
          "change": "כאן זה רק את והמאמן, בפארק, בקצב שלך. לומדות לעמוד יציב, להגן ולהכות, והביטחון חוזר איתך הביתה.",
          "img": "gallery-2", "alt": "מתאמנת בשמירה אחרי ג׳אב"},
-        {"who": "ולילדים שלך, מגיל 10", "h": "ביטחון שבונים בידיים.",
+        {"who": "לילדים, מגיל 10", "h": "ביטחון שבונים בידיים.",
          "pain": "מסכים, הסחות, ולפעמים ילד שצריך קצת יותר ביטחון מול אחרים.",
          "change": "משמעת של סיבובים, מטרה קטנה בכל שבוע, ודימוי עצמי שנבנה מבפנים. בלי ספארינג, והורה מוזמן להיות נוכח בכל אימון.",
          "img": None, "ph": "ילד או נערה מתאמנים מול כריות בפארק, הורה ברקע"},
@@ -127,7 +127,7 @@ HE = {
 EN = {
     "lang": "en", "dir": "ltr", "locale": "en_US",
     "title": "BoxingRise | One-on-one boxing coaching in Tel Aviv",
-    "description": "Private one-on-one boxing sessions, 60 minutes in Yarkon Park or a park near you in central Israel. For executives, women and young people. Trial session 49 ILS.",
+    "description": "Private one-on-one boxing sessions, 60 minutes in Yarkon Park or a park near you in central Israel. For women and kids from age 10. Trial session 49 ILS.",
     "og_description": "Private one-on-one boxing in the park. Trial session 49 ILS.",
     "skip": "Skip to content",
     "nav": [("#what", "The session"), ("#for", "Who it's for"), ("#program", "BoxingRise 8"), ("#about", "About"), ("#faq", "FAQ")],
@@ -139,7 +139,7 @@ EN = {
     "new_tab": "(opens WhatsApp)",
 
     "hero_h1": ["You don't have to be a fighter.", "You just have to start."],
-    "hero_sub": "Private boxing coaching, one on one. Sixty minutes in Yarkon Park or a park near your home, in central Israel.",
+    "hero_sub": "Private boxing coaching for women and kids. One on one, in Yarkon Park or a park near your home, in central Israel.",
     "hero_note": "Gloves and pads are on me. Just bring yourself.",
 
     "pain_h": "Sound familiar?",
@@ -167,7 +167,7 @@ EN = {
          "pain": "Not every place feels safe to start in. A crowded gym, the looks, the comparisons.",
          "change": "Here it's just you and the coach, in the park, at your pace. You learn to stand steady, defend and strike, and the confidence comes home with you.",
          "img": "gallery-2", "alt": "A trainee holding her guard after a jab"},
-        {"who": "And for your kids, from age 10", "h": "Confidence built with their own hands.",
+        {"who": "For kids, from age 10", "h": "Confidence built with their own hands.",
          "pain": "Screens, distractions, and sometimes a kid who needs a little more confidence around others.",
          "change": "The discipline of rounds, a small goal every week, and self-image built from the inside. No sparring, and a parent is welcome at every session.",
          "img": None, "ph": "A child or teen training on pads in the park, a parent nearby"},
