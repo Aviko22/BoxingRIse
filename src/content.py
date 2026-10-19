@@ -83,7 +83,7 @@ HE = {
         "אני לא מאמן כדי לייצר לוחמים. אני מאמן כדי שתצאו מכל אימון חזקים יותר ממה שנכנסתם, בלי אגו ובלי צעקות.",
     ],
     "about_creds": ["10 שנים מואי תאי", "5 שנים אגרוף קלאסי", "חגורה שחורה, ג׳ו־ג׳יטסו יפני", "הכשרה בישראל ובתאילנד"],
-    "about_alt": "אבי אניחוביץ מחזיק כריות אגרוף",
+    "about_alt": "אבי אניחוביץ, מאמן האגרוף של BoxingRise, באולם אגרוף",
 
     "reviews_h": "מה אומרים המתאמנים",
     "reviews_ph": "המלצה של מתאמן תתווסף כאן, באישורו",
@@ -203,7 +203,7 @@ EN = {
         "I don't coach to make fighters. I coach so you leave every session stronger than you came in, with no ego and no shouting.",
     ],
     "about_creds": ["10 years of Muay Thai", "5 years of classic boxing", "Black belt, Japanese jujutsu", "Trained in Israel and Thailand"],
-    "about_alt": "Avi Anihovich holding boxing pads",
+    "about_alt": "Avi Anihovich, BoxingRise boxing coach, in a boxing gym",
 
     "reviews_h": "What trainees say",
     "reviews_ph": "A trainee's testimonial will go here, with their consent",
