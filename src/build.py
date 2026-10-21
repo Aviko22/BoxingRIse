@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "25"  # bump to bust caches of css/js
+VER = "26"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -195,13 +195,13 @@ def home(t):
     h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in line.split()) + "</span>" for line in t["hero_h1"])
     pains = "".join(f"<li>{e(p)}</li>" for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
-    rounds = "".join(f'<li class="round"><figure>{img(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for i, h, p, alt in t["rounds"])
+    rounds = "".join(f'<li class="round"><figure>{img(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<span class="rd-badge" dir="ltr" aria-hidden="true">{RING}<small>ROUND</small>{n}</span><figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
     cards = ""
     for c in t["for"]:
         media = img(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])
         cards += (f'<article class="aud reveal"><div class="aud-media">{media}</div><div class="aud-body"><p class="aud-who">{e(c["who"])}</p>'
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> {e(c["pain"])}</p><p class="aud-change">{e(c["change"])}</p></div></article>')
-    steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>ROUND</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
+    steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>STEP</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
     weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="trk" cx="12" cy="12" r="9"/><circle class="prg" cx="12" cy="12" r="9"/></svg></span><p class="wk-n"><span class="wk-num">{e(t["week_word"])} <span dir="ltr">{i}</span></span> <span class="wk-feel">{e(t["week_feel"][i - 1])}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
     about = "".join(f"<p>{e(p)}</p>" for p in t["about"])

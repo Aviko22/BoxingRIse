@@ -35,7 +35,7 @@ HE = {
     "what_h": "אגרוף אמיתי. רק את והמאמן.",
     "what_lead": "אגרוף קלאסי, בלי בעיטות ובלי קהל: עבודת כריות, עבודת גוף ותנועה. כל אימון נבנה סביבך, מהמכה הראשונה.",
     "what_facts": [("1:1", "רק את והמאמן"), ("60", "דקות לאימון"), ("3", "סיבובים לאימון")],
-    "rounds_h": "שלושה סיבובים בכל אימון",
+    "rounds_h": "ככה נראית שעה איתי",
     "rounds": [
         ("round-1", "טכניקה", "עמידה, שמירה ומכה נכונה. בקצב שלך, עם תיקון בזמן אמת.", "מתאמנת בעמידת אגרוף מול המאמן"),
         ("round-2", "כריות", "מחברים מכות לקומבינציות מול המאמן, והגוף מתחיל לזרום.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
@@ -59,7 +59,7 @@ HE = {
          "img": "gallery-1", "alt": "אגרוף ישר לכרית, מנקודת המבט של המאמן"},
     ],
 
-    "trial_h": "שלושה סיבובים, ואת בפנים.",
+    "trial_h": "שלושה צעדים, ואת בפנים.",
     "trial_steps": [
         ("שולחת הודעה", "לחיצה על הכפתור פותחת וואטסאפ עם הודעה מוכנה. אני עונה באותו יום."),
         ("קובעות מקום ושעה", "פארק הירקון או פארק ליד הבית, בשעה שנוחה לך."),
@@ -183,7 +183,7 @@ EN = {
     "what_h": "Real boxing. Just you and your coach.",
     "what_lead": "Classic boxing, no kicks and no audience: pad work, body work and footwork. Every session is built around you, from the first punch.",
     "what_facts": [("1:1", "just you and the coach"), ("60", "minutes per session"), ("3", "rounds per session")],
-    "rounds_h": "Three rounds in every session",
+    "rounds_h": "What an hour with me looks like",
     "rounds": [
         ("round-1", "Technique", "Stance, guard and the right punch. At your pace, corrected in real time.", "A trainee in boxing stance facing the coach"),
         ("round-2", "Pads", "Punches become combinations on the pads, and your body starts to flow.", "Pad work: the trainee punches while the coach holds pads"),
@@ -207,7 +207,7 @@ EN = {
          "img": "gallery-1", "alt": "A straight punch on the pad, from the coach's view"},
     ],
 
-    "trial_h": "Three rounds, and you're in.",
+    "trial_h": "Three steps, and you're in.",
     "trial_steps": [
         ("Send a message", "The button opens WhatsApp with a ready message. I reply the same day."),
         ("Pick a place and time", "Yarkon Park or a park near you, when it suits you."),

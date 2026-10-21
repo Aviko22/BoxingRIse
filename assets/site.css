@@ -563,3 +563,16 @@ html[dir="ltr"] .tag { transform-origin: left center; }
 .aud-pain span { font-weight: 700; color: #a39c90; }
 .aud-change { font-size: 17px; color: var(--text); margin-top: 6px; }
 .for-foot { margin-top: clamp(28px, 4vw, 44px); display: flex; justify-content: center; }
+
+/* the three rounds of a session: a round-timer badge on each photo */
+.round figure { position: relative; }
+.rd-badge { position: absolute; top: 12px; inset-inline-start: 12px; width: 62px; height: 62px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(11, 10, 8, .72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); font: 600 20px/1 var(--latin); color: var(--text); }
+.rd-badge small { font-size: 9px; letter-spacing: .12em; color: var(--ash); }
+.rd-badge svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.rd-badge circle { fill: none; stroke-width: 4; }
+.rd-badge .trk { stroke: rgba(255, 255, 255, .15); }
+.rd-badge .prg { stroke: var(--gold); stroke-linecap: round; stroke-dasharray: 176; stroke-dashoffset: 176; transition: stroke-dashoffset 1.1s var(--ease) .3s; }
+.what.tag-in .rd-badge .prg, html:not(.js) .rd-badge .prg { stroke-dashoffset: 0; }
+.round:nth-child(2) .prg { transition-delay: .6s; } .round:nth-child(3) .prg { transition-delay: .9s; stroke: var(--sun); }
+.round:nth-child(3) .rd-badge { box-shadow: 0 0 22px rgba(240, 198, 116, .4); }
+@media (prefers-reduced-motion: reduce) { .rd-badge .prg { transition: none; stroke-dashoffset: 0; } }
