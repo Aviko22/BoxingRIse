@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "23"  # bump to bust caches of css/js
+VER = "24"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -167,6 +167,9 @@ GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 1, "for
 def hgold(t, key):
     """Heading with its last words in gold (brand language)."""
     text = t[key]
+    if key == "trial_h":
+        a, _, z = text.partition(", ")
+        return f'{e(a)},<br><span class="g">{e(z)}</span>'
     if key == "what_h":
         a, _, z = text.partition(". ")
         return f'{e(a)}.<br><span class="g">{e(z)}</span>'

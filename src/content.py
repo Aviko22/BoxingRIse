@@ -58,11 +58,11 @@ HE = {
          "img": "gallery-1", "alt": "אגרוף ישר לכרית, מנקודת המבט של המאמן"},
     ],
 
-    "trial_h": "איך עובד אימון הניסיון",
+    "trial_h": "שלושה סיבובים, ואת בפנים.",
     "trial_steps": [
         ("שולחת הודעה", "לחיצה על הכפתור פותחת וואטסאפ עם הודעה מוכנה. אני עונה באותו יום."),
         ("קובעות מקום ושעה", "פארק הירקון או פארק ליד הבית, בשעה שנוחה לך."),
-        ("מתאמנת", "שישים דקות, אחד על אחד: מכירים, מדברים על המטרות שלך, ולומדת עמידה ומכה ראשונה. בלי שום התחייבות להמשך."),
+        ("מתאמנת", "60 דקות, אחד על אחד: מכירים, עמידה, ומכה ראשונה שנוחתת נקי. בלי התחייבות."),
     ],
     "trial_why": "למה 49 ₪ ולא חינם? כי סכום סמלי שומר על רצינות, משני הצדדים.",
 
@@ -205,11 +205,11 @@ EN = {
          "img": "gallery-1", "alt": "A straight punch on the pad, from the coach's view"},
     ],
 
-    "trial_h": "How the trial works",
+    "trial_h": "Three rounds, and you're in.",
     "trial_steps": [
         ("Send a message", "The button opens WhatsApp with a ready message. I reply the same day."),
         ("Pick a place and time", "Yarkon Park or a park near you, when it suits you."),
-        ("Train", "Sixty minutes, one on one: we meet, talk about your goals, and learn your stance and first punch. No commitment to continue."),
+        ("Train", "60 minutes, one on one: we meet, you learn your stance, and land a clean first punch. No commitment."),
     ],
     "trial_why": "Why 49 ₪ and not free? A small fee keeps it serious, on both sides.",
 
