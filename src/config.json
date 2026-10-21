@@ -7,7 +7,7 @@
   "site_url": "https://boxingrise.com",
   "trial_price": 49,
   "trial_regular_price": 250,
-  "show_testimonials": false,
+  "show_testimonials": true,
   "noindex": true,
   "accessibility_coordinator": {
     "he": "אבי אניחוביץ",

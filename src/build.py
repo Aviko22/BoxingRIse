@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "18"  # bump to bust caches of css/js
+VER = "19"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -180,7 +180,7 @@ def home(t):
     creds = "".join(f"<li>{e(c)}</li>" for c in t["about_creds"])
     reviews = ""
     if CFG["show_testimonials"]:
-        q = "".join(f'<figure class="rv"><blockquote><p>{e(t["reviews_ph"])}</p></blockquote><figcaption>{e(t["reviews_ph_name"])}</figcaption></figure>' for _ in range(3))
+        q = "".join(f'<figure class="rv"><blockquote><p>{e(txt)}</p></blockquote><figcaption>{e(name)}</figcaption></figure>' if t["lang"] == "he" else f'<figure class="rv"><blockquote><p>{e(txt)}</p></blockquote><figcaption>{e(name)}</figcaption></figure>' for name, txt in t["reviews"])
         reviews = f'<section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap"><h2 class="h2" id="rv-h">{e(t["reviews_h"])}</h2><div class="rv-grid">{q}</div></div></section>'
     faq = "".join(f'<details class="qa"><summary><span>{e(q)}</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>{e(a)}</p></div></details>' for q, a in t["faq"])
     trial_line = f'<p class="trial-line"><span>{"אימון ניסיון" if lang=="he" else "Trial session"}</span> <b dir="ltr">49 ₪</b> <span>{e(" ".join(t["instead_of"].split()[:-2]))}</span> <s>{e(" ".join(t["instead_of"].split()[-2:]))}</s></p>'
@@ -219,6 +219,8 @@ def home(t):
     </div>
   </section>
 
+  {reviews}
+
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
       <div class="split">
@@ -256,7 +258,6 @@ def home(t):
     </div>
   </section>
 
-  {reviews}
 
   <section class="sec faq" id="faq" aria-labelledby="faq-h">
     <div class="wrap narrow">

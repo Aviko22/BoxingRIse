@@ -94,6 +94,11 @@ HE = {
     "about_creds": ["10 שנים מואי תאי", "5 שנים אגרוף קלאסי", "חגורה שחורה, ג׳ו־ג׳יטסו יפני", "הכשרה בישראל ובתאילנד"],
     "about_alt": "אבי אניחוביץ, מאמן האגרוף של BoxingRise, באולם אגרוף",
 
+    "reviews": [
+        ("ויקטוריה", "הגעתי בלי שום רקע ובלי ביטחון, וכבר באימון הראשון אבי גרם לי להרגיש הכי בנוח בעולם – יצאתי ממנו עוצמתית, משוחררת ועם טעם של עוד!"),
+        ("מריה", "אחרי שנים בחדרי כושר, האימונים האישיים עם אבי הביאו אותי לכושר ולחיטוב הכי חזק שהייתי בהם – אנרגיה מטורפת וסבלנות מקצועית שאין כמותה."),
+        ("נטע", "שעת אימון אצל אבי היא הזמן היחיד ביום שבו אני משחררת את כל הסטרס, מתנתקת מהעולם וחוזרת הביתה מחוזקת בראש ובגוף."),
+    ],
     "reviews_h": "מה אומרות המתאמנות",
     "reviews_ph": "המלצה של מתאמנת תתווסף כאן, באישורה",
     "reviews_ph_name": "שם פרטי, תחום",
@@ -225,6 +230,11 @@ EN = {
     "about_creds": ["10 years of Muay Thai", "5 years of classic boxing", "Black belt, Japanese jujutsu", "Trained in Israel and Thailand"],
     "about_alt": "Avi Anihovich, BoxingRise boxing coach, in a boxing gym",
 
+    "reviews": [
+        ("Victoria", "I came with no background and no confidence, and from the very first session Avi made me feel completely at ease. I walked out feeling powerful, free, and wanting more!"),
+        ("Maria", "After years in gyms, my private sessions with Avi got me into the fittest, most toned shape I've ever been in. Crazy energy and professional patience like no one else."),
+        ("Neta", "My hour of training with Avi is the only time in my day when I let all the stress go, disconnect from the world, and come home stronger in body and mind."),
+    ],
     "reviews_h": "What trainees say",
     "reviews_ph": "A trainee's testimonial will go here, with her consent",
     "reviews_ph_name": "First name, occupation",
