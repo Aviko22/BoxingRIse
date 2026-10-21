@@ -104,6 +104,7 @@ HE = {
     "reviews_ph_name": "שם פרטי, תחום",
 
     "faq_h": "שאלות לפני שמתחילים",
+    "faq_cta": "לקבוע אימון ניסיון ב־49 ₪", "faq_cta_at": [0, 1, 2, 3, 4],
     "faq": [
         ("צריך ניסיון קודם?", "לא. רוב המתאמנות מתחילות מאפס, והאימון הראשון בנוי בדיוק לזה."),
         ("מתאים לגיל ולכושר שלי?", "האימון נבנה לפי הרמה שלך, אז לא צריך להיות בכושר כדי להתחיל. לפני האימון הראשון ממלאים הצהרת בריאות."),
@@ -246,6 +247,7 @@ EN = {
     "reviews_ph_name": "First name, occupation",
 
     "faq_h": "Before you start",
+    "faq_cta": "Book a trial for 49 ₪", "faq_cta_at": [0, 1, 2, 3, 4],
     "faq": [
         ("Do I need experience?", "No. Most women start from zero, and the first session is built for exactly that."),
         ("Is it right for my age and fitness?", "Sessions are built around your level, so you don't need to be fit to start. Before the first session you fill in a health declaration."),

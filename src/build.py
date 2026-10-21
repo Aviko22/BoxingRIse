@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "20"  # bump to bust caches of css/js
+VER = "21"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -182,7 +182,12 @@ def home(t):
     if CFG["show_testimonials"]:
         q = "".join(f'<figure class="rv"><blockquote><p>{e(txt)}</p></blockquote><figcaption>{e(name)}</figcaption></figure>' if t["lang"] == "he" else f'<figure class="rv"><blockquote><p>{e(txt)}</p></blockquote><figcaption>{e(name)}</figcaption></figure>' for name, txt in t["reviews"])
         reviews = f'<section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap"><h2 class="h2" id="rv-h">{e(t["reviews_h"])}</h2><div class="rv-grid">{q}</div></div></section>'
-    faq = "".join(f'<details class="qa"><summary><span>{e(q)}</span><span class="qa-x" aria-hidden="true"></span></summary><div class="qa-a"><p>{e(a)}</p></div></details>' for q, a in t["faq"])
+    faq_arrow = "←" if t["lang"] == "he" else "→"
+    faq = "".join(
+        f'<details class="qa"><summary><span class="qa-n" aria-hidden="true">{i + 1:02d}</span><span class="qa-t">{e(q)}</span><span class="qa-x" aria-hidden="true"></span></summary>'
+        f'<div class="qa-a"><span class="qa-bar" aria-hidden="true"></span><p>{e(a)}</p>'
+        + (f'<a class="qa-cta js-wa" href="{wa_href(t["lang"])}" target="_blank" rel="noopener">{e(t["faq_cta"])} <span aria-hidden="true">{faq_arrow}</span><span class="sr-only"> {e(t["new_tab"])}</span></a>' if i in t["faq_cta_at"] else "")
+        + '</div></details>' for i, (q, a) in enumerate(t["faq"]))
     trial_line = f'<p class="trial-line"><span>{"אימון ניסיון" if lang=="he" else "Trial session"}</span> <b dir="ltr">49 ₪</b> <span>{e(" ".join(t["instead_of"].split()[:-2]))}</span> <s>{e(" ".join(t["instead_of"].split()[-2:]))}</s></p>'
 
     return head(t, t["title"], t["description"], path, alt, CFG["noindex"]) + schema(t, path) + "\n</head>\n<body class=\"home\">\n" + header(t, True) + f"""

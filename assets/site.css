@@ -451,3 +451,17 @@ html[lang="en"] .final-h { font-size: clamp(42px, 7.5vw, 96px); }
 .pick-preview b { color: var(--text); font-weight: 500; }
 .final-note { font-size: 14px; color: var(--ash); }
 @media (prefers-reduced-motion: reduce) { .pick-chip { transition: none; } .pick-chip[aria-pressed="true"] { transform: none; } }
+
+/* ---------- faq: numbered, gold bar on open, booking link where a worry is answered ---------- */
+.qa summary { justify-content: flex-start; }
+.qa-n { flex: none; width: 34px; font-family: var(--num, "Oswald", sans-serif); font-size: 22px; line-height: 1; color: #8a8378; direction: ltr; text-align: start; transition: color .2s; }
+.qa[open] .qa-n { color: var(--gold); }
+.qa-t { flex: 1; }
+.qa-bar { display: block; height: 2px; margin-bottom: 14px; background: var(--metal); transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
+html[lang="en"] .qa-bar { transform-origin: left; }
+.qa[open] .qa-bar { transform: scaleX(1); }
+.qa-a { padding-inline-start: 50px; }
+.qa-cta { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 6px; color: var(--gold); font-weight: 700; text-decoration: none; }
+.qa-cta:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 480px) { .qa-a { padding-inline-start: 0; } }
+@media (prefers-reduced-motion: reduce) { .qa-bar, .qa-n { transition: none; } }
