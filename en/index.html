@@ -26,9 +26,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preload" href="/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="/fonts/karantina-bold.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="/assets/site.css?v=19">
-  <script src="/config.js?v=19" defer></script>
-  <script src="/assets/site.js?v=19" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=20">
+  <script src="/config.js?v=20" defer></script>
+  <script src="/assets/site.js?v=20" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": ["SportsActivityLocation", "LocalBusiness"], "name": "BoxingRise", "description": "Private one-on-one boxing for women, 60 minutes in Yarkon Park or a park near you in central Israel. For women. Trial session 49 ILS.", "url": "https://boxingrise.com/en", "image": "https://boxingrise.com/media/og.jpg", "logo": "https://boxingrise.com/brand/icon-512.png", "telephone": "+972502734456", "priceRange": "₪₪", "founder": {"@type": "Person", "name": "Avi Anihovich", "alternateName": "Aviko"}, "areaServed": [{"@type": "City", "name": "Tel Aviv-Yafo"}, {"@type": "AdministrativeArea", "name": "Central District, Israel"}], "address": {"@type": "PostalAddress", "addressLocality": "Tel Aviv-Yafo", "addressCountry": "IL"}, "geo": {"@type": "GeoCoordinates", "latitude": 32.0995, "longitude": 34.8137}, "sport": "Boxing", "inLanguage": "en", "paymentAccepted": "Cash, Bit, PayBox", "currenciesAccepted": "ILS", "makesOffer": {"@type": "Offer", "name": "Trial session", "price": "49", "priceCurrency": "ILS"}}</script>
 </head>
 <body class="home">
@@ -127,9 +127,17 @@
 
   <section class="final" id="final" aria-labelledby="final-h">
     <div class="wrap final-inner">
-      <h2 class="final-h" id="final-h">Your first round is waiting.</h2>
-      <p class="final-sub">One hour. 49 ₪. Then you&#x27;ll know.</p>
-      <a class="btn btn-gold btn-lg magnetic js-wa" href="https://wa.me/972502734456?text=Hi%20Avi%2C%20I%27d%20like%20to%20book%20a%20BoxingRise%20trial%20session%20%2849%20ILS%29" target="_blank" rel="noopener"><span>Book a trial for 49 ₪</span><s class="btn-was"><span class="sr-only">instead of </span>250 ₪</s><span class="sr-only"> (opens WhatsApp)</span></a>
+      <h2 class="final-h" id="final-h">When suits you for your first round?</h2>
+      <p class="final-sub">Pick a day and a time, and your message to Avi is ready.</p>
+      <div class="pick" data-day-tpl=", on {}" data-time-tpl=" in the {}">
+        <p class="pick-lbl" id="pick-d">Day</p>
+        <div class="pick-row" role="group" aria-labelledby="pick-d" data-group="day"><button type="button" class="pick-chip" aria-pressed="false">Sunday</button><button type="button" class="pick-chip" aria-pressed="false">Monday</button><button type="button" class="pick-chip" aria-pressed="false">Tuesday</button><button type="button" class="pick-chip" aria-pressed="false">Wednesday</button><button type="button" class="pick-chip" aria-pressed="false">Thursday</button><button type="button" class="pick-chip" aria-pressed="false">Friday</button></div>
+        <p class="pick-lbl" id="pick-t">Time</p>
+        <div class="pick-row" role="group" aria-labelledby="pick-t" data-group="time"><button type="button" class="pick-chip" aria-pressed="false">morning</button><button type="button" class="pick-chip" aria-pressed="false">afternoon</button><button type="button" class="pick-chip" aria-pressed="false">evening</button></div>
+        <p class="pick-preview" aria-live="polite">Your message: <b class="js-pick-msg">Hi Avi, I&#x27;d like to book a BoxingRise trial session (49 ILS)</b></p>
+      </div>
+      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="https://wa.me/972502734456?text=Hi%20Avi%2C%20I%27d%20like%20to%20book%20a%20BoxingRise%20trial%20session%20%2849%20ILS%29" target="_blank" rel="noopener"><span>Book a trial for 49 ₪</span><s class="btn-was"><span class="sr-only">instead of </span>250 ₪</s><span class="sr-only"> (opens WhatsApp)</span></a>
+      <p class="final-note">No commitment · Same-day reply</p>
     </div>
   </section>
 </main>

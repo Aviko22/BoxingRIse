@@ -120,8 +120,14 @@ HE = {
         ("ומה אם צריך לעצור באמצע?", "אפשר להקפיא את התוכנית פעם אחת, עד 4 שבועות. אם צריך להפסיק לגמרי, מקבלים החזר על האימונים שלא נוצלו, בניכוי דמי ביטול."),
     ],
 
-    "final_h": "הסיבוב הראשון מחכה.",
-    "final_sub": "שעה אחת. 49 ₪. ואז תדעי.",
+    "final_h": "מתי נוח לך לסיבוב הראשון?",
+    "final_sub": "בחרי יום ושעה, וההודעה לאבי כבר מוכנה.",
+    "pick_day": "יום", "pick_time": "שעה",
+    "pick_days": ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי"],
+    "pick_times": ["בוקר", "צהריים", "ערב"],
+    "pick_day_tpl": " ביום {}", "pick_time_tpl": " ב{}",
+    "pick_preview": "ההודעה שתישלח:",
+    "final_note": "בלי התחייבות · תשובה באותו יום",
 
     "footer_tag": "אימון אגרוף אישי לנשים · פארק הירקון והמרכז",
     "legal_nav": [("privacy", "מדיניות פרטיות"), ("terms", "תנאי שימוש"), ("cancellation", "ביטולים והחזרים"),
@@ -256,8 +262,14 @@ EN = {
         ("What if I need to stop midway?", "You can pause the program once, for up to 4 weeks. If you need to stop completely, you get a refund for unused sessions, minus a cancellation fee."),
     ],
 
-    "final_h": "Your first round is waiting.",
-    "final_sub": "One hour. 49 ₪. Then you'll know.",
+    "final_h": "When suits you for your first round?",
+    "final_sub": "Pick a day and a time, and your message to Avi is ready.",
+    "pick_day": "Day", "pick_time": "Time",
+    "pick_days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "pick_times": ["morning", "afternoon", "evening"],
+    "pick_day_tpl": ", on {}", "pick_time_tpl": " in the {}",
+    "pick_preview": "Your message:",
+    "final_note": "No commitment · Same-day reply",
 
     "footer_tag": "Private boxing coaching for women · Yarkon Park and central Israel",
     "legal_nav": [("privacy", "Privacy policy"), ("terms", "Terms of use"), ("cancellation", "Cancellations and refunds"),

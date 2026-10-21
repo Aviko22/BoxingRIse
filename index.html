@@ -26,9 +26,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preload" href="/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="/fonts/karantina-bold.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="/assets/site.css?v=19">
-  <script src="/config.js?v=19" defer></script>
-  <script src="/assets/site.js?v=19" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=20">
+  <script src="/config.js?v=20" defer></script>
+  <script src="/assets/site.js?v=20" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": ["SportsActivityLocation", "LocalBusiness"], "name": "BoxingRise", "description": "אימון אגרוף אישי לנשים, אחד על אחד, 60 דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז. אימון ניסיון ב־49 ₪.", "url": "https://boxingrise.com/", "image": "https://boxingrise.com/media/og.jpg", "logo": "https://boxingrise.com/brand/icon-512.png", "telephone": "+972502734456", "priceRange": "₪₪", "founder": {"@type": "Person", "name": "Avi Anihovich", "alternateName": "Aviko"}, "areaServed": [{"@type": "City", "name": "Tel Aviv-Yafo"}, {"@type": "AdministrativeArea", "name": "Central District, Israel"}], "address": {"@type": "PostalAddress", "addressLocality": "Tel Aviv-Yafo", "addressCountry": "IL"}, "geo": {"@type": "GeoCoordinates", "latitude": 32.0995, "longitude": 34.8137}, "sport": "Boxing", "inLanguage": "he", "paymentAccepted": "Cash, Bit, PayBox", "currenciesAccepted": "ILS", "makesOffer": {"@type": "Offer", "name": "אימון ניסיון", "price": "49", "priceCurrency": "ILS"}}</script>
 </head>
 <body class="home">
@@ -127,9 +127,17 @@
 
   <section class="final" id="final" aria-labelledby="final-h">
     <div class="wrap final-inner">
-      <h2 class="final-h" id="final-h">הסיבוב הראשון מחכה.</h2>
-      <p class="final-sub">שעה אחת. 49 ₪. ואז תדעי.</p>
-      <a class="btn btn-gold btn-lg magnetic js-wa" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener"><span>לאימון ניסיון ב־49 ₪</span><s class="btn-was"><span class="sr-only">במקום </span>250 ₪</s><span class="sr-only"> (נפתח בוואטסאפ)</span></a>
+      <h2 class="final-h" id="final-h">מתי נוח לך לסיבוב הראשון?</h2>
+      <p class="final-sub">בחרי יום ושעה, וההודעה לאבי כבר מוכנה.</p>
+      <div class="pick" data-day-tpl=" ביום {}" data-time-tpl=" ב{}">
+        <p class="pick-lbl" id="pick-d">יום</p>
+        <div class="pick-row" role="group" aria-labelledby="pick-d" data-group="day"><button type="button" class="pick-chip" aria-pressed="false">ראשון</button><button type="button" class="pick-chip" aria-pressed="false">שני</button><button type="button" class="pick-chip" aria-pressed="false">שלישי</button><button type="button" class="pick-chip" aria-pressed="false">רביעי</button><button type="button" class="pick-chip" aria-pressed="false">חמישי</button><button type="button" class="pick-chip" aria-pressed="false">שישי</button></div>
+        <p class="pick-lbl" id="pick-t">שעה</p>
+        <div class="pick-row" role="group" aria-labelledby="pick-t" data-group="time"><button type="button" class="pick-chip" aria-pressed="false">בוקר</button><button type="button" class="pick-chip" aria-pressed="false">צהריים</button><button type="button" class="pick-chip" aria-pressed="false">ערב</button></div>
+        <p class="pick-preview" aria-live="polite">ההודעה שתישלח: <b class="js-pick-msg">היי אבי, אשמח לקבוע אימון ניסיון ב-BoxingRise (49 ₪)</b></p>
+      </div>
+      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="https://wa.me/972502734456?text=%D7%94%D7%99%D7%99%20%D7%90%D7%91%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%90%D7%99%D7%9E%D7%95%D7%9F%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91-BoxingRise%20%2849%20%E2%82%AA%29" target="_blank" rel="noopener"><span>לאימון ניסיון ב־49 ₪</span><s class="btn-was"><span class="sr-only">במקום </span>250 ₪</s><span class="sr-only"> (נפתח בוואטסאפ)</span></a>
+      <p class="final-note">בלי התחייבות · תשובה באותו יום</p>
     </div>
   </section>
 </main>

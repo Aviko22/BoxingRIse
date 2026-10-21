@@ -17,6 +17,30 @@
     }
   }
 
+  /* ---------- Final: pick a day and time, put it into the WhatsApp message ---------- */
+  var pick = document.querySelector('.pick');
+  var pickBtn = document.querySelector('.js-wa-pick');
+  if (pick && pickBtn && cfg && cfg.whatsapp) {
+    var picked = { day: '', time: '' };
+    var msgEl = pick.querySelector('.js-pick-msg');
+    var update = function () {
+      var m = cfg.message[lang] || '';
+      if (picked.day) m += pick.getAttribute('data-day-tpl').replace('{}', picked.day);
+      if (picked.time) m += pick.getAttribute('data-time-tpl').replace('{}', picked.time);
+      if (msgEl) msgEl.textContent = m;
+      pickBtn.href = 'https://wa.me/' + cfg.whatsapp + '?text=' + encodeURIComponent(m);
+    };
+    pick.querySelectorAll('[data-group]').forEach(function (g) {
+      g.addEventListener('click', function (ev) {
+        var c = ev.target.closest('.pick-chip'); if (!c) return;
+        var on = c.getAttribute('aria-pressed') !== 'true';
+        g.querySelectorAll('.pick-chip').forEach(function (x) { x.setAttribute('aria-pressed', x === c && on ? 'true' : 'false'); });
+        picked[g.getAttribute('data-group')] = on ? c.textContent.trim() : '';
+        update();
+      });
+    });
+  }
+
   /* weeks: open on larger screens, tap to open on phones */
   var wide = window.matchMedia('(min-width: 760px)');
   function syncWeeks() { document.querySelectorAll('.wk-d').forEach(function (d) { d.open = wide.matches; }); }

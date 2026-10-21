@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "19"  # bump to bust caches of css/js
+VER = "20"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -271,7 +271,15 @@ def home(t):
     <div class="wrap final-inner">
       <h2 class="final-h" id="final-h">{e(t['final_h'])}</h2>
       <p class="final-sub">{e(t['final_sub'])}</p>
-      <a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
+      <div class="pick" data-day-tpl="{e(t['pick_day_tpl'])}" data-time-tpl="{e(t['pick_time_tpl'])}">
+        <p class="pick-lbl" id="pick-d">{e(t['pick_day'])}</p>
+        <div class="pick-row" role="group" aria-labelledby="pick-d" data-group="day">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_days'])}</div>
+        <p class="pick-lbl" id="pick-t">{e(t['pick_time'])}</p>
+        <div class="pick-row" role="group" aria-labelledby="pick-t" data-group="time">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_times'])}</div>
+        <p class="pick-preview" aria-live="polite">{e(t['pick_preview'])} <b class="js-pick-msg">{e(CFG['whatsapp_message'][t['lang']])}</b></p>
+      </div>
+      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
+      <p class="final-note">{e(t['final_note'])}</p>
     </div>
   </section>
 </main>
