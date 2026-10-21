@@ -418,3 +418,5 @@ html[dir="ltr"] .h1 .w > span { --from: -60%; }
   .hero-media .hero-shade { background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 14%, rgba(0,0,0,0) 42%, rgba(0,0,0,.78) 64%, #000 92%); }
 }
 @media (max-width: 999px) and (max-height: 620px) { .hero-inner { padding-top: 0; } }
+/* women only: three reasons, three cards */
+@media (min-width: 760px) { .aud-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } .aud-media { aspect-ratio: 4 / 3; } }

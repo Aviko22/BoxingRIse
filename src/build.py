@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "16"  # bump to bust caches of css/js
+VER = "17"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -236,7 +236,7 @@ def home(t):
   <section class="sec program" id="program" aria-labelledby="prog-h">
     <div class="wrap">
       <div class="split">
-        <div><h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2><p class="lead">{e(t['prog_lead'])}</p><dl class="facts facts-light reveal">{pfacts}</dl><p class="prog-kids">{e(t['prog_kids'])}</p></div>
+        <div><h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2><p class="lead">{e(t['prog_lead'])}</p><dl class="facts facts-light reveal">{pfacts}</dl>{('<p class="prog-kids">' + e(t['prog_kids']) + '</p>') if t['prog_kids'] else ''}</div>
         <div class="timeline-wrap"><ol class="timeline" style="--fill:0">{weeks}</ol></div>
       </div>
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
@@ -322,7 +322,7 @@ def optimise_images():
     from PIL import Image
     out = ROOT / "media" / "opt"
     out.mkdir(parents=True, exist_ok=True)
-    for name in ["avi-portrait", "round-1", "round-2", "round-3", "gallery-2"]:
+    for name in ["avi-portrait", "round-1", "round-2", "round-3", "gallery-1", "gallery-2", "gallery-4"]:
         im = Image.open(ROOT / "media" / f"{name}.jpg").convert("RGB")
         IMG_SIZES[name] = im.size
         for w in (480, 900):
