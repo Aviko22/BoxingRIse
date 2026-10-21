@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "21"  # bump to bust caches of css/js
+VER = "22"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -160,6 +160,31 @@ def schema(t, path):
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
 
 
+GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 1, "for_h": 0, "pain_h": 0, "about_h": 0},
+             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 0, "pain_h": 0, "about_h": 0}}
+
+
+def hgold(t, key):
+    """Heading with its last words in gold (brand language)."""
+    text = t[key]
+    if key == "what_h":
+        a, _, z = text.partition(". ")
+        return f'{e(a)}.<br><span class="g">{e(z)}</span>'
+    n = GOLD_TAIL[t["lang"]].get(key, 0)
+    w = text.split()
+    if not n or n >= len(w):
+        return e(text)
+    return e(" ".join(w[:-n])) + ' <span class="g">' + e(" ".join(w[-n:])) + "</span>"
+
+
+def tag(t, key):
+    return f'<p class="tag">{e(t["tag_" + key])}</p>'
+
+
+GRASS = '<div class="grass" aria-hidden="true"></div>'
+RING = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle class="trk" cx="32" cy="32" r="28"/><circle class="prg" cx="32" cy="32" r="28"/></svg>'
+
+
 # ---------------------------------------------------------------- home page
 def home(t):
     lang = t["lang"]
@@ -173,7 +198,7 @@ def home(t):
         media = img(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])
         cards += (f'<article class="aud reveal"><div class="aud-media">{media}</div><div class="aud-body"><p class="aud-who">{e(c["who"])}</p>'
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain">{e(c["pain"])}</p><p class="aud-change">{e(c["change"])}</p></div></article>')
-    steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
+    steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>ROUND</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
     weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"></span><p class="wk-n">{e(t["week_word"])} <span dir="ltr">{i}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
     about = "".join(f"<p>{e(p)}</p>" for p in t["about"])
@@ -181,7 +206,7 @@ def home(t):
     reviews = ""
     if CFG["show_testimonials"]:
         q = "".join(f'<figure class="rv"><blockquote><p>{e(txt)}</p></blockquote><figcaption>{e(name)}</figcaption></figure>' if t["lang"] == "he" else f'<figure class="rv"><blockquote><p>{e(txt)}</p></blockquote><figcaption>{e(name)}</figcaption></figure>' for name, txt in t["reviews"])
-        reviews = f'<section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap"><h2 class="h2" id="rv-h">{e(t["reviews_h"])}</h2><div class="rv-grid">{q}</div></div></section>'
+        reviews = f'<section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap">{tag(t, "reviews")}<h2 class="h2" id="rv-h">{hgold(t, "reviews_h")}</h2><div class="rv-grid">{q}</div></div></section>'
     faq_arrow = "←" if t["lang"] == "he" else "→"
     faq = "".join(
         f'<details class="qa"><summary><span class="qa-n" aria-hidden="true">{i + 1:02d}</span><span class="qa-t">{e(q)}</span><span class="qa-x" aria-hidden="true"></span></summary>'
@@ -196,8 +221,10 @@ def home(t):
     <div class="hero-media" aria-hidden="true">
       <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-ring.jpg"><source src="/media/hero-ring.mp4" type="video/mp4"></video>
       <div class="hero-shade"></div>
+      <div class="hero-fx"></div>
     </div>
     <div class="wrap hero-inner">
+      {tag(t, 'hero')}
       <h1 class="h1" id="hero-h">{h1}</h1>
       <p class="hero-sub">{e(t['hero_sub'])}</p>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
@@ -207,17 +234,18 @@ def home(t):
 
   <section class="sec pain" aria-labelledby="pain-h">
     <div class="wrap narrow">
-      <h2 class="h2" id="pain-h">{e(t['pain_h'])}</h2>
+      {tag(t, 'pain')}<h2 class="h2" id="pain-h">{e(t['pain_h'])}</h2>
       <ul class="pain-list">{pains}</ul>
       <p class="pain-turn reveal">{e(t['pain_turn'])}</p>
     </div>
   </section>
 
-  <section class="sec about" id="about" aria-labelledby="about-h">
+  <section class="sec about alt" id="about" aria-labelledby="about-h">
+    {GRASS}
     <div class="wrap about-grid">
       <figure class="about-photo">{img('avi-portrait', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
       <div class="about-text">
-        <h2 class="h2" id="about-h">{e(t['about_h'])}</h2>
+        {tag(t, 'about')}<h2 class="h2" id="about-h">{e(t['about_h'])}</h2>
         {about}
         <ul class="creds">{creds}</ul>
       </div>
@@ -229,7 +257,7 @@ def home(t):
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
       <div class="split">
-        <h2 class="h2" id="what-h">{e(t['what_h']).replace('. ', '.<br>', 1)}</h2>
+        <div class="h2-wrap">{tag(t, 'what')}<h2 class="h2" id="what-h">{hgold(t, 'what_h')}</h2></div>
         <div><p class="lead">{e(t['what_lead'])}</p><dl class="facts reveal">{facts}</dl></div>
       </div>
       <h3 class="h3 rounds-h">{e(t['rounds_h'])}</h3>
@@ -237,16 +265,17 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec for" id="for" aria-labelledby="for-h">
+  <section class="sec for alt" id="for" aria-labelledby="for-h">
+    {GRASS}
     <div class="wrap">
-      <h2 class="h2" id="for-h">{e(t['for_h'])}</h2>
+      {tag(t, 'for')}<h2 class="h2" id="for-h">{e(t['for_h'])}</h2>
       <div class="aud-grid">{cards}</div>
     </div>
   </section>
 
   <section class="sec trial" id="trial" aria-labelledby="trial-h">
     <div class="wrap">
-      <h2 class="h2" id="trial-h">{e(t['trial_h'])}</h2>
+      {tag(t, 'trial')}<h2 class="h2" id="trial-h">{hgold(t, 'trial_h')}</h2>
       <ol class="steps">{steps}</ol>
       <div class="trial-foot reveal"><p class="trial-why">{e(t['trial_why'])}</p>{btn(t, t['cta_trial'], 'btn btn-gold magnetic')}</div>
     </div>
@@ -255,7 +284,7 @@ def home(t):
   <section class="sec program" id="program" aria-labelledby="prog-h">
     <div class="wrap">
       <div class="split">
-        <div><h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2><p class="lead">{e(t['prog_lead'])}</p><dl class="facts facts-light reveal">{pfacts}</dl>{('<p class="prog-kids">' + e(t['prog_kids']) + '</p>') if t['prog_kids'] else ''}</div>
+        <div>{tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2><p class="lead">{e(t['prog_lead'])}</p><dl class="facts facts-light reveal">{pfacts}</dl>{('<p class="prog-kids">' + e(t['prog_kids']) + '</p>') if t['prog_kids'] else ''}</div>
         <div class="timeline-wrap"><ol class="timeline" style="--fill:0">{weeks}</ol></div>
       </div>
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
@@ -264,9 +293,10 @@ def home(t):
   </section>
 
 
-  <section class="sec faq" id="faq" aria-labelledby="faq-h">
+  <section class="sec faq alt" id="faq" aria-labelledby="faq-h">
+    {GRASS}
     <div class="wrap narrow">
-      <h2 class="h2" id="faq-h">{e(t['faq_h'])}</h2>
+      {tag(t, 'faq')}<h2 class="h2" id="faq-h">{hgold(t, 'faq_h')}</h2>
       <div class="qa-list">{faq}</div>
       <div class="ask"><p>{e(t['ask_text'])}</p><a class="btn btn-line js-wa-q" href="{wa_href(t['lang'], True)}" target="_blank" rel="noopener"><span>{e(t['ask_btn'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
@@ -274,7 +304,8 @@ def home(t):
 
   <section class="final" id="final" aria-labelledby="final-h">
     <div class="wrap final-inner">
-      <h2 class="final-h" id="final-h">{e(t['final_h'])}</h2>
+      {tag(t, 'final')}
+      <h2 class="final-h" id="final-h">{hgold(t, 'final_h')}</h2>
       <p class="final-sub">{e(t['final_sub'])}</p>
       <div class="pick" data-day-tpl="{e(t['pick_day_tpl'])}" data-time-tpl="{e(t['pick_time_tpl'])}">
         <p class="pick-lbl" id="pick-d">{e(t['pick_day'])}</p>

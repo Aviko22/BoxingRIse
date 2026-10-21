@@ -93,6 +93,14 @@
     reveals.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---------- Tape labels slap on when their section arrives ---------- */
+  var tagSecs = document.querySelectorAll('.sec');
+  if (reduce || !('IntersectionObserver' in window)) tagSecs.forEach(function (s) { s.classList.add('tag-in'); });
+  else {
+    var tio = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('tag-in'); tio.unobserve(x.target); } }); }, { rootMargin: '0px 0px -15% 0px' });
+    tagSecs.forEach(function (s) { tio.observe(s); });
+  }
+
   /* ---------- Counters ---------- */
   var nums = document.querySelectorAll('.num[data-count]');
   if (!reduce && 'IntersectionObserver' in window) {

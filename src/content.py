@@ -103,6 +103,9 @@ HE = {
     "reviews_ph": "המלצה של מתאמנת תתווסף כאן, באישורה",
     "reviews_ph_name": "שם פרטי, תחום",
 
+    "tag_hero": "אימון אגרוף אישי לנשים · בפארק",
+    "tag_pain": "רגע של כנות", "tag_about": "המאמן שלך", "tag_reviews": "מתאמנות מספרות", "tag_what": "האימון",
+    "tag_for": "מה תקבלי", "tag_trial": "אימון ניסיון", "tag_program": "תוכנית הדגל", "tag_faq": "שאלות", "tag_final": "הסיבוב הראשון",
     "faq_h": "שאלות לפני שמתחילים",
     "faq_cta": "לקבוע אימון ניסיון ב־49 ₪", "faq_cta_at": [0, 1, 2, 3, 4],
     "faq": [
@@ -246,6 +249,9 @@ EN = {
     "reviews_ph": "A trainee's testimonial will go here, with her consent",
     "reviews_ph_name": "First name, occupation",
 
+    "tag_hero": "Private boxing for women · in the park",
+    "tag_pain": "Be honest", "tag_about": "Your coach", "tag_reviews": "In their words", "tag_what": "The session",
+    "tag_for": "What you get", "tag_trial": "Trial session", "tag_program": "Flagship program", "tag_faq": "Questions", "tag_final": "Round one",
     "faq_h": "Before you start",
     "faq_cta": "Book a trial for 49 ₪", "faq_cta_at": [0, 1, 2, 3, 4],
     "faq": [
