@@ -7,10 +7,14 @@
   "site_url": "https://boxingrise.com",
   "trial_price": 49,
   "trial_regular_price": 250,
-  "show_testimonials": true,
+  "show_testimonials": false,
   "noindex": true,
   "accessibility_coordinator": {
     "he": "אבי אניחוביץ",
     "en": "Avi Anihovich"
+  },
+  "whatsapp_question": {
+    "he": "היי אבי, יש לי שאלה לפני שאני קובעת אימון ניסיון:",
+    "en": "Hi Avi, I have a question before I book a trial:"
   }
 }

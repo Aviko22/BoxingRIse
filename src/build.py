@@ -13,14 +13,15 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "17"  # bump to bust caches of css/js
+VER = "18"  # bump to bust caches of css/js
 
 e = html.escape
 
 
-def wa_href(lang):
+def wa_href(lang, question=False):
     from urllib.parse import quote
-    return f"https://wa.me/{NUM}?text={quote(CFG['whatsapp_message'][lang])}"
+    msg = CFG['whatsapp_question' if question else 'whatsapp_message'][lang]
+    return f"https://wa.me/{NUM}?text={quote(msg)}"
 
 
 def base(lang):
@@ -195,7 +196,7 @@ def home(t):
       <h1 class="h1" id="hero-h">{h1}</h1>
       <p class="hero-sub">{e(t['hero_sub'])}</p>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
-      <p class="hero-note">{e(t['hero_note'])}</p>
+      <div class="trust"><img class="trust-face" src="/media/opt/avi-face.webp" alt="" width="56" height="56"><div><p class="trust-name">{e(t['trust_name'])}</p><p class="trust-points">{' · '.join(e(x) for x in t['trust_points'])}</p></div></div>
     </div>
   </section>
 
@@ -204,6 +205,17 @@ def home(t):
       <h2 class="h2" id="pain-h">{e(t['pain_h'])}</h2>
       <ul class="pain-list">{pains}</ul>
       <p class="pain-turn reveal">{e(t['pain_turn'])}</p>
+    </div>
+  </section>
+
+  <section class="sec about" id="about" aria-labelledby="about-h">
+    <div class="wrap about-grid">
+      <figure class="about-photo">{img('avi-portrait', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
+      <div class="about-text">
+        <h2 class="h2" id="about-h">{e(t['about_h'])}</h2>
+        {about}
+        <ul class="creds">{creds}</ul>
+      </div>
     </div>
   </section>
 
@@ -244,23 +256,13 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec about" id="about" aria-labelledby="about-h">
-    <div class="wrap about-grid">
-      <figure class="about-photo">{img('avi-portrait', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
-      <div class="about-text">
-        <h2 class="h2" id="about-h">{e(t['about_h'])}</h2>
-        {about}
-        <ul class="creds">{creds}</ul>
-      </div>
-    </div>
-  </section>
-
   {reviews}
 
   <section class="sec faq" id="faq" aria-labelledby="faq-h">
     <div class="wrap narrow">
       <h2 class="h2" id="faq-h">{e(t['faq_h'])}</h2>
       <div class="qa-list">{faq}</div>
+      <div class="ask"><p>{e(t['ask_text'])}</p><a class="btn btn-line js-wa-q" href="{wa_href(t['lang'], True)}" target="_blank" rel="noopener"><span>{e(t['ask_btn'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
   </section>
 
@@ -348,7 +350,7 @@ def main():
         write(f"{slug}.html", legal_page(HE, slug))
         write(f"en/{slug}.html", legal_page(EN, slug))
     write("config.js", "/* Single source: src/config.json. Edit there and run python3 src/build.py */\n"
-          f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message']}, ensure_ascii=False)};\n")
+          f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message'], 'question': CFG['whatsapp_question']}, ensure_ascii=False)};\n")
     urls = ["/", "/en"] + [legal_url(l, s) for s in PAGES for l in ("he", "en")]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
          "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n"

@@ -11,6 +11,10 @@
   if (cfg && cfg.whatsapp) {
     var href = 'https://wa.me/' + cfg.whatsapp + '?text=' + encodeURIComponent(cfg.message[lang] || '');
     document.querySelectorAll('.js-wa').forEach(function (a) { a.href = href; });
+    if (cfg.question) {
+      var qhref = 'https://wa.me/' + cfg.whatsapp + '?text=' + encodeURIComponent(cfg.question[lang] || '');
+      document.querySelectorAll('.js-wa-q').forEach(function (a) { a.href = qhref; });
+    }
   }
 
   /* weeks: open on larger screens, tap to open on phones */
@@ -119,6 +123,15 @@
     }, { threshold: 0.1 });
     zones.forEach(function (z) { zio.observe(z); });
   }
+
+  /* ---------- Count WhatsApp taps (only reaches analytics after consent) ---------- */
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('.js-wa, .js-wa-q');
+    if (!a || typeof window.va !== 'function' || !document.getElementById('va')) return;
+    var where = a.closest('.hero') ? 'hero' : a.closest('.sticky-bar') ? 'sticky-bar' : a.classList.contains('wa-float') ? 'float'
+      : a.closest('.site-head') ? 'header' : (a.closest('section') && (a.closest('section').id || a.closest('section').className.split(' ')[1])) || 'other';
+    window.va('event', { name: a.classList.contains('js-wa-q') ? 'whatsapp_question' : 'whatsapp_trial', data: { where: where, lang: lang } });
+  });
 
   /* ---------- Cookie consent: analytics loads only after "yes" ---------- */
   var KEY = 'br-consent';

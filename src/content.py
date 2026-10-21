@@ -7,7 +7,7 @@ HE = {
     "description": "אימון אגרוף אישי לנשים, אחד על אחד, 60 דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז. אימון ניסיון ב־49 ₪.",
     "og_description": "אימון אגרוף אישי לנשים, אחד על אחד, בפארק. אימון ניסיון ב־49 ₪.",
     "skip": "דילוג לתוכן",
-    "nav": [("#what", "האימון"), ("#for", "בשבילך"), ("#program", "BoxingRise 8"), ("#about", "מי אני"), ("#faq", "שאלות")],
+    "nav": [("#about", "מי אני"), ("#what", "האימון"), ("#for", "בשבילך"), ("#program", "BoxingRise 8"), ("#faq", "שאלות")],
     "lang_switch": ("EN", "/en", "English"),
     "cta_trial": "לאימון ניסיון ב־49 ₪",
     "cta_short": "לאימון ניסיון",
@@ -19,6 +19,10 @@ HE = {
     "hero_sub": "אימון אגרוף אישי לנשים. אחד על אחד, בפארק הירקון או בפארק ליד הבית, באזור המרכז.",
     "hero_note": "כפפות וכריות עליי. את מביאה רק את עצמך.",
 
+    "trust_name": "אבי (Aviko) אניחוביץ, המאמן שלך",
+    "trust_points": ["בלי התחייבות", "אפשר להגיע עם חברה", "תשובה באותו יום"],
+    "ask_text": "לא מצאת תשובה?",
+    "ask_btn": "יש לי שאלה קודם",
     "pain_h": "מכירה את זה?",
     "pain": [
         "את דואגת לכולם. מתי בפעם האחרונה עשית משהו רק בשבילך?",
@@ -134,7 +138,7 @@ EN = {
     "description": "Private one-on-one boxing for women, 60 minutes in Yarkon Park or a park near you in central Israel. For women. Trial session 49 ILS.",
     "og_description": "Private one-on-one boxing for women, in the park. Trial session 49 ILS.",
     "skip": "Skip to content",
-    "nav": [("#what", "The session"), ("#for", "For you"), ("#program", "BoxingRise 8"), ("#about", "About"), ("#faq", "FAQ")],
+    "nav": [("#about", "About"), ("#what", "The session"), ("#for", "For you"), ("#program", "BoxingRise 8"), ("#faq", "FAQ")],
     "lang_switch": ("עב", "/", "עברית"),
     "cta_trial": "Book a trial for 49 ₪",
     "cta_short": "Book a trial",
@@ -146,6 +150,10 @@ EN = {
     "hero_sub": "Private boxing coaching for women. One on one, in Yarkon Park or a park near your home, in central Israel.",
     "hero_note": "Gloves and pads are on me. Just bring yourself.",
 
+    "trust_name": "Avi (Aviko) Anihovich, your coach",
+    "trust_points": ["No commitment", "Bring a friend", "Same-day reply"],
+    "ask_text": "Didn't find your answer?",
+    "ask_btn": "Ask me a question first",
     "pain_h": "Sound familiar?",
     "pain": [
         "You take care of everyone. When did you last do something just for you?",
