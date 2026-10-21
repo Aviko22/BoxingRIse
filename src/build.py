@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "28"  # bump to bust caches of css/js
+VER = "29"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -193,7 +193,7 @@ def home(t):
     lang = t["lang"]
     path, alt = ("/", "/en") if lang == "he" else ("/en", "/")
     h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in line.split()) + "</span>" for line in t["hero_h1"])
-    pains = "".join(f"<li>{e(p)}</li>" for p in t["pain"])
+    pains = "".join(f'<li><span class="pl">{e(p)}</span></li>' for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
     rounds = "".join(f'<li class="round"><figure>{img(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<span class="rd-badge" dir="ltr" aria-hidden="true">{RING}<small>ROUND</small>{n}</span><figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
     cards = ""
@@ -244,6 +244,7 @@ def home(t):
       {tag(t, 'pain')}<h2 class="h2" id="pain-h">{e(t['pain_h'])}</h2>
       <ul class="pain-list">{pains}</ul>
       <p class="pain-turn reveal">{e(t['pain_turn'])}</p>
+      <div class="pain-cta reveal">{btn(t, t['cta_trial'], 'btn btn-gold btn-sm magnetic')}</div>
     </div>
   </section>
 

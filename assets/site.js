@@ -142,8 +142,15 @@
   var bar = document.querySelector('.sticky-bar');
   var heroCta = document.querySelector('.hero-cta');
   var heroSeen = !!heroCta;
-  if (bar && heroCta && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (en) { heroSeen = en[0].isIntersecting; bar.classList.toggle('hold', heroSeen); }, { threshold: 0 }).observe(heroCta);
+  /* hold the bar back whenever a booking button on the page itself is on screen */
+  var inline = document.querySelectorAll('main .btn.js-wa');
+  if (bar && inline.length && 'IntersectionObserver' in window) {
+    var showing = new Set();
+    var hio = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) showing.add(x.target); else showing.delete(x.target); });
+      heroSeen = showing.size > 0; bar.classList.toggle('hold', heroSeen);
+    }, { threshold: 0 });
+    inline.forEach(function (b) { hio.observe(b); });
   }
   var floaters = document.querySelectorAll('.wa-float, .sticky-bar');
   var zones = document.querySelectorAll('#final, .site-foot');

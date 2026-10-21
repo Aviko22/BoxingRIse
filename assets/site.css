@@ -607,3 +607,15 @@ html[lang="en"] .stats .stat-word b { font-family: var(--latin); font-size: 22px
 .sign { margin-top: 22px !important; font: italic 600 34px/1 var(--latin) !important; letter-spacing: .02em; color: var(--gold) !important; transform: rotate(-4deg); width: fit-content; }
 html[dir="rtl"] .sign { margin-inline-start: 0; }
 .about-text p.tag, .about-text p.tag:first-of-type { color: #17140f; font-size: 13px; margin-top: 0; }
+
+/* pain: each line lights up, then a gold strike knocks it out */
+.pain-list li, .pain-list li.lit { color: inherit; }
+.pain-list .pl { color: #8f897f; background: linear-gradient(var(--gold-hi), var(--gold-hi)) no-repeat right 56% / 0% 3px; transition: background-size .45s cubic-bezier(.6, 0, .2, 1) .75s; }
+html[dir="ltr"] .pain-list .pl { background-position: left 56%; }
+.pain-list li.lit .pl { background-size: 100% 3px; animation: pain-lit 1.5s ease forwards; }
+@keyframes pain-lit { 0% { color: #8f897f; } 15%, 50% { color: #fff; } 100% { color: #7a746a; } }
+.pain-turn.in { animation: turn-hit .55s cubic-bezier(.2, 1.4, .4, 1) .1s both; }
+@keyframes turn-hit { 0% { opacity: 0; transform: scale(1.18); filter: blur(6px); } 60% { opacity: 1; filter: none; } 75% { transform: translateX(-4px); } 88% { transform: translateX(3px); } 100% { transform: none; } }
+.pain-turn { background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pain-cta { margin-top: 22px; }
+@media (prefers-reduced-motion: reduce) { .pain-list li.lit .pl { animation: none; color: #7a746a; } .pain-list .pl { transition: none; } .pain-turn.in { animation: none; } }
