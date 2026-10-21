@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "27"  # bump to bust caches of css/js
+VER = "28"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -170,7 +170,7 @@ def hgold(t, key):
     if key == "trial_h":
         a, _, z = text.partition(", ")
         return f'{e(a)},<br><span class="g">{e(z)}</span>'
-    if key == "what_h":
+    if key in ("what_h", "about_h"):
         a, _, z = text.partition(". ")
         return f'{e(a)}.<br><span class="g">{e(z)}</span>'
     n = GOLD_TAIL[t["lang"]].get(key, 0)
@@ -204,8 +204,8 @@ def home(t):
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>STEP</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
     weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="trk" cx="12" cy="12" r="9"/><circle class="prg" cx="12" cy="12" r="9"/></svg></span><p class="wk-n"><span class="wk-num">{e(t["week_word"])} <span dir="ltr">{i}</span></span> <span class="wk-feel">{e(t["week_feel"][i - 1])}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
-    about = "".join(f"<p>{e(p)}</p>" for p in t["about"])
-    creds = "".join(f"<li>{e(c)}</li>" for c in t["about_creds"])
+    about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 1 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"]))
+    creds = "".join(f'<li class="stat{" stat-word" if not n.isdigit() else ""}"><b>{e(n)}</b><span>{e(l)}</span></li>' for n, l in t["about_stats"])
     reviews = ""
     if CFG["show_testimonials"]:
         def rv(k, name, txt):
@@ -252,9 +252,11 @@ def home(t):
     <div class="wrap about-grid">
       <figure class="about-photo">{img('avi-portrait', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
       <div class="about-text">
-        {tag(t, 'about')}<h2 class="h2" id="about-h">{e(t['about_h'])}</h2>
+        {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
+        <p class="about-sub" dir="auto">{e(t['about_sub'])}</p>
         {about}
-        <ul class="creds">{creds}</ul>
+        <ul class="creds stats">{creds}</ul>
+        <p class="sign" dir="ltr" aria-hidden="true">Aviko</p>
       </div>
     </div>
   </section>

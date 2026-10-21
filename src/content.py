@@ -87,7 +87,9 @@ HE = {
     "prog_outcome": "את יודעת לעמוד יציב, להגן על עצמך ולהכות נכון. ומרגישה את זה גם מחוץ לאימון.",
     "prog_kids": "",
 
-    "about_h": "אני אבי (Aviko) אניחוביץ.",
+    "about_h": "אני אבי. המאמן שלך.",
+    "about_sub": "Aviko · אבי אניחוביץ",
+    "about_stats": [("10", "שנים מואי תאי"), ("5", "שנים אגרוף קלאסי"), ("חגורה שחורה", "ג׳ו־ג׳יטסו יפני"), ("ישראל ותאילנד", "הכשרה מקצועית")],
     "about": [
         "בשבילי אגרוף הוא לא אלימות, הוא שקט. שעה שבה הראש מתרכז בדבר אחד, והגוף לומד לעמוד יציב.",
         "אני לא מאמן כדי לייצר לוחמות. אני מאמן כדי שתצאי מכל אימון חזקה יותר ממה שנכנסת.",
@@ -109,7 +111,7 @@ HE = {
     "reviews_ph_name": "שם פרטי, תחום",
 
     "tag_hero": "אימון אגרוף אישי לנשים · בפארק",
-    "tag_pain": "רגע של כנות", "tag_about": "המאמן שלך", "tag_reviews": "מתאמנות מספרות", "tag_what": "האימון",
+    "tag_pain": "רגע של כנות", "tag_about": "מי אני", "tag_reviews": "מתאמנות מספרות", "tag_what": "האימון",
     "tag_for": "בשבילך", "tag_trial": "אימון ניסיון", "tag_program": "תוכנית הדגל", "tag_faq": "שאלות", "tag_final": "הסיבוב הראשון",
     "faq_h": "שאלות לפני שמתחילים",
     "faq_cta": "לקבוע אימון ניסיון ב־49 ₪", "faq_cta_at": [0, 1, 2, 3, 4],
@@ -238,7 +240,9 @@ EN = {
     "prog_outcome": "You know how to stand steady, protect yourself and punch right. And you feel it outside the session too.",
     "prog_kids": "",
 
-    "about_h": "I'm Avi (Aviko) Anihovich.",
+    "about_h": "I'm Avi. Your coach.",
+    "about_sub": "Aviko · Avi Anihovich",
+    "about_stats": [("10", "years of Muay Thai"), ("5", "years of classic boxing"), ("Black belt", "Japanese jiu-jitsu"), ("Israel & Thailand", "Coaching certification")],
     "about": [
         "To me boxing isn't violence, it's quiet. An hour where your mind holds one thing, and your body learns to stand steady.",
         "I don't coach to make fighters. I coach so you leave every session stronger than you came in.",
@@ -260,7 +264,7 @@ EN = {
     "reviews_ph_name": "First name, occupation",
 
     "tag_hero": "Private boxing for women · in the park",
-    "tag_pain": "Be honest", "tag_about": "Your coach", "tag_reviews": "In their words", "tag_what": "The session",
+    "tag_pain": "Be honest", "tag_about": "About me", "tag_reviews": "In their words", "tag_what": "The session",
     "tag_for": "For you", "tag_trial": "Trial session", "tag_program": "Flagship program", "tag_faq": "Questions", "tag_final": "Round one",
     "faq_h": "Before you start",
     "faq_cta": "Book a trial for 49 ₪", "faq_cta_at": [0, 1, 2, 3, 4],

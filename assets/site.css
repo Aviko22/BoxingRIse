@@ -590,3 +590,20 @@ html[dir="ltr"] .tag { transform-origin: left center; }
   .rv { scroll-snap-align: start; }
   .rv-foot { flex-direction: column; }
 }
+
+/* about: warmer heading, the key line as a gold quote, stitched stats, signature */
+.about .h2 { margin-bottom: 6px; }
+.about-sub { margin: 0 0 18px; font: 600 14px var(--latin); letter-spacing: .08em; color: var(--ash) !important; }
+.about-quote { margin: 22px 0 8px; padding: 0; border: 0; }
+.about-quote p { margin: 0 !important; font-family: var(--display); font-size: clamp(30px, 3.6vw, 40px) !important; line-height: 1.05; color: transparent !important; background: var(--metal); -webkit-background-clip: text; background-clip: text; max-width: 18em !important; }
+html[lang="en"] .about-quote p { font-size: clamp(24px, 2.6vw, 30px) !important; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 0; margin-top: 28px; }
+.stats .stat { display: flex; flex-direction: column; gap: 4px; padding: 16px 16px 14px; border: 0; background: var(--leather); border-radius: 18px; outline: 1.5px dashed var(--stitch); outline-offset: -6px; }
+.stats .stat:nth-child(odd) { padding-inline-end: 16px; }
+.stats .stat b { font: 600 40px/1 var(--latin); color: var(--text); }
+.stats .stat-word b { font-family: var(--display); font-size: 28px; line-height: 1.05; font-weight: 700; }
+html[lang="en"] .stats .stat-word b { font-family: var(--latin); font-size: 22px; }
+.stats .stat span { font-size: 14px; color: var(--ash); font-weight: 500; }
+.sign { margin-top: 22px !important; font: italic 600 34px/1 var(--latin) !important; letter-spacing: .02em; color: var(--gold) !important; transform: rotate(-4deg); width: fit-content; }
+html[dir="rtl"] .sign { margin-inline-start: 0; }
+.about-text p.tag, .about-text p.tag:first-of-type { color: #17140f; font-size: 13px; margin-top: 0; }
