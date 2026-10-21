@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "26"  # bump to bust caches of css/js
+VER = "27"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -208,8 +208,12 @@ def home(t):
     creds = "".join(f"<li>{e(c)}</li>" for c in t["about_creds"])
     reviews = ""
     if CFG["show_testimonials"]:
-        q = "".join(f'<figure class="rv"><blockquote><p>{e(txt)}</p></blockquote><figcaption>{e(name)}</figcaption></figure>' if t["lang"] == "he" else f'<figure class="rv"><blockquote><p>{e(txt)}</p></blockquote><figcaption>{e(name)}</figcaption></figure>' for name, txt in t["reviews"])
-        reviews = f'<section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap">{tag(t, "reviews")}<h2 class="h2" id="rv-h">{hgold(t, "reviews_h")}</h2><div class="rv-grid">{q}</div></div></section>'
+        def rv(k, name, txt):
+            hl = t["review_hl"][k]
+            body = e(txt).replace(e(hl), f'<mark class="rv-hl">{e(hl)}</mark>', 1)
+            return f'<figure class="rv"><blockquote><p>{body}</p></blockquote><figcaption><b>{e(name)}</b><span>{e(t["review_sub"][k])}</span></figcaption></figure>'
+        q = "".join(rv(k, name, txt) for k, (name, txt) in enumerate(t["reviews"]))
+        reviews = f'<section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap">{tag(t, "reviews")}<h2 class="h2" id="rv-h">{hgold(t, "reviews_h")}</h2><div class="rv-grid">{q}</div><div class="rv-foot reveal"><p>{e(t["reviews_cta"])}</p>{btn(t, t["cta_trial"], "btn btn-gold magnetic")}</div></div></section>'
     faq_arrow = "←" if t["lang"] == "he" else "→"
     faq = "".join(
         f'<details class="qa"><summary><span class="qa-n" aria-hidden="true">{i + 1:02d}</span><span class="qa-t">{e(q)}</span><span class="qa-x" aria-hidden="true"></span></summary>'

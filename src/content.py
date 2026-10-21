@@ -102,6 +102,9 @@ HE = {
         ("נטע", "שעת אימון אצל אבי היא הזמן היחיד ביום שבו אני משחררת את כל הסטרס, מתנתקת מהעולם וחוזרת הביתה מחוזקת בראש ובגוף."),
     ],
     "reviews_h": "מה אומרות המתאמנות",
+    "review_hl": ["יצאתי ממנו עוצמתית, משוחררת ועם טעם של עוד", "לכושר ולחיטוב הכי חזק שהייתי בהם", "הזמן היחיד ביום שבו אני משחררת את כל הסטרס"],
+    "review_sub": ["התחילה בלי רקע", "אחרי שנים בחדרי כושר", "מגיעה לפרוק את השבוע"],
+    "reviews_cta": "רוצה להרגיש ככה?",
     "reviews_ph": "המלצה של מתאמנת תתווסף כאן, באישורה",
     "reviews_ph_name": "שם פרטי, תחום",
 
@@ -250,6 +253,9 @@ EN = {
         ("Neta", "My hour of training with Avi is the only time in my day when I let all the stress go, disconnect from the world, and come home stronger in body and mind."),
     ],
     "reviews_h": "What trainees say",
+    "review_hl": ["I walked out feeling powerful, free, and wanting more", "the fittest, most toned shape I've ever been in", "the only time in my day when I let all the stress go"],
+    "review_sub": ["Started with no background", "After years in gyms", "Comes to let the week go"],
+    "reviews_cta": "Want to feel like this?",
     "reviews_ph": "A trainee's testimonial will go here, with her consent",
     "reviews_ph_name": "First name, occupation",
 

@@ -576,3 +576,17 @@ html[dir="ltr"] .tag { transform-origin: left center; }
 .round:nth-child(2) .prg { transition-delay: .6s; } .round:nth-child(3) .prg { transition-delay: .9s; stroke: var(--sun); }
 .round:nth-child(3) .rd-badge { box-shadow: 0 0 22px rgba(240, 198, 116, .4); }
 @media (prefers-reduced-motion: reduce) { .rd-badge .prg { transition: none; stroke-dashoffset: 0; } }
+
+/* reviews: their key line in gold, who they are, swipe on phones, then a button */
+.rv-hl { background: none; color: var(--gold-hi); font-weight: 600; }
+.rv figcaption { display: flex; flex-direction: column; gap: 2px; }
+.rv figcaption b { color: var(--gold-hi); font-size: 16px; }
+.rv figcaption span { color: var(--ash); font-size: 13.5px; font-weight: 500; }
+.rv-foot { margin-top: clamp(28px, 4vw, 44px); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; text-align: center; }
+.rv-foot p { font-family: var(--display); font-size: clamp(30px, 4vw, 40px); line-height: 1; color: var(--white); }
+@media (max-width: 759px) {
+  .rv-grid { grid-auto-flow: column; grid-auto-columns: 84%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(var(--pad) * -1); padding: 4px var(--pad) 10px; scroll-padding-inline: var(--pad); scrollbar-width: none; }
+  .rv-grid::-webkit-scrollbar { display: none; }
+  .rv { scroll-snap-align: start; }
+  .rv-foot { flex-direction: column; }
+}
