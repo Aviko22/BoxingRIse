@@ -540,3 +540,19 @@ html[dir="ltr"] .tag { transform-origin: left center; }
 }
 .tag { width: fit-content; justify-self: start; align-self: start; }
 .program .tag { background: #1d1912; color: #f1e9da; box-shadow: 0 2px 0 rgba(0,0,0,.15); }
+
+/* program: each week is a small round timer, with how she'll feel */
+.wk-dot { inset-inline-start: -34px; top: 2px; width: 24px; height: 24px; background: #f1e9da; box-shadow: none; border-radius: 50%; }
+.wk.on .wk-dot { background: #f1e9da; box-shadow: none; }
+.wk-dot svg { width: 100%; height: 100%; transform: rotate(-90deg); display: block; }
+.wk-dot circle { fill: none; stroke-width: 3; }
+.wk-dot .trk { stroke: #d6cfc2; }
+.wk-dot .prg { stroke: var(--gold-deep); stroke-linecap: round; stroke-dasharray: 57; stroke-dashoffset: 57; transition: stroke-dashoffset .7s var(--ease); }
+.wk.on .wk-dot .prg { stroke-dashoffset: 0; }
+.wk:last-child.on .wk-dot { box-shadow: 0 0 0 5px rgba(201, 162, 75, .25); }
+.wk-n { display: flex; align-items: baseline; gap: 10px; }
+.wk-num { font-size: 13px; letter-spacing: .02em; }
+.wk-feel { font-family: var(--display); font-size: 26px; line-height: 1; font-weight: 700; color: #978c77; transition: color .4s; }
+.wk.on .wk-feel { color: var(--gold-deep); }
+.wk:last-child.on .wk-feel { color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .wk-dot .prg { transition: none; } }
