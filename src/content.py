@@ -42,19 +42,20 @@ HE = {
         ("round-3", "כוח", "סבב קצר בעצימות גבוהה, כשאת כבר מוכנה לו.", "סיום אימון בעצימות גבוהה על הכריות"),
     ],
 
-    "for_h": "בשבילך",
+    "for_h": "מה תקבלי מהשעה הזו?",
+    "pain_prefix": "במקום:",
     "for": [
         {"who": "ביטחון", "h": "ביטחון שהולך איתך הביתה.",
-         "pain": "לא כל מקום מרגיש בטוח להתחיל בו. חדר כושר מלא, מבטים, השוואות.",
-         "change": "כאן זה רק את והמאמן, בקצב שלך. לומדת לעמוד יציב, להגן ולהכות, והגוף זוכר את זה גם ברחוב.",
+         "pain": "חדר כושר מלא, מבטים, השוואות.",
+         "change": "רק את והמאמן, בקצב שלך. לומדת לעמוד יציב ולהגן על עצמך, והגוף זוכר את זה גם ברחוב.",
          "img": "gallery-2", "alt": "מתאמנת בשמירה אחרי ג׳אב"},
         {"who": "כושר", "h": "כושר שלא משעמם.",
-         "pain": "הליכון, משקולות, אותו דבר בכל פעם, עד שמוותרים.",
+         "pain": "הליכון ומשקולות, אותו דבר בכל פעם, עד שמוותרים.",
          "change": "כל אימון שונה, עם מטרה ברורה. הגוף מתחזק ומתחטב, בלי שתרגישי שאת \"עושה כושר\".",
          "img": "gallery-4", "alt": "מתאמנת אחרי הוק, עם השמירה למעלה"},
         {"who": "שקט", "h": "שעה שהיא רק שלך.",
-         "pain": "העבודה, הבית, כולם צריכים ממך משהו, והלחץ נשאר בגוף.",
-         "change": "בלי טלפון ובלי מבטים. רק את, הכרית והמכה הבאה. את יוצאת עייפה, שקטה וחזקה יותר.",
+         "pain": "לחץ שנשאר בגוף אחרי יום ארוך.",
+         "change": "בלי טלפון ובלי מבטים. רק את, הכרית והמכה הבאה. יוצאת שקטה וחזקה יותר.",
          "img": "gallery-1", "alt": "אגרוף ישר לכרית, מנקודת המבט של המאמן"},
     ],
 
@@ -106,7 +107,7 @@ HE = {
 
     "tag_hero": "אימון אגרוף אישי לנשים · בפארק",
     "tag_pain": "רגע של כנות", "tag_about": "המאמן שלך", "tag_reviews": "מתאמנות מספרות", "tag_what": "האימון",
-    "tag_for": "מה תקבלי", "tag_trial": "אימון ניסיון", "tag_program": "תוכנית הדגל", "tag_faq": "שאלות", "tag_final": "הסיבוב הראשון",
+    "tag_for": "בשבילך", "tag_trial": "אימון ניסיון", "tag_program": "תוכנית הדגל", "tag_faq": "שאלות", "tag_final": "הסיבוב הראשון",
     "faq_h": "שאלות לפני שמתחילים",
     "faq_cta": "לקבוע אימון ניסיון ב־49 ₪", "faq_cta_at": [0, 1, 2, 3, 4],
     "faq": [
@@ -189,19 +190,20 @@ EN = {
         ("round-3", "Power", "A short, high-intensity finisher, once you're ready for it.", "High-intensity finish on the pads"),
     ],
 
-    "for_h": "For you",
+    "for_h": "What you get from this hour.",
+    "pain_prefix": "Instead of:",
     "for": [
         {"who": "Confidence", "h": "Confidence that goes home with you.",
-         "pain": "Not every place feels safe to start in. A crowded gym, the looks, the comparisons.",
-         "change": "Here it's just you and the coach, at your pace. You learn to stand steady, defend and strike, and your body remembers it on the street too.",
+         "pain": "A crowded gym, the looks, the comparisons.",
+         "change": "Just you and the coach, at your pace. You learn to stand steady and protect yourself, and your body remembers it on the street too.",
          "img": "gallery-2", "alt": "A trainee holding her guard after a jab"},
         {"who": "Fitness", "h": "Fitness that isn't boring.",
-         "pain": "Treadmill, weights, the same thing every time, until you quit.",
+         "pain": "Treadmill and weights, the same thing every time, until you quit.",
          "change": "Every session is different, with a clear goal. Your body gets stronger and more toned without it feeling like a workout.",
          "img": "gallery-4", "alt": "A trainee after a hook, guard up"},
         {"who": "Quiet", "h": "An hour that's only yours.",
-         "pain": "Work, home, everyone needs something from you, and the stress stays in your body.",
-         "change": "No phone, no looks. Just you, the pads and the next punch. You leave tired, calmer and stronger.",
+         "pain": "Stress that stays in your body after a long day.",
+         "change": "No phone, no looks. Just you, the pads and the next punch. You leave calmer and stronger.",
          "img": "gallery-1", "alt": "A straight punch on the pad, from the coach's view"},
     ],
 
@@ -253,7 +255,7 @@ EN = {
 
     "tag_hero": "Private boxing for women · in the park",
     "tag_pain": "Be honest", "tag_about": "Your coach", "tag_reviews": "In their words", "tag_what": "The session",
-    "tag_for": "What you get", "tag_trial": "Trial session", "tag_program": "Flagship program", "tag_faq": "Questions", "tag_final": "Round one",
+    "tag_for": "For you", "tag_trial": "Trial session", "tag_program": "Flagship program", "tag_faq": "Questions", "tag_final": "Round one",
     "faq_h": "Before you start",
     "faq_cta": "Book a trial for 49 ₪", "faq_cta_at": [0, 1, 2, 3, 4],
     "faq": [

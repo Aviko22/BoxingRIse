@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "24"  # bump to bust caches of css/js
+VER = "25"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -160,8 +160,8 @@ def schema(t, path):
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
 
 
-GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 1, "for_h": 0, "pain_h": 0, "about_h": 0},
-             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 0, "pain_h": 0, "about_h": 0}}
+GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 1, "for_h": 2, "pain_h": 0, "about_h": 0},
+             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 2, "pain_h": 0, "about_h": 0}}
 
 
 def hgold(t, key):
@@ -200,7 +200,7 @@ def home(t):
     for c in t["for"]:
         media = img(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])
         cards += (f'<article class="aud reveal"><div class="aud-media">{media}</div><div class="aud-body"><p class="aud-who">{e(c["who"])}</p>'
-                  f'<h3>{e(c["h"])}</h3><p class="aud-pain">{e(c["pain"])}</p><p class="aud-change">{e(c["change"])}</p></div></article>')
+                  f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> {e(c["pain"])}</p><p class="aud-change">{e(c["change"])}</p></div></article>')
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>ROUND</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
     weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="trk" cx="12" cy="12" r="9"/><circle class="prg" cx="12" cy="12" r="9"/></svg></span><p class="wk-n"><span class="wk-num">{e(t["week_word"])} <span dir="ltr">{i}</span></span> <span class="wk-feel">{e(t["week_feel"][i - 1])}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
@@ -271,8 +271,9 @@ def home(t):
   <section class="sec for alt" id="for" aria-labelledby="for-h">
     {GRASS}
     <div class="wrap">
-      {tag(t, 'for')}<h2 class="h2" id="for-h">{e(t['for_h'])}</h2>
+      {tag(t, 'for')}<h2 class="h2" id="for-h">{hgold(t, 'for_h')}</h2>
       <div class="aud-grid">{cards}</div>
+      <div class="for-foot reveal">{btn(t, t['cta_trial'], 'btn btn-gold magnetic')}</div>
     </div>
   </section>
 

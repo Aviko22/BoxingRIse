@@ -557,3 +557,9 @@ html[dir="ltr"] .tag { transform-origin: left center; }
 .wk.on .wk-feel { color: var(--gold-deep); }
 .wk:last-child.on .wk-feel { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .wk-dot .prg { transition: none; } }
+
+/* "for you": the old way as a small grey line, the promise up front, then a button */
+.aud-pain { font-size: 14px; color: #8f897f; margin-top: 12px; }
+.aud-pain span { font-weight: 700; color: #a39c90; }
+.aud-change { font-size: 17px; color: var(--text); margin-top: 6px; }
+.for-foot { margin-top: clamp(28px, 4vw, 44px); display: flex; justify-content: center; }
