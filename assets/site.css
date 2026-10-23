@@ -629,3 +629,10 @@ html[dir="ltr"] .pain-list .pl { background-position: left 56%; }
   .hero { background: var(--black); }
 }
 @media (max-width: 999px) { .hero { min-height: 0; padding-top: calc(min(100vw, 62svh) - 64px); padding-bottom: 36px; } }
+
+/* phone v5: the new vertical park clip, shown as a tall 4:5 window so coach and trainee both sit above the words */
+@media (max-width: 999px) {
+  .hero-media { height: min(125vw, 58svh); }
+  .hero-video { object-position: 50% 74% !important; }
+  .hero { padding-top: calc(min(125vw, 58svh) - 64px); }
+}
