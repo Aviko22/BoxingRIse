@@ -643,16 +643,21 @@ video.card-img { height: 100%; }
 /* phone v6: the montage is cut to 4:5 shot by shot, so just centre it */
 @media (max-width: 999px) { .hero-video { object-position: 50% 50% !important; } }
 
-/* desktop v2: the montage fills the whole screen; the trainee sits left of centre, the words on the right over a dark fade */
+/* desktop v3: full-screen park video, coach and trainee on the right, words on the left over a dark fade */
 @media (min-width: 1000px) {
   .hero { min-height: 100svh; align-items: center; padding-block: 120px 80px; }
   .hero-media { inset: 0 !important; transform: none; width: auto; height: auto; aspect-ratio: auto; max-height: none; border-radius: 0; box-shadow: none; }
-  .hero-video { object-position: 40% 40% !important; }
-  .hero-media .hero-shade { background: linear-gradient(to left, rgba(11,10,8,.92) 0%, rgba(11,10,8,.7) 30%, rgba(11,10,8,0) 58%), linear-gradient(180deg, rgba(11,10,8,.5) 0%, rgba(11,10,8,0) 20%, rgba(11,10,8,0) 78%, var(--black) 100%) !important; }
-  .hero-inner { display: flex; flex-direction: column; align-items: flex-start; }
-  html[dir="ltr"] .hero-inner { align-items: flex-end; }
-  .hero-inner > *, .hero-inner > .h1 { max-width: 560px !important; }
-  html[dir="ltr"] .hero-inner > * { width: 560px; }
-  .hero .h1 { font-size: clamp(70px, 6vw, 112px); }
-  html[lang="en"] .hero .h1 { font-size: clamp(50px, 4.2vw, 78px); }
+  .hero-video { object-position: 100% 40% !important; }
+  .hero-media .hero-shade { background: linear-gradient(to right, rgba(11,10,8,.93) 0%, rgba(11,10,8,.72) 30%, rgba(11,10,8,0) 52%), linear-gradient(180deg, rgba(11,10,8,.5) 0%, rgba(11,10,8,0) 20%, rgba(11,10,8,0) 80%, var(--black) 100%) !important; }
+  .hero-inner { display: flex; flex-direction: column; align-items: flex-end; }
+  html[dir="ltr"] .hero-inner { align-items: flex-start; }
+  .hero-inner > *, .hero-inner > .h1 { max-width: 520px !important; width: 520px; }
+  .hero-cta, .trust { width: auto !important; }
+  .hero .h1 { font-size: clamp(66px, 5.6vw, 104px); }
+  html[lang="en"] .hero .h1 { font-size: clamp(48px, 4vw, 74px); }
+}
+@media (min-width: 1000px) {
+  .hero-inner > *, .hero-inner > .h1 { max-width: 420px !important; width: 420px; }
+  .hero .h1 { font-size: clamp(60px, 5vw, 92px); }
+  html[lang="en"] .hero .h1 { font-size: clamp(44px, 3.6vw, 66px); }
 }
