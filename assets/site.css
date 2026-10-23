@@ -619,4 +619,4 @@ html[dir="ltr"] .pain-list .pl { background-position: left 56%; }
 .pain-turn { background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .pain-cta { margin-top: 22px; }
 @media (prefers-reduced-motion: reduce) { .pain-list li.lit .pl { animation: none; color: #7a746a; } .pain-list .pl { transition: none; } .pain-turn.in { animation: none; } }
-@media (max-width: 999px) { .hero-video { object-position: 64% 30% !important; } }
+@media (max-width: 999px) { .hero-video { object-position: 84% 30% !important; } }

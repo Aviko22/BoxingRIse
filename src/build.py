@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "31"  # bump to bust caches of css/js
+VER = "32"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -226,13 +226,13 @@ def home(t):
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-media" aria-hidden="true">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-park.jpg"><source src="/media/hero-park.mp4" type="video/mp4"></video>
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-park.jpg?v=2"><source src="/media/hero-park.mp4?v=2" type="video/mp4"></video>
       <div class="hero-shade"></div>
       <div class="hero-fx"></div>
     </div>
     <div class="wrap hero-inner">
       <h1 class="h1" id="hero-h">{h1}</h1>
-      <p class="hero-sub">{e(t['hero_sub'])}</p>
+      <p class="hero-sub">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</p>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
       <div class="trust"><img class="trust-face" src="/media/opt/avi-face.webp" alt="" width="56" height="56"><div><p class="trust-name">{e(t['trust_name'])}</p><p class="trust-points">{' · '.join(e(x) for x in t['trust_points'])}</p></div></div>
     </div>
