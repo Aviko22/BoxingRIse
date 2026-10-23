@@ -131,8 +131,8 @@ HE = {
         ("ומה אם צריך לעצור באמצע?", "אפשר להקפיא את התוכנית פעם אחת, עד 4 שבועות. אם צריך להפסיק לגמרי, מקבלים החזר על האימונים שלא נוצלו, בניכוי דמי ביטול."),
     ],
 
-    "final_h": "מתי נוח לך לסיבוב הראשון?",
-    "final_sub": "בחרי יום ושעה, וההודעה לאבי כבר מוכנה.",
+    "final_h": "הצעד הכי קשה הוא ההודעה הראשונה. השאר עליי.",
+    "final_sub": "בחרי יום ושעה, וההודעה כבר מוכנה.",
     "pick_day": "יום", "pick_time": "שעה",
     "pick_days": ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי"],
     "pick_times": ["בוקר", "צהריים", "ערב"],
@@ -285,8 +285,8 @@ EN = {
         ("What if I need to stop midway?", "You can pause the program once, for up to 4 weeks. If you need to stop completely, you get a refund for unused sessions, minus a cancellation fee."),
     ],
 
-    "final_h": "When suits you for your first round?",
-    "final_sub": "Pick a day and a time, and your message to Avi is ready.",
+    "final_h": "The hardest step is the first message. Leave the rest to me.",
+    "final_sub": "Pick a day and a time, and your message is ready.",
     "pick_day": "Day", "pick_time": "Time",
     "pick_days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     "pick_times": ["morning", "afternoon", "evening"],

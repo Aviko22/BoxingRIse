@@ -684,3 +684,6 @@ html[lang="en"] .foot-line { font-size: clamp(24px, 2.4vw, 30px); }
   .foot-base { flex-direction: row; justify-content: space-between; align-items: center; }
 }
 @media (max-width: 999px) { .site-foot { padding-bottom: 88px; } }
+.final-h { font-size: clamp(46px, 8.4vw, 104px); max-width: 16ch; }
+html[lang="en"] .final-h { font-size: clamp(36px, 5.6vw, 72px); max-width: 20ch; }
+.final .tag { align-self: center; justify-self: center; }
