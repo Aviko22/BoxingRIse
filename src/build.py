@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "35"  # bump to bust caches of css/js
+VER = "36"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -47,15 +47,16 @@ def img(name, alt, cls="", sizes="(max-width: 760px) 100vw, 33vw", eager=False):
             f'<img class="{cls}" src="/media/{name}.jpg" alt="{e(alt)}" width="{w}" height="{h}" {load} decoding="async"></picture>')
 
 
-CLIPS = {"round-1": "technique", "round-2": "pads", "round-3": "power", "gallery-2": "confidence"}
+CLIPS = {"round-1": ("technique", 480, 600), "round-2": ("pads", 480, 600), "round-3": ("power", 480, 600),
+         "gallery-2": ("confidence", 480, 600), "gallery-4": ("fitness", 640, 480), "gallery-1": ("calm", 640, 480)}
 
 
 def media(name, alt, cls, sizes):
     """A short muted park clip where we have one, otherwise the photo."""
-    clip = CLIPS.get(name)
-    if not clip:
+    if name not in CLIPS:
         return img(name, alt, cls, sizes)
-    return (f'<video class="{cls} js-clip" muted loop playsinline preload="none" poster="/media/clip-{clip}.jpg" width="480" height="600" aria-label="{e(alt)}">'
+    clip, w, h = CLIPS[name]
+    return (f'<video class="{cls} js-clip" muted loop playsinline preload="none" poster="/media/clip-{clip}.jpg" width="{w}" height="{h}" aria-label="{e(alt)}">'
             f'<source src="/media/clip-{clip}.mp4" type="video/mp4"></video>')
 
 
