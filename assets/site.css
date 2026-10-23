@@ -639,3 +639,6 @@ html[dir="ltr"] .pain-list .pl { background-position: left 56%; }
 video.round-img, video.card-img { display: block; width: 100%; object-fit: cover; background: #15130d; }
 video.round-img { aspect-ratio: 4 / 5; border-radius: 6px; }
 video.card-img { height: 100%; }
+
+/* phone v6: the montage is cut to 4:5 shot by shot, so just centre it */
+@media (max-width: 999px) { .hero-video { object-position: 50% 50% !important; } }
