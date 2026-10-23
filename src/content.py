@@ -16,11 +16,11 @@ HE = {
     "new_tab": "(נפתח בוואטסאפ)",
 
     "hero_h1": ["לא צריך להיות לוחמת.", "צריך רק להתחיל."],
-    "hero_sub": "אימון אגרוף אישי לנשים. אחד על אחד, בפארק הירקון או בפארק ליד הבית, באזור המרכז.",
+    "hero_sub": "אימון אגרוף אישי לנשים, אחד על אחד בפארק.",
     "hero_note": "כפפות וכריות עליי. את מביאה רק את עצמך.",
 
-    "trust_name": "אבי (Aviko) אניחוביץ, המאמן שלך",
-    "trust_points": ["בלי התחייבות", "אפשר להגיע עם חברה", "תשובה באותו יום"],
+    "trust_name": "אבי, המאמן שלך",
+    "trust_points": ["בלי התחייבות"],
     "ask_text": "לא מצאת תשובה?",
     "ask_btn": "יש לי שאלה קודם",
     "pain_h": "מכירה את זה?",
@@ -169,11 +169,11 @@ EN = {
     "new_tab": "(opens WhatsApp)",
 
     "hero_h1": ["You don't have to be a fighter.", "You just have to start."],
-    "hero_sub": "Private boxing coaching for women. One on one, in Yarkon Park or a park near your home, in central Israel.",
+    "hero_sub": "Private boxing for women, one on one in the park.",
     "hero_note": "Gloves and pads are on me. Just bring yourself.",
 
-    "trust_name": "Avi (Aviko) Anihovich, your coach",
-    "trust_points": ["No commitment", "Bring a friend", "Same-day reply"],
+    "trust_name": "Avi, your coach",
+    "trust_points": ["No commitment"],
     "ask_text": "Didn't find your answer?",
     "ask_btn": "Ask me a question first",
     "pain_h": "Sound familiar?",
