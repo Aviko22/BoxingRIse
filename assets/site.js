@@ -51,6 +51,9 @@
   document.querySelectorAll('.js-print').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 
   /* ---------- Hero: words enter like a jab, one orchestrated moment ---------- */
+  /* wide screens get the wide poster frame */
+  var hv = document.querySelector('.hero-video');
+  if (hv && hv.dataset.posterWide && window.matchMedia('(min-width: 1000px)').matches) hv.poster = hv.dataset.posterWide;
   var hero = document.querySelector('.hero');
   if (hero) {
     hero.querySelectorAll('.h1 .w > span').forEach(function (s, i) { s.style.setProperty('--i', i); });

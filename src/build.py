@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "37"  # bump to bust caches of css/js
+VER = "39"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -239,7 +239,7 @@ def home(t):
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-media" aria-hidden="true">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-mont-m.jpg"><source src="/media/hero-mont-m.mp4" type="video/mp4" media="(max-width: 999px)"><source src="/media/hero-mont-d.mp4" type="video/mp4"></video>
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-mont-m.jpg" data-poster-wide="/media/hero-mont-w.jpg"><source src="/media/hero-mont-m.mp4" type="video/mp4" media="(max-width: 999px)"><source src="/media/hero-mont-w.mp4" type="video/mp4"></video>
       <div class="hero-shade"></div>
       <div class="hero-fx"></div>
     </div>
