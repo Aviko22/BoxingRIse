@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "34"  # bump to bust caches of css/js
+VER = "35"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -45,6 +45,18 @@ def img(name, alt, cls="", sizes="(max-width: 760px) 100vw, 33vw", eager=False):
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
     return (f'<picture><source type="image/webp" srcset="/media/opt/{name}-480.webp 480w, /media/opt/{name}-900.webp 900w" sizes="{sizes}">'
             f'<img class="{cls}" src="/media/{name}.jpg" alt="{e(alt)}" width="{w}" height="{h}" {load} decoding="async"></picture>')
+
+
+CLIPS = {"round-1": "technique", "round-2": "pads", "round-3": "power", "gallery-2": "confidence"}
+
+
+def media(name, alt, cls, sizes):
+    """A short muted park clip where we have one, otherwise the photo."""
+    clip = CLIPS.get(name)
+    if not clip:
+        return img(name, alt, cls, sizes)
+    return (f'<video class="{cls} js-clip" muted loop playsinline preload="none" poster="/media/clip-{clip}.jpg" width="480" height="600" aria-label="{e(alt)}">'
+            f'<source src="/media/clip-{clip}.mp4" type="video/mp4"></video>')
 
 
 def placeholder(t, desc):
@@ -195,11 +207,11 @@ def home(t):
     h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in line.split()) + "</span>" for line in t["hero_h1"])
     pains = "".join(f'<li><span class="pl">{e(p)}</span></li>' for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
-    rounds = "".join(f'<li class="round"><figure>{img(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<span class="rd-badge" dir="ltr" aria-hidden="true">{RING}<small>ROUND</small>{n}</span><figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
+    rounds = "".join(f'<li class="round"><figure>{media(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<span class="rd-badge" dir="ltr" aria-hidden="true">{RING}<small>ROUND</small>{n}</span><figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
     cards = ""
     for c in t["for"]:
-        media = img(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])
-        cards += (f'<article class="aud reveal"><div class="aud-media">{media}</div><div class="aud-body"><p class="aud-who">{e(c["who"])}</p>'
+        media_html = media(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])
+        cards += (f'<article class="aud reveal"><div class="aud-media">{media_html}</div><div class="aud-body"><p class="aud-who">{e(c["who"])}</p>'
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> {e(c["pain"])}</p><p class="aud-change">{e(c["change"])}</p></div></article>')
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>STEP</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])

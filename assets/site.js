@@ -101,6 +101,15 @@
     tagSecs.forEach(function (s) { tio.observe(s); });
   }
 
+  /* ---------- Park clips: play only while on screen ---------- */
+  var clips = document.querySelectorAll('.js-clip');
+  if (clips.length && !reduce && 'IntersectionObserver' in window) {
+    var cio2 = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { var v = x.target; if (x.isIntersecting) { if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); } var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); });
+    }, { rootMargin: '120px 0px' });
+    clips.forEach(function (v) { cio2.observe(v); });
+  }
+
   /* ---------- Counters ---------- */
   var nums = document.querySelectorAll('.num[data-count]');
   if (!reduce && 'IntersectionObserver' in window) {
