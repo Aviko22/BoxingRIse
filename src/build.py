@@ -13,7 +13,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "40"  # bump to bust caches of css/js
+VER = "41"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -122,16 +122,25 @@ def header(t, home):
 
 
 def footer(t):
-    links = "".join(f'<li><a href="{legal_url(t["lang"], s)}">{e(x)}</a></li>' for s, x in t["legal_nav"])
+    lang = t["lang"]
+    lab, href, name = t["lang_switch"]
+    links = "".join(f'<li><a href="{legal_url(lang, s)}">{e(x)}</a></li>' for s, x in t["legal_nav"])
+    root = "/" if lang == "he" else "/en"
+    nav = "".join(f'<li><a href="{root}{h}">{e(x)}</a></li>' for h, x in t["nav"])
+    h1 = t["hero_h1"]
     return f"""<footer class="site-foot">
-  <div class="wrap foot-grid">
-    <div>
+  <div class="wrap foot-top">
+    <div class="foot-brand">
       <img class="foot-logo" src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468" loading="lazy">
+      <p class="foot-line">{e(h1[0])} <span class="g">{e(h1[1])}</span></p>
       <p class="foot-tag">{e(t['footer_tag'])}</p>
     </div>
-    <nav aria-label="{'עמודים משפטיים' if t['lang']=='he' else 'Legal'}"><ul class="foot-links">{links}<li><button type="button" class="linklike js-cookie-settings">{e(t['cookie_settings'])}</button></li></ul></nav>
+    <nav class="foot-col" aria-label="{e(t['foot_nav_h'])}"><p class="foot-h">{e(t['foot_nav_h'])}</p><ul class="foot-nav">{nav}<li><a href="{href}" hreflang="{'en' if lang=='he' else 'he'}" lang="{'en' if lang=='he' else 'he'}">{e(name)}</a></li></ul></nav>
   </div>
-  <div class="wrap foot-base"><p>© <span class="js-year">2026</span> BoxingRise · {e('אבי אניחוביץ' if t['lang']=='he' else 'Avi Anihovich')} · {e(t['rights'])}</p></div>
+  <div class="wrap foot-base">
+    <nav aria-label="{e(t['foot_legal_h'])}"><ul class="foot-legal">{links}<li><button type="button" class="linklike js-cookie-settings">{e(t['cookie_settings'])}</button></li></ul></nav>
+    <p>© <span class="js-year">2026</span> BoxingRise · {e('אבי אניחוביץ' if lang=='he' else 'Avi Anihovich')}</p>
+  </div>
 </footer>
 <div class="cookie" id="cookie" role="region" aria-label="{'עוגיות' if t['lang']=='he' else 'Cookies'}" hidden>
   <p>{e(t['cookie_text'])} <a href="{legal_url(t['lang'], 'privacy')}">{e(t['cookie_more'])}</a></p>

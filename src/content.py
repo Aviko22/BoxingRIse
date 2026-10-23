@@ -140,7 +140,8 @@ HE = {
     "pick_preview": "ההודעה שתישלח:",
     "final_note": "בלי התחייבות · תשובה באותו יום",
 
-    "footer_tag": "אימון אגרוף אישי לנשים · פארק הירקון והמרכז",
+    "footer_tag": "אימון אגרוף אישי לנשים, אחד על אחד, בפארקים בתל אביב והמרכז.",
+    "foot_nav_h": "באתר", "foot_legal_h": "מידע",
     "legal_nav": [("privacy", "מדיניות פרטיות"), ("terms", "תנאי שימוש"), ("cancellation", "ביטולים והחזרים"),
                   ("health", "הצהרת בריאות"), ("accessibility", "הצהרת נגישות")],
     "cookie_settings": "הגדרות עוגיות",
@@ -293,7 +294,8 @@ EN = {
     "pick_preview": "Your message:",
     "final_note": "No commitment · Same-day reply",
 
-    "footer_tag": "Private boxing coaching for women · Yarkon Park and central Israel",
+    "footer_tag": "Private boxing for women, one on one, in parks across Tel Aviv and central Israel.",
+    "foot_nav_h": "On the site", "foot_legal_h": "Info",
     "legal_nav": [("privacy", "Privacy policy"), ("terms", "Terms of use"), ("cancellation", "Cancellations and refunds"),
                   ("health", "Health declaration"), ("accessibility", "Accessibility statement")],
     "cookie_settings": "Cookie settings",

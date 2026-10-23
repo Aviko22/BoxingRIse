@@ -661,3 +661,26 @@ video.card-img { height: 100%; }
   .hero .h1 { font-size: clamp(60px, 5vw, 92px); }
   html[lang="en"] .hero .h1 { font-size: clamp(44px, 3.6vw, 66px); }
 }
+
+/* footer in the brand language */
+.site-foot { position: relative; border-top: 0; padding-top: 56px; background: radial-gradient(70% 220px at 85% 0%, rgba(240, 198, 116, .08), transparent 70%), var(--black); }
+.site-foot::before { content: ""; position: absolute; top: 0; left: var(--pad); right: var(--pad); border-top: 1.5px dashed var(--stitch); }
+.foot-top { display: grid; gap: 36px; }
+.foot-logo { height: 38px; width: auto; }
+.foot-line { margin-top: 18px; font-family: var(--display); font-size: clamp(30px, 3.4vw, 40px); line-height: 1; color: var(--white); }
+html[lang="en"] .foot-line { font-size: clamp(24px, 2.4vw, 30px); }
+.foot-line .g { background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.foot-tag { margin-top: 12px; color: var(--ash); font-size: 15px; max-width: 30em; }
+.foot-h { font-size: 13px; font-weight: 700; color: var(--gold); letter-spacing: .04em; margin-bottom: 10px; }
+.foot-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; }
+.foot-nav a { display: inline-flex; align-items: center; min-height: 40px; color: var(--text); text-decoration: none; font-size: 16px; }
+.foot-nav a:hover { color: var(--gold-hi); }
+.foot-base { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; font-size: 13px; color: #8f897f; }
+.foot-legal { display: flex; flex-wrap: wrap; gap: 0 16px; }
+.foot-legal a, .foot-legal .linklike { display: inline-flex; align-items: center; min-height: 36px; color: #a39c90; text-decoration: none; font-size: 13px; }
+.foot-legal a:hover, .foot-legal .linklike:hover { color: var(--text); text-decoration: underline; }
+@media (min-width: 760px) {
+  .foot-top { grid-template-columns: 1.4fr 1fr; align-items: start; }
+  .foot-base { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+@media (max-width: 999px) { .site-foot { padding-bottom: 88px; } }
