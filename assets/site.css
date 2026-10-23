@@ -619,4 +619,13 @@ html[dir="ltr"] .pain-list .pl { background-position: left 56%; }
 .pain-turn { background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .pain-cta { margin-top: 22px; }
 @media (prefers-reduced-motion: reduce) { .pain-list li.lit .pl { animation: none; color: #7a746a; } .pain-list .pl { transition: none; } .pain-turn.in { animation: none; } }
-@media (max-width: 999px) { .hero-video { object-position: 84% 30% !important; } }
+
+/* phone v4: the park clip is square, so show all of it at the top (coach and trainee both in frame) and let it fade into the page */
+@media (max-width: 999px) {
+  .hero-media { inset: 0 0 auto 0; height: min(100vw, 62svh); }
+  .hero-video { object-position: 50% 45% !important; }
+  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.45) 0%, rgba(11,10,8,0) 18%, rgba(11,10,8,0) 62%, var(--black) 100%) !important; }
+  .hero-media::after { background: radial-gradient(70% 40% at 80% 0%, rgba(240, 198, 116, .28), transparent 70%); }
+  .hero { background: var(--black); }
+}
+@media (max-width: 999px) { .hero { min-height: 0; padding-top: calc(min(100vw, 62svh) - 64px); padding-bottom: 36px; } }
