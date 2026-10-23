@@ -677,7 +677,7 @@ html[lang="en"] .foot-line { font-size: clamp(24px, 2.4vw, 30px); }
 .foot-nav a:hover { color: var(--gold-hi); }
 .foot-base { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; font-size: 13px; color: #8f897f; }
 .foot-legal { display: flex; flex-wrap: wrap; gap: 0 16px; }
-.foot-legal a, .foot-legal .linklike { display: inline-flex; align-items: center; min-height: 36px; color: #a39c90; text-decoration: none; font-size: 13px; }
+.foot-legal a, .foot-legal .linklike { display: inline-flex; align-items: center; min-height: 44px; color: #a39c90; text-decoration: none; font-size: 13px; }
 .foot-legal a:hover, .foot-legal .linklike:hover { color: var(--text); text-decoration: underline; }
 @media (min-width: 760px) {
   .foot-top { grid-template-columns: 1.4fr 1fr; align-items: start; }
