@@ -1,3 +1,4 @@
+import re
 # -*- coding: utf-8 -*-
 """Static site generator for BoxingRise. Run from the repo root: python3 src/build.py
 Writes index.html, en/index.html, the legal pages in both languages, config.js, sitemap.xml and robots.txt."""
@@ -13,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "43"  # bump to bust caches of css/js
+VER = "44"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -242,6 +243,8 @@ def home(t):
         f'<div class="qa-a"><span class="qa-bar" aria-hidden="true"></span><p>{e(a)}</p>'
         + (f'<a class="qa-cta js-wa" href="{wa_href(t["lang"])}" target="_blank" rel="noopener">{e(t["faq_cta"])} <span aria-hidden="true">{faq_arrow}</span><span class="sr-only"> {e(t["new_tab"])}</span></a>' if i in t["faq_cta_at"] else "")
         + '</div></details>' for i, (q, a) in enumerate(t["faq"]))
+    faq_items = re.findall(r'<details class="qa">.*?</details>', faq, flags=re.S)
+    faq_top, faq_rest = "".join(faq_items[:t["faq_top"]]), "".join(faq_items[t["faq_top"]:])
     trial_line = f'<p class="trial-line"><span>{"אימון ניסיון" if lang=="he" else "Trial session"}</span> <b dir="ltr">49 ₪</b> <span>{e(" ".join(t["instead_of"].split()[:-2]))}</span> <s>{e(" ".join(t["instead_of"].split()[-2:]))}</s></p>'
 
     return head(t, t["title"], t["description"], path, alt, CFG["noindex"]) + schema(t, path) + "\n</head>\n<body class=\"home\">\n" + header(t, True) + f"""
@@ -329,7 +332,7 @@ def home(t):
     {GRASS}
     <div class="wrap narrow">
       {tag(t, 'faq')}<h2 class="h2" id="faq-h">{hgold(t, 'faq_h')}</h2>
-      <div class="qa-list">{faq}</div>
+      <div class="qa-list">{faq_top}<details class="faq-more"><summary><span>{e(t['faq_more'].format(n=len(t['faq']) - t['faq_top']))}</span><span class="qa-x" aria-hidden="true"></span></summary>{faq_rest}</details></div>
       <div class="ask"><p>{e(t['ask_text'])}</p><a class="btn btn-line js-wa-q" href="{wa_href(t['lang'], True)}" target="_blank" rel="noopener"><span>{e(t['ask_btn'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
   </section>

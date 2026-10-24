@@ -698,3 +698,11 @@ html[lang="en"] .final-h { font-size: clamp(36px, 5.6vw, 72px); max-width: 20ch;
   html[lang="en"] .hero .h1 { font-size: clamp(42px, 4.4vw, 56px); }
   .trust { justify-content: center; }
 }
+
+/* FAQ: the six worries up front, the practical questions folded away */
+.faq-more { border-bottom: 1px solid var(--line); }
+.faq-more > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; padding-block: 12px; cursor: pointer; color: var(--gold-hi); font-weight: 600; font-size: 16px; }
+.faq-more > summary::-webkit-details-marker { display: none; }
+.faq-more[open] > summary { color: var(--ash); }
+.faq-more[open] > summary .qa-x::after { transform: rotate(0); }
+.faq-more > .qa:last-child { border-bottom: 0; }
