@@ -706,3 +706,8 @@ html[lang="en"] .final-h { font-size: clamp(36px, 5.6vw, 72px); max-width: 20ch;
 .faq-more[open] > summary { color: var(--ash); }
 .faq-more[open] > summary .qa-x::after { transform: rotate(0); }
 .faq-more > .qa:last-child { border-bottom: 0; }
+
+/* program: the title and numbers follow you down the weeks on wide screens; the price is a quiet note, the button is the main gold one */
+@media (min-width: 1000px) { .program .split > div:first-child { position: sticky; top: 110px; } }
+.prog-price { font-family: var(--body); font-size: 17px; line-height: 1.5; font-weight: 600; color: #4a453c; }
+html[lang="en"] .prog-price { font-size: 17px; }

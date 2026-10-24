@@ -68,7 +68,7 @@ HE = {
     "trial_why": "למה 49 ₪ ולא חינם? כי סכום סמלי שומר על רצינות, משני הצדדים.",
 
     "prog_h": "BoxingRise 8",
-    "prog_lead": "תוכנית הדגל. שמונה שבועות, שני אימונים בשבוע. כל שבוע מתמקד ביסוד אחר, ובסוף יש לך בסיס של לוחמת.",
+    "prog_lead": "שמונה שבועות, שני אימונים בשבוע. כל שבוע מתמקד ביסוד אחר, ובסוף יש לך בסיס של לוחמת.",
     "prog_facts": [("8", "שבועות"), ("16", "אימונים"), ("2", "בשבוע")],
     "weeks": [
         ("עמידה ותנועה", "עמידה, שמירה ותנועת רגליים. הבסיס לכל מה שבא אחר כך."),
@@ -222,7 +222,7 @@ EN = {
     "trial_why": "Why 49 ₪ and not free? A small fee keeps it serious, on both sides.",
 
     "prog_h": "BoxingRise 8",
-    "prog_lead": "The flagship program. Eight weeks, two sessions a week. Each week builds a different fundamental, and you finish with a fighter's foundation.",
+    "prog_lead": "Eight weeks, two sessions a week. Each week builds a different fundamental, and you finish with a fighter's foundation.",
     "prog_facts": [("8", "weeks"), ("16", "sessions"), ("2", "per week")],
     "weeks": [
         ("Stance and movement", "Stance, guard and footwork. The base for everything that follows."),

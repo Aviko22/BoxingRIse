@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "44"  # bump to bust caches of css/js
+VER = "45"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -323,7 +323,7 @@ def home(t):
         <div class="timeline-wrap"><ol class="timeline" style="--fill:0">{weeks}</ol></div>
       </div>
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
-      <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['cta_trial'], 'btn btn-dark magnetic')}</div>
+      <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['cta_trial'], 'btn btn-gold magnetic')}</div>
     </div>
   </section>
 
