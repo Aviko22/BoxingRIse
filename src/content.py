@@ -96,7 +96,7 @@ HE = {
         "אני עובד עם מתחילות, בקצב שלהן, עם הסבר לכל תנועה. בלי צעקות, בלי לחץ, ועם הרבה סבלנות.",
     ],
     "about_creds": ["10 שנים מואי תאי", "5 שנים אגרוף קלאסי", "חגורה שחורה, ג׳ו־ג׳יטסו יפני", "הכשרה בישראל ובתאילנד"],
-    "about_alt": "אבי אניחוביץ, מאמן האגרוף של BoxingRise, באולם אגרוף",
+    "about_alt": "אבי אניחוביץ, מאמן האגרוף של BoxingRise, באימון בחוץ",
 
     "reviews": [
         ("ויקטוריה", "הגעתי בלי שום רקע ובלי ביטחון, וכבר באימון הראשון אבי גרם לי להרגיש הכי בנוח בעולם – יצאתי ממנו עוצמתית, משוחררת ועם טעם של עוד!"),
@@ -250,7 +250,7 @@ EN = {
         "I work with beginners, at their pace, explaining every move. No shouting, no pressure, and a lot of patience.",
     ],
     "about_creds": ["10 years of Muay Thai", "5 years of classic boxing", "Black belt, Japanese jujutsu", "Trained in Israel and Thailand"],
-    "about_alt": "Avi Anihovich, BoxingRise boxing coach, in a boxing gym",
+    "about_alt": "Avi Anihovich, BoxingRise boxing coach, training outdoors",
 
     "reviews": [
         ("Victoria", "I came with no background and no confidence, and from the very first session Avi made me feel completely at ease. I walked out feeling powerful, free, and wanting more!"),
