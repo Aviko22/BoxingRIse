@@ -3,9 +3,9 @@
 
 HE = {
     "lang": "he", "dir": "rtl", "locale": "he_IL",
-    "title": "BoxingRise | אימון אגרוף אישי אחד על אחד",
-    "description": "אימון אגרוף אישי לנשים, אחד על אחד, 60 דקות בפארק הירקון או בפארק ליד הבית, באזור המרכז. אימון ניסיון ב־49 ₪.",
-    "og_description": "אימון אגרוף אישי לנשים, אחד על אחד, בפארק. אימון ניסיון ב־49 ₪.",
+    "title": "אימון אגרוף לנשים בתל אביב | אימון אישי בפארק | BoxingRise",
+    "description": "אימון אגרוף אישי לנשים, אחד על אחד, בפארקים בתל אביב והמרכז. בלי ניסיון ובלי התחייבות. אימון ניסיון ב־49 ₪.",
+    "og_description": "אימון אגרוף אישי לנשים, אחד על אחד, בפארקים בתל אביב והמרכז. אימון ניסיון ב־49 ₪.",
     "skip": "דילוג לתוכן",
     "nav": [("#about", "מי אני"), ("#what", "האימון"), ("#for", "בשבילך"), ("#program", "BoxingRise 8"), ("#faq", "שאלות")],
     "lang_switch": ("EN", "/en", "English"),
@@ -157,9 +157,9 @@ HE = {
 
 EN = {
     "lang": "en", "dir": "ltr", "locale": "en_US",
-    "title": "BoxingRise | One-on-one boxing coaching for women in Tel Aviv",
-    "description": "Private one-on-one boxing for women, 60 minutes in Yarkon Park or a park near you in central Israel. For women. Trial session 49 ILS.",
-    "og_description": "Private one-on-one boxing for women, in the park. Trial session 49 ILS.",
+    "title": "Boxing for Women in Tel Aviv | Private Training in the Park | BoxingRise",
+    "description": "Private one-on-one boxing for women in parks across Tel Aviv and central Israel. No experience, no commitment. Trial session 49 ILS.",
+    "og_description": "Private one-on-one boxing for women in parks across Tel Aviv. Trial session 49 ILS.",
     "skip": "Skip to content",
     "nav": [("#about", "About"), ("#what", "The session"), ("#for", "For you"), ("#program", "BoxingRise 8"), ("#faq", "FAQ")],
     "lang_switch": ("עב", "/", "עברית"),
