@@ -687,3 +687,14 @@ html[lang="en"] .foot-line { font-size: clamp(24px, 2.4vw, 30px); }
 .final-h { font-size: clamp(46px, 8.4vw, 104px); max-width: 16ch; }
 html[lang="en"] .final-h { font-size: clamp(36px, 5.6vw, 72px); max-width: 20ch; }
 .final .tag { align-self: center; justify-self: center; }
+/* small desktops and landscape tablets (1000–1279px): too narrow for words beside the people, so the words sit low and centred */
+@media (min-width: 1000px) and (max-width: 1279px) {
+  .hero { align-items: flex-end; padding-bottom: 56px; }
+  .hero-video { object-position: 75% 30% !important; }
+  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.5) 0%, rgba(11,10,8,0) 18%, rgba(11,10,8,0) 42%, rgba(11,10,8,.8) 66%, var(--black) 100%) !important; }
+  .hero-inner, html[dir="ltr"] .hero-inner { align-items: center; text-align: center; }
+  .hero-inner > *, .hero-inner > .h1 { width: auto; max-width: 760px !important; }
+  .hero .h1 { font-size: clamp(56px, 6vw, 76px); }
+  html[lang="en"] .hero .h1 { font-size: clamp(42px, 4.4vw, 56px); }
+  .trust { justify-content: center; }
+}
