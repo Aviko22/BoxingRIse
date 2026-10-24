@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "49"  # bump to bust caches of css/js
+VER = "50"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -57,8 +57,8 @@ def media(name, alt, cls, sizes):
     if name not in CLIPS:
         return img(name, alt, cls, sizes)
     clip, w, h = CLIPS[name]
-    return (f'<video class="{cls} js-clip" muted loop playsinline preload="none" poster="/media/clip-{clip}.jpg" width="{w}" height="{h}" aria-label="{e(alt)}">'
-            f'<source src="/media/clip-{clip}.mp4" type="video/mp4"></video>')
+    return (f'<video class="{cls} js-clip" muted loop playsinline preload="none" poster="/media/clip-{clip}.jpg?v={VER}" width="{w}" height="{h}" aria-label="{e(alt)}">'
+            f'<source src="/media/clip-{clip}.mp4?v={VER}" type="video/mp4"></video>')
 
 
 def placeholder(t, desc):
@@ -251,7 +251,7 @@ def home(t):
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-media" aria-hidden="true">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-mont-m.jpg" data-poster-wide="/media/hero-mont-w.jpg"><source src="/media/hero-mont-m.mp4" type="video/mp4" media="(max-width: 999px)"><source src="/media/hero-mont-w.mp4" type="video/mp4"></video>
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-mont-m.jpg?v={VER}" data-poster-wide="/media/hero-mont-w.jpg?v={VER}"><source src="/media/hero-mont-m.mp4?v={VER}" type="video/mp4" media="(max-width: 999px)"><source src="/media/hero-mont-w.mp4?v={VER}" type="video/mp4"></video>
       <div class="hero-shade"></div>
       <div class="hero-fx"></div>
     </div>
