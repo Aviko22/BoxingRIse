@@ -734,3 +734,13 @@ h1.hero-sub { font-family: var(--body); font-weight: 400; line-height: 1.5; }
   html[lang="en"] .hero .h1 { font-size: clamp(42px, 3.8vw, 70px); }
 }
 @media (min-width: 1000px) and (max-width: 1279px) { .hero { align-items: center; padding-bottom: 80px; } .hero-media { width: 58% !important; } .hero-inner > *, .hero-inner > .h1 { width: 42% !important; } }
+
+/* reviews: each trainee's photo and name first, then her words */
+.rv { display: flex; flex-direction: column; gap: 14px; padding-top: 22px; }
+.rv::before { display: none; }
+.rv figcaption { order: -1; margin: 0; flex-direction: row; align-items: center; gap: 14px; }
+.rv-photo { flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--gold), 0 0 0 6px rgba(212,173,87,.15); }
+.rv-initial { display: grid; place-items: center; background: #221f18; font-family: var(--display); font-size: 32px; color: var(--gold-hi); }
+.rv-who { display: flex; flex-direction: column; gap: 2px; }
+.rv blockquote { margin-top: 0; }
+.rv figcaption .rv-initial { font-size: 34px; color: var(--gold-hi); font-weight: 700; line-height: 1; }

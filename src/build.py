@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "51"  # bump to bust caches of css/js
+VER = "52"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -183,8 +183,8 @@ def schema(t, path):
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
 
 
-GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 1, "for_h": 2, "pain_h": 0, "about_h": 0},
-             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 2, "pain_h": 0, "about_h": 0}}
+GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0},
+             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 4, "for_h": 2, "pain_h": 0, "about_h": 0}}
 
 
 def hgold(t, key):
@@ -234,7 +234,10 @@ def home(t):
         def rv(k, name, txt):
             hl = t["review_hl"][k]
             body = e(txt).replace(e(hl), f'<mark class="rv-hl">{e(hl)}</mark>', 1)
-            return f'<figure class="rv"><blockquote><p>{body}</p></blockquote><figcaption><b>{e(name)}</b><span>{e(t["review_sub"][k])}</span></figcaption></figure>'
+            slug = t["review_photo"][k]
+            photo = (f'<img class="rv-photo" src="/media/review-{slug}.jpg?v={VER}" alt="{e(name)}" width="96" height="96" loading="lazy">'
+                     if (ROOT / "media" / f"review-{slug}.jpg").exists() else f'<span class="rv-photo rv-initial" aria-hidden="true">{e(name[0])}</span>')
+            return f'<figure class="rv"><figcaption>{photo}<span class="rv-who"><b>{e(name)}</b><span>{e(t["review_sub"][k])}</span></span></figcaption><blockquote><p>{body}</p></blockquote></figure>'
         q = "".join(rv(k, name, txt) for k, (name, txt) in enumerate(t["reviews"]))
         reviews = f'<section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap">{tag(t, "reviews")}<h2 class="h2" id="rv-h">{hgold(t, "reviews_h")}</h2><div class="rv-grid">{q}</div><div class="rv-foot reveal"><p>{e(t["reviews_cta"])}</p>{btn(t, t["cta_trial"], "btn btn-gold magnetic")}</div></div></section>'
     faq_arrow = "←" if t["lang"] == "he" else "→"
