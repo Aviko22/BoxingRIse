@@ -45,7 +45,7 @@ HE = {
     "for_h": "מה תקבלי מהשעה הזו?",
     "pain_prefix": "במקום:",
     "for": [
-        {"who": "ביטחון", "h": "ביטחון שהולך איתך הביתה.",
+        {"who": "ביטחון", "h": "ביטחון שנשאר איתך.",
          "pain": "חדר כושר מלא, מבטים, השוואות.",
          "change": "רק את והמאמן, בקצב שלך. לומדת לעמוד יציב ולהגן על עצמך, והגוף זוכר את זה גם ברחוב.",
          "img": "gallery-2", "alt": "מתאמנת בשמירה אחרי ג׳אב"},
@@ -199,7 +199,7 @@ EN = {
     "for_h": "What you get from this hour.",
     "pain_prefix": "Instead of:",
     "for": [
-        {"who": "Confidence", "h": "Confidence that goes home with you.",
+        {"who": "Confidence", "h": "Confidence that stays with you.",
          "pain": "A crowded gym, the looks, the comparisons.",
          "change": "Just you and the coach, at your pace. You learn to stand steady and protect yourself, and your body remembers it on the street too.",
          "img": "gallery-2", "alt": "A trainee holding her guard after a jab"},

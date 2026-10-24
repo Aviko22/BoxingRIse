@@ -711,3 +711,4 @@ html[lang="en"] .final-h { font-size: clamp(36px, 5.6vw, 72px); max-width: 20ch;
 @media (min-width: 1000px) { .program .split > div:first-child { position: sticky; top: 110px; } }
 .prog-price { font-family: var(--body); font-size: 17px; line-height: 1.5; font-weight: 600; color: #4a453c; }
 html[lang="en"] .prog-price { font-size: 17px; }
+.aud h3 { margin-top: 0; }
