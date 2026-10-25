@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "76"  # bump to bust caches of css/js
+VER = "77"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -305,15 +305,14 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec for alt fb1" id="for" aria-labelledby="for-h">
+  <section class="sec for alt fb6" id="for" aria-labelledby="for-h">
     {GRASS}
     <div class="wrap">
       {tag(t, 'for')}<h2 class="h2" id="for-h">{hgold(t, 'for_h')}</h2>
-      <div class="aud-grid">{cards}</div>{('<div class="mv-sw" role="group" aria-label="הנפשה">' + "".join(f'<button type="button" data-fa="{i}">{i}</button>' for i in range(1, 7)) + '</div>') if CFG.get("noindex") else ""}
+      <div class="aud-grid">{cards}</div>
     </div>
   </section>
 
-  {battery(t)}
   {reviews}
 
   <section class="sec about alt" id="about" aria-labelledby="about-h">
