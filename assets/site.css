@@ -745,3 +745,23 @@ h1.hero-sub { font-family: var(--body); font-weight: 400; line-height: 1.5; }
 .rv blockquote { margin-top: 0; }
 .rv figcaption .rv-initial { font-size: 34px; color: var(--gold-hi); font-weight: 700; line-height: 1; }
 .rv-photo { width: 76px; height: 76px; }
+
+/* reviews: the three trainees come in one after another, photo pops, her key line gets a gold marker */
+.js .reviews .rv { opacity: 0; transform: translateY(22px); }
+.js .reviews.tag-in .rv { animation: rv-in .7s var(--ease) both; }
+.js .reviews.tag-in .rv:nth-child(2) { animation-delay: .35s; }
+.js .reviews.tag-in .rv:nth-child(3) { animation-delay: .7s; }
+@keyframes rv-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+.js .reviews .rv-photo { transform: scale(.6); opacity: 0; }
+.js .reviews.tag-in .rv-photo { animation: rv-pop .6s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: inherit; }
+.js .reviews.tag-in .rv:nth-child(1) .rv-photo { animation-delay: .25s; }
+.js .reviews.tag-in .rv:nth-child(2) .rv-photo { animation-delay: .6s; }
+.js .reviews.tag-in .rv:nth-child(3) .rv-photo { animation-delay: .95s; }
+@keyframes rv-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+.rv-hl { background: linear-gradient(transparent 62%, rgba(212, 173, 87, .28) 62%) no-repeat right / 0% 100%; transition: background-size 1s var(--ease); }
+html[dir="ltr"] .rv-hl { background-position: left; }
+.reviews.tag-in .rv-hl { background-size: 100% 100%; }
+.reviews.tag-in .rv:nth-child(1) .rv-hl { transition-delay: .7s; }
+.reviews.tag-in .rv:nth-child(2) .rv-hl { transition-delay: 1.05s; }
+.reviews.tag-in .rv:nth-child(3) .rv-hl { transition-delay: 1.4s; }
+@media (prefers-reduced-motion: reduce) { .js .reviews .rv, .js .reviews .rv-photo { opacity: 1 !important; transform: none !important; animation: none !important; } .rv-hl { background-size: 100% 100%; transition: none; } }
