@@ -46,9 +46,9 @@ HE = {
     "hour": [("חימום", 10), ("טכניקה", 15), ("כריות", 20), ("כוח וכושר", 10), ("שחרור", 5)],
     "hour_note": "חימום ושחרור בתחילת ובסוף כל אימון. באמצע, שלושת החלקים שבסרטונים:",
     "rounds": [
-        ("round-1", "טכניקה", "עמידה, שמירה ומכה נכונה. בקצב שלך, עם תיקון בזמן אמת.", "מתאמנת בעמידת אגרוף מול המאמן"),
-        ("round-2", "כריות", "מחברים מכות לקומבינציות מול המאמן, והגוף מתחיל לזרום.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
-        ("round-3", "כוח וכושר", "סבב קצר ועצים, כשאת כבר מוכנה לזה.", "סיום אימון בעצימות גבוהה על הכריות"),
+        ("round-1", "טכניקה", "עומדים זה מול זה בשמירה: איך לעמוד, איפה הידיים ואיך לזוז. בקצב שלך, עם תיקון בזמן אמת.", "המתאמנת והמאמן עומדים זה מול זה בעמידת אגרוף"),
+        ("round-2", "כריות", "מכות לכריות שהמאמן מחזיק, ומחברים אותן לקומבינציות. כאן זה מתחיל להרגיש כמו אגרוף.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
+        ("round-3", "כוח וכושר", "סדרות מהירות על הכריות, מכה אחרי מכה. כאן הדופק עולה והגוף עובד.", "סדרת מכות מהירה על הכריות"),
     ],
 
     "for_h": "מה תקבלי מהשעה הזו?",
@@ -211,9 +211,9 @@ EN = {
     "hour": [("Warm-up", 10), ("Technique", 15), ("Pads", 20), ("Strength & fitness", 10), ("Cool-down", 5)],
     "hour_note": "Every session opens with a warm-up and ends with a cool-down. In between, the three parts in the videos:",
     "rounds": [
-        ("round-1", "Technique", "Stance, guard and the right punch. At your pace, corrected in real time.", "A trainee in boxing stance facing the coach"),
-        ("round-2", "Pads", "Punches become combinations on the pads, and your body starts to flow.", "Pad work: the trainee punches while the coach holds pads"),
-        ("round-3", "Strength & fitness", "A short, high-intensity finisher, once you're ready for it.", "High-intensity finish on the pads"),
+        ("round-1", "Technique", "Face to face in guard: how to stand, where your hands go, how to move. At your pace, corrected in real time.", "The trainee and coach facing each other in boxing stance"),
+        ("round-2", "Pads", "Punches into the pads I hold, built into combinations. This is where it starts to feel like boxing.", "Pad work: the trainee punches, the coach holds the pads"),
+        ("round-3", "Strength & fitness", "Fast sets on the pads, punch after punch. Your heart rate goes up and your whole body works.", "A fast punching set on the pads"),
     ],
 
     "for_h": "What you get from this hour.",
