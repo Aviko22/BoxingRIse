@@ -832,3 +832,24 @@ html[dir="ltr"] .vc-in { transform: translateX(-16px); }
 .mv.a4.in .mv-turn { animation: mv-shine 1.8s ease 1.6s both; }
 @keyframes mv-shine { to { background-position: -50% 0; } }
 @media (prefers-reduced-motion: reduce) { .mv .mv-l, .mv .mv-turn { animation: none !important; filter: none !important; } }
+
+/* the hour, at a glance: 60 minutes split by stage */
+.hour { list-style: none; margin: 0 0 18px; padding: 0; display: grid; grid-template-columns: repeat(5, auto); grid-template-columns: 10fr 15fr 20fr 10fr 5fr; column-gap: 4px; }
+.hour li { min-width: 0; }
+.hour i { display: block; height: 10px; border-radius: 3px; background: #3a352c; transform: scaleX(0); transform-origin: right; transition: transform .7s var(--ease); }
+html[dir="ltr"] .hour i { transform-origin: left; }
+.hour li.hl i { background: var(--metal); }
+.what.tag-in .hour i, html:not(.js) .hour i { transform: none; }
+.what.tag-in .hour li:nth-child(2) i { transition-delay: .15s; } .what.tag-in .hour li:nth-child(3) i { transition-delay: .3s; } .what.tag-in .hour li:nth-child(4) i { transition-delay: .45s; } .what.tag-in .hour li:nth-child(5) i { transition-delay: .6s; }
+.hour b { display: block; margin-top: 10px; font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.2; }
+.hour li:not(.hl) b { color: var(--ash); }
+.hour span { display: block; font-size: 13px; color: var(--gold); margin-top: 2px; text-align: start; }
+.hour-note { margin: 0 0 20px; color: var(--ash); font-size: 16px; }
+.what.tag-in .rd-badge .prg, html:not(.js) .rd-badge .prg { stroke-dashoffset: var(--off, 0); }
+@media (max-width: 640px) {
+  .hour { grid-template-columns: 1fr; row-gap: 8px; }
+  .hour li { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; column-gap: 12px; align-items: baseline; }
+  .hour i { grid-column: 1 / -1; grid-row: 2; width: calc(var(--m) / 20 * 100%); height: 8px; margin-top: 6px; }
+  .hour b { margin: 0; grid-row: 1; } .hour span { grid-row: 1; margin: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .hour i { transition: none; transform: none; } }

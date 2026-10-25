@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "65"  # bump to bust caches of css/js
+VER = "66"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -246,7 +246,7 @@ def home(t):
     h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in line.split()) + "</span>" for line in t["hero_h1"])
     pains = "".join(f'<li><span class="pl">{e(p)}</span></li>' for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
-    rounds = "".join(f'<li class="round"><figure>{media(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<span class="rd-badge" dir="ltr" aria-hidden="true">{RING}<small>ROUND</small>{n}</span><figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
+    rounds = "".join(f'<li class="round"><figure>{media(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<span class="rd-badge" dir="ltr" aria-hidden="true" style="--off:{176 - 176 * t['hour'][n][1] // 60}">{RING}<small>MIN</small>{t['hour'][n][1]}</span><figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
     cards = ""
     for c in t["for"]:
         media_html = media(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])
@@ -300,6 +300,8 @@ def home(t):
         <div><p class="lead">{e(t['what_lead'])}</p><dl class="facts reveal">{facts}</dl></div>
       </div>
       <h3 class="h3 rounds-h">{e(t['rounds_h'])}</h3>
+      <ol class="hour" aria-label="{e(t['rounds_h'])}">{"".join(f'<li style="--m:{m}"{" class=hl" if 0 < k < 4 else ""}><i></i><b>{e(n)}</b><span>{m} {e(t["hour_min"])}</span></li>' for k, (n, m) in enumerate(t["hour"]))}</ol>
+      <p class="hour-note">{e(t['hour_note'])}</p>
       <ol class="rounds" tabindex="0" aria-label="{e(t['rounds_h'])}">{rounds}</ol>
     </div>
   </section>

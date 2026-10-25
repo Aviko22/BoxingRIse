@@ -40,12 +40,15 @@ HE = {
 
     "what_h": "אגרוף אמיתי. רק את והמאמן.",
     "what_lead": "אגרוף קלאסי, כמו שמתאמנים בו באמת: עבודה על כריות, תנועת רגליים ושמירה. כל אימון נבנה במיוחד בשבילך, לפי הרמה והקצב שלך.",
-    "what_facts": [("1:1", "אישי לגמרי"), ("60", "דקות לאימון"), ("3", "סיבובים לאימון")],
+    "what_facts": [("1:1", "אישי לגמרי"), ("60", "דקות לאימון"), ("5", "שלבים בכל אימון")],
     "rounds_h": "ככה נראית שעה איתי",
+    "hour_min": "דק׳",
+    "hour": [("חימום", 10), ("טכניקה", 15), ("כריות", 20), ("כוח וכושר", 10), ("שחרור", 5)],
+    "hour_note": "חימום ושחרור בתחילת ובסוף כל אימון. באמצע, שלושת החלקים שבסרטונים:",
     "rounds": [
         ("round-1", "טכניקה", "עמידה, שמירה ומכה נכונה. בקצב שלך, עם תיקון בזמן אמת.", "מתאמנת בעמידת אגרוף מול המאמן"),
         ("round-2", "כריות", "מחברים מכות לקומבינציות מול המאמן, והגוף מתחיל לזרום.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
-        ("round-3", "כוח", "סבב קצר ועצים, כשאת כבר מוכנה לזה.", "סיום אימון בעצימות גבוהה על הכריות"),
+        ("round-3", "כוח וכושר", "סבב קצר ועצים, כשאת כבר מוכנה לזה.", "סיום אימון בעצימות גבוהה על הכריות"),
     ],
 
     "for_h": "מה תקבלי מהשעה הזו?",
@@ -202,12 +205,15 @@ EN = {
 
     "what_h": "Real boxing. Just you and your coach.",
     "what_lead": "Classic boxing, the way it's really trained: pad work, footwork and guard. Every session is built just for you, at your level and pace.",
-    "what_facts": [("1:1", "fully personal"), ("60", "minutes per session"), ("3", "rounds per session")],
+    "what_facts": [("1:1", "fully personal"), ("60", "minutes per session"), ("5", "stages in every session")],
     "rounds_h": "What an hour with me looks like",
+    "hour_min": "min",
+    "hour": [("Warm-up", 10), ("Technique", 15), ("Pads", 20), ("Strength & fitness", 10), ("Cool-down", 5)],
+    "hour_note": "Every session opens with a warm-up and ends with a cool-down. In between, the three parts in the videos:",
     "rounds": [
         ("round-1", "Technique", "Stance, guard and the right punch. At your pace, corrected in real time.", "A trainee in boxing stance facing the coach"),
         ("round-2", "Pads", "Punches become combinations on the pads, and your body starts to flow.", "Pad work: the trainee punches while the coach holds pads"),
-        ("round-3", "Power", "A short, high-intensity finisher, once you're ready for it.", "High-intensity finish on the pads"),
+        ("round-3", "Strength & fitness", "A short, high-intensity finisher, once you're ready for it.", "High-intensity finish on the pads"),
     ],
 
     "for_h": "What you get from this hour.",
