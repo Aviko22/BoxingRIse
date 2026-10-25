@@ -823,3 +823,62 @@ html[dir="ltr"] .vc-in { transform: translateX(-16px); }
 .mv.in .mv-l:nth-child(3) { transition-delay: .6s; }
 .mv-turn { transition-delay: 1.1s; }
 .mv-turn { text-wrap: balance; max-width: 18em; }
+
+/* ===== mirror: 6 animation candidates (a1..a6) ===== */
+.mv-sw { position: fixed; z-index: 90; left: 10px; top: 50%; transform: translateY(-50%); display: grid; gap: 6px; padding: 6px; border-radius: 14px; background: rgba(12,11,9,.92); box-shadow: 0 0 0 1px var(--line); }
+.mv-sw button { width: 38px; height: 38px; border: 0; border-radius: 10px; background: #1b1915; color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; }
+.mv-sw button[aria-pressed="true"] { background: var(--metal); color: #120e05; }
+.mv .mv-l { position: relative; }
+.mv .mv-l::after { content: ""; position: absolute; inset-inline: 0; bottom: -1px; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: right; }
+html[dir="ltr"] .mv .mv-l::after { transform-origin: left; }
+
+/* a1 · rise and draw: lines rise, gold rule draws under each, turn line rises */
+.mv.a1 .mv-l::after { transition: transform .9s cubic-bezier(.6,0,.2,1); }
+.mv.a1.in .mv-l::after { transform: scaleX(1); opacity: .5; }
+.mv.a1.in .mv-l:nth-child(1)::after { transition-delay: .3s; } .mv.a1.in .mv-l:nth-child(2)::after { transition-delay: .6s; } .mv.a1.in .mv-l:nth-child(3)::after { transition-delay: .9s; }
+.mv.a1 .mv-turn { transform: translateY(14px); transition: opacity .8s ease 1.3s, transform .8s cubic-bezier(.2,.8,.2,1) 1.3s; }
+.mv.a1.in .mv-turn { transform: none; }
+
+/* a2 · crossed out: each excuse appears, then a gold line strikes it out; the turn punches in */
+.mv.a2 .mv-l { transform: none; transition: opacity .4s ease, color .4s ease; }
+.mv.a2 .mv-l span.x { background: linear-gradient(var(--gold-hi), var(--gold-hi)) no-repeat right 55% / 0% 2px; transition: background-size .5s cubic-bezier(.6,0,.2,1); }
+html[dir="ltr"] .mv.a2 .mv-l span.x { background-position: left 55%; }
+.mv.a2 .mv-l.hit { color: #7a746a; } .mv.a2 .mv-l.hit span.x { background-size: 100% 2px; }
+.mv.a2 .mv-turn { transition: none; }
+.mv.a2 .mv-turn.punch { opacity: 1; animation: mv-punch .6s cubic-bezier(.2,1.5,.4,1) both; }
+@keyframes mv-punch { 0% { opacity: 0; transform: scale(1.35); filter: blur(4px); } 60% { opacity: 1; transform: scale(.97); filter: none; } 100% { transform: scale(1); } }
+
+/* a3 · typed: every line types itself, like a thought */
+.mv.a3 .mv-l, .mv.a3.in .mv-l { opacity: 1; transform: none; transition: none; }
+.mv.a3 .mv-l .cur { display: inline-block; width: 2px; height: 1em; margin-inline-start: 3px; vertical-align: -.12em; background: var(--gold-hi); animation: mv-blink 1s steps(1) infinite; }
+@keyframes mv-blink { 50% { opacity: 0; } }
+.mv.a3 .mv-turn { transition: opacity .6s ease; }
+.mv.a3 .mv-turn.show { opacity: 1; }
+.mv.a3.in .mv-turn:not(.show) { opacity: 0; }
+
+/* a4 · into focus: blurred lines sharpen one by one; gold shine sweeps the turn line */
+.mv.a4 .mv-l { filter: blur(8px); transform: none; transition: opacity .9s ease, filter 1s ease; }
+.mv.a4.in .mv-l { filter: none; }
+.mv.a4.in .mv-l:nth-child(2) { transition-delay: .5s; } .mv.a4.in .mv-l:nth-child(3) { transition-delay: 1s; }
+.mv.a4 .mv-turn { background: linear-gradient(100deg, #9a7428 0%, #c9a24b 35%, #fff4d2 50%, #c9a24b 65%, #9a7428 100%) 200% 0 / 250% 100%; -webkit-background-clip: text; background-clip: text; transition: opacity .6s ease 1.5s; }
+.mv.a4.in .mv-turn { animation: mv-shine 1.8s ease 1.6s both; }
+@keyframes mv-shine { to { background-position: -50% 0; } }
+
+/* a5 · jab: lines snap in from the side like quick punches, the turn lands with a flash */
+.mv.a5 .mv-l { transform: translateX(60px); transition: none; }
+html[dir="ltr"] .mv.a5 .mv-l { transform: translateX(-60px); }
+.mv.a5.in .mv-l { animation: mv-jab .45s cubic-bezier(.2,1.6,.4,1) both; }
+.mv.a5.in .mv-l:nth-child(2) { animation-delay: .35s; } .mv.a5.in .mv-l:nth-child(3) { animation-delay: .7s; }
+@keyframes mv-jab { 0% { opacity: 0; transform: translateX(var(--jx, 60px)); } 70% { opacity: 1; transform: translateX(calc(var(--jx, 60px) * -.08)); } 100% { opacity: 1; transform: none; } }
+html[dir="ltr"] .mv.a5 { --jx: -60px; }
+.mv.a5 .mv-turn { transition: none; }
+.mv.a5.in .mv-turn { animation: mv-land .7s cubic-bezier(.2,1.4,.4,1) 1.2s both; }
+@keyframes mv-land { 0% { opacity: 0; transform: translateY(-20px); text-shadow: none; } 50% { opacity: 1; transform: translateY(3px); filter: drop-shadow(0 0 18px rgba(240,198,116,.8)); } 100% { opacity: 1; transform: none; filter: none; } }
+
+/* a6 · scroll-lit: lines light up as she scrolls; the turn fills with gold */
+.mv.a6 .mv-l, .mv.a6.in .mv-l { opacity: 1; transform: none; transition: color .3s ease; color: #4d4840; }
+.mv.a6 .mv-l.lit { color: #ece6da; }
+.mv.a6 .mv-turn, .mv.a6.in .mv-turn { opacity: 1; transition: none; }
+.mv.a6 .mv-turn { background: linear-gradient(to left, #c9a24b var(--fill, 0%), #4d4840 var(--fill, 0%)); -webkit-background-clip: text; background-clip: text; }
+html[dir="ltr"] .mv.a6 .mv-turn { background: linear-gradient(to right, #c9a24b var(--fill, 0%), #4d4840 var(--fill, 0%)); -webkit-background-clip: text; background-clip: text; }
+@media (prefers-reduced-motion: reduce) { .mv .mv-l, .mv .mv-turn { animation: none !important; filter: none !important; } }
