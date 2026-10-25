@@ -903,3 +903,6 @@ html[dir="ltr"] .fb6 .fc.go::after { animation-name: fb-sun-l; }
 html[lang="en"] .vc-in { font-style: italic; }
 .vc-in { font-size: clamp(17px, 2.2vw, 20px); }
 .vc-list { align-items: start; } .vc-p { align-content: start; } @media (min-width: 900px) { .vc-out { font-size: clamp(30px, 3.2vw, 40px); } }
+.trial-cta { display: grid; justify-items: center; gap: 8px; }
+.trial-note { margin: 0; font-size: 13px; color: var(--ash); }
+html[lang="he"] .step-n small { font-family: var(--body); letter-spacing: 0; font-weight: 700; }

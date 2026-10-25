@@ -66,10 +66,11 @@ HE = {
     ],
 
     "trial_h": "שלושה צעדים, ואת באימון הראשון.",
+    "step_word": "שלב",
     "trial_steps": [
         ("שולחים הודעה", "לחיצה על הכפתור פותחת וואטסאפ עם הודעה מוכנה. אני חוזר אלייך באותו יום."),
         ("קובעים מקום ושעה", "פארק קרוב אלייך בתל אביב או במרכז, בשעה שנוחה לך."),
-        ("מתאמנים", "שעה אחד על אחד: נכיר, נלמד עמידה ושמירה, ותנחיתי את המכות הראשונות שלך. בלי התחייבות להמשך."),
+        ("מתאמנים", "שעה אחד על אחד: עמידה, שמירה, והמכות הראשונות שלך על הכריות."),
     ],
     "trial_why": "למה 49 ₪ ולא בחינם? סכום סמלי שומר על מחויבות משני הצדדים.",
 
@@ -229,10 +230,11 @@ EN = {
     ],
 
     "trial_h": "Three steps, and you're training.",
+    "step_word": "STEP",
     "trial_steps": [
         ("Send a message", "The button opens WhatsApp with a ready message. I get back to you the same day."),
         ("Pick a place and time", "A park near you in Tel Aviv or central Israel, at a time that suits you."),
-        ("Train", "One hour, one on one: we meet, you learn your stance and guard, and land your first punches. No commitment to continue."),
+        ("Train", "One hour, one on one: stance, guard, and your first punches on the pads."),
     ],
     "trial_why": "Why 49 ₪ and not free? A small fee keeps both sides committed.",
 

@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "84"  # bump to bust caches of css/js
+VER = "85"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -253,7 +253,7 @@ def home(t):
         k = len(cards and cards.split("<article")) if cards else 1
         cards += (f'<article class="aud aud-text fc"><span class="aud-n" dir="ltr" aria-hidden="true">0{k}</span><div class="aud-body">'
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> <s class="x">{e(c["pain"])}</s></p><p class="aud-change">{e(c["change"])}</p></div></article>')
-    steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>STEP</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
+    steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>{e(t["step_word"])}</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
     weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="trk" cx="12" cy="12" r="9"/><circle class="prg" cx="12" cy="12" r="9"/></svg></span><p class="wk-n"><span class="wk-num">{e(t["week_word"])} <span dir="ltr">{i}</span></span> <span class="wk-feel">{e(t["week_feel"][i - 1])}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
     about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 0 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"][1:]))
@@ -332,7 +332,7 @@ def home(t):
     <div class="wrap">
       {tag(t, 'trial')}<h2 class="h2" id="trial-h">{hgold(t, 'trial_h')}</h2>
       <ol class="steps">{steps}</ol>
-      <div class="trial-foot reveal"><p class="trial-why">{e(t['trial_why'])}</p>{btn(t, t['cta_trial'], 'btn btn-gold magnetic')}</div>
+      <div class="trial-foot reveal"><p class="trial-why">{e(t['trial_why'])}</p><div class="trial-cta"><a class="btn btn-gold magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a><p class="trial-note">{e(t['final_note'])}</p></div></div>
     </div>
   </section>
 
