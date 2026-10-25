@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "58"  # bump to bust caches of css/js
+VER = "59"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -212,6 +212,23 @@ RING = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle class="trk" cx="32" 
 
 
 # ---------------------------------------------------------------- home page
+def mirror(t):
+    if "mv" not in t: return ""
+    out = []
+    for i, v in enumerate(t["mv"], 1):
+        if v["kind"] == "day":
+            rows = "".join(f'<li class="mv-l"><time dir="ltr">{e(a)}</time><span>{e(b)}</span></li>' for a, b in (x.split("|") for x in v["lines"]))
+        else:
+            rows = "".join(f'<li class="mv-l">{e(x)}</li>' for x in v["lines"])
+        out.append(f'<section class="sec mv mv-{v["kind"]}" data-mv="{i}"{"" if i == 1 else " hidden"} aria-labelledby="mv-h{i}"><div class="wrap narrow">'
+                   f'<h2 class="h2 mv-h" id="mv-h{i}">{e(v["h"])}</h2><ul class="mv-list">{rows}</ul>'
+                   f'<p class="mv-turn">{e(v["turn"])} <span aria-hidden="true">↓</span></p></div></section>')
+    sw = ""
+    if CFG.get("noindex"):
+        sw = '<div class="mv-sw" role="group" aria-label="גרסה">' + "".join(f'<button type="button" data-mvb="{i}">{i}</button>' for i in range(1, len(out) + 1)) + '</div>'
+    return "".join(out) + sw
+
+
 def home(t):
     lang = t["lang"]
     path, alt = ("/", "/en") if lang == "he" else ("/en", "/")
@@ -265,6 +282,7 @@ def home(t):
     </div>
   </section>
 
+  {mirror(t)}
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
       <div class="split">

@@ -224,3 +224,16 @@
     b.addEventListener('click', function () { if (banner) { banner.hidden = false; var f = banner.querySelector('button'); if (f) f.focus(); } });
   });
 })();
+
+/* mirror section: reveal + preview switcher */
+(function () {
+  var secs = document.querySelectorAll('.mv'); if (!secs.length) return;
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: .3 }) : null;
+  secs.forEach(function (s) { io ? io.observe(s) : s.classList.add('in'); });
+  var bs = document.querySelectorAll('[data-mvb]');
+  function pick(n, anim) { secs.forEach(function (s) { var on = s.getAttribute('data-mv') === String(n); s.hidden = !on; if (on && anim) { s.classList.remove('in'); void s.offsetWidth; s.classList.add('in'); } });
+    bs.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-mvb') === String(n) ? 'true' : 'false'); }); }
+  function s0() { var v = document.querySelector('.mv:not([hidden])'); if (v) v.scrollIntoView({ block: 'start' }); }
+  var m = (location.search.match(/[?&]m=(\d)/) || [])[1]; pick(m || 1, false);
+  bs.forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-mvb'), true); s0(); }); });
+})();
