@@ -814,3 +814,12 @@ html[dir="ltr"] .vc-in { transform: translateX(-16px); }
 /* "for you" cards: text only (the session clips already show the training) */
 .aud-text { grid-template-rows: 1fr; }
 .aud-text .aud-body { padding-top: clamp(26px, 3vw, 34px); }
+
+/* mirror: aligned to the side like every other section, normal heading size */
+.mv .wrap { text-align: start; }
+.mv-list { margin: 0; max-width: 34em; gap: 0; }
+.mv-l { padding-block: 14px; border-bottom: 1px solid var(--line); }
+.mv-l:last-child { color: #cfc8bb; font-weight: 400; }
+.mv.in .mv-l:nth-child(3) { transition-delay: .6s; }
+.mv-turn { transition-delay: 1.1s; }
+.mv-turn { text-wrap: balance; max-width: 18em; }

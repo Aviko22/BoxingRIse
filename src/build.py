@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "62"  # bump to bust caches of css/js
+VER = "63"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -220,9 +220,9 @@ RING = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle class="trk" cx="32" 
 def mirror(t):
     v = t["mv"]
     rows = "".join(f'<li class="mv-l">{e(x)}</li>' for x in v["lines"])
-    return (f'<section class="sec mv mv-big" aria-labelledby="mv-h"><div class="wrap narrow">'
+    return (f'<section class="sec mv mv-big" aria-labelledby="mv-h"><div class="wrap">'
             f'<h2 class="h2 mv-h" id="mv-h">{e(v["h"])}</h2><ul class="mv-list">{rows}</ul>'
-            f'<p class="mv-turn">{e(v["turn"])} <span aria-hidden="true">↓</span></p></div></section>')
+            f'<p class="mv-turn">{e(v["turn"])}</p></div></section>')
 
 
 def battery(t):
