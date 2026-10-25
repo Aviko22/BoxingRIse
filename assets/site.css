@@ -895,3 +895,4 @@ html[dir="ltr"] .fb6 .fc.go::after { animation-name: fb-sun-l; }
 @media (max-width: 759px) { .about-facts { flex-direction: column; } }
 .about-facts li + li::before { content: ""; }
 .about-img { object-position: 50% 12% !important; }
+.about-img { object-position: 50% 30% !important; }
