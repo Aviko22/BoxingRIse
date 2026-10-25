@@ -853,3 +853,65 @@ html[dir="ltr"] .hour i { transform-origin: left; }
   .hour b { margin: 0; grid-row: 1; } .hour span { grid-row: 1; margin: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .hour i { transition: none; transform: none; } }
+
+/* ===== "what you get": before → after cards ===== */
+.for .aud { position: relative; }
+.aud-n { position: absolute; top: 18px; inset-inline-end: 22px; font-family: var(--display); font-size: 56px; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(201,162,75,.45); pointer-events: none; }
+.for .aud-body { padding-top: clamp(30px, 3vw, 38px); }
+.for .aud h3 { padding-inline-end: 64px; }
+.aud-pain { font-size: 15px; color: #8f897f; margin-top: 14px; }
+.aud-pain span { font-weight: 700; color: #a39c90; }
+.aud-pain s.x { text-decoration: none; background: linear-gradient(var(--gold-hi), var(--gold-hi)) no-repeat right 58% / 0% 2px; transition: background-size .6s cubic-bezier(.6,0,.2,1); }
+html[dir="ltr"] .aud-pain s.x { background-position: left 58%; }
+.aud.go .aud-pain s.x { background-size: 100% 2px; }
+.aud-change { font-size: 18px; color: var(--white); margin-top: 8px; }
+.fc .aud-change { opacity: 0; transform: translateY(8px); transition: opacity .5s ease .7s, transform .6s cubic-bezier(.2,.8,.2,1) .7s; }
+.fc.go .aud-change { opacity: 1; transform: none; }
+
+/* fa1 · cross it out: card rises, the old way is struck through in gold, the new way appears */
+.fa1 .fc { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+.fa1 .fc.go { opacity: 1; transform: none; }
+.fa1 .fc .aud-pain s.x { transition-delay: .45s; }
+
+/* fa2 · stitched: the dashed stitch draws around the card, then the words come in */
+.fa2 .fc { outline-color: transparent; opacity: 0; transition: opacity .4s ease; }
+.fa2 .fc.go { opacity: 1; }
+.fa2 .fc::after { content: ""; position: absolute; inset: 7px; border-radius: 20px; border: 1.5px dashed var(--stitch); clip-path: inset(0 0 100% 0); transition: clip-path 1s cubic-bezier(.6,0,.2,1); pointer-events: none; }
+.fa2 .fc.go::after { clip-path: inset(0 0 0 0); }
+.fa2 .fc h3 { opacity: 0; transition: opacity .5s ease .5s; } .fa2 .fc.go h3 { opacity: 1; }
+.fa2 .fc .aud-change { transition-delay: 1.2s; } .fa2 .fc .aud-pain s.x { transition-delay: .9s; }
+
+/* fa3 · turn over: each card turns over like a page */
+.fa3 .aud-grid { perspective: 1200px; }
+.fa3 .fc { transform: rotateY(-80deg); transform-origin: right center; opacity: 0; transition: transform .9s cubic-bezier(.2,.8,.2,1), opacity .4s ease; }
+html[dir="ltr"] .fa3 .fc { transform: rotateY(80deg); transform-origin: left center; }
+.fa3 .fc.go { transform: none; opacity: 1; }
+.fa3 .fc .aud-pain s.x { transition-delay: .7s; } .fa3 .fc .aud-change { transition-delay: 1s; }
+
+/* fa4 · numbers first: the big 01/02/03 fill with gold, then the card content slides in */
+.fa4 .fc .aud-n { transition: color .6s ease, transform .7s cubic-bezier(.2,1.4,.4,1); transform: scale(1.6); }
+.fa4 .fc.go .aud-n { color: rgba(201,162,75,.9); transform: none; }
+.fa4 .fc .aud-body > * { opacity: 0; transform: translateX(18px); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+html[dir="ltr"] .fa4 .fc .aud-body > * { transform: translateX(-18px); }
+.fa4 .fc.go .aud-body > * { opacity: 1; transform: none; }
+.fa4 .fc.go .aud-body > :nth-child(1) { transition-delay: .35s; } .fa4 .fc.go .aud-body > :nth-child(2) { transition-delay: .55s; } .fa4 .fc.go .aud-body > :nth-child(3) { transition-delay: 1s; }
+.fa4 .fc .aud-pain s.x { transition-delay: .8s; }
+
+/* fa5 · jab: cards snap in from the side like a punch, with a gold flash on impact */
+.fa5 .fc { opacity: 0; }
+.fa5 .fc.go { animation: fa-jab .55s cubic-bezier(.2,1.5,.4,1) both; }
+@keyframes fa-jab { 0% { opacity: 0; transform: translateX(var(--jx, 80px)); } 65% { opacity: 1; transform: translateX(calc(var(--jx, 80px) * -.07)); box-shadow: 0 0 0 1px rgba(240,198,116,.6), 0 0 40px rgba(240,198,116,.35); } 100% { opacity: 1; transform: none; box-shadow: none; } }
+html[dir="ltr"] .fa5 { --jx: -80px; }
+.fa5 .fc .aud-pain s.x { transition-delay: .5s; } .fa5 .fc .aud-change { transition-delay: .8s; }
+
+/* fa6 · spotlight: the card in the middle of the screen lights up, the others stay dim */
+.fa6 .fc { opacity: .35; transform: scale(.97); transition: opacity .4s ease, transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease; }
+.fa6 .fc.lit { opacity: 1; transform: none; box-shadow: 0 0 0 1px rgba(240,198,116,.45), 0 18px 50px rgba(0,0,0,.45), 0 0 40px rgba(240,198,116,.12); }
+.fa6 .fc .aud-change { opacity: 1; transform: none; transition: none; }
+
+@media (prefers-reduced-motion: reduce) { .for .fc, .for .fc * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; clip-path: none !important; } .aud-pain s.x { background-size: 100% 2px; } }
+.mv-sw { position: fixed; z-index: 90; left: 10px; top: 50%; transform: translateY(-50%); display: grid; gap: 6px; padding: 6px; border-radius: 14px; background: rgba(12,11,9,.92); box-shadow: 0 0 0 1px var(--line); }
+.mv-sw button { width: 40px; height: 40px; border: 0; border-radius: 10px; background: #1b1915; color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; }
+.mv-sw button[aria-pressed="true"] { background: var(--metal); color: #120e05; }
+.aud-n { inset-inline-end: auto; left: 22px; right: auto; }
+html[dir="ltr"] .aud-n { left: auto; right: 22px; }

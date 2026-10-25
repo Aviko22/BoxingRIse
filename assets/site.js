@@ -248,3 +248,35 @@
   var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { s.classList.add('in'); io.disconnect(); } }, { threshold: .35 });
   io.observe(s);
 })();
+
+/* "what you get" cards: 6 animation candidates (?fa=1..6 or the side switcher on preview) */
+(function () {
+  var sec = document.getElementById('for'); if (!sec) return;
+  var cards = [].slice.call(sec.querySelectorAll('.fc'));
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mode = 1, timers = [], onScroll = null, io = null;
+  function clear() { timers.forEach(clearTimeout); timers = []; if (onScroll) { window.removeEventListener('scroll', onScroll); onScroll = null; } if (io) { io.disconnect(); io = null; } cards.forEach(function (c) { c.classList.remove('go', 'lit'); }); }
+  function arm() {
+    clear();
+    if (reduce) { cards.forEach(function (c) { c.classList.add('go', 'lit'); }); return; }
+    if (mode === 6) {
+      cards.forEach(function (c) { c.classList.add('go'); });
+      onScroll = function () { var vh = window.innerHeight, mid = vh / 2, best = 0;
+        if (window.innerWidth >= 760) { var r = sec.getBoundingClientRect(); var p = (vh * .75 - r.top) / r.height; best = Math.min(2, Math.max(0, Math.floor(p * 3))); }
+        else { var bd = 1e9; cards.forEach(function (c, i) { var q = c.getBoundingClientRect(), d = Math.abs(q.top + q.height / 2 - mid); if (d < bd) { bd = d; best = i; } }); }
+        cards.forEach(function (c, i) { c.classList.toggle('lit', i === best); }); };
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); return;
+    }
+    io = new IntersectionObserver(function (es) {
+      var wide = window.innerWidth >= 760;
+      es.forEach(function (x) { if (!x.isIntersecting) return; io.unobserve(x.target);
+        var i = cards.indexOf(x.target); timers.push(setTimeout(function () { x.target.classList.add('go'); }, wide ? i * 220 : 0)); });
+    }, { threshold: .35 });
+    cards.forEach(function (c) { io.observe(c); });
+  }
+  function pick(n, replay) { mode = +n; sec.className = sec.className.replace(/\bfa\d\b/, 'fa' + mode);
+    document.querySelectorAll('[data-fa]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-fa') === String(mode) ? 'true' : 'false'); });
+    if (replay) { clear(); sec.scrollIntoView({ block: 'start' }); setTimeout(arm, 400); } else arm(); }
+  var q = (location.search.match(/[?&]fa=(\d)/) || [])[1]; pick(q || 1, false);
+  document.querySelectorAll('[data-fa]').forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-fa'), true); }); });
+})();
