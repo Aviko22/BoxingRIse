@@ -888,3 +888,10 @@ html[dir="ltr"] .fb6 .fc.go::after { animation-name: fb-sun-l; }
 .reviews .wrap > .rv-grid { margin-inline: 0 !important; }
 .rv-more summary { min-height: 40px; }
 .rv-more summary { min-height: 44px; padding-block: 2px; box-sizing: border-box; }
+/* about facts: gold dot before every item, so a wrapped line never starts with a stray separator */
+.about-facts { gap: 8px 22px; }
+.about-facts li + li::before { content: none; }
+.about-facts li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-inline-end: 8px; vertical-align: middle; }
+@media (max-width: 759px) { .about-facts { flex-direction: column; } }
+.about-facts li + li::before { content: ""; }
+.about-img { object-position: 50% 12% !important; }
