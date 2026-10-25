@@ -872,3 +872,17 @@ html[dir="ltr"] .fb6 .fc.go::after { animation-name: fb-sun-l; }
 @keyframes fb-sun-l { to { transform: translateX(80%); } }
 
 @media (prefers-reduced-motion: reduce) { .for .fc, .for .fc *, .for .fc::before, .for .fc::after { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; filter: none !important; clip-path: none !important; } .for .fc::before, .for .fc::after { display: none; } .aud-pain s.x { background-size: 100% 2px; } }
+
+/* reviews: aligned with the heading like every section; the full review one tap away */
+.reviews .rv-grid { margin-inline: 0 !important; max-width: 860px; }
+.reviews .rv-foot { justify-content: flex-start; text-align: start; }
+@media (max-width: 759px) { .reviews .rv-foot { align-items: flex-start; } }
+.rv-more { margin: 8px 0 10px; }
+.rv-more summary { display: inline-flex; align-items: center; min-height: 32px; cursor: pointer; list-style: none; font-size: 13px; font-weight: 700; color: var(--ash); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(201,162,75,.5); }
+.rv-more summary::-webkit-details-marker { display: none; }
+.rv-more summary:hover, .rv-more[open] summary { color: var(--gold-hi); }
+.rv-more p { margin: 6px 0 4px; font-size: 15px; line-height: 1.6; color: #cfc8bb; }
+.reviews .rv-grid { align-self: flex-start; }
+.rv-q + figcaption, .rv blockquote + figcaption { margin-top: 10px !important; }
+.rv-more { margin: 4px 0 0; }
+.reviews .wrap > .rv-grid { margin-inline: 0 !important; }
