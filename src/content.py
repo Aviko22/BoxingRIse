@@ -28,7 +28,7 @@ HE = {
     "batt": [["עבודה", 25], ["הבית והמשפחה", 30], ["כולם צריכים ממך משהו", 20], ["הראש שלא נח", 13]],
     "batt_turn": "שעה אחת על הכריות. 100% בחזרה.",
     "tag_voice": "בלי תירוצים", "voice_h": "מה שאת אומרת לעצמך. ומה שאני עונה.", "voice_in": "הקול בראש",
-    "voice": [["אין לי שום ניסיון.", "רוב המתאמנות מתחילות מאפס."], ["אני לא מספיק בכושר.", "בגלל זה באים. לא אחרי."], ["אין לי זמן לעצמי.", "שעה אחת בשבוע, בפארק קרוב אלייך."]],
+    "voice": [["אין לי שום ניסיון.", "רוב המתאמנות מתחילות מאפס."], ["אני לא בכושר מספיק.", "בשביל זה באים. הכושר מגיע באימונים."], ["אין לי זמן לעצמי.", "שעה אחת בשבוע, בפארק קרוב אלייך."]],
     "pain_h": "מכירה את זה?",
     "pain": [
         "את דואגת לכולם. מתי בפעם האחרונה עשית משהו רק בשבילך?",
@@ -39,13 +39,13 @@ HE = {
     "pain_turn": "שעה אחת מול הכרית משנה את הכיוון.",
 
     "what_h": "אגרוף אמיתי. רק את והמאמן.",
-    "what_lead": "אגרוף קלאסי, בלי בעיטות ובלי קהל: עבודת כריות, עבודת גוף ותנועה. כל אימון נבנה סביבך, מהמכה הראשונה.",
+    "what_lead": "אגרוף קלאסי, בלי בעיטות ובלי קהל: עבודת כריות, עבודת גוף ותנועה. כל אימון נבנה במיוחד בשבילך, כבר מהמכה הראשונה.",
     "what_facts": [("1:1", "אישי לגמרי"), ("60", "דקות לאימון"), ("3", "סיבובים לאימון")],
     "rounds_h": "ככה נראית שעה איתי",
     "rounds": [
         ("round-1", "טכניקה", "עמידה, שמירה ומכה נכונה. בקצב שלך, עם תיקון בזמן אמת.", "מתאמנת בעמידת אגרוף מול המאמן"),
         ("round-2", "כריות", "מחברים מכות לקומבינציות מול המאמן, והגוף מתחיל לזרום.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
-        ("round-3", "כוח", "סבב קצר בעצימות גבוהה, כשאת כבר מוכנה לו.", "סיום אימון בעצימות גבוהה על הכריות"),
+        ("round-3", "כוח", "סבב קצר ועצים, כשאת כבר מוכנה לזה.", "סיום אימון בעצימות גבוהה על הכריות"),
     ],
 
     "for_h": "מה תקבלי מהשעה הזו?",
@@ -61,17 +61,17 @@ HE = {
          "img": "gallery-4", "alt": "מתאמנת אחרי הוק, עם השמירה למעלה"},
         {"who": "שקט", "h": "שעה שהיא רק שלך.",
          "pain": "לחץ שנשאר בגוף אחרי יום ארוך.",
-         "change": "בלי טלפון ובלי מבטים. רק את, הכרית והמכה הבאה. יוצאת שקטה וחזקה יותר.",
+         "change": "בלי טלפון ובלי מבטים. רק את, הכרית והמכה הבאה. ויוצאת רגועה וחזקה יותר.",
          "img": "gallery-1", "alt": "אגרוף ישר לכרית, מנקודת המבט של המאמן"},
     ],
 
-    "trial_h": "שלושה צעדים, ואת בפנים.",
+    "trial_h": "שלושה צעדים, ואת באימון הראשון.",
     "trial_steps": [
-        ("שולחת הודעה", "לחיצה על הכפתור פותחת וואטסאפ עם הודעה מוכנה. אני עונה באותו יום."),
-        ("קובעות מקום ושעה", "פארק קרוב אלייך בתל אביב והמרכז, בשעה שנוחה לך."),
-        ("מתאמנת", "60 דקות, אחד על אחד: מכירים, עמידה, ומכה ראשונה שנוחתת נקי. בלי התחייבות."),
+        ("שולחים הודעה", "לחיצה על הכפתור פותחת וואטסאפ עם הודעה מוכנה. אני חוזר אלייך באותו יום."),
+        ("קובעים מקום ושעה", "פארק קרוב אלייך בתל אביב או במרכז, בשעה שנוחה לך."),
+        ("מתאמנים", "שעה אחד על אחד: נכיר, נלמד עמידה ושמירה, ותנחיתי את המכות הראשונות שלך. בלי התחייבות להמשך."),
     ],
-    "trial_why": "למה 49 ₪ ולא חינם? כי סכום סמלי שומר על רצינות, משני הצדדים.",
+    "trial_why": "למה 49 ₪ ולא בחינם? סכום סמלי שומר על מחויבות משני הצדדים.",
 
     "prog_h": "BoxingRise 8",
     "prog_lead": "שמונה שבועות, שני אימונים בשבוע. כל שבוע מתמקד ביסוד אחר, ובסוף יש לך בסיס של לוחמת.",
@@ -90,7 +90,7 @@ HE = {
     "week_feel": ["יציבה", "מדויקת", "חזקה", "זורמת", "מוגנת", "חדה", "עמידה", "לוחמת"],
     "prog_price": "המחיר? נדבר על זה אחרי הניסיון.",
     "prog_outcome_h": "אחרי 8 שבועות:",
-    "prog_outcome": "את יודעת לעמוד יציב, להגן על עצמך ולהכות נכון. ומרגישה את זה גם מחוץ לאימון.",
+    "prog_outcome": "את יודעת לעמוד יציב, להגן על עצמך ולהכות נכון, ומרגישה את זה גם מחוץ לאימון.",
     "prog_kids": "",
 
     "about_h": "אני אבי. המאמן שלך.",
@@ -135,7 +135,7 @@ HE = {
         ("מה קורה כשיורד גשם או כשחם מאוד?", "אם יש מקום מקורה בקרבת מקום, עוברים אליו. אם לא, מזיזים את האימון למועד אחר, בלי חיוב."),
         ("אפשר לבטל או להזיז אימון?", "כן, עד 24 שעות לפני האימון, בהודעה בוואטסאפ. ביטול מאוחר יותר נחשב כאימון שהתקיים."),
         ("איך משלמים?", "בביט, בפייבוקס או במזומן."),
-        ("מה קורה אחרי 8 השבועות?", "ממשיכות בקצב שמתאים לך: אימונים בודדים או מנוי חודשי. בסוף התוכנית נבנה יחד את ההמשך."),
+        ("מה קורה אחרי 8 השבועות?", "ממשיכים בקצב שמתאים לך: אימונים בודדים או מנוי חודשי. בסוף התוכנית נבנה יחד את ההמשך."),
         ("ומה אם צריך לעצור באמצע?", "אפשר להקפיא את התוכנית פעם אחת, עד 4 שבועות. אם צריך להפסיק לגמרי, מקבלים החזר על האימונים שלא נוצלו, בניכוי דמי ביטול."),
     ],
 
@@ -190,7 +190,7 @@ EN = {
     "batt": [["Work", 25], ["Home and family", 30], ["Everyone needs something", 20], ["A mind that never rests", 13]],
     "batt_turn": "One hour on the pads. Back to 100%.",
     "tag_voice": "No excuses", "voice_h": "What you tell yourself. And what I answer.", "voice_in": "The voice in your head",
-    "voice": [["I have no experience.", "Most of my trainees start from zero."], ["I'm not fit enough.", "That's why you come. Not after."], ["I have no time for myself.", "One hour a week, in a park near you."]],
+    "voice": [["I have no experience.", "Most of my trainees start from zero."], ["I'm not fit enough.", "That's what training is for. Fitness comes with it."], ["I have no time for myself.", "One hour a week, in a park near you."]],
     "pain_h": "Sound familiar?",
     "pain": [
         "You take care of everyone. When did you last do something just for you?",
@@ -227,13 +227,13 @@ EN = {
          "img": "gallery-1", "alt": "A straight punch on the pad, from the coach's view"},
     ],
 
-    "trial_h": "Three steps, and you're in.",
+    "trial_h": "Three steps, and you're training.",
     "trial_steps": [
-        ("Send a message", "The button opens WhatsApp with a ready message. I reply the same day."),
-        ("Pick a place and time", "A park near you in Tel Aviv and central Israel, when it suits you."),
-        ("Train", "60 minutes, one on one: we meet, you learn your stance, and land a clean first punch. No commitment."),
+        ("Send a message", "The button opens WhatsApp with a ready message. I get back to you the same day."),
+        ("Pick a place and time", "A park near you in Tel Aviv or central Israel, at a time that suits you."),
+        ("Train", "One hour, one on one: we meet, you learn your stance and guard, and land your first punches. No commitment to continue."),
     ],
-    "trial_why": "Why 49 ₪ and not free? A small fee keeps it serious, on both sides.",
+    "trial_why": "Why 49 ₪ and not free? A small fee keeps both sides committed.",
 
     "prog_h": "BoxingRise 8",
     "prog_lead": "Eight weeks, two sessions a week. Each week builds a different fundamental, and you finish with a fighter's foundation.",
