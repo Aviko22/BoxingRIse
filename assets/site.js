@@ -225,15 +225,19 @@
   });
 })();
 
-/* mirror section: reveal + preview switcher */
+/* mirror, battery, inner voice */
 (function () {
-  var secs = document.querySelectorAll('.mv'); if (!secs.length) return;
-  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: .3 }) : null;
-  secs.forEach(function (s) { io ? io.observe(s) : s.classList.add('in'); });
-  var bs = document.querySelectorAll('[data-mvb]');
-  function pick(n, anim) { secs.forEach(function (s) { var on = s.getAttribute('data-mv') === String(n); s.hidden = !on; if (on && anim) { s.classList.remove('in'); void s.offsetWidth; s.classList.add('in'); } });
-    bs.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-mvb') === String(n) ? 'true' : 'false'); }); }
-  function s0() { var v = document.querySelector('.mv:not([hidden])'); if (v) v.scrollIntoView({ block: 'start' }); }
-  var m = (location.search.match(/[?&]m=(\d)/) || [])[1]; pick(m || 1, false);
-  bs.forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-mvb'), true); s0(); }); });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function watch(els, fn, th) { if (!('IntersectionObserver' in window) || reduce) { els.forEach(fn); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { io.unobserve(x.target); fn(x.target); } }); }, { threshold: th });
+    els.forEach(function (el) { io.observe(el); }); }
+  watch(document.querySelectorAll('.mv'), function (s) { s.classList.add('in'); }, .3);
+  watch(document.querySelectorAll('.vc-p'), function (s) { s.classList.add('in'); }, .5);
+  watch(document.querySelectorAll('.bt-list'), function (l) { var s = l.closest('.batt');
+    var cell = s.querySelector('.bt-cell i'), pct = s.querySelector('.bt-pct'), ds = s.querySelectorAll('.bt-d');
+    if (reduce) { ds.forEach(function (d) { d.classList.add('on'); }); s.classList.add('full'); return; }
+    var v = 100;
+    ds.forEach(function (d, i) { setTimeout(function () { d.classList.add('on'); v -= parseInt(d.querySelector('b').textContent.replace(/[^0-9]/g, ''), 10); cell.style.width = v + '%'; pct.textContent = v + '%'; if (v < 20) s.classList.add('low'); }, 500 + i * 750); });
+    setTimeout(function () { s.classList.remove('low'); cell.style.width = '100%'; pct.textContent = '100%'; s.classList.add('full'); }, 500 + ds.length * 750 + 700);
+  }, .8);
 })();

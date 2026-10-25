@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "59"  # bump to bust caches of css/js
+VER = "60"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -183,8 +183,8 @@ def schema(t, path):
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
 
 
-GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0},
-             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 4, "for_h": 2, "pain_h": 0, "about_h": 0}}
+GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 2},
+             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 4, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 1}}
 
 
 def hgold(t, key):
@@ -193,14 +193,14 @@ def hgold(t, key):
     if key == "trial_h":
         a, _, z = text.partition(", ")
         return f'{e(a)},<br><span class="g">{e(z)}</span>'
-    if key in ("what_h", "about_h", "final_h"):
+    if key in ("what_h", "about_h", "final_h", "voice_h"):
         a, _, z = text.partition(". ")
         return f'{e(a)}.<br><span class="g">{e(z)}</span>'
     n = GOLD_TAIL[t["lang"]].get(key, 0)
     w = text.split()
     if not n or n >= len(w):
         return e(text)
-    return e(" ".join(w[:-n])) + ' <span class="g">' + e(" ".join(w[-n:])) + "</span>"
+    return e(" ".join(w[:-n])) + ('<br>' if key == "batt_h" else ' ') + '<span class="g">' + e(" ".join(w[-n:])) + "</span>"
 
 
 def tag(t, key):
@@ -213,20 +213,26 @@ RING = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle class="trk" cx="32" 
 
 # ---------------------------------------------------------------- home page
 def mirror(t):
-    if "mv" not in t: return ""
-    out = []
-    for i, v in enumerate(t["mv"], 1):
-        if v["kind"] == "day":
-            rows = "".join(f'<li class="mv-l"><time dir="ltr">{e(a)}</time><span>{e(b)}</span></li>' for a, b in (x.split("|") for x in v["lines"]))
-        else:
-            rows = "".join(f'<li class="mv-l">{e(x)}</li>' for x in v["lines"])
-        out.append(f'<section class="sec mv mv-{v["kind"]}" data-mv="{i}"{"" if i == 1 else " hidden"} aria-labelledby="mv-h{i}"><div class="wrap narrow">'
-                   f'<h2 class="h2 mv-h" id="mv-h{i}">{e(v["h"])}</h2><ul class="mv-list">{rows}</ul>'
-                   f'<p class="mv-turn">{e(v["turn"])} <span aria-hidden="true">↓</span></p></div></section>')
-    sw = ""
-    if CFG.get("noindex"):
-        sw = '<div class="mv-sw" role="group" aria-label="גרסה">' + "".join(f'<button type="button" data-mvb="{i}">{i}</button>' for i in range(1, len(out) + 1)) + '</div>'
-    return "".join(out) + sw
+    v = t["mv"]
+    rows = "".join(f'<li class="mv-l">{e(x)}</li>' for x in v["lines"])
+    return (f'<section class="sec mv mv-big" aria-labelledby="mv-h"><div class="wrap narrow">'
+            f'<h2 class="h2 mv-h" id="mv-h">{e(v["h"])}</h2><ul class="mv-list">{rows}</ul>'
+            f'<p class="mv-turn">{e(v["turn"])} <span aria-hidden="true">↓</span></p></div></section>')
+
+
+def battery(t):
+    rows = "".join(f'<li class="bt-d"><span>{e(n)}</span><b dir="ltr">−{d}%</b></li>' for n, d in t["batt"])
+    left = 100 - sum(d for _, d in t["batt"])
+    return (f'<section class="sec batt" aria-labelledby="bt-h" data-left="{left}"><div class="wrap narrow">{tag(t, "batt")}'
+            f'<h2 class="h2" id="bt-h">{hgold(t, "batt_h")}</h2>'
+            f'<div class="bt-meter" aria-hidden="true"><div class="bt-cell"><i></i></div><span class="bt-pct" dir="ltr">100%</span></div>'
+            f'<ul class="bt-list">{rows}</ul><p class="bt-turn">{e(t["batt_turn"])}</p></div></section>')
+
+
+def voice(t):
+    rows = "".join(f'<li class="vc-p"><p class="vc-in"><small>{e(t["voice_in"])}</small>{e(a)}</p><p class="vc-out">{e(b)}</p></li>' for a, b in t["voice"])
+    return (f'<section class="sec voice" aria-labelledby="vc-h"><div class="wrap narrow">{tag(t, "voice")}'
+            f'<h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><ul class="vc-list">{rows}</ul></div></section>')
 
 
 def home(t):
@@ -303,6 +309,7 @@ def home(t):
     </div>
   </section>
 
+  {battery(t)}
   {reviews}
 
   <section class="sec about alt" id="about" aria-labelledby="about-h">
@@ -319,6 +326,7 @@ def home(t):
     </div>
   </section>
 
+  {voice(t)}
   <section class="sec trial" id="trial" aria-labelledby="trial-h">
     <div class="wrap">
       {tag(t, 'trial')}<h2 class="h2" id="trial-h">{hgold(t, 'trial_h')}</h2>
