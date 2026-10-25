@@ -906,3 +906,53 @@ html[lang="en"] .vc-in { font-style: italic; }
 .trial-cta { display: grid; justify-items: center; gap: 8px; }
 .trial-note { margin: 0; font-size: 13px; color: var(--ash); }
 html[lang="he"] .step-n small { font-family: var(--body); letter-spacing: 0; font-weight: 700; }
+
+/* ===== program: 6 animation candidates (pg1..pg6) ===== */
+.mv-sw { position: fixed; z-index: 90; left: 10px; top: 50%; transform: translateY(-50%); display: grid; gap: 6px; padding: 6px; border-radius: 14px; background: rgba(12,11,9,.92); box-shadow: 0 0 0 1px var(--line); }
+.mv-sw button { width: 40px; height: 40px; border: 0; border-radius: 10px; background: #1b1915; color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; }
+.mv-sw button[aria-pressed="true"] { background: var(--metal); color: #120e05; }
+.pg-meter { display: none; }
+.program .wk-d, .program .wk-n { transition: opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1), color .4s; }
+
+/* pg1 · slide in: each week's text slides in from the side as the line reaches it */
+.pg1 .wk:not(.on) .wk-n, .pg1 .wk:not(.on) .wk-d { opacity: .2; transform: translateX(-28px); }
+html[dir="ltr"] .pg1 .wk:not(.on) .wk-n, html[dir="ltr"] .pg1 .wk:not(.on) .wk-d { transform: translateX(28px); }
+.pg1 .wk.on .wk-d { transition-delay: .08s; }
+
+/* pg2 · bell: every week rings in — the dot pulses gold rings, the feel word pops */
+.pg2 .wk:not(.on) .wk-d, .pg2 .wk:not(.on) .wk-n { opacity: .3; }
+.pg2 .wk.on .wk-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 0 rgba(201,162,75,.7); animation: pg-ring 1.2s ease-out 1; }
+@keyframes pg-ring { 0% { box-shadow: 0 0 0 0 rgba(201,162,75,.75); } 100% { box-shadow: 0 0 0 22px rgba(201,162,75,0); } }
+.pg2 .wk.on .wk-feel { animation: pg-pop .5s cubic-bezier(.2,1.6,.4,1) 1; display: inline-block; }
+@keyframes pg-pop { 0% { transform: scale(.6); } 100% { transform: scale(1); } }
+
+/* pg3 · staircase: each week rises up a step into place */
+.pg3 .wk { transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .5s; }
+.pg3 .wk:not(.on) { opacity: .15; transform: translateY(36px); }
+
+/* pg4 · big numbers: a huge outlined number punches in behind every week */
+.pg4 .wk::before { content: attr(data-n); position: absolute; inset-inline-end: 0; top: -14px; font-family: var(--display); font-size: 110px; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(110,82,22,.35); opacity: 0; transform: scale(1.8); transition: opacity .35s, transform .5s cubic-bezier(.2,1.5,.4,1); pointer-events: none; z-index: 0; }
+.pg4 .wk.on::before { opacity: 1; transform: none; }
+.pg4 .wk:not(.on) .wk-d, .pg4 .wk:not(.on) .wk-n { opacity: .3; }
+
+/* pg5 · gold marker: a gold highlighter sweeps under each week's word */
+.pg5 .wk:not(.on) .wk-d { opacity: .35; }
+.pg5 .wk-feel { background: linear-gradient(rgba(201,162,75,.45), rgba(201,162,75,.45)) no-repeat right 85% / 0% 40%; transition: background-size .8s cubic-bezier(.6,0,.2,1), color .4s; padding-inline: 2px; }
+html[dir="ltr"] .pg5 .wk-feel { background-position: left 85%; }
+.pg5 .wk.on .wk-feel { background-size: 100% 40%; color: var(--ink); }
+
+/* pg6 · week counter: a sticky "week X / 8" meter that fills as she scrolls; only the current week is lit */
+.pg6 .pg-meter { display: flex; align-items: center; gap: 16px; position: sticky; top: 76px; z-index: 3; margin-bottom: 18px; padding: 12px 16px; border-radius: 16px; background: var(--ink, #14120e); color: #f1e9da; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+.pg-m-t { font-weight: 700; font-size: 15px; white-space: nowrap; }
+.pg-m-n { font-family: var(--display); font-size: 30px; color: var(--gold-hi); display: inline-block; transition: transform .3s cubic-bezier(.2,1.6,.4,1); }
+.pg-m-n.bump { transform: scale(1.35); }
+.pg-m-of { color: #978c77; }
+.pg-m-bar { flex: 1; display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
+.pg-m-bar i { height: 6px; border-radius: 3px; background: #3a352c; transition: background .4s; }
+.pg-m-bar i.on { background: var(--metal); }
+.pg6 .wk .wk-d, .pg6 .wk .wk-n { opacity: .3; }
+.pg6 .wk.cur .wk-d, .pg6 .wk.cur .wk-n { opacity: 1; }
+.pg6 .wk.cur .wk-dot { box-shadow: 0 0 0 6px rgba(201,162,75,.25); }
+
+@media (prefers-reduced-motion: reduce) { .program .wk, .program .wk * , .program .wk::before { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; } }
+.pg4 .wk::before { inset-inline-end: 34px; font-size: 96px; }

@@ -254,3 +254,23 @@
   }, { threshold: .35 });
   cards.forEach(function (c) { io.observe(c); });
 })();
+
+/* program: 6 animation candidates (?pg=1..6 or the side switcher on preview) */
+(function () {
+  var sec = document.getElementById('program'); if (!sec) return;
+  var wks = [].slice.call(sec.querySelectorAll('.wk'));
+  var num = sec.querySelector('.pg-m-n'), bars = [].slice.call(sec.querySelectorAll('.pg-m-bar i')), last = 0;
+  function tick() {
+    var on = wks.filter(function (w) { return w.classList.contains('on'); }).length;
+    wks.forEach(function (w, i) { w.classList.toggle('cur', i === Math.max(0, on - 1)); });
+    bars.forEach(function (b, i) { b.classList.toggle('on', i < on); });
+    var n = Math.max(1, on);
+    if (num && n !== last) { num.textContent = n; num.classList.remove('bump'); void num.offsetWidth; num.classList.add('bump'); setTimeout(function () { num.classList.remove('bump'); }, 300); last = n; }
+  }
+  window.addEventListener('scroll', function () { requestAnimationFrame(tick); }, { passive: true }); tick();
+  function pick(n, go) { sec.className = sec.className.replace(/\bpg\d\b/, 'pg' + n);
+    document.querySelectorAll('[data-pg]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-pg') === String(n) ? 'true' : 'false'); });
+    if (go) { wks.forEach(function (w) { w.classList.remove('on'); }); sec.querySelector('.timeline').scrollIntoView({ block: 'start' }); window.scrollBy(0, -120); window.dispatchEvent(new Event('scroll')); } }
+  var q = (location.search.match(/[?&]pg=(\d)/) || [])[1]; pick(q || 1, false);
+  document.querySelectorAll('[data-pg]').forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-pg'), true); }); });
+})();

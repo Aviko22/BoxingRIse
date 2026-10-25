@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "85"  # bump to bust caches of css/js
+VER = "86"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -255,7 +255,7 @@ def home(t):
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> <s class="x">{e(c["pain"])}</s></p><p class="aud-change">{e(c["change"])}</p></div></article>')
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>{e(t["step_word"])}</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
-    weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="trk" cx="12" cy="12" r="9"/><circle class="prg" cx="12" cy="12" r="9"/></svg></span><p class="wk-n"><span class="wk-num">{e(t["week_word"])} <span dir="ltr">{i}</span></span> <span class="wk-feel">{e(t["week_feel"][i - 1])}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
+    weeks = "".join(f'<li class="wk" data-n="{i}"><span class="wk-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="trk" cx="12" cy="12" r="9"/><circle class="prg" cx="12" cy="12" r="9"/></svg></span><p class="wk-n"><span class="wk-num">{e(t["week_word"])} <span dir="ltr">{i}</span></span> <span class="wk-feel">{e(t["week_feel"][i - 1])}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
     about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 0 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"][1:]))
     creds = "".join(f'<li>{e(x)}</li>' for x in t["about_facts"])
     reviews = ""
@@ -336,14 +336,15 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec program" id="program" aria-labelledby="prog-h">
+  <section class="sec program pg1" id="program" aria-labelledby="prog-h">
     <div class="wrap">
       <div class="split">
         <div>{tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2><p class="lead">{e(t['prog_lead'])}</p><dl class="facts facts-light reveal">{pfacts}</dl>{('<p class="prog-kids">' + e(t['prog_kids']) + '</p>') if t['prog_kids'] else ''}</div>
-        <div class="timeline-wrap"><ol class="timeline" style="--fill:0">{weeks}</ol></div>
+        <div class="timeline-wrap"><div class="pg-meter" aria-hidden="true"><span class="pg-m-t">{e(t["week_word"])} <b class="pg-m-n" dir="ltr">1</b> <span class="pg-m-of">/ 8</span></span><span class="pg-m-bar">{"<i></i>" * 8}</span></div><ol class="timeline" style="--fill:0">{weeks}</ol></div>
       </div>
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
       <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p></div>
+      {('<div class="mv-sw" role="group" aria-label="הנפשה">' + "".join(f'<button type="button" data-pg="{i}">{i}</button>' for i in range(1, 7)) + '</div>') if CFG.get("noindex") else ""}
     </div>
   </section>
 
