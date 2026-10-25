@@ -897,3 +897,9 @@ html[dir="ltr"] .fb6 .fc.go::after { animation-name: fb-sun-l; }
 .about-img { object-position: 50% 12% !important; }
 .about-img { object-position: 50% 30% !important; }
 .about-img { object-position: 50% 40% !important; }
+/* voice: aligned with the page; 2 columns on desktop */
+.vc-list { max-width: 1000px; }
+@media (min-width: 900px) { .vc-list { grid-template-columns: 1fr 1fr; column-gap: 56px; } }
+html[lang="en"] .vc-in { font-style: italic; }
+.vc-in { font-size: clamp(17px, 2.2vw, 20px); }
+.vc-list { align-items: start; } .vc-p { align-content: start; } @media (min-width: 900px) { .vc-out { font-size: clamp(30px, 3.2vw, 40px); } }

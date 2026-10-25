@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "83"  # bump to bust caches of css/js
+VER = "84"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -235,8 +235,8 @@ def battery(t):
 
 
 def voice(t):
-    rows = "".join(f'<li class="vc-p"><p class="vc-in"><small>{e(t["voice_in"])}</small>{e(a)}</p><p class="vc-out">{e(b)}</p></li>' for a, b in t["voice"])
-    return (f'<section class="sec voice" aria-labelledby="vc-h"><div class="wrap narrow">{tag(t, "voice")}'
+    rows = "".join(f'<li class="vc-p"><p class="vc-in">{"״" if t["lang"]=="he" else "“"}{e(a)}{"״" if t["lang"]=="he" else "”"}</p><p class="vc-out">{e(b)}</p></li>' for a, b in t["voice"])
+    return (f'<section class="sec voice" aria-labelledby="vc-h"><div class="wrap">{tag(t, "voice")}'
             f'<h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><ul class="vc-list">{rows}</ul></div></section>')
 
 
