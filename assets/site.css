@@ -915,3 +915,10 @@ html[dir="ltr"] .fa5 { --jx: -80px; }
 .mv-sw button[aria-pressed="true"] { background: var(--metal); color: #120e05; }
 .aud-n { inset-inline-end: auto; left: 22px; right: auto; }
 html[dir="ltr"] .aud-n { left: auto; right: 22px; }
+/* slower: time to read the old way before it's struck out, then the new way */
+.for .fc .aud-pain s.x { transition: background-size 1s cubic-bezier(.6,0,.2,1) 1.6s !important; }
+.for .fc .aud-change { transition: opacity .7s ease 2.7s, transform .8s cubic-bezier(.2,.8,.2,1) 2.7s !important; }
+.fa4 .fc.go .aud-body > :nth-child(3) { transition-delay: 2.7s !important; }
+.fa2 .fc .aud-pain s.x { transition-delay: 2s !important; } .fa2 .fc .aud-change { transition-delay: 3.1s !important; }
+.fa6 .fc .aud-pain s.x { background-size: 0% 2px; } .fa6 .fc.lit .aud-pain s.x { background-size: 100% 2px; }
+@media (prefers-reduced-motion: reduce) { .for .fc .aud-pain s.x, .for .fc .aud-change { transition: none !important; } }
