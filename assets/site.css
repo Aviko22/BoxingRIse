@@ -887,3 +887,4 @@ html[dir="ltr"] .fb6 .fc.go::after { animation-name: fb-sun-l; }
 .rv-more { margin: 4px 0 0; }
 .reviews .wrap > .rv-grid { margin-inline: 0 !important; }
 .rv-more summary { min-height: 40px; }
+.rv-more summary { min-height: 44px; padding-block: 2px; box-sizing: border-box; }
