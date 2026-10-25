@@ -43,9 +43,9 @@ HE = {
     "what_facts": [("1:1", "אישי לגמרי"), ("60", "דקות לאימון"), ("0", "ניסיון נדרש")],
     "rounds_h": "ככה נראית שעה איתי",
     "rounds": [
-        ("round-1", "טכניקה", "עומדים זה מול זה בשמירה: איך לעמוד, איפה הידיים ואיך לזוז. בקצב שלך, עם תיקון בזמן אמת.", "המתאמנת והמאמן עומדים זה מול זה בעמידת אגרוף"),
-        ("round-2", "כריות", "מכות לכריות שהמאמן מחזיק, ומחברים אותן לקומבינציות. כאן זה מתחיל להרגיש כמו אגרוף.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
+        ("round-1", "טכניקה", "לומדים לעמוד בשמירה ולזוז נכון, עוד לפני המכה הראשונה. בקצב שלך, עם תיקון בזמן אמת.", "המתאמנת והמאמן עומדים זה מול זה בעמידת אגרוף"),
         ("round-3", "כוח וכושר", "שכיבות סמיכה ותרגילי כוח בין סבבי האגרוף. כאן הגוף מתחזק והדופק עולה.", "המתאמנת עושה שכיבות סמיכה על הדשא בפארק"),
+        ("round-2", "כריות", "מכות לכריות שהמאמן מחזיק, ומחברים אותן לקומבינציות. כאן זה מתחיל להרגיש כמו אגרוף.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
     ],
 
     "for_h": "מה תקבלי מהשעה הזו?",
@@ -205,9 +205,9 @@ EN = {
     "what_facts": [("1:1", "fully personal"), ("60", "minutes per session"), ("0", "experience needed")],
     "rounds_h": "What an hour with me looks like",
     "rounds": [
-        ("round-1", "Technique", "Face to face in guard: how to stand, where your hands go, how to move. At your pace, corrected in real time.", "The trainee and coach facing each other in boxing stance"),
-        ("round-2", "Pads", "Punches into the pads I hold, built into combinations. This is where it starts to feel like boxing.", "Pad work: the trainee punches, the coach holds the pads"),
+        ("round-1", "Technique", "Learning to stand in guard and move right, before the first punch. At your pace, corrected in real time.", "The trainee and coach facing each other in boxing stance"),
         ("round-3", "Strength & fitness", "Push-ups and strength work between boxing rounds. This is where your body gets stronger.", "The trainee doing push-ups on the grass in the park"),
+        ("round-2", "Pads", "Punches into the pads I hold, built into combinations. This is where it starts to feel like boxing.", "Pad work: the trainee punches, the coach holds the pads"),
     ],
 
     "for_h": "What you get from this hour.",
