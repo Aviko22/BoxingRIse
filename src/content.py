@@ -40,11 +40,8 @@ HE = {
 
     "what_h": "אגרוף אמיתי. רק את והמאמן.",
     "what_lead": "אגרוף קלאסי, כמו שמתאמנים בו באמת: עבודה על כריות, תנועת רגליים ושמירה. כל אימון נבנה במיוחד בשבילך, לפי הרמה והקצב שלך.",
-    "what_facts": [("1:1", "אישי לגמרי"), ("60", "דקות לאימון"), ("5", "שלבים בכל אימון")],
+    "what_facts": [("1:1", "אישי לגמרי"), ("60", "דקות לאימון"), ("0", "ניסיון נדרש")],
     "rounds_h": "ככה נראית שעה איתי",
-    "hour_min": "דק׳",
-    "hour": [("חימום", 10), ("טכניקה", 15), ("כריות", 20), ("כוח וכושר", 10), ("שחרור", 5)],
-    "hour_note": "חימום ושחרור בתחילת ובסוף כל אימון. באמצע, שלושת החלקים שבסרטונים:",
     "rounds": [
         ("round-1", "טכניקה", "עומדים זה מול זה בשמירה: איך לעמוד, איפה הידיים ואיך לזוז. בקצב שלך, עם תיקון בזמן אמת.", "המתאמנת והמאמן עומדים זה מול זה בעמידת אגרוף"),
         ("round-2", "כריות", "מכות לכריות שהמאמן מחזיק, ומחברים אותן לקומבינציות. כאן זה מתחיל להרגיש כמו אגרוף.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
@@ -205,11 +202,8 @@ EN = {
 
     "what_h": "Real boxing. Just you and your coach.",
     "what_lead": "Classic boxing, the way it's really trained: pad work, footwork and guard. Every session is built just for you, at your level and pace.",
-    "what_facts": [("1:1", "fully personal"), ("60", "minutes per session"), ("5", "stages in every session")],
+    "what_facts": [("1:1", "fully personal"), ("60", "minutes per session"), ("0", "experience needed")],
     "rounds_h": "What an hour with me looks like",
-    "hour_min": "min",
-    "hour": [("Warm-up", 10), ("Technique", 15), ("Pads", 20), ("Strength & fitness", 10), ("Cool-down", 5)],
-    "hour_note": "Every session opens with a warm-up and ends with a cool-down. In between, the three parts in the videos:",
     "rounds": [
         ("round-1", "Technique", "Face to face in guard: how to stand, where your hands go, how to move. At your pace, corrected in real time.", "The trainee and coach facing each other in boxing stance"),
         ("round-2", "Pads", "Punches into the pads I hold, built into combinations. This is where it starts to feel like boxing.", "Pad work: the trainee punches, the coach holds the pads"),
