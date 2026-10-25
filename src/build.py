@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "56"  # bump to bust caches of css/js
+VER = "57"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -274,21 +274,6 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec about alt" id="about" aria-labelledby="about-h">
-    {GRASS}
-    <div class="wrap about-grid">
-      <figure class="about-photo">{img('avi', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
-      <div class="about-text">
-        {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
-        <p class="about-sub" dir="auto">{e(t['about_sub'])}</p>
-        {about}
-        <ul class="creds stats">{creds}</ul>
-        <p class="sign" dir="ltr" aria-hidden="true">Aviko</p>
-      </div>
-    </div>
-  </section>
-
-  {reviews}
 
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
@@ -307,6 +292,22 @@ def home(t):
       {tag(t, 'for')}<h2 class="h2" id="for-h">{hgold(t, 'for_h')}</h2>
       <div class="aud-grid">{cards}</div>
       <div class="for-foot reveal">{btn(t, t['cta_trial'], 'btn btn-gold magnetic')}</div>
+    </div>
+  </section>
+
+  {reviews}
+
+  <section class="sec about alt" id="about" aria-labelledby="about-h">
+    {GRASS}
+    <div class="wrap about-grid">
+      <figure class="about-photo">{img('avi', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
+      <div class="about-text">
+        {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
+        <p class="about-sub" dir="auto">{e(t['about_sub'])}</p>
+        {about}
+        <ul class="creds stats">{creds}</ul>
+        <p class="sign" dir="ltr" aria-hidden="true">Aviko</p>
+      </div>
     </div>
   </section>
 
