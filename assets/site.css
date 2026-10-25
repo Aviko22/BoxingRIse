@@ -826,7 +826,7 @@ html[dir="ltr"] .vc-in { transform: translateX(-16px); }
 
 /* ===== mirror: 6 animation candidates (a1..a6) ===== */
 .mv-sw { position: fixed; z-index: 90; left: 10px; top: 50%; transform: translateY(-50%); display: grid; gap: 6px; padding: 6px; border-radius: 14px; background: rgba(12,11,9,.92); box-shadow: 0 0 0 1px var(--line); }
-.mv-sw button { width: 38px; height: 38px; border: 0; border-radius: 10px; background: #1b1915; color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; }
+.mv-sw button { width: 40px; height: 40px; border: 0; border-radius: 10px; background: #1b1915; color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; }
 .mv-sw button[aria-pressed="true"] { background: var(--metal); color: #120e05; }
 .mv .mv-l { position: relative; }
 .mv .mv-l::after { content: ""; position: absolute; inset-inline: 0; bottom: -1px; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: right; }
