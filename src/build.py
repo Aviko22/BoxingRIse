@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "57"  # bump to bust caches of css/js
+VER = "58"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -264,16 +264,6 @@ def home(t):
       <div class="trust"><img class="trust-face" src="/media/opt/avi-face.webp" alt="" width="56" height="56"><div><p class="trust-name">{e(t['trust_name'])}</p><p class="trust-points">{' · '.join(e(x) for x in t['trust_points'])}</p></div></div>
     </div>
   </section>
-
-  <section class="sec pain" aria-labelledby="pain-h">
-    <div class="wrap narrow">
-      {tag(t, 'pain')}<h2 class="h2" id="pain-h">{e(t['pain_h'])}</h2>
-      <ul class="pain-list">{pains}</ul>
-      <p class="pain-turn reveal">{e(t['pain_turn'])}</p>
-      <div class="pain-cta reveal">{btn(t, t['cta_trial'], 'btn btn-gold btn-sm magnetic')}</div>
-    </div>
-  </section>
-
 
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
