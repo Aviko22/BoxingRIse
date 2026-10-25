@@ -956,3 +956,4 @@ html[dir="ltr"] .pg5 .wk-feel { background-position: left 85%; }
 
 @media (prefers-reduced-motion: reduce) { .program .wk, .program .wk * , .program .wk::before { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; } }
 .pg4 .wk::before { inset-inline-end: 34px; font-size: 96px; }
+.program { overflow-x: clip; }
