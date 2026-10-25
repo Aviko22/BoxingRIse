@@ -750,12 +750,18 @@ html[lang="en"] .rv-q { font-family: var(--latin); font-size: clamp(20px, 2.2vw,
 .rv figcaption b { color: var(--gold-hi); }
 .rv figcaption span { color: var(--gold) !important; font-size: 13px !important; }
 @media (min-width: 760px) { .rv { grid-template-columns: 150px 1fr; gap: 22px; padding: 14px !important; } .rv-photo { width: 150px; height: 188px; } .reviews .wrap > .rv-grid { margin-inline: auto !important; } }
-.js .reviews .rv { opacity: 0; transform: translateY(24px); }
-.js .reviews.tag-in .rv { animation: rv-in .7s var(--ease) both; }
-.js .reviews.tag-in .rv:nth-child(2) { animation-delay: .45s; }
-.js .reviews.tag-in .rv:nth-child(3) { animation-delay: .9s; }
-@keyframes rv-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .js .reviews .rv { opacity: 1 !important; transform: none !important; animation: none !important; } }
 .reviews .rv-grid { margin-inline: auto !important; }
 .reviews .h2, .reviews .tag { }
 @media (min-width: 760px) { .reviews .wrap { display: flex; flex-direction: column; } .reviews .rv-grid { width: 100%; } }
+
+/* reviews: each card animates as it scrolls into view — the photo slides in, the words rise after it */
+.js .reviews .rv { opacity: 0; transform: translateY(40px) scale(.97); transition: opacity .7s ease, transform .9s var(--ease); }
+.js .reviews .rv .rv-photo { opacity: 0; transform: translateX(-40px) rotate(-3deg); transition: opacity .7s ease .15s, transform .9s var(--ease) .15s; }
+html[dir="ltr"].js .reviews .rv .rv-photo { transform: translateX(40px) rotate(3deg); }
+.js .reviews .rv .rv-q, .js .reviews .rv figcaption { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .7s var(--ease); }
+.js .reviews .rv .rv-q { transition-delay: .4s; } .js .reviews .rv figcaption { transition-delay: .65s; }
+.js .reviews .rv.in, .js .reviews .rv.in .rv-photo, .js .reviews .rv.in .rv-q, .js .reviews .rv.in figcaption { opacity: 1; transform: none; }
+.js .reviews .rv.in { box-shadow: 0 0 0 0 rgba(212,173,87,0); animation: rv-glow 1.6s ease .6s; }
+@keyframes rv-glow { 40% { box-shadow: 0 0 34px rgba(212,173,87,.28); } 100% { box-shadow: 0 0 0 rgba(212,173,87,0); } }
+@media (prefers-reduced-motion: reduce) { .js .reviews .rv, .js .reviews .rv * { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; } }

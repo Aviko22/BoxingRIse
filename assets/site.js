@@ -113,6 +113,14 @@
     clips.forEach(function (v) { cio2.observe(v); });
   }
 
+  /* ---------- Reviews: animate each card when it comes into view ---------- */
+  var rvs = document.querySelectorAll('.reviews .rv');
+  if (reduce || !('IntersectionObserver' in window)) rvs.forEach(function (r) { r.classList.add('in'); });
+  else {
+    var rio = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); rio.unobserve(x.target); } }); }, { threshold: 0.35 });
+    rvs.forEach(function (r) { rio.observe(r); });
+  }
+
   /* ---------- Counters ---------- */
   var nums = document.querySelectorAll('.num[data-count]');
   if (!reduce && 'IntersectionObserver' in window) {
