@@ -735,33 +735,27 @@ h1.hero-sub { font-family: var(--body); font-weight: 400; line-height: 1.5; }
 }
 @media (min-width: 1000px) and (max-width: 1279px) { .hero { align-items: center; padding-bottom: 80px; } .hero-media { width: 58% !important; } .hero-inner > *, .hero-inner > .h1 { width: 42% !important; } }
 
-/* reviews: each trainee's photo and name first, then her words */
-.rv { display: flex; flex-direction: column; gap: 14px; padding-top: 22px; }
-.rv::before { display: none; }
-.rv figcaption { order: -1; margin: 0; flex-direction: row; align-items: center; gap: 14px; }
-.rv-photo { flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--gold), 0 0 0 6px rgba(212,173,87,.15); }
-.rv-initial { display: grid; place-items: center; background: #221f18; font-family: var(--display); font-size: 32px; color: var(--gold-hi); }
-.rv-who { display: flex; flex-direction: column; gap: 2px; }
-.rv blockquote { margin-top: 0; }
-.rv figcaption .rv-initial { font-size: 34px; color: var(--gold-hi); font-weight: 700; line-height: 1; }
-.rv-photo { width: 76px; height: 76px; }
-
-/* reviews: the three trainees come in one after another, photo pops, her key line gets a gold marker */
-.js .reviews .rv { opacity: 0; transform: translateY(22px); }
+/* reviews v3: a stacked list, photo beside a big quote, coming in one by one */
+.rv-grid { display: grid !important; grid-auto-flow: row !important; grid-template-columns: 1fr !important; gap: 16px !important; max-width: 760px; overflow: visible !important; margin-inline: 0 !important; padding: 0 !important; }
+.rv { display: grid !important; grid-template-columns: 112px 1fr; gap: 16px; align-items: center; padding: 12px !important; border-radius: 22px !important; }
+.rv::before { display: none !important; }
+.rv-photo { width: 112px; height: 140px; border-radius: 16px; object-fit: cover; box-shadow: none; }
+.rv-initial { display: grid; place-items: center; background: #221f18; font: 700 40px var(--display); color: var(--gold-hi); }
+.rv-body { display: flex; flex-direction: column; gap: 8px; }
+.rv blockquote { margin: 0 !important; }
+.rv-q { margin: 0; font-family: var(--display); font-size: clamp(25px, 3vw, 32px); line-height: 1.05; color: var(--white); }
+html[lang="en"] .rv-q { font-family: var(--latin); font-size: clamp(20px, 2.2vw, 24px); line-height: 1.2; }
+.rv-full { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ash); }
+.rv figcaption { display: block !important; margin: 0 !important; font-size: 13px; color: var(--gold); font-weight: 700; }
+.rv figcaption b { color: var(--gold-hi); }
+.rv figcaption span { color: var(--gold) !important; font-size: 13px !important; }
+@media (min-width: 760px) { .rv { grid-template-columns: 150px 1fr; gap: 22px; padding: 14px !important; } .rv-photo { width: 150px; height: 188px; } .reviews .wrap > .rv-grid { margin-inline: auto !important; } }
+.js .reviews .rv { opacity: 0; transform: translateY(24px); }
 .js .reviews.tag-in .rv { animation: rv-in .7s var(--ease) both; }
-.js .reviews.tag-in .rv:nth-child(2) { animation-delay: .35s; }
-.js .reviews.tag-in .rv:nth-child(3) { animation-delay: .7s; }
-@keyframes rv-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
-.js .reviews .rv-photo { transform: scale(.6); opacity: 0; }
-.js .reviews.tag-in .rv-photo { animation: rv-pop .6s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: inherit; }
-.js .reviews.tag-in .rv:nth-child(1) .rv-photo { animation-delay: .25s; }
-.js .reviews.tag-in .rv:nth-child(2) .rv-photo { animation-delay: .6s; }
-.js .reviews.tag-in .rv:nth-child(3) .rv-photo { animation-delay: .95s; }
-@keyframes rv-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
-.rv-hl { background: linear-gradient(transparent 62%, rgba(212, 173, 87, .28) 62%) no-repeat right / 0% 100%; transition: background-size 1s var(--ease); }
-html[dir="ltr"] .rv-hl { background-position: left; }
-.reviews.tag-in .rv-hl { background-size: 100% 100%; }
-.reviews.tag-in .rv:nth-child(1) .rv-hl { transition-delay: .7s; }
-.reviews.tag-in .rv:nth-child(2) .rv-hl { transition-delay: 1.05s; }
-.reviews.tag-in .rv:nth-child(3) .rv-hl { transition-delay: 1.4s; }
-@media (prefers-reduced-motion: reduce) { .js .reviews .rv, .js .reviews .rv-photo { opacity: 1 !important; transform: none !important; animation: none !important; } .rv-hl { background-size: 100% 100%; transition: none; } }
+.js .reviews.tag-in .rv:nth-child(2) { animation-delay: .45s; }
+.js .reviews.tag-in .rv:nth-child(3) { animation-delay: .9s; }
+@keyframes rv-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .js .reviews .rv { opacity: 1 !important; transform: none !important; animation: none !important; } }
+.reviews .rv-grid { margin-inline: auto !important; }
+.reviews .h2, .reviews .tag { }
+@media (min-width: 760px) { .reviews .wrap { display: flex; flex-direction: column; } .reviews .rv-grid { width: 100%; } }

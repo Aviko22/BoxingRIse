@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "54"  # bump to bust caches of css/js
+VER = "55"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -232,12 +232,11 @@ def home(t):
     reviews = ""
     if CFG["show_testimonials"]:
         def rv(k, name, txt):
-            hl = t["review_hl"][k]
-            body = e(txt).replace(e(hl), f'<mark class="rv-hl">{e(hl)}</mark>', 1)
             slug = t["review_photo"][k]
-            photo = (f'<img class="rv-photo" src="/media/review-{slug}.jpg?v={VER}" alt="{e(name)}" width="96" height="96" loading="lazy">'
+            photo = (f'<img class="rv-photo" src="/media/review-{slug}.jpg?v={VER}" alt="{e(name)}" width="320" height="400" loading="lazy">'
                      if (ROOT / "media" / f"review-{slug}.jpg").exists() else f'<span class="rv-photo rv-initial" aria-hidden="true">{e(name[0])}</span>')
-            return f'<figure class="rv"><figcaption>{photo}<span class="rv-who"><b>{e(name)}</b><span>{e(t["review_sub"][k])}</span></span></figcaption><blockquote><p>{body}</p></blockquote></figure>'
+            return (f'<figure class="rv">{photo}<div class="rv-body"><blockquote><p class="rv-q">{e(t["review_hl"][k])}.</p>'
+                    f'</blockquote><figcaption><b>{e(name)}</b> · <span>{e(t["review_sub"][k])}</span></figcaption></div></figure>')
         q = "".join(rv(k, name, txt) for k, (name, txt) in enumerate(t["reviews"]))
         reviews = f'<section class="sec reviews" id="reviews" aria-labelledby="rv-h"><div class="wrap">{tag(t, "reviews")}<h2 class="h2" id="rv-h">{hgold(t, "reviews_h")}</h2><div class="rv-grid">{q}</div><div class="rv-foot reveal"><p>{e(t["reviews_cta"])}</p>{btn(t, t["cta_trial"], "btn btn-gold magnetic")}</div></div></section>'
     faq_arrow = "←" if t["lang"] == "he" else "→"
