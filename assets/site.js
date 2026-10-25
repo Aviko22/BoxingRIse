@@ -241,46 +241,10 @@
   }, .8);
 })();
 
-/* mirror: 6 animation candidates, picked with ?a=1..6 or the side switcher (preview only) */
+/* mirror: lines come into focus when the section is on screen */
 (function () {
   var s = document.querySelector('.mv'); if (!s) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var lines = [].slice.call(s.querySelectorAll('.mv-l')), turn = s.querySelector('.mv-turn');
-  var texts = lines.map(function (l) { return l.textContent; });
-  var timers = [], mode = 1, seen = false, onScroll = null;
-  function later(f, ms) { timers.push(setTimeout(f, ms)); }
-  function reset() {
-    timers.forEach(clearTimeout); timers = [];
-    if (onScroll) { window.removeEventListener('scroll', onScroll); onScroll = null; }
-    s.classList.remove('in'); turn.classList.remove('punch', 'show'); turn.style.removeProperty('--fill');
-    lines.forEach(function (l, i) { l.classList.remove('hit', 'lit'); l.textContent = texts[i]; });
-  }
-  function play() {
-    reset(); void s.offsetWidth;
-    if (mode === 2) lines.forEach(function (l, i) { l.innerHTML = '<span class="x"></span>'; l.firstChild.textContent = texts[i]; });
-    if (mode === 3) lines.forEach(function (l) { l.textContent = ''; });
-    if (mode === 6) { scrub(); return; }
-    s.classList.add('in');
-    if (reduce) { if (mode === 2) lines.forEach(function (l, i) { if (i) l.classList.add('hit'); }); if (mode === 2) turn.classList.add('punch'); if (mode === 3) { lines.forEach(function (l, i) { l.textContent = texts[i]; }); turn.classList.add('show'); } return; }
-    if (mode === 2) { lines.forEach(function (l, i) { if (i) later(function () { l.classList.add('hit'); }, 600 + i * 700); }); later(function () { turn.classList.add('punch'); }, 900 + lines.length * 650 + 150); }
-    if (mode === 3) { var li = 0;
-      (function typeLine() { if (li >= lines.length) { turn.classList.add('show'); return; }
-        var l = lines[li], txt = texts[li], k = 0; l.innerHTML = '<span></span><i class="cur"></i>';
-        (function step() { l.firstChild.textContent = txt.slice(0, ++k); if (k < txt.length) later(step, 38); else later(function () { l.removeChild(l.lastChild); li++; typeLine(); }, 350); })();
-      })(); }
-  }
-  function scrub() {
-    onScroll = function () { var r = s.getBoundingClientRect(), vh = window.innerHeight;
-      var p = Math.min(1, Math.max(0, (vh * .85 - r.top) / (r.height * .9)));
-      lines.forEach(function (l, i) { l.classList.toggle('lit', p > (i + 1) / (lines.length + 2)); });
-      var f = Math.min(1, Math.max(0, (p - (lines.length + .5) / (lines.length + 2)) * (lines.length + 2) / 1.2));
-      turn.style.setProperty('--fill', Math.round(f * 100) + '%'); };
-    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-  }
-  function pick(n, replay) { mode = +n; s.className = s.className.replace(/\ba\d\b/, 'a' + mode);
-    document.querySelectorAll('[data-mva]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-mva') === String(mode) ? 'true' : 'false'); });
-    if (replay) { s.scrollIntoView({ block: 'center' }); setTimeout(play, 350); } else { reset(); if (mode === 6) scrub(); else if (mode === 3) lines.forEach(function (l) { l.textContent = ''; }); } }
-  var q = (location.search.match(/[?&]a=(\d)/) || [])[1]; pick(q || 1, false);
-  document.querySelectorAll('[data-mva]').forEach(function (b) { b.addEventListener('click', function () { seen = true; pick(b.getAttribute('data-mva'), true); }); });
-  if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting && !seen && mode !== 6) { seen = true; play(); } }); }, { threshold: .35 }); io.observe(s); } else play();
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { s.classList.add('in'); return; }
+  var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { s.classList.add('in'); io.disconnect(); } }, { threshold: .35 });
+  io.observe(s);
 })();
