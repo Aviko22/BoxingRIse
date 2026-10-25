@@ -259,8 +259,7 @@
   function arm() {
     clear();
     if (reduce) { cards.forEach(function (c) { c.classList.add('go', 'lit'); }); return; }
-    if (mode === 6) {
-      cards.forEach(function (c) { c.classList.add('go'); });
+    if (false) {
       onScroll = function () { var vh = window.innerHeight, mid = vh / 2, best = 0;
         if (window.innerWidth >= 760) { var r = sec.getBoundingClientRect(); var p = (vh * .75 - r.top) / r.height; best = Math.min(2, Math.max(0, Math.floor(p * 3))); }
         else { var bd = 1e9; cards.forEach(function (c, i) { var q = c.getBoundingClientRect(), d = Math.abs(q.top + q.height / 2 - mid); if (d < bd) { bd = d; best = i; } }); }
@@ -269,14 +268,14 @@
     }
     io = new IntersectionObserver(function (es) {
       var wide = window.innerWidth >= 760;
-      es.forEach(function (x) { if (!x.isIntersecting) return; io.unobserve(x.target);
-        var i = cards.indexOf(x.target); timers.push(setTimeout(function () { x.target.classList.add('go'); }, wide ? i * 220 : 0)); });
+      es.forEach(function (x) { if (!x.isIntersecting) return; if (mode === 4) { cards.forEach(function (c) { c.classList.add('go'); }); io.disconnect(); return; } io.unobserve(x.target);
+        var i = cards.indexOf(x.target); timers.push(setTimeout(function () { x.target.classList.add('go'); }, wide && mode !== 4 ? i * 260 : 0)); });
     }, { threshold: .35 });
     cards.forEach(function (c) { io.observe(c); });
   }
-  function pick(n, replay) { mode = +n; sec.className = sec.className.replace(/\bfa\d\b/, 'fa' + mode);
+  function pick(n, replay) { mode = +n; sec.className = sec.className.replace(/\bf[ab]\d\b/, 'fb' + mode);
     document.querySelectorAll('[data-fa]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-fa') === String(mode) ? 'true' : 'false'); });
     if (replay) { clear(); sec.scrollIntoView({ block: 'start' }); setTimeout(arm, 400); } else arm(); }
-  var q = (location.search.match(/[?&]fa=(\d)/) || [])[1]; pick(q || 1, false);
+  var q = (location.search.match(/[?&]fb=(\d)/) || [])[1]; pick(q || 1, false);
   document.querySelectorAll('[data-fa]').forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-fa'), true); }); });
 })();
