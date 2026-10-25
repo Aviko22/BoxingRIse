@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "60"  # bump to bust caches of css/js
+VER = "61"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -250,8 +250,8 @@ def home(t):
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>STEP</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
     weeks = "".join(f'<li class="wk"><span class="wk-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="trk" cx="12" cy="12" r="9"/><circle class="prg" cx="12" cy="12" r="9"/></svg></span><p class="wk-n"><span class="wk-num">{e(t["week_word"])} <span dir="ltr">{i}</span></span> <span class="wk-feel">{e(t["week_feel"][i - 1])}</span></p><details class="wk-d"><summary><h3>{e(h)}</h3><span class="wk-x" aria-hidden="true"></span></summary><p>{e(p)}</p></details></li>' for i, (h, p) in enumerate(t["weeks"], 1))
-    about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 1 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"]))
-    creds = "".join(f'<li class="stat{" stat-word" if not n.isdigit() else ""}"><b>{e(n)}</b><span>{e(l)}</span></li>' for n, l in t["about_stats"])
+    about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 0 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"][1:]))
+    creds = "".join(f'<li>{e(x)}</li>' for x in t["about_facts"])
     reviews = ""
     if CFG["show_testimonials"]:
         def rv(k, name, txt):
@@ -284,7 +284,6 @@ def home(t):
       <p class="h1">{h1}</p>
       <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
-      <div class="trust"><img class="trust-face" src="/media/opt/avi-face.webp" alt="" width="56" height="56"><div><p class="trust-name">{e(t['trust_name'])}</p><p class="trust-points">{' · '.join(e(x) for x in t['trust_points'])}</p></div></div>
     </div>
   </section>
 
@@ -318,10 +317,8 @@ def home(t):
       <figure class="about-photo">{img('avi', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
       <div class="about-text">
         {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
-        <p class="about-sub" dir="auto">{e(t['about_sub'])}</p>
         {about}
-        <ul class="creds stats">{creds}</ul>
-        <p class="sign" dir="ltr" aria-hidden="true">Aviko</p>
+        <ul class="about-facts">{creds}</ul>
       </div>
     </div>
   </section>

@@ -101,6 +101,7 @@ HE = {
         "אני לא מאמן כדי לייצר לוחמות. אני מאמן כדי שתצאי מכל אימון חזקה יותר ממה שנכנסת.",
         "אני עובד עם מתחילות, בקצב שלהן, עם הסבר לכל תנועה. בלי צעקות, בלי לחץ, ועם הרבה סבלנות.",
     ],
+    "about_facts": ["10 שנים מואי תאי", "5 שנים אגרוף", "חגורה שחורה בג׳ו־ג׳יטסו"],
     "about_creds": ["10 שנים מואי תאי", "5 שנים אגרוף קלאסי", "חגורה שחורה, ג׳ו־ג׳יטסו יפני", "הכשרה בישראל ובתאילנד"],
     "about_alt": "אבי אניחוביץ, מאמן האגרוף של BoxingRise, באימון בחוץ",
 
@@ -262,6 +263,7 @@ EN = {
         "I don't coach to make fighters. I coach so you leave every session stronger than you came in.",
         "I work with beginners, at their pace, explaining every move. No shouting, no pressure, and a lot of patience.",
     ],
+    "about_facts": ["10 years of Muay Thai", "5 years of boxing", "Jiu-jitsu black belt"],
     "about_creds": ["10 years of Muay Thai", "5 years of classic boxing", "Black belt, Japanese jujutsu", "Trained in Israel and Thailand"],
     "about_alt": "Avi Anihovich, BoxingRise boxing coach, training outdoors",
 

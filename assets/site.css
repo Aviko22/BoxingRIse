@@ -805,3 +805,8 @@ html[dir="ltr"] .vc-in { transform: translateX(-16px); }
 .vc-out { margin: 0; font-family: var(--display); font-size: clamp(30px, 5vw, 48px); line-height: 1.03; color: var(--white); opacity: 0; transform: translateY(10px); transition: opacity .5s .35s, transform .6s cubic-bezier(.2,.8,.2,1) .35s; }
 .vc-p.in .vc-in, .vc-p.in .vc-out { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .mv-l, .mv-turn, .bt-d, .bt-turn, .vc-in, .vc-out { opacity: 1 !important; transform: none !important; transition: none !important; } .bt-cell i { transition: none; } }
+
+/* about, decluttered: quote, one line, a quiet facts row */
+.about-facts { list-style: none; margin: clamp(22px, 3vw, 32px) 0 0; padding: 18px 0 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px 0; font-size: 15px; font-weight: 600; color: var(--gold); }
+.about-facts li + li::before { content: "·"; margin-inline: 12px; color: #6b655b; }
+.hero-cta { margin-bottom: 0; }
