@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "61"  # bump to bust caches of css/js
+VER = "62"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -203,7 +203,12 @@ def hgold(t, key):
     return e(" ".join(w[:-n])) + ('<br>' if key == "batt_h" else ' ') + '<span class="g">' + e(" ".join(w[-n:])) + "</span>"
 
 
+TAGGED = {"what", "reviews", "trial", "program"}
+
+
 def tag(t, key):
+    if key not in TAGGED:
+        return ""
     return f'<p class="tag">{e(t["tag_" + key])}</p>'
 
 
@@ -245,7 +250,7 @@ def home(t):
     cards = ""
     for c in t["for"]:
         media_html = media(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])
-        cards += (f'<article class="aud reveal"><div class="aud-media">{media_html}</div><div class="aud-body">'
+        cards += (f'<article class="aud aud-text reveal"><div class="aud-body">'
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> {e(c["pain"])}</p><p class="aud-change">{e(c["change"])}</p></div></article>')
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>STEP</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
@@ -304,7 +309,6 @@ def home(t):
     <div class="wrap">
       {tag(t, 'for')}<h2 class="h2" id="for-h">{hgold(t, 'for_h')}</h2>
       <div class="aud-grid">{cards}</div>
-      <div class="for-foot reveal">{btn(t, t['cta_trial'], 'btn btn-gold magnetic')}</div>
     </div>
   </section>
 
@@ -339,7 +343,7 @@ def home(t):
         <div class="timeline-wrap"><ol class="timeline" style="--fill:0">{weeks}</ol></div>
       </div>
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
-      <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['cta_trial'], 'btn btn-gold magnetic')}</div>
+      <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p></div>
     </div>
   </section>
 
