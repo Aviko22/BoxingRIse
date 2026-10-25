@@ -45,7 +45,7 @@ HE = {
     "rounds": [
         ("round-1", "טכניקה", "עומדים זה מול זה בשמירה: איך לעמוד, איפה הידיים ואיך לזוז. בקצב שלך, עם תיקון בזמן אמת.", "המתאמנת והמאמן עומדים זה מול זה בעמידת אגרוף"),
         ("round-2", "כריות", "מכות לכריות שהמאמן מחזיק, ומחברים אותן לקומבינציות. כאן זה מתחיל להרגיש כמו אגרוף.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
-        ("round-3", "כוח וכושר", "סדרות מהירות על הכריות, מכה אחרי מכה. כאן הדופק עולה והגוף עובד.", "סדרת מכות מהירה על הכריות"),
+        ("round-3", "כוח וכושר", "שכיבות סמיכה ותרגילי כוח בין סבבי האגרוף. כאן הגוף מתחזק והדופק עולה.", "המתאמנת עושה שכיבות סמיכה על הדשא בפארק"),
     ],
 
     "for_h": "מה תקבלי מהשעה הזו?",
@@ -207,7 +207,7 @@ EN = {
     "rounds": [
         ("round-1", "Technique", "Face to face in guard: how to stand, where your hands go, how to move. At your pace, corrected in real time.", "The trainee and coach facing each other in boxing stance"),
         ("round-2", "Pads", "Punches into the pads I hold, built into combinations. This is where it starts to feel like boxing.", "Pad work: the trainee punches, the coach holds the pads"),
-        ("round-3", "Strength & fitness", "Fast sets on the pads, punch after punch. Your heart rate goes up and your whole body works.", "A fast punching set on the pads"),
+        ("round-3", "Strength & fitness", "Push-ups and strength work between boxing rounds. This is where your body gets stronger.", "The trainee doing push-ups on the grass in the park"),
     ],
 
     "for_h": "What you get from this hour.",
