@@ -255,22 +255,35 @@
   cards.forEach(function (c) { io.observe(c); });
 })();
 
-/* program: 6 animation candidates (?pg=1..6 or the side switcher on preview) */
+/* BoxingRise 8: pinned run through the weeks */
 (function () {
-  var sec = document.getElementById('program'); if (!sec) return;
-  var wks = [].slice.call(sec.querySelectorAll('.wk'));
-  var num = sec.querySelector('.pg-m-n'), bars = [].slice.call(sec.querySelectorAll('.pg-m-bar i')), last = 0;
-  function tick() {
-    var on = wks.filter(function (w) { return w.classList.contains('on'); }).length;
-    wks.forEach(function (w, i) { w.classList.toggle('cur', i === Math.max(0, on - 1)); });
-    bars.forEach(function (b, i) { b.classList.toggle('on', i < on); });
-    var n = Math.max(1, on);
-    if (num && n !== last) { num.textContent = n; num.classList.remove('bump'); void num.offsetWidth; num.classList.add('bump'); setTimeout(function () { num.classList.remove('bump'); }, 300); last = n; }
+  var sec = document.querySelector('.p8'); if (!sec) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  sec.classList.add('on');
+  var run = sec.querySelector('.p8-run'), steps = [].slice.call(sec.querySelectorAll('.p8-step'));
+  var segs = [].slice.call(sec.querySelectorAll('.p8-seg')), ticks = [].slice.call(sec.querySelectorAll('.p8-ticks i'));
+  var roll = [].slice.call(sec.querySelectorAll('.p8-roll b')), copy = sec.querySelector('.p8-copy'), stage = sec.querySelector('.p8-stage');
+  var phases = (sec.getAttribute('data-phases') || '').split('|'), pw = sec.getAttribute('data-phase-word') || '';
+  var q = function (s) { return sec.querySelector(s); }, cur = -1;
+  function set(i) {
+    if (i === cur) return; cur = i; var s = steps[i];
+    roll.forEach(function (b) { b.style.setProperty('--i', i); });
+    segs.forEach(function (g, k) { g.setAttribute('class', 'p8-seg' + (k < i ? ' done' : '') + (k === i ? ' cur' : '')); });
+    ticks.forEach(function (t, k) { t.classList.toggle('on', k <= i); });
+    var ph = +s.getAttribute('data-phase');
+    q('.p8-ph-n').textContent = pw + ' ' + (ph + 1); q('.p8-ph-t').textContent = phases[ph] || '';
+    q('.p8-feel').textContent = s.getAttribute('data-feel'); q('.p8-t').textContent = s.getAttribute('data-t');
+    q('.p8-d').textContent = s.getAttribute('data-d'); q('.p8-m em').textContent = s.getAttribute('data-m');
+    copy.classList.remove('swap'); void copy.offsetWidth; copy.classList.add('swap');
+    sec.classList.toggle('p8-last', i === 7);
   }
-  window.addEventListener('scroll', function () { requestAnimationFrame(tick); }, { passive: true }); tick();
-  function pick(n, go) { sec.className = sec.className.replace(/\bpg\d\b/, 'pg' + n);
-    document.querySelectorAll('[data-pg]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-pg') === String(n) ? 'true' : 'false'); });
-    if (go) { wks.forEach(function (w) { w.classList.remove('on'); }); sec.querySelector('.timeline').scrollIntoView({ block: 'start' }); window.scrollBy(0, -120); window.dispatchEvent(new Event('scroll')); } }
-  var q = (location.search.match(/[?&]pg=(\d)/) || [])[1]; pick(q || 1, false);
-  document.querySelectorAll('[data-pg]').forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-pg'), true); }); });
+  function tick() {
+    var r = run.getBoundingClientRect(), vh = window.innerHeight;
+    var p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - vh)));
+    stage.style.setProperty('--p', p.toFixed(3));
+    sec.classList.toggle('moved', p > .02);
+    set(Math.min(7, Math.floor(p * 8 * 0.999)));
+  }
+  window.addEventListener('scroll', function () { requestAnimationFrame(tick); }, { passive: true });
+  window.addEventListener('resize', tick); tick();
 })();
