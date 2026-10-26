@@ -996,3 +996,9 @@ html[lang="he"] .step-n small { font-family: var(--body); letter-spacing: 0; fon
 }
 @media (min-width: 1000px) and (prefers-reduced-motion: reduce) { .js .fly-logo { display: none; } .js .hero-logo-slot { display: none; } .js.logo-flying .site-head .logo img { opacity: 1; } }
 @media (min-width: 1000px) { .js .hero-inner > .hero-logo-slot { width: clamp(160px, 14vw, 220px) !important; } }
+/* desktop hero: more breathing room between logo, headline, text and button */
+@media (min-width: 1000px) {
+  .js .hero-inner > .hero-logo-slot { margin-top: calc(clamp(160px, 14vw, 220px) * -0.39 - 70px); margin-bottom: 44px; }
+  .hero-inner .hero-sub { margin-top: 34px; }
+  .hero-inner .hero-cta { margin-top: 44px; }
+}
