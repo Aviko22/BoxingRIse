@@ -264,29 +264,10 @@
   var segs = [].slice.call(sec.querySelectorAll('.p8-seg')), ticks = [].slice.call(sec.querySelectorAll('.p8-ticks i'));
   var roll = [].slice.call(sec.querySelectorAll('.p8-roll b')), copy = sec.querySelector('.p8-copy'), stage = sec.querySelector('.p8-stage');
   var phases = (sec.getAttribute('data-phases') || '').split('|'), pw = sec.getAttribute('data-phase-word') || '';
-  var q = function (s) { return sec.querySelector(s); }, cur = -1, played = false, fx = 1;
-  var cv = sec.querySelector('.p8-fx'), ctx = cv && cv.getContext('2d'), parts = [], raf = 0;
-  function particles(kind) {
-    if (!ctx) return; var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1; cv.width = r.width * d; cv.height = r.height * d; ctx.setTransform(d, 0, 0, d, 0, 0);
-    var m = q('.p8-mark').getBoundingClientRect(), ox = m.left + m.width / 2 - r.left, oy = m.top + m.height / 2 - r.top; parts = [];
-    var cols = ['#f1d58e', '#c9a24b', '#e6c97d', '#fff3d1', '#9a7428'];
-    for (var k = 0; k < (kind === 'embers' ? 90 : 160); k++) {
-      if (kind === 'embers') parts.push({ x: Math.random() * r.width, y: r.height * (.55 + Math.random() * .6), vx: (Math.random() - .5) * .4, vy: -(2.2 + Math.random() * 3), s: 2 + Math.random() * 3.5, c: cols[k % 5], a: 1, life: 0, max: 220 + Math.random() * 120, round: true });
-      else { var ang = Math.random() * Math.PI * 2, sp = 4 + Math.random() * 9; parts.push({ x: ox, y: oy, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 3, s: 4 + Math.random() * 6, c: cols[k % 5], a: 1, life: 0, max: 90 + Math.random() * 60, rot: Math.random() * 6, vr: (Math.random() - .5) * .4 }); }
-    }
-    cancelAnimationFrame(raf);
-    (function step() {
-      ctx.clearRect(0, 0, r.width, r.height); var alive = 0;
-      parts.forEach(function (p) { p.life++; if (p.life > p.max) return; alive++;
-        if (p.round) { p.x += p.vx + Math.sin(p.life / 20) * .3; p.y += p.vy; p.a = Math.min(1, (p.max - p.life) / 60); ctx.globalAlpha = p.a; ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, 7); ctx.fill(); }
-        else { p.vy += .22; p.vx *= .985; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.a = Math.min(1, (p.max - p.life) / 30); ctx.globalAlpha = p.a; ctx.shadowBlur = 0; ctx.fillStyle = p.c; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); ctx.restore(); } });
-      ctx.globalAlpha = 1; if (alive) raf = requestAnimationFrame(step); else ctx.clearRect(0, 0, r.width, r.height);
-    })();
-  }
+  var q = function (s) { return sec.querySelector(s); }, cur = -1, played = false;
   function finale() {
     if (played) return; played = true;
     sec.classList.remove('p8-done'); void sec.offsetWidth; sec.classList.add('p8-done');
-    if (fx === 1) particles('confetti'); if (fx === 5) particles('embers');
   }
   function set(i) {
     if (i === cur) return; cur = i; var s = steps[i];
@@ -311,11 +292,6 @@
   }
   window.addEventListener('scroll', function () { requestAnimationFrame(tick); }, { passive: true });
   window.addEventListener('resize', tick); tick();
-  function pickFx(n, go) { fx = +n; sec.className = sec.className.replace(/\bfx\d\b/, 'fx' + n);
-    document.querySelectorAll('[data-fx]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-fx') === String(n) ? 'true' : 'false'); });
-    if (go) { played = false; cur = -1; window.scrollTo({ top: run.getBoundingClientRect().top + window.scrollY + run.offsetHeight - window.innerHeight * 1.9, behavior: 'instant' }); tick(); setTimeout(function () { window.scrollBy({ top: window.innerHeight * .9, behavior: 'smooth' }); }, 300); } }
-  var qf = (location.search.match(/[?&]fx=(\d)/) || [])[1]; pickFx(qf || 1, false);
-  document.querySelectorAll('[data-fx]').forEach(function (b) { b.addEventListener('click', function () { pickFx(b.getAttribute('data-fx'), true); }); });
 })();
 
 /* desktop: hero logo flies into the header */
