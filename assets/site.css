@@ -1099,3 +1099,16 @@ html[lang="he"] .hero .h1-line { white-space: nowrap; }
   .reviews .rv-photo { width: 88px; height: 88px; border-radius: 50%; }
   .reviews .rv-q { font-size: clamp(24px, 1.9vw, 28px); }
 }
+
+/* ===== "what you tell yourself": the inner voice fades, the answer lands sharp =====
+   The doubt whispers in, blurred and flickering, then dims away; the answer lands crisp from
+   slightly large. The doubt stays readable at the end (dimmed, not gone) so the pair still reads. */
+@media (prefers-reduced-motion: no-preference) {
+  .vc-in, .vc-out { transition: none; transform: none; transform-origin: right center; }
+  html[dir="ltr"] .vc-in, html[dir="ltr"] .vc-out { transform-origin: left center; }
+  .vc-p.in .vc-in { animation: vc-whisper 1.1s ease-out both, vc-settle .5s ease-in 1.1s forwards; }
+  .vc-p.in .vc-out { animation: vc-land .52s ease-out 1.1s both; }
+}
+@keyframes vc-whisper { 0% { opacity: 0; filter: blur(6px); } 40% { opacity: .9; filter: blur(1.5px); } 70% { opacity: .55; filter: blur(3px); } 100% { opacity: .9; filter: blur(1px); } }
+@keyframes vc-settle { from { opacity: .9; filter: blur(1px); } to { opacity: .7; filter: blur(0); transform: scale(.97); } }
+@keyframes vc-land { 0% { opacity: 0; transform: scale(1.35); filter: blur(6px); } 60% { opacity: 1; transform: scale(.97); filter: blur(0); } 100% { opacity: 1; transform: none; filter: none; } }
