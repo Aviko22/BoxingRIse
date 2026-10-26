@@ -317,12 +317,4 @@
   window.addEventListener('resize', frame); window.addEventListener('load', frame); frame();
 })();
 
-/* "an hour with me": phone layout candidates (?rd=1..6, preview switcher) */
-(function () {
-  var ol = document.querySelector('.rounds'); if (!ol) return;
-  function pick(n, go) { ol.className = ol.className.replace(/\brd\d\b/, 'rd' + n);
-    document.querySelectorAll('[data-rd]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-rd') === String(n) ? 'true' : 'false'); });
-    if (go) document.querySelector('.rounds-h').scrollIntoView({ block: 'start' }), window.scrollBy(0, -80); }
-  var q = (location.search.match(/[?&]rd=(\d)/) || [])[1]; pick(q || 1, false);
-  document.querySelectorAll('[data-rd]').forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-rd'), true); }); });
-})();
+
