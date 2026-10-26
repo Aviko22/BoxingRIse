@@ -986,3 +986,12 @@ html[lang="he"] .step-n small { font-family: var(--body); letter-spacing: 0; fon
 @media (min-width: 900px) { .lgA .p8-grid > .p8-mark { grid-row: 1; grid-column: 1; align-self: end; } .lgA .p8-grid > .p8-dial { grid-row: 2; grid-column: 1; } .lgA .p8-copy { grid-row: 1 / span 2; grid-column: 2; } }
 .lgB.p8-last .p8-logo-fill { opacity: .16; }
 .lgA .p8-dial::after { display: none; } 
+/* desktop hero: the logo starts large above the headline, then flies into the header as she scrolls */
+.hero-logo-slot, .fly-logo { display: none; }
+@media (min-width: 1000px) {
+  .js .hero-logo-slot { display: block; width: clamp(240px, 22vw, 340px); aspect-ratio: 1202 / 468; margin-top: calc(clamp(240px, 22vw, 340px) * -0.39 - 22px); margin-bottom: 22px; }
+  .js .fly-logo { display: block; position: fixed; z-index: 95; top: 0; left: 0; height: auto; transform-origin: 0 0; pointer-events: none; will-change: transform; filter: drop-shadow(0 6px 24px rgba(0,0,0,.45)); }
+  .js.logo-flying .site-head .logo img { opacity: 0; }
+  .js .site-head .logo img { transition: opacity .2s; }
+}
+@media (min-width: 1000px) and (prefers-reduced-motion: reduce) { .js .fly-logo { display: none; } .js .hero-logo-slot { display: none; } .js.logo-flying .site-head .logo img { opacity: 1; } }

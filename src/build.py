@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "92"  # bump to bust caches of css/js
+VER = "96"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -293,11 +293,13 @@ def home(t):
       <div class="hero-fx"></div>
     </div>
     <div class="wrap hero-inner">
+      <div class="hero-logo-slot" aria-hidden="true"></div>
       <p class="h1">{h1}</p>
       <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
   </section>
+  <img class="fly-logo" src="/brand/logo.webp" alt="" aria-hidden="true" width="1202" height="468">
 
   {mirror(t)}
   <section class="sec what" id="what" aria-labelledby="what-h">

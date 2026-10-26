@@ -288,3 +288,26 @@
   window.addEventListener('scroll', function () { requestAnimationFrame(tick); }, { passive: true });
   window.addEventListener('resize', tick); tick();
 })();
+
+/* desktop: hero logo flies into the header */
+(function () {
+  var fly = document.querySelector('.fly-logo'), slot = document.querySelector('.hero-logo-slot'), dock = document.querySelector('.site-head .logo img');
+  if (!fly || !slot || !dock) return;
+  var mq = window.matchMedia('(min-width: 1000px)'), reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches, root = document.documentElement;
+  function ease(x) { return 1 - Math.pow(1 - x, 3); }
+  function frame() {
+    if (!mq.matches || reduce) { root.classList.remove('logo-flying'); return; }
+    var a = slot.getBoundingClientRect(), b = dock.getBoundingClientRect();
+    var p = Math.min(1, Math.max(0, window.scrollY / Math.max(320, window.innerHeight * 0.4)));
+    var k = ease(p);
+    var w = a.width + (b.width - a.width) * k;
+    var x = a.left + (b.left - a.left) * k, y = a.top + (b.top - a.top) * k;
+    if (p >= 1) { x = b.left; y = b.top; w = b.width; }
+    fly.style.width = w.toFixed(1) + 'px'; fly.style.height = (w * 468 / 1202).toFixed(1) + 'px';
+    fly.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+    fly.style.opacity = p >= 1 ? '0' : '1';
+    root.classList.toggle('logo-flying', p < 1);
+  }
+  window.addEventListener('scroll', function () { requestAnimationFrame(frame); }, { passive: true });
+  window.addEventListener('resize', frame); window.addEventListener('load', frame); frame();
+})();
