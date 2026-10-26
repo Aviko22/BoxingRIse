@@ -965,3 +965,5 @@ html[lang="he"] .step-n small { font-family: var(--body); letter-spacing: 0; fon
 .p8-end { margin-top: clamp(28px, 4vw, 44px); }
 .p8-end .prog-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 18px; }
 .p8-end .prog-price { margin: 0; color: var(--ash); }
+.p8-plus { margin: 14px 0 0; font-size: 16px; font-weight: 600; color: var(--text); }
+.p8-plus span { display: inline-grid; place-items: center; width: 24px; height: 24px; margin-inline-end: 6px; border-radius: 50%; background: var(--metal); color: #120e05; font-weight: 800; }
