@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "88"  # bump to bust caches of css/js
+VER = "89"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -258,7 +258,7 @@ def home(t):
     C8 = 2 * 3.14159 * 84
     p8segs = "".join(f'<circle class="p8-seg" cx="100" cy="100" r="84" stroke-dasharray="{C8 / 8 - 5:.1f} {C8 - C8 / 8 + 5:.1f}" stroke-dashoffset="{-(i * C8 / 8):.1f}"/>' for i in range(8))
     p8steps = "".join(
-        f'<li class="p8-step" data-i="{i}" data-phase="{i // 2}" data-feel="{e(t["week_feel"][i])}" data-t="{e(h)}" data-d="{e(d)}" data-m="{e(m)}">'
+        f'<li class="p8-step" data-wk="{e(t["week_word"])}" data-i="{i}" data-phase="{i // 2}" data-feel="{e(t["week_feel"][i])}" data-t="{e(h)}" data-d="{e(d)}" data-m="{e(m)}">'
         f'<h3>{e(t["week_word"])} {i + 1} · {e(t["week_feel"][i])}: {e(h)}</h3><p>{e(d)}</p><p><b>{e(t["milestone_word"])}</b> {e(m)}</p></li>'
         for i, (h, d, m) in enumerate(t["weeks"]))
     p8phases = t["prog_phases"]
@@ -342,7 +342,7 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec p8" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
+  <section class="sec p8 v1" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
     <div class="wrap p8-head">
       {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
       <p class="p8-sub">{e(t['prog_sub'])}</p>
@@ -353,6 +353,8 @@ def home(t):
     <div class="p8-run">
       <div class="p8-stage" aria-hidden="true">
         <div class="p8-glow"></div>
+        <div class="p8-big"></div>
+        <div class="p8-flash"></div>
         <div class="wrap p8-grid">
           <div class="p8-dial">
             <svg viewBox="0 0 200 200">{p8segs}</svg>
@@ -366,7 +368,7 @@ def home(t):
             <p class="p8-m"><span>{e(t['milestone_word'])}</span> <em></em></p>
           </div>
         </div>
-        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}</div>
+        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}<span class="p8-runner"></span></div>
         <p class="p8-hint">{e(t['prog_scroll'])} ↓</p>
       </div>
       <ol class="p8-steps">{p8steps}</ol>
@@ -375,6 +377,7 @@ def home(t):
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
       <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
     </div>
+    {('<div class="mv-sw" role="group" aria-label="הנפשה">' + "".join(f'<button type="button" data-p8="{i}">{i}</button>' for i in range(1, 7)) + '</div>') if CFG.get("noindex") else ""}
   </section>
 
 
