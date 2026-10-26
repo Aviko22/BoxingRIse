@@ -1036,3 +1036,59 @@ html[lang="en"] .p8-feel { line-height: .95; }
 html[lang="en"] .prog-title { font-family: var(--display); font-weight: 400; letter-spacing: .015em; font-size: clamp(64px, 10vw, 120px); line-height: .9; }
 html[lang="en"] .p8-sub { margin-top: 6px; }
 @media (min-width: 1000px) { html[lang="en"] .hero .hero-inner > .hero-sub { width: 48% !important; max-width: 600px !important; } html[lang="en"] .hero-inner > .h1 { max-width: 60%; } }
+
+/* ===== "an hour with me" on phones: six layouts instead of the swipe carousel (rd1..rd6) ===== */
+.mv-sw { position: fixed; z-index: 90; left: 10px; top: 50%; transform: translateY(-50%); display: grid; gap: 6px; padding: 6px; border-radius: 14px; background: rgba(12,11,9,.92); box-shadow: 0 0 0 1px var(--line); }
+.mv-sw button { width: 40px; height: 40px; border: 0; border-radius: 10px; background: #1b1915; color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; }
+.mv-sw button[aria-pressed="true"] { background: var(--metal); color: #120e05; }
+@media (min-width: 760px) { .rd-sw { display: none; } }
+@media (max-width: 759px) {
+  .rounds[class*="rd"] { display: grid; grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: 1fr; overflow: visible; scroll-snap-type: none; margin-inline: 0; padding: 0; gap: 26px; counter-reset: rd; }
+  .rounds[class*="rd"] .round { counter-increment: rd; }
+  .rounds[class*="rd"] video.round-img { border-radius: 18px; }
+
+  /* 1 · stack: full-width cards one under the other */
+  .rd1 .round figcaption { padding-top: 12px; }
+
+  /* 2 · zigzag: small video beside the words, alternating sides */
+  .rd2 { gap: 18px !important; }
+  .rd2 .round figure { display: grid; grid-template-columns: 42% 1fr; gap: 16px; align-items: center; }
+  .rd2 .round:nth-child(2) figure { grid-template-columns: 1fr 42%; }
+  .rd2 .round:nth-child(2) video { order: 2; }
+  .rd2 .round figcaption { padding: 0; }
+  .rd2 .round h4 { font-size: 30px; }
+  .rd2 .round p { font-size: 14.5px; }
+
+  /* 3 · sticky deck: each card slides up and piles on the one before */
+  .rd3 { gap: 0 !important; padding-bottom: 20px !important; }
+  .rd3 .round { position: sticky; top: calc(78px + (counter(rd) * 0px)); padding: 12px; margin-bottom: 18vh; border-radius: 24px; background: var(--leather); outline: 1.5px dashed var(--stitch); outline-offset: -7px; box-shadow: 0 -18px 40px rgba(0,0,0,.55); }
+  .rd3 .round:nth-child(2) { top: 92px; } .rd3 .round:nth-child(3) { top: 106px; margin-bottom: 0; }
+  .rd3 .round figure { display: grid; grid-template-columns: 38% 1fr; gap: 14px; align-items: center; }
+  .rd3 .round figcaption { padding: 0; } .rd3 .round h4 { font-size: 28px; } .rd3 .round p { font-size: 14px; }
+
+  /* 4 · timeline: a gold line with numbered rings, like rounds on a fight card */
+  .rd4 { position: relative; padding-inline-start: 46px !important; gap: 34px !important; }
+  .rd4::before { content: ""; position: absolute; inset-inline-start: 17px; top: 18px; bottom: 18px; width: 2px; background: linear-gradient(var(--gold), rgba(201,162,75,.15)); }
+  .rd4 .round { position: relative; }
+  .rd4 .round::before { content: counter(rd); position: absolute; inset-inline-start: -46px; top: 0; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--black, #0e0d0b); box-shadow: inset 0 0 0 2px var(--gold); color: var(--gold-hi); font: 700 16px var(--latin); }
+  .rd4 .round figure { display: flex; flex-direction: column-reverse; }
+  .rd4 .round figcaption { padding: 4px 0 12px; }
+  .rd4 video.round-img { aspect-ratio: 16 / 11; }
+
+  /* 5 · mosaic: the first big, the next two side by side */
+  .rd5 { grid-template-columns: 1fr 1fr !important; gap: 14px 12px !important; }
+  .rd5 .round:first-child { grid-column: 1 / -1; }
+  .rd5 .round:first-child video.round-img { aspect-ratio: 16 / 11; }
+  .rd5 .round:not(:first-child) video.round-img { aspect-ratio: 3 / 4; }
+  .rd5 .round:not(:first-child) h4 { font-size: 26px; }
+  .rd5 .round:not(:first-child) p { font-size: 13.5px; }
+
+  /* 6 · cinema: edge-to-edge video with the words over it */
+  .rd6 { margin-inline: calc(var(--pad) * -1) !important; gap: 4px !important; }
+  .rd6 .round figure { position: relative; }
+  .rd6 video.round-img { border-radius: 0 !important; aspect-ratio: 4 / 5; }
+  .rd6 .round figcaption { position: absolute; inset: auto 0 0 0; padding: 70px var(--pad) 20px; background: linear-gradient(transparent, rgba(10,9,7,.92) 70%); }
+  .rd6 .round h4 { font-size: 44px; }
+  .rd6 .round h4::before { content: "0" counter(rd) " "; color: var(--gold-hi); }
+  .rd6 .round p { color: #e4ddd0; }
+}
