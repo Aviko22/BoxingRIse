@@ -296,7 +296,7 @@ EN = {
     "reviews_h": "This is how they leave a session.",
     "review_more": "Read the full review",
     "review_photo": ["victoria", "maria", "neta"],
-    "review_hl": ["I walked out feeling powerful, free, and wanting more", "my private sessions with Avi got me into the fittest, most toned shape I've ever been in", "the only time in my day when I let all the stress go"],
+    "review_hl": ["I walked out feeling powerful, free, and wanting more", "My private sessions with Avi got me into the fittest, most toned shape I've ever been in", "The only time in my day when I let all the stress go"],
     "review_sub": ["Started with no background", "After years in gyms", "Comes to let the week go"],
     "reviews_cta": "Want to feel like this?",
     "reviews_ph": "A trainee's testimonial will go here, with her consent",

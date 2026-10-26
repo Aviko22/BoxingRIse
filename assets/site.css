@@ -758,7 +758,7 @@ html[lang="en"] .rv-q { font-family: var(--latin); font-size: clamp(20px, 2.2vw,
 /* reviews: each card animates as it scrolls into view — the photo slides in, the words rise after it */
 .js .reviews .rv { opacity: 0; transform: translateY(40px) scale(.97); transition: opacity .7s ease, transform .9s var(--ease); }
 .js .reviews .rv .rv-photo { opacity: 0; transform: translateX(-40px) rotate(-3deg); transition: opacity .7s ease .15s, transform .9s var(--ease) .15s; }
-html[dir="ltr"].js .reviews .rv .rv-photo { transform: translateX(40px) rotate(3deg); }
+html[dir="ltr"].js .reviews .rv:not(.in) .rv-photo { transform: translateX(-40px) rotate(-3deg); }
 .js .reviews .rv .rv-q, .js .reviews .rv figcaption { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .7s var(--ease); }
 .js .reviews .rv .rv-q { transition-delay: .4s; } .js .reviews .rv figcaption { transition-delay: .65s; }
 .js .reviews .rv.in, .js .reviews .rv.in .rv-photo, .js .reviews .rv.in .rv-q, .js .reviews .rv.in figcaption { opacity: 1; transform: none; }
