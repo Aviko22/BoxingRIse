@@ -1053,3 +1053,10 @@ html[lang="en"] .p8-sub { margin-top: 6px; }
   .rd6 .round p { color: #e4ddd0; }
 }
 @media (min-width: 1000px) { .hero-video { object-position: 50% 50% !important; } }
+/* desktop hero: the video fades into the page with a mask, no hard edge */
+@media (min-width: 1000px) {
+  .hero-media { -webkit-mask-image: linear-gradient(to left, transparent 0%, #000 30%); mask-image: linear-gradient(to left, transparent 0%, #000 30%); }
+  html[dir="ltr"] .hero-media { -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 30%); mask-image: linear-gradient(to right, transparent 0%, #000 30%); }
+  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.45) 0%, rgba(11,10,8,0) 20%, rgba(11,10,8,0) 80%, rgba(11,10,8,.8) 100%) !important; }
+  .hero-fx { display: none; }
+}
