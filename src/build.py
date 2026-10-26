@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "114"  # bump to bust caches of css/js
+VER = "115"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -194,7 +194,7 @@ def hgold(t, key):
     if key == "trial_h":
         a, _, z = text.partition(", ")
         return f'{e(a)},<br><span class="g">{e(z)}</span>'
-    if key in ("what_h", "about_h", "final_h", "voice_h"):
+    if key in ("what_h", "about_h", "final_h", "voice_h", "def_h"):
         a, _, z = text.partition(". ")
         return f'{e(a)}.<br><span class="g">{e(z)}</span>'
     n = GOLD_TAIL[t["lang"]].get(key, 0)
@@ -239,6 +239,13 @@ def voice(t):
     rows = "".join(f'<li class="vc-p"><p class="vc-in">{"״" if t["lang"]=="he" else "“"}{e(a)}{"״" if t["lang"]=="he" else "”"}</p><p class="vc-out">{e(b)}</p></li>' for a, b in t["voice"])
     return (f'<section class="sec voice" aria-labelledby="vc-h"><div class="wrap">{tag(t, "voice")}'
             f'<h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><ul class="vc-list">{rows}</ul></div></section>')
+
+
+def defend(t):
+    items = "".join(f'<li class="df reveal"><span class="df-n" dir="ltr">0{i}</span><div><h3>{e(h)}</h3><p>{e(d)}</p></div></li>' for i, (h, d) in enumerate(t["def"], 1))
+    return (f'<section class="sec defend" id="defend" aria-labelledby="df-h"><div class="wrap df-wrap">'
+            f'<div class="df-head"><p class="tag">{e(t["def_tag"])}</p><h2 class="h2" id="df-h">{hgold(t, "def_h")}</h2><p class="lead">{e(t["def_lead"])}</p></div>'
+            f'<div><ol class="df-list">{items}</ol><p class="df-note reveal">{e(t["def_note"])}</p></div></div></section>')
 
 
 def home(t):
@@ -323,6 +330,7 @@ def home(t):
     </div>
   </section>
 
+  {defend(t)}
   {reviews}
 
   <section class="sec about alt" id="about" aria-labelledby="about-h">
