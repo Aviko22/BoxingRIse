@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "90"  # bump to bust caches of css/js
+VER = "91"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -342,7 +342,7 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec p8 v1" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
+  <section class="sec p8 v1 lgA" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
     <div class="wrap p8-head">
       {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
       <p class="p8-sub">{e(t['prog_sub'])}</p>
@@ -357,6 +357,7 @@ def home(t):
         <div class="p8-big"></div>
         <div class="p8-flash"></div>
         <div class="wrap p8-grid">
+          <div class="p8-mark"><i class="p8-mk-base"></i><i class="p8-mk-fill"></i></div>
           <div class="p8-dial">
             <svg viewBox="0 0 200 200">{p8segs}</svg>
             <div class="p8-num"><small>{e(t['week_word'])}</small><span class="p8-roll" dir="ltr">{"".join(f"<b>{i}</b>" for i in range(1, 9))}</span><i dir="ltr">/ 8</i></div>
@@ -378,7 +379,7 @@ def home(t):
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
       <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
     </div>
-    {('<div class="mv-sw" role="group" aria-label="הנפשה">' + "".join(f'<button type="button" data-p8="{i}">{i}</button>' for i in range(1, 7)) + '</div>') if CFG.get("noindex") else ""}
+    {('<div class="mv-sw" role="group" aria-label="הנפשה">' + "".join(f'<button type="button" data-p8="{i}">{i}</button>' for i in range(1, 7)) + "".join(f'<button type="button" class="lgb" data-lg="{k}">{k}</button>' for k in "ABC") + '</div>') if CFG.get("noindex") else ""}
   </section>
 
 

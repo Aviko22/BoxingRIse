@@ -1027,3 +1027,24 @@ html[dir="ltr"] .v5 .p8-runner { right: auto; left: calc(var(--pad, 16px) + (100
 .p8.p8-last .p8-logo-fill { opacity: .42; filter: drop-shadow(0 0 30px rgba(240,198,116,.5)); }
 @media (max-width: 899px) { .p8-logo { width: 125vw; top: 44%; } }
 .p8-grid, .p8-ticks { z-index: 1; }
+
+/* logo options: A = the mark replaces the dial and fills; B = a faint full-size mark; C = no mark */
+.p8-mark { display: none; position: relative; width: min(240px, 60vw); aspect-ratio: 413 / 307; margin-inline: auto; }
+@media (min-width: 900px) { .p8-mark { width: 340px; } }
+.p8-mark i { position: absolute; inset: 0; -webkit-mask: url(/brand/logo-mark.png) center / contain no-repeat; mask: url(/brand/logo-mark.png) center / contain no-repeat; }
+.p8-mk-base { background: #2a261e; }
+.p8-mk-fill { background: linear-gradient(0deg, #9a7428 0%, #c9a24b 55%, #f1d58e 100%); clip-path: inset(calc((1 - var(--f, 0)) * 100%) 0 0 0); transition: clip-path .7s cubic-bezier(.2,.8,.2,1); }
+.p8.p8-last .p8-mk-fill { filter: drop-shadow(0 0 18px rgba(240,198,116,.6)); }
+.lgA .p8-logo { display: none; }
+.lgA .p8-mark { display: block; }
+.lgA .p8-dial { width: auto; aspect-ratio: auto; }
+.lgA .p8-dial svg { display: none; }
+.lgA .p8-num { position: static; flex-direction: row; gap: 10px; align-items: baseline; justify-content: center; margin-top: 10px; }
+.lgA .p8-roll { font-size: clamp(44px, 10vw, 64px); }
+.lgA .p8-grid { align-items: center; }
+@media (min-width: 900px) { .lgA .p8-grid > .p8-mark { grid-row: 1; grid-column: 1; align-self: end; } .lgA .p8-grid > .p8-dial { grid-row: 2; grid-column: 1; } .lgA .p8-copy { grid-row: 1 / span 2; grid-column: 2; } }
+.lgB .p8-logo-fill { opacity: .12; } .lgB .p8-logo-base { background: rgba(255,255,255,.025); }
+.lgB.p8-last .p8-logo-fill { opacity: .16; }
+.lgC .p8-logo { display: none; }
+.mv-sw .lgb { background: #2a241a; color: var(--gold-hi); }
+.lgA .p8-dial::after { display: none; } .lgB .p8-logo-base { background: transparent; }
