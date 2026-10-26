@@ -329,7 +329,7 @@ def home(t):
   <section class="sec about alt" id="about" aria-labelledby="about-h">
     {GRASS}
     <div class="wrap about-grid">
-      <figure class="about-photo">{img('avi-park', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
+      <figure class="about-photo">{img('round-1', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
       <div class="about-text">
         {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
         {about}
