@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "91"  # bump to bust caches of css/js
+VER = "92"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -342,7 +342,7 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec p8 v1 lgA" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
+  <section class="sec p8 lgA" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
     <div class="wrap p8-head">
       {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
       <p class="p8-sub">{e(t['prog_sub'])}</p>
@@ -353,9 +353,6 @@ def home(t):
     <div class="p8-run">
       <div class="p8-stage" aria-hidden="true">
         <div class="p8-glow"></div>
-        <div class="p8-logo"><i class="p8-logo-base"></i><i class="p8-logo-fill"></i></div>
-        <div class="p8-big"></div>
-        <div class="p8-flash"></div>
         <div class="wrap p8-grid">
           <div class="p8-mark"><i class="p8-mk-base"></i><i class="p8-mk-fill"></i></div>
           <div class="p8-dial">
@@ -370,7 +367,7 @@ def home(t):
             <p class="p8-m"><span>{e(t['milestone_word'])}</span> <em></em></p>
           </div>
         </div>
-        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}<span class="p8-runner"></span></div>
+        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}</div>
         <p class="p8-hint">{e(t['prog_scroll'])} ↓</p>
       </div>
       <ol class="p8-steps">{p8steps}</ol>
@@ -379,7 +376,6 @@ def home(t):
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
       <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
     </div>
-    {('<div class="mv-sw" role="group" aria-label="הנפשה">' + "".join(f'<button type="button" data-p8="{i}">{i}</button>' for i in range(1, 7)) + "".join(f'<button type="button" class="lgb" data-lg="{k}">{k}</button>' for k in "ABC") + '</div>') if CFG.get("noindex") else ""}
   </section>
 
 

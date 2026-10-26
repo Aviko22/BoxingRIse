@@ -276,8 +276,6 @@
     q('.p8-d').textContent = s.getAttribute('data-d'); q('.p8-m em').textContent = s.getAttribute('data-m');
     copy.classList.remove('swap'); void copy.offsetWidth; copy.classList.add('swap');
     stage.style.setProperty('--i', i); stage.style.setProperty('--f', ((i + 1) / 8).toFixed(3)); copy.setAttribute('data-n', (s.getAttribute('data-wk') || '') + ' ' + (i + 1) + ' / 8');
-    var big = q('.p8-big'); if (big) { big.textContent = s.getAttribute('data-feel'); big.classList.remove('swap'); void big.offsetWidth; big.classList.add('swap'); }
-    stage.classList.remove('hit'); void stage.offsetWidth; stage.classList.add('hit');
     sec.classList.toggle('p8-last', i === 7);
   }
   function tick() {
@@ -289,12 +287,4 @@
   }
   window.addEventListener('scroll', function () { requestAnimationFrame(tick); }, { passive: true });
   window.addEventListener('resize', tick); tick();
-  function pick(n, go) { sec.className = sec.className.replace(/\bv\d\b/, 'v' + n);
-    document.querySelectorAll('[data-p8]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-p8') === String(n) ? 'true' : 'false'); });
-    if (go) { cur = -1; window.scrollTo({ top: run.getBoundingClientRect().top + window.scrollY + 2, behavior: 'instant' }); tick(); } }
-  function lg(k) { sec.className = sec.className.replace(/\blg[ABC]\b/, 'lg' + k); document.querySelectorAll('[data-lg]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-lg') === k ? 'true' : 'false'); }); }
-  var ql = (location.search.match(/[?&]lg=([ABC])/) || [])[1]; lg(ql || 'A');
-  document.querySelectorAll('[data-lg]').forEach(function (b) { b.addEventListener('click', function () { lg(b.getAttribute('data-lg')); window.scrollTo({ top: run.getBoundingClientRect().top + window.scrollY + 2, behavior: 'instant' }); cur = -1; tick(); }); });
-  var qv = (location.search.match(/[?&]p8=(\d)/) || [])[1]; pick(qv || 1, false);
-  document.querySelectorAll('[data-p8]').forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-p8'), true); }); });
 })();
