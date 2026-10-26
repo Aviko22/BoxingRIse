@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "89"  # bump to bust caches of css/js
+VER = "90"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -353,6 +353,7 @@ def home(t):
     <div class="p8-run">
       <div class="p8-stage" aria-hidden="true">
         <div class="p8-glow"></div>
+        <div class="p8-logo"><i class="p8-logo-base"></i><i class="p8-logo-fill"></i></div>
         <div class="p8-big"></div>
         <div class="p8-flash"></div>
         <div class="wrap p8-grid">

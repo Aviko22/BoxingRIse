@@ -1018,3 +1018,12 @@ html[dir="ltr"] .v5 .p8-runner { right: auto; left: calc(var(--pad, 16px) + (100
 @keyframes p8-shake { 10%, 90% { transform: translateX(-2px); } 20%, 80% { transform: translateX(4px); } 30%, 50%, 70% { transform: translateX(-6px); } 40%, 60% { transform: translateX(6px); } }
 @keyframes p8-slam { 0% { transform: scale(1.9); filter: blur(6px); opacity: 0; } 60% { transform: scale(.94); filter: none; opacity: 1; } 100% { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .p8-big, .p8-flash, .p8-runner { animation: none !important; transition: none !important; } }
+
+/* the brand mark behind the program fills with gold, bottom to top, as the weeks go by */
+.p8-logo { position: absolute; left: 50%; top: 54%; width: min(92vw, 980px); aspect-ratio: 413 / 307; transform: translate(-50%, -50%); pointer-events: none; }
+.p8-logo i { position: absolute; inset: 0; -webkit-mask: url(/brand/logo-mark.png) center / contain no-repeat; mask: url(/brand/logo-mark.png) center / contain no-repeat; }
+.p8-logo-base { background: rgba(255,255,255,.045); }
+.p8-logo-fill { background: linear-gradient(0deg, #9a7428 0%, #c9a24b 55%, #f1d58e 100%); opacity: .3; clip-path: inset(calc((1 - var(--p, 0)) * 100%) 0 0 0); transition: clip-path .25s linear, opacity .6s; }
+.p8.p8-last .p8-logo-fill { opacity: .42; filter: drop-shadow(0 0 30px rgba(240,198,116,.5)); }
+@media (max-width: 899px) { .p8-logo { width: 125vw; top: 44%; } }
+.p8-grid, .p8-ticks { z-index: 1; }
