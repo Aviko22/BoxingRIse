@@ -1052,3 +1052,4 @@ html[lang="en"] .p8-sub { margin-top: 6px; }
   .rd6 .round h4::before { content: "0" counter(rd) " "; color: var(--gold-hi); }
   .rd6 .round p { color: #e4ddd0; }
 }
+@media (min-width: 1000px) { .hero-video { object-position: 50% 50% !important; } }
