@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "118"  # bump to bust caches of css/js
+VER = "119"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -141,7 +141,7 @@ def footer(t):
   </div>
   <div class="wrap foot-base">
     <nav aria-label="{e(t['foot_legal_h'])}"><ul class="foot-legal">{links}<li><button type="button" class="linklike js-cookie-settings">{e(t['cookie_settings'])}</button></li></ul></nav>
-    <p>© <span class="js-year">2026</span> BoxingRise · {e('אבי אניחוביץ' if lang=='he' else 'Avi Anihovich')}</p>
+    <p>© <span class="js-year">2026</span> BoxingRise · {e('אבי אניחוביץ' if lang=='he' else 'Avi Einichovich')}</p>
   </div>
 </footer>
 <div class="cookie" id="cookie" role="region" aria-label="{'עוגיות' if t['lang']=='he' else 'Cookies'}" hidden>
@@ -170,7 +170,7 @@ def schema(t, path):
         "logo": SITE + "/brand/icon-512.png",
         "telephone": "+" + NUM,
         "priceRange": "₪₪",
-        "founder": {"@type": "Person", "name": "Avi Anihovich", "alternateName": "Aviko"},
+        "founder": {"@type": "Person", "name": "Avi Einichovich", "alternateName": "Aviko"},
         "areaServed": [{"@type": "City", "name": "Tel Aviv-Yafo"}, {"@type": "AdministrativeArea", "name": "Central District, Israel"}],
         "address": {"@type": "PostalAddress", "addressLocality": "Tel Aviv-Yafo", "addressCountry": "IL"},
         "geo": {"@type": "GeoCoordinates", "latitude": 32.0995, "longitude": 34.8137},
@@ -329,7 +329,7 @@ def home(t):
   <section class="sec about alt" id="about" aria-labelledby="about-h">
     {GRASS}
     <div class="wrap about-grid">
-      <figure class="about-photo">{img('avi', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
+      <figure class="about-photo">{img('avi-park', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
       <div class="about-text">
         {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
         {about}

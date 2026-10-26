@@ -1090,3 +1090,12 @@ html[lang="en"] .df h3 { font-weight: 400; letter-spacing: .015em; }
 html[lang="he"] .hero .h1-line { white-space: nowrap; }
 @media (min-width: 1000px) { html[lang="he"] .hero-inner > .h1 { width: 50% !important; max-width: 660px !important; } }
 @media (max-width: 999px) { html[lang="he"] .hero .h1 { font-size: min(11.5vw, 56px); } }
+
+/* reviews on desktop: three cards side by side instead of one narrow column;
+   the 320px photos become a round portrait so they're never stretched */
+@media (min-width: 1000px) {
+  .reviews .rv-grid { grid-template-columns: repeat(3, 1fr) !important; max-width: none; gap: 20px !important; align-items: stretch; }
+  .reviews .rv { grid-template-columns: 1fr !important; align-items: start; align-content: start; gap: 18px; padding: 24px !important; }
+  .reviews .rv-photo { width: 88px; height: 88px; border-radius: 50%; }
+  .reviews .rv-q { font-size: clamp(24px, 1.9vw, 28px); }
+}

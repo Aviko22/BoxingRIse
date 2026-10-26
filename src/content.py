@@ -119,9 +119,9 @@ HE = {
         "אני לא מאמן כדי לייצר לוחמות. אני מאמן כדי שתצאי מכל אימון חזקה יותר ממה שנכנסת.",
         "אני עובד עם מתחילות, בקצב שלהן, עם הסבר לכל תנועה. בלי צעקות, בלי לחץ, ועם הרבה סבלנות.",
     ],
-    "about_facts": ["5 שנים אגרוף קלאסי", "10 שנים מואי תאי", "חגורה שחורה בג׳ו־ג׳יטסו"],
+    "about_facts": ["30 שנה באומנויות לחימה", "5 שנים אגרוף קלאסי", "10 שנים מואי תאי", "חגורה שחורה בג׳ו־ג׳יטסו"],
     "about_creds": ["10 שנים מואי תאי", "5 שנים אגרוף קלאסי", "חגורה שחורה, ג׳ו־ג׳יטסו יפני", "הכשרה בישראל ובתאילנד"],
-    "about_alt": "אבי אניחוביץ, מאמן האגרוף של BoxingRise",
+    "about_alt": "אבי אניחוביץ, מאמן האגרוף של BoxingRise, עם כריות אגרוף בפארק",
 
     "reviews": [
         ("ויקטוריה", "הגעתי בלי שום רקע ובלי ביטחון, וכבר באימון הראשון אבי גרם לי להרגיש הכי בנוח בעולם – יצאתי ממנו עוצמתית, משוחררת ועם טעם של עוד!"),
@@ -295,16 +295,16 @@ EN = {
     "prog_kids": "",
 
     "about_h": "I'm Avi. Your coach.",
-    "about_sub": "Aviko · Avi Anihovich",
+    "about_sub": "Aviko · Avi Einichovich",
     "about_stats": [("10", "years of Muay Thai"), ("5", "years of classic boxing"), ("Black belt", "Japanese jiu-jitsu"), ("Israel & Thailand", "Coaching certification")],
     "about": [
         "To me boxing isn't violence, it's quiet. An hour where your mind holds one thing, and your body learns to stand steady.",
         "I don't coach to make fighters. I coach so you leave every session stronger than you came in.",
         "I work with beginners, at their pace, explaining every move. No shouting, no pressure, and a lot of patience.",
     ],
-    "about_facts": ["5 years of classic boxing", "10 years of Muay Thai", "Jiu-jitsu black belt"],
+    "about_facts": ["30 years in martial arts", "5 years of classic boxing", "10 years of Muay Thai", "Jiu-jitsu black belt"],
     "about_creds": ["10 years of Muay Thai", "5 years of classic boxing", "Black belt, Japanese jujutsu", "Trained in Israel and Thailand"],
-    "about_alt": "Avi Anihovich, BoxingRise boxing coach, training outdoors",
+    "about_alt": "Avi Einichovich, BoxingRise boxing coach, training outdoors",
 
     "reviews": [
         ("Victoria", "I came with no background and no confidence, and from the very first session Avi made me feel completely at ease. I walked out feeling powerful, free, and wanting more!"),
