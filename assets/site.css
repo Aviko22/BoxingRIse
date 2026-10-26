@@ -1015,3 +1015,6 @@ html[lang="he"] .step-n small { font-family: var(--body); letter-spacing: 0; fon
 @keyframes p8-sweep { to { background-position: 220% 0; } }
 
 @media (prefers-reduced-motion: reduce) { .p8-rays, .p8-shine { display: none !important; } }
+/* FAQ aligned to the side like the rest of the page */
+.faq-wrap .qa-list, .faq-wrap .ask { max-width: 820px; }
+@media (min-width: 1000px) { .faq-wrap { display: grid; grid-template-columns: 1fr 1.5fr; column-gap: 64px; align-items: start; } .faq-wrap > .h2 { grid-column: 1; position: sticky; top: 110px; } .faq-wrap > .qa-list, .faq-wrap > .ask { grid-column: 2; } .faq-wrap > .tag { grid-column: 1; } }

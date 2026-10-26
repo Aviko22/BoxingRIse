@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "100"  # bump to bust caches of css/js
+VER = "101"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -383,7 +383,7 @@ def home(t):
 
   <section class="sec faq alt" id="faq" aria-labelledby="faq-h">
     {GRASS}
-    <div class="wrap narrow">
+    <div class="wrap faq-wrap">
       {tag(t, 'faq')}<h2 class="h2" id="faq-h">{hgold(t, 'faq_h')}</h2>
       <div class="qa-list">{faq_top}<details class="faq-more"><summary><span>{e(t['faq_more'].format(n=len(t['faq']) - t['faq_top']))}</span><span class="qa-x" aria-hidden="true"></span></summary>{faq_rest}</details></div>
       <div class="ask"><p>{e(t['ask_text'])}</p><a class="btn btn-line js-wa-q" href="{wa_href(t['lang'], True)}" target="_blank" rel="noopener"><span>{e(t['ask_btn'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
