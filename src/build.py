@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "121"  # bump to bust caches of css/js
+VER = "119"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -294,7 +294,7 @@ def home(t):
 
     return head(t, t["title"], t["description"], path, alt, CFG["noindex"]) + schema(t, path) + "\n</head>\n<body class=\"home\">\n" + header(t, True) + f"""
 <main id="main">
-  <section class="hero" aria-labelledby="hero-h" data-punch-hint="{e(t['punch_hint'])}" data-punch-done="{e(t['punch_done'])}">
+  <section class="hero" aria-labelledby="hero-h">
     <div class="hero-media" aria-hidden="true">
       <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/media/hero-mont-m.jpg?v={VER}" data-poster-wide="/media/hero-mont-w.jpg?v={VER}"></video>
       <script>(function(v){{var w=matchMedia('(min-width: 1000px)').matches;if(w)v.poster=v.dataset.posterWide;v.src='/media/hero-mont-'+(w?'w':'m')+'.mp4?v={VER}';var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.currentScript.previousElementSibling);</script>
@@ -403,15 +403,7 @@ def home(t):
         <div class="pick-row" role="group" aria-labelledby="pick-d" data-group="day">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_days'])}</div>
         <p class="pick-lbl" id="pick-t">{e(t['pick_time'])}</p>
         <div class="pick-row" role="group" aria-labelledby="pick-t" data-group="time">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_times'])}</div>
-        <p class="pick-preview sr-only" aria-live="polite">{e(t['pick_preview'])} <b class="js-pick-msg">{e(CFG['whatsapp_message'][t['lang']])}</b></p>
-        <div class="chat" aria-hidden="true">
-          <div class="chat-head"><span class="chat-av"><img src="/brand/logo-mark.png" alt="" width="413" height="307"></span><div><b>{e(t['chat_name'])}</b><small>{e(t['chat_status'])}</small></div></div>
-          <div class="chat-body">
-            <p class="bub out"><span class="js-chat-out">{e(CFG['whatsapp_message'][t['lang']])}</span><i class="ticks">✓✓</i></p>
-            <p class="bub dots"><span class="sr-only">{e(t['chat_typing'])}</span><i></i><i></i><i></i></p>
-            <p class="bub in">{e(t['chat_reply'])}</p>
-          </div>
-        </div>
+        <p class="pick-preview" aria-live="polite">{e(t['pick_preview'])} <b class="js-pick-msg">{e(CFG['whatsapp_message'][t['lang']])}</b></p>
       </div>
       <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
       <p class="final-note">{e(t['final_note'])}</p>

@@ -17,7 +17,6 @@ HE = {
 
     "hero_h1": ["לא צריך להיות לוחמת.", "צריך רק להתחיל."],
     "hero_sub": "אימון אגרוף אישי לנשים, אחד על אחד בפארק. תל אביב והמרכז.",
-    "punch_hint": "תני מכה לסרטון 👊", "punch_done": "רואה? כבר התחלת.",
     "hero_note": "כפפות וכריות עליי. את מביאה רק את עצמך.",
 
     "trust_name": "אבי, המאמן שלך",
@@ -168,8 +167,6 @@ HE = {
     "pick_times": ["בוקר", "צהריים", "ערב"],
     "pick_day_tpl": " ביום {}", "pick_time_tpl": " ב{}",
     "pick_preview": "ההודעה שתישלח:",
-    "chat_name": "אבי · BoxingRise", "chat_status": "עונה בדרך כלל באותו יום", "chat_typing": "מקליד…",
-    "chat_reply": "היי! איזה כיף שכתבת 🙌 אחזור אלייך היום עם פארק ושעה.",
     "final_note": "בלי התחייבות · תשובה באותו יום",
 
     "footer_tag": "אימון אגרוף אישי לנשים, אחד על אחד, בפארקים בתל אביב והמרכז.",
@@ -203,7 +200,6 @@ EN = {
 
     "hero_h1": ["You don't have to be a fighter.", "You just have to start."],
     "hero_sub": "Private boxing for women, one on one in the park. Tel Aviv and central Israel.",
-    "punch_hint": "Punch the video 👊", "punch_done": "See? You've already started.",
     "hero_note": "Gloves and pads are on me. Just bring yourself.",
 
     "trust_name": "Avi, your coach",
@@ -354,8 +350,6 @@ EN = {
     "pick_times": ["morning", "afternoon", "evening"],
     "pick_day_tpl": ", on {}", "pick_time_tpl": " in the {}",
     "pick_preview": "Your message:",
-    "chat_name": "Avi · BoxingRise", "chat_status": "Usually replies the same day", "chat_typing": "typing…",
-    "chat_reply": "Hi! So glad you wrote 🙌 I'll get back to you today with a park and a time.",
     "final_note": "No commitment · Same-day reply",
 
     "footer_tag": "Private boxing for women, one on one, in parks across Tel Aviv and central Israel.",
