@@ -204,24 +204,26 @@
     s.id = 'va'; s.defer = true; s.src = '/_vercel/insights/script.js';
     document.head.appendChild(s);
   }
+  /* the banner and the sticky booking bar share the bottom of a phone screen, one at a time */
+  function showBanner(open) { banner.hidden = !open; document.documentElement.classList.toggle('cookie-open', open); }
   var choice = get();
   if (choice === 'yes') loadAnalytics();
   else if (choice !== 'no' && banner) {
     /* show after the visitor starts reading, so it never covers the first screen */
     var shown = false;
-    var reveal = function () { if (shown || window.scrollY < 300) return; shown = true; banner.hidden = false; window.removeEventListener('scroll', reveal); };
+    var reveal = function () { if (shown || window.scrollY < 300) return; shown = true; showBanner(true); window.removeEventListener('scroll', reveal); };
     window.addEventListener('scroll', reveal, { passive: true });
-    if (!document.querySelector('.hero')) { shown = true; banner.hidden = false; }
+    if (!document.querySelector('.hero')) { shown = true; showBanner(true); }
   }
   document.querySelectorAll('.js-consent').forEach(function (b) {
     b.addEventListener('click', function () {
       var v = b.getAttribute('data-consent');
-      set(v); banner.hidden = true;
+      set(v); showBanner(false);
       if (v === 'yes') loadAnalytics();
     });
   });
   document.querySelectorAll('.js-cookie-settings').forEach(function (b) {
-    b.addEventListener('click', function () { if (banner) { banner.hidden = false; var f = banner.querySelector('button'); if (f) f.focus(); } });
+    b.addEventListener('click', function () { if (banner) { showBanner(true); var f = banner.querySelector('button'); if (f) f.focus(); } });
   });
 })();
 

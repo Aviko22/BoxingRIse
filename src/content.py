@@ -177,7 +177,7 @@ HE = {
     "rights": "כל הזכויות שמורות",
     "back_home": "חזרה לדף הבית",
 
-    "cookie_text": "אנחנו משתמשים בכלי מדידה אנונימי כדי להבין איך משתמשים באתר. הוא נטען רק אם תאשרו.",
+    "cookie_text": "מדידה אנונימית של השימוש באתר, רק באישורך.",
     "cookie_accept": "אישור",
     "cookie_decline": "לא, תודה",
     "cookie_more": "מדיניות פרטיות",
@@ -360,7 +360,7 @@ EN = {
     "rights": "All rights reserved",
     "back_home": "Back to home",
 
-    "cookie_text": "We use an anonymous measurement tool to understand how the site is used. It only loads if you allow it.",
+    "cookie_text": "Anonymous usage stats, only if you allow them.",
     "cookie_accept": "Allow",
     "cookie_decline": "No thanks",
     "cookie_more": "Privacy policy",
