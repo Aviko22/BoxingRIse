@@ -1002,3 +1002,48 @@ html[lang="he"] .step-n small { font-family: var(--body); letter-spacing: 0; fon
   .hero-inner .hero-sub { margin-top: 34px; }
   .hero-inner .hero-cta { margin-top: 44px; }
 }
+
+/* ===== BoxingRise 8 finale: six candidates (fx1..fx6), played once on reaching week 8 ===== */
+.mv-sw { position: fixed; z-index: 90; left: 10px; top: 50%; transform: translateY(-50%); display: grid; gap: 6px; padding: 6px; border-radius: 14px; background: rgba(12,11,9,.92); box-shadow: 0 0 0 1px var(--line); }
+.mv-sw button { width: 40px; height: 40px; border: 0; border-radius: 10px; background: #1b1915; color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; }
+.mv-sw button[aria-pressed="true"] { background: var(--metal); color: #120e05; }
+.p8-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.p8-rays, .p8-shine, .p8-ring, .p8-stamp, .p8-words { display: none; }
+.p8-mark { isolation: isolate; }
+
+/* fx2 · bell: the mark rings like a bell, three gold shockwaves */
+.fx2 .p8-ring { display: block; position: absolute; left: 50%; top: 55%; width: 60%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%,-50%) scale(.3); border: 2px solid var(--gold-hi); opacity: 0; pointer-events: none; }
+.fx2.p8-done .p8-ring { animation: p8-wave 1.6s cubic-bezier(.2,.8,.2,1) both; }
+.fx2.p8-done .p8-ring.r2 { animation-delay: .25s; } .fx2.p8-done .p8-ring.r3 { animation-delay: .5s; }
+@keyframes p8-wave { 0% { opacity: .9; transform: translate(-50%,-50%) scale(.3); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(3.2); } }
+.fx2.p8-done .p8-mark { animation: p8-bell .9s ease both; }
+@keyframes p8-bell { 0%,100% { transform: rotate(0); } 15% { transform: rotate(-7deg); } 30% { transform: rotate(6deg); } 45% { transform: rotate(-4deg); } 60% { transform: rotate(3deg); } 75% { transform: rotate(-1deg); } }
+
+/* fx3 · stamp: "you're ready." is stamped across the screen */
+.fx3 .p8-stamp { display: block; position: absolute; left: 50%; top: 50%; z-index: 3; margin: 0; padding: 10px 26px; border: 4px solid var(--gold-hi); border-radius: 14px; font-family: var(--display); font-size: clamp(46px, 11vw, 110px); line-height: 1; color: var(--gold-hi); background: rgba(14,13,11,.55); white-space: nowrap; opacity: 0; transform: translate(-50%,-50%) rotate(-9deg) scale(2.4); pointer-events: none; }
+.fx3.p8-done .p8-stamp { animation: p8-stamp 2.6s cubic-bezier(.2,1.4,.4,1) both; }
+@keyframes p8-stamp { 0% { opacity: 0; transform: translate(-50%,-50%) rotate(-9deg) scale(2.4); } 14% { opacity: 1; transform: translate(-50%,-50%) rotate(-9deg) scale(1); } 75% { opacity: 1; transform: translate(-50%,-50%) rotate(-9deg) scale(1); } 100% { opacity: 0; transform: translate(-50%,-50%) rotate(-9deg) scale(.96); } }
+.fx3.p8-done .p8-grid { animation: p8-thud .35s ease .3s; }
+@keyframes p8-thud { 30% { transform: translateY(5px); } }
+
+/* fx4 · sunrise: gold rays turn slowly behind the full mark, a shine sweeps across it */
+.fx4 .p8-rays { display: block; position: absolute; left: 50%; top: 52%; width: 190%; aspect-ratio: 1; transform: translate(-50%,-50%) scale(.4); border-radius: 50%; background: repeating-conic-gradient(rgba(240,198,116,.22) 0 6deg, transparent 6deg 18deg); -webkit-mask: radial-gradient(closest-side, #000 30%, transparent 100%); mask: radial-gradient(closest-side, #000 30%, transparent 100%); opacity: 0; z-index: -1; -webkit-mask-image: radial-gradient(closest-side, #000 30%, transparent 100%); }
+.fx4.p8-done .p8-rays { animation: p8-rays-in 1.2s ease both, p8-spin 40s linear infinite; opacity: 1; }
+@keyframes p8-rays-in { from { opacity: 0; transform: translate(-50%,-50%) scale(.4); } to { opacity: 1; transform: translate(-50%,-50%) scale(1); } }
+@keyframes p8-spin { to { rotate: 360deg; } }
+.fx4 .p8-shine { display: block; position: absolute; inset: 0; -webkit-mask: url(/brand/logo-mark.png) center / contain no-repeat; mask: url(/brand/logo-mark.png) center / contain no-repeat; background: linear-gradient(105deg, transparent 35%, rgba(255,250,230,.95) 50%, transparent 65%) -120% 0 / 250% 100% no-repeat; }
+.fx4.p8-done .p8-shine { animation: p8-sweep 1.3s ease .3s both; }
+@keyframes p8-sweep { to { background-position: 220% 0; } }
+
+/* fx6 · the 8 words: the week words fly in from all sides and land in the mark */
+.fx6 .p8-words { display: block; position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.fx6 .p8-words span { position: absolute; left: 50%; top: 40%; font-family: var(--display); font-size: clamp(22px, 4vw, 40px); color: var(--gold-hi); opacity: 0; white-space: nowrap; transform: translate(-50%,-50%); }
+.fx6.p8-done .p8-words span { animation: p8-converge 1.4s cubic-bezier(.5,0,.2,1) both; }
+.fx6 .p8-words span:nth-child(1) { --sx: -42vw; --sy: -30vh; } .fx6 .p8-words span:nth-child(2) { --sx: 40vw; --sy: -32vh; animation-delay: .08s; }
+.fx6 .p8-words span:nth-child(3) { --sx: -46vw; --sy: 6vh; animation-delay: .16s; } .fx6 .p8-words span:nth-child(4) { --sx: 44vw; --sy: 8vh; animation-delay: .24s; }
+.fx6 .p8-words span:nth-child(5) { --sx: -30vw; --sy: 36vh; animation-delay: .32s; } .fx6 .p8-words span:nth-child(6) { --sx: 30vw; --sy: 36vh; animation-delay: .4s; }
+.fx6 .p8-words span:nth-child(7) { --sx: 0; --sy: -44vh; animation-delay: .48s; }
+@keyframes p8-converge { 0% { opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(1.2); } 25% { opacity: 1; } 85% { opacity: .9; } 100% { opacity: 0; transform: translate(-50%,-50%) scale(.3); } }
+.fx6.p8-done .p8-mark { animation: p8-absorb .6s cubic-bezier(.2,1.6,.4,1) 1.35s both; }
+@keyframes p8-absorb { 0% { transform: scale(1); } 40% { transform: scale(1.12); filter: drop-shadow(0 0 30px rgba(240,198,116,.9)); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .p8-fx, .p8-ring, .p8-stamp, .p8-words, .p8-rays, .p8-shine { display: none !important; } }
