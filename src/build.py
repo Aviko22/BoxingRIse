@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "103"  # bump to bust caches of css/js
+VER = "105"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -98,7 +98,7 @@ def head(t, title, desc, path, alt_path, noindex):
   <link rel="icon" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preload" href="/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
-  <link rel="preload" href="/fonts/karantina-bold.woff" as="font" type="font/woff" crossorigin>
+  {'<link rel="preload" href="/fonts/karantina-bold.woff" as="font" type="font/woff" crossorigin>' if t["lang"] == "he" else '<link rel="preload" href="/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>'}
   <link rel="stylesheet" href="/assets/site.css?v={VER}">
   <script src="/config.js?v={VER}" defer></script>
   <script src="/assets/site.js?v={VER}" defer></script>
