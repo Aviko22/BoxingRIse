@@ -341,11 +341,34 @@
   window.addEventListener('resize', f); f();
 })();
 
-/* sunrise: grows with page progress, hidden over the hero */
+/* the "rise" candidates: progress variables, embers, rising headings, switcher (?rs=1..6) */
 (function () {
-  var root = document.documentElement, hero = document.querySelector('.hero');
+  var root = document.documentElement, hero = document.querySelector('.hero'), mode = 1;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function f() { var max = document.body.scrollHeight - innerHeight, y = scrollY, h0 = hero ? hero.offsetHeight * .6 : 0;
     var p = Math.min(1, Math.max(0, (y - h0) / Math.max(1, max - h0)));
-    root.style.setProperty('--sun', p.toFixed(3)); root.style.setProperty('--sun-o', Math.min(1, Math.max(0, (y - h0 * .5) / (h0 * .6 + 1))).toFixed(2)); }
+    root.style.setProperty('--sun', p.toFixed(3)); root.style.setProperty('--prog', Math.min(1, y / Math.max(1, max)).toFixed(4));
+    root.style.setProperty('--sun-o', Math.min(1, Math.max(0, (y - h0 * .5) / (h0 * .6 + 1))).toFixed(2)); }
   addEventListener('scroll', function () { requestAnimationFrame(f); }, { passive: true }); addEventListener('resize', f); f();
+  /* embers */
+  var cv = document.querySelector('.rs-embers'), ctx = cv && cv.getContext('2d'), parts = [], raf = 0;
+  function embers() { if (!ctx || reduce) return; cancelAnimationFrame(raf);
+    var d = Math.min(2, devicePixelRatio || 1);
+    function size() { cv.width = innerWidth * d; cv.height = innerHeight * d; ctx.setTransform(d, 0, 0, d, 0, 0); } size(); addEventListener('resize', size);
+    parts = []; for (var i = 0; i < 40; i++) parts.push({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: .8 + Math.random() * 1.8, v: .15 + Math.random() * .45, w: Math.random() * 6.28 });
+    (function step() { if (mode !== 3) { ctx.clearRect(0, 0, innerWidth, innerHeight); return; }
+      var p = +getComputedStyle(root).getPropertyValue('--sun') || 0, n = Math.round(10 + 30 * p);
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      for (var i = 0; i < n; i++) { var e = parts[i]; e.y -= e.v; e.w += .02; e.x += Math.sin(e.w) * .25; if (e.y < -10) { e.y = innerHeight + 10; e.x = Math.random() * innerWidth; }
+        var a = Math.min(1, e.y / innerHeight) * (.35 + .45 * p); ctx.globalAlpha = a; ctx.fillStyle = '#e6c97d'; ctx.shadowColor = '#f0c674'; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(e.x, e.y, e.r, 0, 6.3); ctx.fill(); }
+      raf = requestAnimationFrame(step); })(); }
+  /* rising headings */
+  var hs = document.querySelectorAll('main .h2');
+  if ('IntersectionObserver' in window && !reduce) { var hio = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('rs-in'); hio.unobserve(x.target); } }); }, { threshold: .4 }); hs.forEach(function (h) { hio.observe(h); }); }
+  else hs.forEach(function (h) { h.classList.add('rs-in'); });
+  function pick(n) { mode = +n; root.className = root.className.replace(/\brs\d\b/g, '').trim() + ' rs' + n;
+    document.querySelectorAll('[data-rs]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-rs') === String(n) ? 'true' : 'false'); });
+    if (mode === 3) embers(); }
+  var q = (location.search.match(/[?&]rs=(\d)/) || [])[1]; pick(q || 1);
+  document.querySelectorAll('[data-rs]').forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-rs')); }); });
 })();

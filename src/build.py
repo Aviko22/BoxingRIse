@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "144"  # bump to bust caches of css/js
+VER = "145"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -293,7 +293,7 @@ def home(t):
     trial_line = f'<p class="trial-line"><span>{"אימון ניסיון" if lang=="he" else "Trial session"}</span> <b dir="ltr">49 ₪</b> <span>{e(" ".join(t["instead_of"].split()[:-2]))}</span> <s>{e(" ".join(t["instead_of"].split()[-2:]))}</s></p>'
 
     return head(t, t["title"], t["description"], path, alt, CFG["noindex"]) + schema(t, path) + "\n</head>\n<body class=\"home\">\n" + header(t, True) + f"""
-<div class="sunrise" aria-hidden="true"></div>
+<div class="sunrise" aria-hidden="true"></div><div class="rs-line" aria-hidden="true"><i></i></div><canvas class="rs-embers" aria-hidden="true"></canvas><div class="rs-sun" aria-hidden="true"></div>
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-media" aria-hidden="true">
@@ -412,6 +412,7 @@ def home(t):
     </div>
   </section>
 </main>
+{('<div class="mv-sw rs-sw" role="group" aria-label="Rise">' + "".join(f'<button type="button" data-rs="{k}">{k}</button>' for k in range(1, 7)) + '</div>') if CFG.get("noindex") else ""}
 """ + footer(t) + floating(t) + "</body>\n</html>\n"
 
 
