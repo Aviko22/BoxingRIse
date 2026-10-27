@@ -259,7 +259,7 @@
 
 /* BoxingRise 8: pinned run through the weeks */
 (function () {
-  var sec = document.querySelector('.p8'); if (!sec) return;
+  var sec = document.querySelector('.p8'); if (!sec || !sec.querySelector('.p8-run')) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   sec.classList.add('on');
   var run = sec.querySelector('.p8-run'), steps = [].slice.call(sec.querySelectorAll('.p8-step'));

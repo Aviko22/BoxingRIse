@@ -1112,3 +1112,93 @@ html[lang="he"] .hero .h1-line { white-space: nowrap; }
 @keyframes vc-whisper { 0% { opacity: 0; filter: blur(6px); } 40% { opacity: .9; filter: blur(1.5px); } 70% { opacity: .55; filter: blur(3px); } 100% { opacity: .9; filter: blur(1px); } }
 @keyframes vc-settle { from { opacity: .9; filter: blur(1px); } to { opacity: .7; filter: blur(0); transform: scale(.97); } }
 @keyframes vc-land { 0% { opacity: 0; transform: scale(1.35); filter: blur(6px); } 60% { opacity: 1; transform: scale(.97); filter: blur(0); } 100% { opacity: 1; transform: none; filter: none; } }
+
+/* the video area ends on a fractional pixel on phones (e.g. 468.75px): run the shade 2px past
+   the edge so no sliver of video shows as a line under the headline */
+.hero-media .hero-shade { bottom: -2px; }
+
+/* ===== the park, made concrete: three facts under "that's why it's one on one, in the park" ===== */
+.pk-list { list-style: none; margin: clamp(26px, 4vw, 40px) 0 0; padding: 0; display: grid; gap: 12px; }
+@media (min-width: 900px) { .pk-list { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+.pk { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; padding: 18px 18px; border-radius: 20px; background: var(--leather); outline: 1.5px dashed var(--stitch); outline-offset: -6px; }
+.pk svg { width: 30px; height: 30px; fill: none; stroke: var(--gold-hi); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; margin-top: 2px; }
+.pk h3 { margin: 0 0 4px; font-family: var(--display); font-size: clamp(22px, 2.4vw, 26px); line-height: 1.1; color: var(--white); }
+html[lang="en"] .pk h3 { font-family: var(--latin); font-weight: 400; letter-spacing: .015em; }
+.pk p { margin: 0; font-size: 16px; color: #cfc8bb; }
+.js .pk.reveal:nth-child(2) { transition-delay: .1s; } .js .pk.reveal:nth-child(3) { transition-delay: .2s; }
+
+/* ===== shorter page on phones: tighter rhythm between sections, and the 8-week run
+   needs less thumb travel per week (the copy per week is two short lines) ===== */
+@media (max-width: 759px) {
+  .sec { padding-block: 56px; }
+  .p8.on .p8-step { height: 28vh; height: 28svh; }
+}
+
+/* ===== hero: where it happens, right under the button ===== */
+.hero-place { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 15px; font-weight: 500; color: #e9e2d4; }
+.hero-place svg { flex: none; width: 18px; height: 18px; fill: none; stroke: var(--gold-hi); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.js .hero-place { opacity: 0; transform: translateY(10px); }
+.js .hero.go .hero-place { animation: up .45s var(--ease) .95s both; }
+@media (min-width: 1000px) { html[lang="he"] .hero-inner > .hero-place { justify-content: flex-start; } }
+
+/* ===== BoxingRise 8: four phases on a gold line; each opens to its two weeks ===== */
+.p8-path { list-style: none; margin: clamp(28px, 4vw, 44px) 0 0; padding: 0; position: relative; max-width: 760px; }
+.p8-path::before { content: ""; position: absolute; inset-block: 26px 26px; inset-inline-start: 21px; width: 2px; background: linear-gradient(var(--gold-hi), var(--gold) 70%, rgba(201, 162, 75, .25)); }
+.pz details { position: relative; }
+.pz summary { list-style: none; display: grid; grid-template-columns: 44px 1fr auto; gap: 16px; align-items: center; min-height: 64px; padding-block: 12px; cursor: pointer; }
+.pz summary::-webkit-details-marker { display: none; }
+.pz-n { position: relative; z-index: 1; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--black); box-shadow: inset 0 0 0 2px var(--gold); font: 600 15px var(--latin); color: var(--gold-hi); }
+.pz details[open] .pz-n { background: var(--metal); color: #17140f; box-shadow: none; }
+.pz-t b { display: block; font-family: var(--display); font-size: clamp(24px, 3vw, 30px); line-height: 1.1; color: var(--white); }
+html[lang="en"] .pz-t b { font-family: var(--latin); font-weight: 400; letter-spacing: .015em; }
+.pz-t small { display: block; margin-top: 3px; font-size: 14px; color: var(--ash); }
+.pz-b { display: grid; gap: 12px; padding: 4px 0 18px; padding-inline-start: 60px; }
+.pz-b p { margin: 0; font-size: 16px; line-height: 1.55; color: #cfc8bb; }
+.pz-b b { display: block; color: var(--gold-hi); font-size: 16px; margin-bottom: 2px; }
+.pz-b span { display: block; margin-top: 4px; font-size: 14px; color: var(--ash); }
+.js .pz.reveal:nth-child(2) { transition-delay: .08s; } .js .pz.reveal:nth-child(3) { transition-delay: .16s; } .js .pz.reveal:nth-child(4) { transition-delay: .24s; }
+
+/* ===== final: the three steps as one short line, then the picker ===== */
+.fin-steps { list-style: none; margin: 4px 0 6px; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; }
+.fin-steps li { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--text); }
+.fin-steps span { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--gold); color: var(--gold-hi); font: 600 13px var(--latin); }
+.final-why { margin: 0; max-width: 34ch; font-size: 14px; color: var(--ash); }
+
+/* ===== English type: Barlow Condensed headings and Barlow body, as on the Astro build =====
+   Replaces Bebas Neue / Oswald / Heebo on the English pages only. Headings in 800 caps, slightly tight. */
+@font-face { font-family: "Barlow Condensed"; src: url("/fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Barlow Condensed"; src: url("/fonts/barlow-condensed-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "Barlow"; src: url("/fonts/barlow-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Barlow"; src: url("/fonts/barlow-latin-500-normal.woff2") format("woff2"); font-weight: 500 700; font-display: swap; }
+html[lang="en"] {
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --latin: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Barlow", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --num: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+html[lang="en"] .h1, html[lang="en"] .h2, html[lang="en"] .h3, html[lang="en"] .final-h, html[lang="en"] .mv-h, html[lang="en"] .mv-turn,
+html[lang="en"] .vc-out, html[lang="en"] .p8-sub, html[lang="en"] .p8-feel, html[lang="en"] .bt-turn, html[lang="en"] .aud h3, html[lang="en"] .round h4,
+html[lang="en"] .rv-foot p, html[lang="en"] .foot-line, html[lang="en"] .about-quote p, html[lang="en"] .rounds-h, html[lang="en"] .prog-title,
+html[lang="en"] .df h3, html[lang="en"] .pk h3, html[lang="en"] .pz-t b, html[lang="en"] .legal-h1 {
+  font-family: var(--display); font-weight: 800 !important; letter-spacing: -.005em; text-transform: uppercase;
+}
+html[lang="en"] .df-n { font-weight: 800; }
+html[lang="en"] .rv-q { font-weight: 600; }
+
+/* ===== the coach, as on the Astro build: eyebrow, name, a big gold "30", two short paragraphs,
+   and the line that sums it up behind a gold rule ===== */
+.about-text.coach > * { max-width: 34em; }
+.about-text .coach-eyebrow { margin: 0 0 14px; font: 600 14px var(--body); letter-spacing: .06em; color: var(--ash); }
+html[lang="en"] .about-text .coach-eyebrow { letter-spacing: .22em; text-transform: uppercase; }
+.coach-name { margin: 0; }
+.about-text .coach-stat { margin: clamp(22px, 3vw, 30px) 0 0; font: 600 15px/1.4 var(--body); color: var(--ash); max-width: 18em; }
+html[lang="en"] .about-text .coach-stat { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; }
+.coach-stat .num { display: block; margin-bottom: 8px; font-family: var(--display); font-weight: 800; font-size: clamp(88px, 10vw, 128px); line-height: .85; letter-spacing: -.02em; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; width: fit-content; }
+.coach-facts { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14px; font-weight: 500; color: var(--gold-hi); }
+.coach-facts li::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-inline-end: 7px; vertical-align: middle; }
+.coach-body { margin-top: clamp(22px, 3vw, 30px); }
+.about-text .coach-body p { margin: 0 0 14px; font-size: 17px; line-height: 1.65; color: var(--ash); }
+.coach-quote { margin: clamp(22px, 3vw, 32px) 0 0; padding: 2px 0 2px; padding-inline-start: 20px; border-inline-start: 2px solid var(--gold); }
+.about-text .coach-quote p { margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.12; color: var(--white); }
+@font-face { font-family: "Barlow Condensed"; src: url("/fonts/barlow-condensed-latin-800-italic.woff2") format("woff2"); font-weight: 800; font-style: italic; font-display: swap; }
+html[lang="en"] .about-text .coach-quote p { font-style: italic; text-transform: uppercase; letter-spacing: -.005em; line-height: 1.08; }

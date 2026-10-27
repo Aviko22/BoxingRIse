@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "122"  # bump to bust caches of css/js
+VER = "126"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -97,9 +97,9 @@ def head(t, title, desc, path, alt_path, noindex):
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preload" href="/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
+  {'<link rel="preload" href="/fonts/heebo.woff" as="font" type="font/woff" crossorigin>' if lang == "he" else '<link rel="preload" href="/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>'}
   {('<link rel="preload" as="image" href="/media/hero-mont-m.jpg?v=' + VER + '" media="(max-width: 999px)" fetchpriority="high"><link rel="preload" as="image" href="/media/hero-mont-w.jpg?v=' + VER + '" media="(min-width: 1000px)" fetchpriority="high">') if path in ('/', '/en') else ''}
-  {'<link rel="preload" href="/fonts/assistant-800.woff" as="font" type="font/woff" crossorigin>' if t["lang"] == "he" else '<link rel="preload" href="/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>'}
+  {'<link rel="preload" href="/fonts/assistant-800.woff" as="font" type="font/woff" crossorigin>' if t["lang"] == "he" else '<link rel="preload" href="/fonts/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>'}
   <link rel="stylesheet" href="/assets/site.css?v={VER}">
   <script src="/config.js?v={VER}" defer></script>
   <script src="/assets/site.js?v={VER}" defer></script>
@@ -218,12 +218,25 @@ RING = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle class="trk" cx="32" 
 
 
 # ---------------------------------------------------------------- home page
-def mirror(t):
+PARK_ICONS = {
+    "pin": '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/>',
+    "person": '<circle cx="12" cy="7.5" r="3.5"/><path d="M5 20.5c.8-3.9 3.6-6 7-6s6.2 2.1 7 6"/>',
+    "bag": '<path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>',
+    "clock": '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+}
+
+
+def doubts(t):
+    """What she tells herself and what I answer, then why it's one on one in the park, made concrete."""
     v = t["mv"]
-    rows = "".join(f'<li class="mv-l">{e(x)}</li>' for x in v["lines"])
-    return (f'<section class="sec mv mv-big a4" aria-labelledby="mv-h"><div class="wrap">'
-            f'<h2 class="h2 mv-h" id="mv-h">{e(v["h"])}</h2><ul class="mv-list">{rows}</ul>'
-            f'<p class="mv-turn">{e(v["turn"])}</p></div></section>')
+    q = ("״", "״") if t["lang"] == "he" else ("“", "”")
+    rows = "".join(f'<li class="vc-p"><p class="vc-in">{q[0]}{e(a)}{q[1]}</p><p class="vc-out">{e(b)}</p></li>' for a, b in [v["first"]] + t["voice"])
+    park = "".join(
+        f'<li class="pk reveal"><svg viewBox="0 0 24 24" aria-hidden="true">{PARK_ICONS[i]}</svg><div><h3>{e(h)}</h3><p>{e(d)}</p></div></li>'
+        for i, h, d in v["park"])
+    return (f'<section class="sec voice mv" aria-labelledby="vc-h"><div class="wrap">'
+            f'<h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><ul class="vc-list">{rows}</ul>'
+            f'<p class="mv-turn">{e(v["turn"])}</p><ul class="pk-list">{park}</ul></div></section>')
 
 
 def battery(t):
@@ -235,17 +248,11 @@ def battery(t):
             f'<ul class="bt-list">{rows}</ul><p class="bt-turn">{e(t["batt_turn"])}</p></div></section>')
 
 
-def voice(t):
-    rows = "".join(f'<li class="vc-p"><p class="vc-in">{"״" if t["lang"]=="he" else "“"}{e(a)}{"״" if t["lang"]=="he" else "”"}</p><p class="vc-out">{e(b)}</p></li>' for a, b in t["voice"])
-    return (f'<section class="sec voice" aria-labelledby="vc-h"><div class="wrap">{tag(t, "voice")}'
-            f'<h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><ul class="vc-list">{rows}</ul></div></section>')
-
-
 def defend(t):
     items = "".join(f'<li class="df reveal"><span class="df-n" dir="ltr">0{i}</span><div><h3>{e(h)}</h3><p>{e(d)}</p></div></li>' for i, (h, d) in enumerate(t["def"], 1))
     return (f'<section class="sec defend" id="defend" aria-labelledby="df-h"><div class="wrap df-wrap">'
-            f'<div class="df-head"><p class="tag">{e(t["def_tag"])}</p><h2 class="h2" id="df-h">{hgold(t, "def_h")}</h2><p class="lead">{e(t["def_lead"])}</p></div>'
-            f'<div><ol class="df-list">{items}</ol><p class="df-note reveal">{e(t["def_note"])}</p></div></div></section>')
+            f'<div class="df-head"><p class="tag">{e(t["def_tag"])}</p><h2 class="h2" id="df-h">{hgold(t, "def_h")}</h2></div>'
+            f'<div><ol class="df-list">{items}</ol></div></div></section>')
 
 
 def home(t):
@@ -261,17 +268,17 @@ def home(t):
         k = len(cards and cards.split("<article")) if cards else 1
         cards += (f'<article class="aud aud-text fc"><span class="aud-n" dir="ltr" aria-hidden="true">0{k}</span><div class="aud-body">'
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> <s class="x">{e(c["pain"])}</s></p><p class="aud-change">{e(c["change"])}</p></div></article>')
-    steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>{e(t["step_word"])}</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
+    fin_steps = "".join(f'<li><span dir="ltr">{i}</span>{e(h)}</li>' for i, (h, _) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
-    C8 = 2 * 3.14159 * 84
-    p8segs = "".join(f'<circle class="p8-seg" cx="100" cy="100" r="84" stroke-dasharray="{C8 / 8 - 5:.1f} {C8 - C8 / 8 + 5:.1f}" stroke-dashoffset="{-(i * C8 / 8):.1f}"/>' for i in range(8))
-    p8steps = "".join(
-        f'<li class="p8-step" data-wk="{e(t["week_word"])}" data-i="{i}" data-phase="{i // 2}" data-feel="{e(t["week_feel"][i])}" data-t="{e(h)}" data-d="{e(d)}" data-m="{e(m)}">'
-        f'<h3>{e(t["week_word"])} {i + 1} · {e(t["week_feel"][i])}: {e(h)}</h3><p>{e(d)}</p><p><b>{e(t["milestone_word"])}</b> {e(m)}</p></li>'
-        for i, (h, d, m) in enumerate(t["weeks"]))
-    p8phases = t["prog_phases"]
-    about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 0 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"][1:]))
-    creds = "".join(f'<li>{e(x)}</li>' for x in t["about_facts"])
+    def phase(k, name):
+        wk = t["weeks"][k * 2:k * 2 + 2]
+        body = "".join(f'<p><b>{e(t["week_word"])} {k * 2 + n + 1} · {e(h)}</b> {e(d)}<span>{e(t["milestone_word"])} {e(m)}</span></p>' for n, (h, d, m) in enumerate(wk))
+        return (f'<li class="pz reveal"><details><summary><span class="pz-n" dir="ltr">0{k + 1}</span><span class="pz-t"><b>{e(name)}</b>'
+                f'<small>{e(t["weeks_word"])} <span dir="ltr">{k * 2 + 1}–{k * 2 + 2}</span> · {e(" · ".join(h for h, _, _ in wk))}</small></span><span class="qa-x" aria-hidden="true"></span></summary>'
+                f'<div class="pz-b">{body}</div></details></li>')
+    p8path = "".join(phase(k, name) for k, name in enumerate(t["prog_phases"]))
+    quiet, quote, beginners = t["about"]
+    creds = "".join(f'<li>{e(x)}</li>' for x in t["about_facts"][1:])
     reviews = ""
     if CFG["show_testimonials"]:
         def rv(k, name, txt):
@@ -306,11 +313,12 @@ def home(t):
       <p class="h1">{h1}</p>
       <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
+      <p class="hero-place"><svg viewBox="0 0 24 24" aria-hidden="true">{PARK_ICONS["pin"]}</svg>{e(t['hero_place'])}</p>
     </div>
   </section>
   <img class="fly-logo" src="/brand/logo.webp" alt="" aria-hidden="true" width="1202" height="468">
 
-  {mirror(t)}
+  {doubts(t)}
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
       <div class="split">
@@ -330,24 +338,18 @@ def home(t):
     {GRASS}
     <div class="wrap about-grid">
       <figure class="about-photo">{img('round-1', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
-      <div class="about-text">
-        {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
-        {about}
-        <ul class="about-facts">{creds}</ul>
+      <div class="about-text coach">
+        <p class="coach-eyebrow">{e(t['about_eyebrow'])}</p>
+        <h2 class="h2 coach-name" id="about-h">{e(t['about_name'])}</h2>
+        <p class="coach-stat"><span class="num" data-count="{t['about_years']}" dir="ltr">{t['about_years']}</span>{e(t['about_years_label'])}</p>
+        <ul class="coach-facts">{creds}</ul>
+        <div class="coach-body"><p>{e(quiet)}</p><p>{e(beginners)}</p></div>
+        <blockquote class="coach-quote"><p>{e(quote)}</p></blockquote>
       </div>
     </div>
   </section>
 
-  {voice(t)}
-  <section class="sec trial" id="trial" aria-labelledby="trial-h">
-    <div class="wrap">
-      {tag(t, 'trial')}<h2 class="h2" id="trial-h">{hgold(t, 'trial_h')}</h2>
-      <ol class="steps">{steps}</ol>
-      <div class="trial-foot reveal"><p class="trial-why">{e(t['trial_why'])}</p><div class="trial-cta"><a class="btn btn-gold magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a><p class="trial-note">{e(t['final_note'])}</p></div></div>
-    </div>
-  </section>
-
-  <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
+  <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h">
     <div class="wrap p8-head">
       {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
       <p class="p8-sub">{e(t['prog_sub'])}</p>
@@ -355,28 +357,7 @@ def home(t):
       <dl class="facts reveal">{pfacts}</dl>
       <p class="p8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
     </div>
-    <div class="p8-run">
-      <div class="p8-stage" aria-hidden="true">
-        <div class="p8-glow"></div>
-        <div class="wrap p8-grid">
-          <div class="p8-mark"><span class="p8-rays"></span><i class="p8-mk-base"></i><i class="p8-mk-fill"></i><i class="p8-shine"></i></div>
-          <div class="p8-dial">
-            <svg viewBox="0 0 200 200">{p8segs}</svg>
-            <div class="p8-num"><small>{e(t['week_word'])}</small><span class="p8-roll" dir="ltr">{"".join(f"<b>{i}</b>" for i in range(1, 9))}</span><i dir="ltr">/ 8</i></div>
-          </div>
-          <div class="p8-copy">
-            <p class="p8-phase"><span class="p8-ph-n"></span> · <span class="p8-ph-t"></span></p>
-            <p class="p8-feel"></p>
-            <h3 class="p8-t"></h3>
-            <p class="p8-d"></p>
-            <p class="p8-m"><span>{e(t['milestone_word'])}</span> <em></em></p>
-          </div>
-        </div>
-        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}</div>
-        <p class="p8-hint">{e(t['prog_scroll'])} ↓</p>
-      </div>
-      <ol class="p8-steps">{p8steps}</ol>
-    </div>
+    <div class="wrap"><ol class="p8-path">{p8path}</ol></div>
     <div class="wrap p8-end">
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
       <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
@@ -397,6 +378,7 @@ def home(t):
     <div class="wrap final-inner">
       {tag(t, 'final')}
       <h2 class="final-h" id="final-h">{hgold(t, 'final_h')}</h2>
+      <ol class="fin-steps">{fin_steps}</ol>
       <p class="final-sub">{e(t['final_sub'])}</p>
       <div class="pick" data-day-tpl="{e(t['pick_day_tpl'])}" data-time-tpl="{e(t['pick_time_tpl'])}">
         <p class="pick-lbl" id="pick-d">{e(t['pick_day'])}</p>
@@ -407,6 +389,7 @@ def home(t):
       </div>
       <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
       <p class="final-note">{e(t['final_note'])}</p>
+      <p class="final-why">{e(t['trial_why'])}</p>
     </div>
   </section>
 </main>
