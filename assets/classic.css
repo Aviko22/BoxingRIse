@@ -135,3 +135,6 @@ html[lang="he"] .coach-eyebrow { font-family: var(--body) !important; font-weigh
 .hero-place { margin-top: 8px !important; }
 .hero-sub { text-wrap: balance; }
 @media (max-width: 999px) { .hero .hero-cta { margin-top: 14px !important; } .hero .hero-sub { margin-top: 10px; } }
+
+/* doubts: a lighter grey so the line still reads (about 5.3:1 on black) after it settles at 70% */
+.voice .vc-in { color: var(--ash) !important; }
