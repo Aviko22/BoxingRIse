@@ -142,3 +142,12 @@ html[lang="he"] .coach-eyebrow { font-family: var(--body) !important; font-weigh
 /* reviews: a big gold quote mark over each trainee's words, as on the first site */
 .rv-q::before { content: "״"; display: block; height: .42em; margin-bottom: 4px; font: 700 84px/.62 "Karantina", serif; color: var(--gold); }
 html[lang="en"] .rv-q::before { content: "\201C"; font-family: Georgia, serif; font-weight: 400; font-size: 72px; line-height: .8; }
+
+/* the session clips are three rounds: a small gold "ROUND 1" above each title, on every screen */
+.rounds { counter-reset: rd; }
+.rounds .round { counter-increment: rd; }
+.rd6 .round h4::before, .rounds .round h4::before {
+  content: "סיבוב " counter(rd); display: block; margin-bottom: 6px; color: var(--gold) !important;
+  font: 700 15px/1.2 var(--body); letter-spacing: .02em;
+}
+html[lang="en"] .rd6 .round h4::before, html[lang="en"] .rounds .round h4::before { content: "ROUND " counter(rd); font-family: var(--latin); font-weight: 500; letter-spacing: .3em; }
