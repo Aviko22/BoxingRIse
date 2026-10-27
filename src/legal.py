@@ -25,7 +25,7 @@ PAGES = {
   ("p", "אבי אניחוביץ, BoxingRise. פנייה בוואטסאפ: {wa_display}."),
  ]},
  "en": {"title": "Privacy policy", "blocks": [
-  ("p", "boxingrise.com is operated by Avi Einichovich (BoxingRise), who provides private boxing coaching. This policy explains what information is collected, why, and what your rights are, under Israel's Protection of Privacy Law, 5741-1981, including Amendment 13."),
+  ("p", "boxingrise.com is operated by Avi Anihovich (BoxingRise), who provides private boxing coaching. This policy explains what information is collected, why, and what your rights are, under Israel's Protection of Privacy Law, 5741-1981, including Amendment 13."),
   ("h", "What we collect"),
   ("ul", ["WhatsApp messages: when you write, I receive the name and number shown in WhatsApp and the content of your message. The site itself has no forms and stores none of this.",
           "Health declaration: before the first session you fill in a health declaration. I keep it privately for training safety, not on the site.",
@@ -40,7 +40,7 @@ PAGES = {
   ("h", "Security"),
   ("p", "Information is kept on secured devices, and only I can access it. Health declarations are kept while you train and deleted on request."),
   ("h", "Contact"),
-  ("p", "Avi Einichovich, BoxingRise. WhatsApp: {wa_display}."),
+  ("p", "Avi Anihovich, BoxingRise. WhatsApp: {wa_display}."),
  ]},
 },
 "terms": {
@@ -64,7 +64,7 @@ PAGES = {
   ("h", "Information on the site"),
   ("p", "Information here is general and is not medical advice. Before starting physical activity, and especially if you have a medical condition, consult a doctor."),
   ("h", "Intellectual property"),
-  ("p", "The logo, the BoxingRise name, photos, videos and texts belong to Avi Einichovich. Do not copy or use them without written permission."),
+  ("p", "The logo, the BoxingRise name, photos, videos and texts belong to Avi Anihovich. Do not copy or use them without written permission."),
   ("h", "Liability"),
   ("p", "The site is provided as is. We work to keep it accurate and current, but mistakes may occur. Terms for the sessions themselves are on the cancellations page and in the health declaration."),
   ("h", "Law and jurisdiction"),

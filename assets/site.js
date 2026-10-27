@@ -171,7 +171,7 @@
       heroSeen = showing.size > 0; bar.classList.toggle('hold', heroSeen);
     }, { threshold: 0 });
     inline.forEach(function (b) { hio.observe(b); });
-  } else if (bar) bar.classList.remove('hold'); /* it starts held in the markup so it never flashes over the hero button */
+  }
   var floaters = document.querySelectorAll('.wa-float, .sticky-bar');
   var zones = document.querySelectorAll('#final, .site-foot');
   if (floaters.length && zones.length && 'IntersectionObserver' in window) {
@@ -204,26 +204,24 @@
     s.id = 'va'; s.defer = true; s.src = '/_vercel/insights/script.js';
     document.head.appendChild(s);
   }
-  /* the banner and the sticky booking bar share the bottom of a phone screen, one at a time */
-  function showBanner(open) { banner.hidden = !open; document.documentElement.classList.toggle('cookie-open', open); }
   var choice = get();
   if (choice === 'yes') loadAnalytics();
   else if (choice !== 'no' && banner) {
     /* show after the visitor starts reading, so it never covers the first screen */
     var shown = false;
-    var reveal = function () { if (shown || window.scrollY < 300) return; shown = true; showBanner(true); window.removeEventListener('scroll', reveal); };
+    var reveal = function () { if (shown || window.scrollY < 300) return; shown = true; banner.hidden = false; window.removeEventListener('scroll', reveal); };
     window.addEventListener('scroll', reveal, { passive: true });
-    if (!document.querySelector('.hero')) { shown = true; showBanner(true); }
+    if (!document.querySelector('.hero')) { shown = true; banner.hidden = false; }
   }
   document.querySelectorAll('.js-consent').forEach(function (b) {
     b.addEventListener('click', function () {
       var v = b.getAttribute('data-consent');
-      set(v); showBanner(false);
+      set(v); banner.hidden = true;
       if (v === 'yes') loadAnalytics();
     });
   });
   document.querySelectorAll('.js-cookie-settings').forEach(function (b) {
-    b.addEventListener('click', function () { if (banner) { showBanner(true); var f = banner.querySelector('button'); if (f) f.focus(); } });
+    b.addEventListener('click', function () { if (banner) { banner.hidden = false; var f = banner.querySelector('button'); if (f) f.focus(); } });
   });
 })();
 
@@ -259,7 +257,7 @@
 
 /* BoxingRise 8: pinned run through the weeks */
 (function () {
-  var sec = document.querySelector('.p8'); if (!sec || !sec.querySelector('.p8-run')) return;
+  var sec = document.querySelector('.p8'); if (!sec) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   sec.classList.add('on');
   var run = sec.querySelector('.p8-run'), steps = [].slice.call(sec.querySelectorAll('.p8-step'));
