@@ -16,9 +16,9 @@ HE = {
     "new_tab": "(נפתח בוואטסאפ)",
 
     "hero_h1": ["לא צריך להיות לוחמת.", "צריך רק להתחיל."],
-    "hero_sub": "אימון אגרוף אישי לנשים, אחד על אחד בפארק. תל אביב והמרכז.",
+    "hero_sub": "אימון אגרוף אישי לנשים בתל אביב, אחד על אחד.",
     "hero_place": "בפארק קרוב אלייך · כל הציוד עליי",
-    "hero_note": "כפפות וכריות עליי. את מביאה רק את עצמך.",
+    "hero_note": "בלי ניסיון ובלי התחייבות · תשובה באותו יום",
 
     "trust_name": "אבי, המאמן שלך",
     "trust_points": ["בלי התחייבות"],
@@ -200,9 +200,9 @@ EN = {
     "new_tab": "(opens WhatsApp)",
 
     "hero_h1": ["You don't have to be a fighter.", "You just have to start."],
-    "hero_sub": "Private boxing for women, one on one in the park. Tel Aviv and central Israel.",
+    "hero_sub": "Private boxing for women in Tel Aviv, one on one.",
     "hero_place": "In a park near you · I bring the gear",
-    "hero_note": "Gloves and pads are on me. Just bring yourself.",
+    "hero_note": "No experience, no commitment · Same-day reply",
 
     "trust_name": "Avi, your coach",
     "trust_points": ["No commitment"],

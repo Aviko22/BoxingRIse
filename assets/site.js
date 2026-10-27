@@ -171,7 +171,7 @@
       heroSeen = showing.size > 0; bar.classList.toggle('hold', heroSeen);
     }, { threshold: 0 });
     inline.forEach(function (b) { hio.observe(b); });
-  }
+  } else if (bar) bar.classList.remove('hold'); /* it starts held in the markup so it never flashes over the hero button */
   var floaters = document.querySelectorAll('.wa-float, .sticky-bar');
   var zones = document.querySelectorAll('#final, .site-foot');
   if (floaters.length && zones.length && 'IntersectionObserver' in window) {
