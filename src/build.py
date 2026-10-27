@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "132"  # bump to bust caches of css/js
+VER = "133"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -336,10 +336,10 @@ def home(t):
 
   {defend(t)}
 
-  <section class="sec about alt" id="about" aria-labelledby="about-h">
+  <section class="sec about alt ab1" id="about" aria-labelledby="about-h">
     {GRASS}
     <div class="wrap about-grid">
-      <figure class="about-photo">{img('round-1', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
+      <figure class="about-photo"><span class="ab-name" aria-hidden="true" dir="ltr">AVI</span><span class="ab-frame" aria-hidden="true"></span>{img('avi-pro', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}<span class="ab-light" aria-hidden="true"></span></figure>
       <div class="about-text coach">
         <p class="coach-eyebrow">{e(t['about_eyebrow'])}</p>
         <h2 class="h2 coach-name" id="about-h">{e(t['about_name'])}</h2>
@@ -349,6 +349,7 @@ def home(t):
         <blockquote class="coach-quote"><p>{e(quote)}</p></blockquote>
       </div>
     </div>
+    {('<div class="mv-sw" role="group" aria-label="הנפשה">' + "".join(f'<button type="button" data-ab="{i}">{i}</button>' for i in range(1, 7)) + '</div>') if CFG.get("noindex") else ""}
   </section>
 
   <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h">
@@ -445,7 +446,7 @@ def optimise_images():
     from PIL import Image
     out = ROOT / "media" / "opt"
     out.mkdir(parents=True, exist_ok=True)
-    for name in ["avi-portrait", "avi", "avi-park", "round-1", "round-2", "round-3", "gallery-1", "gallery-2", "gallery-4"]:
+    for name in ["avi-pro", "avi-portrait", "avi", "avi-park", "round-1", "round-2", "round-3", "gallery-1", "gallery-2", "gallery-4"]:
         im = Image.open(ROOT / "media" / f"{name}.jpg").convert("RGB")
         IMG_SIZES[name] = im.size
         for w in (480, 900):

@@ -123,7 +123,7 @@ HE = {
     ],
     "about_facts": ["30 שנה באומנויות לחימה", "5 שנים אגרוף קלאסי", "10 שנים מואי תאי", "חגורה שחורה בג׳ו־ג׳יטסו"],
     "about_creds": ["10 שנים מואי תאי", "5 שנים אגרוף קלאסי", "חגורה שחורה, ג׳ו־ג׳יטסו יפני", "הכשרה בישראל ובתאילנד"],
-    "about_alt": "אבי מחזיק כריות אגרוף למתאמנת באימון אישי",
+    "about_alt": "אבי איניחוביץ, מאמן האגרוף של BoxingRise",
 
     "reviews": [
         ("ויקטוריה", "הגעתי בלי שום רקע ובלי ביטחון, וכבר באימון הראשון אבי גרם לי להרגיש הכי בנוח בעולם – יצאתי ממנו עוצמתית, משוחררת ועם טעם של עוד!"),
@@ -308,7 +308,7 @@ EN = {
     ],
     "about_facts": ["30 years in martial arts", "5 years of classic boxing", "10 years of Muay Thai", "Jiu-jitsu black belt"],
     "about_creds": ["10 years of Muay Thai", "5 years of classic boxing", "Black belt, Japanese jujutsu", "Trained in Israel and Thailand"],
-    "about_alt": "Avi holding boxing pads for a trainee in a private session",
+    "about_alt": "Avi, BoxingRise boxing coach",
 
     "reviews": [
         ("Victoria", "I came with no background and no confidence, and from the very first session Avi made me feel completely at ease. I walked out feeling powerful, free, and wanting more!"),

@@ -320,3 +320,16 @@
 })();
 
 
+
+/* about: play the chosen animation when the section enters (?ab=1..6, preview switcher) */
+(function () {
+  var sec = document.getElementById('about'); if (!sec) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { sec.classList.add('ab-in'); }
+  else { var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { sec.classList.add('ab-in'); io.disconnect(); } }, { threshold: .3 }); io.observe(sec); }
+  function pick(n, go) { sec.className = sec.className.replace(/\bab\d\b/, 'ab' + n);
+    document.querySelectorAll('[data-ab]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-ab') === String(n) ? 'true' : 'false'); });
+    if (go) { sec.classList.remove('ab-in'); sec.scrollIntoView({ block: 'center' }); void sec.offsetWidth; setTimeout(function () { sec.classList.add('ab-in'); }, 350); } }
+  var q = (location.search.match(/[?&]ab=(\d)/) || [])[1]; pick(q || 1, false);
+  document.querySelectorAll('[data-ab]').forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-ab'), true); }); });
+})();
