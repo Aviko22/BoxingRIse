@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "126"  # bump to bust caches of css/js
+VER = "127"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -101,6 +101,7 @@ def head(t, title, desc, path, alt_path, noindex):
   {('<link rel="preload" as="image" href="/media/hero-mont-m.jpg?v=' + VER + '" media="(max-width: 999px)" fetchpriority="high"><link rel="preload" as="image" href="/media/hero-mont-w.jpg?v=' + VER + '" media="(min-width: 1000px)" fetchpriority="high">') if path in ('/', '/en') else ''}
   {'<link rel="preload" href="/fonts/assistant-800.woff" as="font" type="font/woff" crossorigin>' if t["lang"] == "he" else '<link rel="preload" href="/fonts/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>'}
   <link rel="stylesheet" href="/assets/site.css?v={VER}">
+  <link rel="stylesheet" href="/assets/classic.css?v={VER}">
   <script src="/config.js?v={VER}" defer></script>
   <script src="/assets/site.js?v={VER}" defer></script>
 """
@@ -319,6 +320,7 @@ def home(t):
   <img class="fly-logo" src="/brand/logo.webp" alt="" aria-hidden="true" width="1202" height="468">
 
   {doubts(t)}
+  {reviews}
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
       <div class="split">
@@ -332,7 +334,6 @@ def home(t):
 
 
   {defend(t)}
-  {reviews}
 
   <section class="sec about alt" id="about" aria-labelledby="about-h">
     {GRASS}
