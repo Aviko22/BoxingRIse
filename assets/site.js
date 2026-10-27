@@ -172,6 +172,12 @@
     }, { threshold: 0 });
     inline.forEach(function (b) { hio.observe(b); });
   }
+  /* the BoxingRise 8 run is pinned full-screen: the bar steps aside so it never covers the week text */
+  var p8run = document.querySelector('.p8.on .p8-run') || document.querySelector('.p8-run');
+  if (bar && p8run) {
+    var p8hide = function () { var r = p8run.getBoundingClientRect(); bar.classList.toggle('p8-away', r.top < window.innerHeight * .5 && r.bottom > window.innerHeight * .9); };
+    window.addEventListener('scroll', function () { requestAnimationFrame(p8hide); }, { passive: true }); p8hide();
+  }
   var floaters = document.querySelectorAll('.wa-float, .sticky-bar');
   var zones = document.querySelectorAll('#final, .site-foot');
   if (floaters.length && zones.length && 'IntersectionObserver' in window) {

@@ -1119,3 +1119,4 @@ html[lang="he"] .hero .h1-line { white-space: nowrap; }
     radial-gradient(60% calc(10% + 22% * var(--sun, 0)) at 50% 104%, rgba(255, 214, 150, calc(.08 + .14 * var(--sun, 0))) 0%, transparent 70%);
   transition: opacity .6s ease; }
 @media (prefers-reduced-motion: reduce) { .sunrise { transition: none; } }
+.sticky-bar.p8-away { transform: translateY(140%) !important; opacity: 0 !important; pointer-events: none; transition: transform .35s ease, opacity .35s ease; }
