@@ -151,3 +151,7 @@ html[lang="en"] .rv-q::before { content: "\201C"; font-family: Georgia, serif; f
   font: 700 15px/1.2 var(--body); letter-spacing: .02em;
 }
 html[lang="en"] .rd6 .round h4::before, html[lang="en"] .rounds .round h4::before { content: "ROUND " counter(rd); font-family: var(--latin); font-weight: 500; letter-spacing: .3em; }
+
+/* protect yourself: the honest line that closes it, behind a gold rule like the coach's quote */
+.df-note { margin: 26px 0 0 !important; padding: 2px 0 !important; padding-inline-start: 20px !important; border-inline-start: 2px solid var(--gold) !important; color: var(--gold-hi) !important; font-size: 19px !important; line-height: 1.4; }
+html[lang="he"] .df-note { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 3vw, 36px) !important; line-height: 1.1; }

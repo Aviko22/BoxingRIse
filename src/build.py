@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "131"  # bump to bust caches of css/js
+VER = "132"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -253,7 +253,7 @@ def defend(t):
     items = "".join(f'<li class="df reveal"><span class="df-n" dir="ltr">0{i}</span><div><h3>{e(h)}</h3><p>{e(d)}</p></div></li>' for i, (h, d) in enumerate(t["def"], 1))
     return (f'<section class="sec defend" id="defend" aria-labelledby="df-h"><div class="wrap df-wrap">'
             f'<div class="df-head"><p class="tag">{e(t["def_tag"])}</p><h2 class="h2" id="df-h">{hgold(t, "def_h")}</h2></div>'
-            f'<div><ol class="df-list">{items}</ol></div></div></section>')
+            f'<div><ol class="df-list">{items}</ol><p class="df-note reveal">{e(t["def_note"])}</p></div></div></section>')
 
 
 def home(t):

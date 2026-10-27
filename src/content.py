@@ -27,6 +27,7 @@ HE = {
     "mv": {"first": ["תמיד רציתי לנסות, אבל חדר מלא גברים זה לא בשבילי.", "כאן אין חדר. רק את ואני, באוויר הפתוח."], "turn": "בגלל זה כאן הכול אחד על אחד, בפארק.",
            "park": [["pin", "פארק קרוב אלייך", "בתל אביב והמרכז, ליד הבית או העבודה."], ["clock", "בשעה שנוחה לך", "בוקר, צהריים או ערב, לפי הלו״ז שלך."], ["bag", "כל הציוד עליי", "כפפות וכריות מגיעות איתי. את מביאה מים."]]},
     "def_tag": "להגן על עצמך",
+    "def_note": "זה לא קורס הגנה עצמית. זה גוף שיודע להגיב, וראש שלא נבהל.",
     "def_h": "היום זה כבר לא רק כושר. זה ביטחון.",
     "def": [
         ("לקרוא את הסביבה", "עמידה יציבה, ידיים למעלה ועיניים פתוחות. לזהות מצב לא נעים לפני שהוא מתקרב."),
@@ -211,6 +212,7 @@ EN = {
     "mv": {"first": ["I always wanted to try, but a room full of men isn't for me.", "There's no room here. Just you and me, in the open air."], "turn": "That's why here it's all one on one, in the park.",
            "park": [["pin", "A park near you", "In Tel Aviv and central Israel, near home or work."], ["clock", "At a time that suits you", "Morning, afternoon or evening, around your schedule."], ["bag", "I bring the gear", "Gloves and pads come with me. You bring water."]]},
     "def_tag": "Protect yourself",
+    "def_note": "It's not a self-defence course. It's a body that knows how to react, and a mind that doesn't panic.",
     "def_h": "Today it's not just fitness. It's confidence.",
     "def": [
         ("Read your surroundings", "A steady stance, hands up, eyes open. Spot an uncomfortable situation before it gets close."),
