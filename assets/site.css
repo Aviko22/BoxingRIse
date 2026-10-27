@@ -1104,3 +1104,18 @@ html[lang="he"] .hero .h1-line { white-space: nowrap; }
 .about-years { display: flex; align-items: center; gap: 14px; margin: 0 0 20px; }
 .about-years .num { font-family: var(--display); font-size: clamp(64px, 8vw, 96px); line-height: .9; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .about-years span:last-child { font-size: 16px; font-weight: 600; color: var(--text); max-width: 20em; line-height: 1.35; }
+
+/* ===== sunrise: a warm glow that rises and grows as she scrolls down the page ===== */
+.sunrise { position: fixed; inset: 0; z-index: 60; pointer-events: none; mix-blend-mode: screen; --s: 0;
+  background:
+    radial-gradient(70% 55% at 50% calc(115% - var(--s) * 55%), rgba(255, 176, 84, calc(.07 + var(--s) * .2)), transparent 70%),
+    radial-gradient(120% 40% at 50% 100%, rgba(255, 120, 40, calc(.04 + var(--s) * .12)), transparent 75%); }
+@media (prefers-reduced-motion: reduce) { .sunrise { --s: .4 !important; } }
+
+/* ===== sunrise: a warm light rises from the bottom of the screen as she scrolls down the page ===== */
+.sunrise { position: fixed; inset: 0; z-index: 80; pointer-events: none; mix-blend-mode: screen; opacity: var(--sun-o, 0);
+  background:
+    radial-gradient(130% calc(22% + 48% * var(--sun, 0)) at 50% 108%, rgba(255, 176, 92, calc(.10 + .16 * var(--sun, 0))) 0%, rgba(232, 140, 60, calc(.05 + .08 * var(--sun, 0))) 45%, transparent 78%),
+    radial-gradient(60% calc(10% + 22% * var(--sun, 0)) at 50% 104%, rgba(255, 214, 150, calc(.08 + .14 * var(--sun, 0))) 0%, transparent 70%);
+  transition: opacity .6s ease; }
+@media (prefers-reduced-motion: reduce) { .sunrise { transition: none; } }

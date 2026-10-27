@@ -325,3 +325,21 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { sec.classList.add('ab-in'); return; }
   var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { sec.classList.add('ab-in'); io.disconnect(); } }, { threshold: .3 }); io.observe(sec);
 })();
+
+/* sunrise glow follows the scroll */
+(function () {
+  var el = document.createElement('div'); el.className = 'sunrise'; el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el);
+  var t = false;
+  function f() { t = false; var max = document.documentElement.scrollHeight - window.innerHeight; var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0; el.style.setProperty('--s', p.toFixed(3)); }
+  window.addEventListener('scroll', function () { if (!t) { t = true; requestAnimationFrame(f); } }, { passive: true });
+  window.addEventListener('resize', f); f();
+})();
+
+/* sunrise: grows with page progress, hidden over the hero */
+(function () {
+  var root = document.documentElement, hero = document.querySelector('.hero');
+  function f() { var max = document.body.scrollHeight - innerHeight, y = scrollY, h0 = hero ? hero.offsetHeight * .6 : 0;
+    var p = Math.min(1, Math.max(0, (y - h0) / Math.max(1, max - h0)));
+    root.style.setProperty('--sun', p.toFixed(3)); root.style.setProperty('--sun-o', Math.min(1, Math.max(0, (y - h0 * .5) / (h0 * .6 + 1))).toFixed(2)); }
+  addEventListener('scroll', function () { requestAnimationFrame(f); }, { passive: true }); addEventListener('resize', f); f();
+})();
