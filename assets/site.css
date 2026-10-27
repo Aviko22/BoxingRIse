@@ -1101,3 +1101,6 @@ html[lang="he"] .hero .h1-line { white-space: nowrap; }
 
 @media (prefers-reduced-motion: reduce) { .about .about-text > *, .about .about-img, .ab-name, .ab-frame, .ab-light, .about-photo::after { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; filter: none !important; clip-path: none !important; } .ab-light, .about-photo::after { display: none !important; } }
 .about .about-text.coach > :nth-child(6) { transition-delay: .6s; }
+.about-years { display: flex; align-items: center; gap: 14px; margin: 0 0 20px; }
+.about-years .num { font-family: var(--display); font-size: clamp(64px, 8vw, 96px); line-height: .9; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.about-years span:last-child { font-size: 16px; font-weight: 600; color: var(--text); max-width: 20em; line-height: 1.35; }

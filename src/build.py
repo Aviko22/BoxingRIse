@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "140"  # bump to bust caches of css/js
+VER = "141"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -332,6 +332,7 @@ def home(t):
       <figure class="about-photo">{img('avi-pro', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
       <div class="about-text">
         {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
+        <p class="about-years"><span class="num" data-count="{t['about_years']}" dir="ltr">{t['about_years']}</span><span>{e(t['about_years_label'])}</span></p>
         {about}
         <ul class="about-facts">{creds}</ul>
       </div>
