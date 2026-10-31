@@ -57,7 +57,7 @@
   var hero = document.querySelector('.hero');
   if (hero) {
     hero.querySelectorAll('.h1 .w > span').forEach(function (s, i) { s.style.setProperty('--i', i); });
-    requestAnimationFrame(function () { hero.classList.add('go'); });
+    if (!document.documentElement.classList.contains('intro-on')) requestAnimationFrame(function () { hero.classList.add('go'); });
   }
 
   /* ---------- Header state ---------- */
@@ -339,4 +339,37 @@
   if (!('IntersectionObserver' in window) || reduce) { hs.forEach(function (h) { h.classList.add('rs-in'); }); return; }
   var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('rs-in'); io.unobserve(x.target); } }); }, { threshold: .4 });
   hs.forEach(function (h) { io.observe(h); });
+})();
+
+/* intro: logo and line hold for ~2.5s, then the video starts and the logo flies into the header */
+(function () {
+  var root = document.documentElement, intro = document.querySelector('.intro');
+  if (!intro || !root.classList.contains('intro-on')) { if (intro) intro.remove(); return; }
+  var logo = intro.querySelector('.intro-logo'), dock = document.querySelector('.site-head .logo img');
+  var hero = document.querySelector('.hero'), video = document.querySelector('.hero-video'), done = false, timer;
+  function startHero() {
+    if (video) { video.setAttribute('autoplay', ''); var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+    if (hero) setTimeout(function () { hero.classList.add('go'); }, 250);
+  }
+  function finish() {
+    root.classList.remove('intro-on'); intro.remove();
+    try { sessionStorage.setItem('br-intro', '1'); } catch (e) {}
+  }
+  function leave() {
+    if (done) return; done = true; clearTimeout(timer);
+    intro.style.animation = 'none';
+    startHero();
+    intro.classList.add('out');
+    if (!dock || !logo || !dock.getBoundingClientRect().width) { intro.style.transition = 'opacity .6s'; intro.style.opacity = '0'; setTimeout(finish, 650); return; }
+    var a = logo.getBoundingClientRect(), b = dock.getBoundingClientRect();
+    var s = b.width / a.width, dx = (b.left + b.width / 2) - (a.left + a.width / 2), dy = (b.top + b.height / 2) - (a.top + a.height / 2);
+    logo.style.animation = 'none'; logo.style.opacity = '1';
+    logo.style.transition = 'transform .95s cubic-bezier(.65,0,.25,1)';
+    requestAnimationFrame(function () { logo.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) scale(' + s.toFixed(3) + ')'; });
+    setTimeout(function () { root.classList.remove('intro-on'); }, 900);
+    setTimeout(finish, 1000);
+  }
+  timer = setTimeout(leave, 2700);
+  intro.addEventListener('click', leave);
+  window.addEventListener('keydown', function k(e) { window.removeEventListener('keydown', k); leave(); });
 })();

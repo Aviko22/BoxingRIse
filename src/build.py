@@ -71,11 +71,13 @@ def head(t, title, desc, path, alt_path, noindex):
     lang = t["lang"]
     other = "en" if lang == "he" else "he"
     robots = '<meta name="robots" content="noindex, nofollow">' if noindex else '<meta name="robots" content="index, follow">'
+    intro = (";try{if(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro'))document.documentElement.classList.add('intro-on')}catch(e){}"
+             if path in ('/', '/en') else "")
     return f"""<!doctype html>
 <html lang="{lang}" dir="{t['dir']}">
 <head>
   <meta charset="utf-8">
-  <script>document.documentElement.classList.add('js')</script>
+  <script>document.documentElement.classList.add('js'){intro}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{e(title)}</title>
   <meta name="description" content="{e(desc)}">
@@ -297,18 +299,17 @@ def home(t):
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-media" aria-hidden="true">
       <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/media/hero-mont-m.jpg?v={VER}" data-poster-wide="/media/hero-mont-w.jpg?v={VER}"></video>
-      <script>(function(v){{var w=matchMedia('(min-width: 1000px)').matches;if(w)v.poster=v.dataset.posterWide;v.src='/media/hero-mont-'+(w?'w':'m')+'.mp4?v={VER}';var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.currentScript.previousElementSibling);</script>
+      <script>(function(v){{var w=matchMedia('(min-width: 1000px)').matches;if(w)v.poster=v.dataset.posterWide;if(document.documentElement.classList.contains('intro-on'))v.removeAttribute('autoplay');v.src='/media/hero-mont-'+(w?'w':'m')+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.currentScript.previousElementSibling);</script>
       <div class="hero-shade"></div>
       <div class="hero-fx"></div>
     </div>
     <div class="wrap hero-inner">
-      <div class="hero-logo-slot" aria-hidden="true"></div>
       <p class="h1">{h1}</p>
       <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
   </section>
-  <img class="fly-logo" src="/brand/logo.webp" alt="" aria-hidden="true" width="1202" height="468">
+  <div class="intro" aria-hidden="true"><div class="intro-in"><img class="intro-logo" src="/brand/logo.webp" alt="" width="1202" height="468"><p class="intro-cap">{e(t['intro_cap'])}</p></div></div>
 
   {mirror(t)}
   <section class="sec what" id="what" aria-labelledby="what-h">

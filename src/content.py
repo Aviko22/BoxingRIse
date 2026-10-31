@@ -17,6 +17,7 @@ HE = {
 
     "hero_h1": ["לא צריך להיות לוחמת.", "צריך רק להתחיל."],
     "hero_sub": "אימון אגרוף אישי לנשים, אחד על אחד בפארק. תל אביב והמרכז.",
+    "intro_cap": "אימון אגרוף אישי לנשים",
     "hero_note": "כפפות וכריות עליי. את מביאה רק את עצמך.",
 
     "trust_name": "אבי, המאמן שלך",
@@ -201,6 +202,7 @@ EN = {
 
     "hero_h1": ["You don't have to be a fighter.", "You just have to start."],
     "hero_sub": "Private boxing for women, one on one in the park. Tel Aviv and central Israel.",
+    "intro_cap": "Private boxing for women",
     "hero_note": "Gloves and pads are on me. Just bring yourself.",
 
     "trust_name": "Avi, your coach",

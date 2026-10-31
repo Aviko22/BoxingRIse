@@ -1116,3 +1116,21 @@ main .h2.rs-in::after { width: 72px; }
 main .h2 { transition: opacity .7s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
 @media (prefers-reduced-motion: reduce) { main .h2 { opacity: 1 !important; transform: none !important; transition: none !important; } main .h2::after { width: 72px; transition: none; } }
 .sticky-bar.p8-away { transform: translateY(140%) !important; opacity: 0 !important; pointer-events: none; transition: transform .35s ease, opacity .35s ease; }
+
+/* ===== intro: logo and line on black, then the video starts and the logo flies to the header ===== */
+.intro { display: none; }
+.intro-on body { overflow: hidden; }
+.intro-on .intro { display: grid; place-items: center; position: fixed; inset: 0; z-index: 1000; background: #000; cursor: pointer;
+  animation: intro-safety .6s ease 6s forwards; }
+.intro-in { display: grid; justify-items: center; gap: clamp(14px, 2.4vw, 22px); padding: 0 var(--pad, 20px); text-align: center; }
+.intro-logo { width: min(68vw, 380px); height: auto; opacity: 0; transform: scale(.92); animation: intro-logo .9s cubic-bezier(.2,.8,.2,1) .15s forwards; will-change: transform; }
+.intro-cap { margin: 0; font-size: clamp(15px, 2.2vw, 19px); letter-spacing: .14em; color: #d9cfbd; opacity: 0; transform: translateY(8px); animation: intro-cap .7s ease .75s forwards; }
+.intro-cap::before, .intro-cap::after { content: ""; display: inline-block; vertical-align: middle; width: 28px; height: 1px; margin: 0 12px; background: var(--metal, #c9a24b); }
+.intro.out { background: transparent; transition: background .8s ease; pointer-events: none; }
+.intro.out .intro-cap { opacity: 0 !important; transition: opacity .35s ease; animation: none; }
+.intro-on .site-head .logo img { opacity: 0; }
+.intro-on .site-head { transition: none; }
+@keyframes intro-logo { to { opacity: 1; transform: none; } }
+@keyframes intro-cap { to { opacity: 1; transform: none; } }
+@keyframes intro-safety { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .intro-on .intro { display: none; } }
