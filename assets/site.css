@@ -1105,6 +1105,9 @@ html[lang="he"] .hero .h1-line { white-space: nowrap; }
 .about-years .num { font-family: var(--display); font-size: clamp(64px, 8vw, 96px); line-height: .9; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .about-years span:last-child { font-size: 16px; font-weight: 600; color: var(--text); max-width: 20em; line-height: 1.35; }
 
+/* without JavaScript, content that normally animates in is simply shown */
+html:not(.js) .mv-l, html:not(.js) .mv-turn, html:not(.js) .vc-in, html:not(.js) .vc-out, html:not(.js) .fc .aud-change, html:not(.js) .about .about-text > * { opacity: 1 !important; transform: none !important; }
+
 /* ===== rise: every section title rises into place with a gold line growing under it ===== */
 main .h2 { position: relative; }
 main .h2::after { content: ""; display: block; height: 3px; width: 0; margin-top: 14px; border-radius: 2px; background: var(--metal); transition: width 1s cubic-bezier(.2,.8,.2,1) .25s; }

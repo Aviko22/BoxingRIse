@@ -293,7 +293,6 @@ def home(t):
     trial_line = f'<p class="trial-line"><span>{"אימון ניסיון" if lang=="he" else "Trial session"}</span> <b dir="ltr">49 ₪</b> <span>{e(" ".join(t["instead_of"].split()[:-2]))}</span> <s>{e(" ".join(t["instead_of"].split()[-2:]))}</s></p>'
 
     return head(t, t["title"], t["description"], path, alt, CFG["noindex"]) + schema(t, path) + "\n</head>\n<body class=\"home\">\n" + header(t, True) + f"""
-<div class="sunrise" aria-hidden="true"></div><div class="rs-line" aria-hidden="true"><i></i></div><canvas class="rs-embers" aria-hidden="true"></canvas><div class="rs-sun" aria-hidden="true"></div>
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-media" aria-hidden="true">
@@ -412,7 +411,6 @@ def home(t):
     </div>
   </section>
 </main>
-{('<div class="mv-sw rs-sw" role="group" aria-label="Rise">' + "".join(f'<button type="button" data-rs="{k}">{k}</button>' for k in range(1, 7)) + '</div>') if CFG.get("noindex") else ""}
 """ + footer(t) + floating(t) + "</body>\n</html>\n"
 
 
@@ -455,6 +453,20 @@ def legal_page(t, slug):
 """ + footer(t) + floating(t) + "</body>\n</html>\n"
 
 
+def not_found():
+    t = HE
+    return head(t, "הדף לא נמצא | BoxingRise", "הדף לא נמצא – BoxingRise", "/404", "/404", True) + "</head>\n<body class=\"legal\">\n" + header(t, False) + f"""
+<main id="main" class="legal-main">
+  <div class="wrap narrow">
+    <h1 class="legal-h1">הדף לא נמצא</h1>
+    <div class="legal-body"><p>הקישור שהגעת אליו לא קיים או שהדף הועבר.</p>
+    <p><a class="btn btn-gold" href="/">לדף הבית</a></p>
+    <p lang="en" dir="ltr">This page doesn't exist. <a href="/en">Go to the English home page</a>.</p></div>
+  </div>
+</main>
+""" + footer(t) + floating(t) + "</body>\n</html>\n"
+
+
 # ---------------------------------------------------------------- images
 IMG_SIZES = {}
 
@@ -488,6 +500,7 @@ def main():
     for slug in PAGES:
         write(f"{slug}.html", legal_page(HE, slug))
         write(f"en/{slug}.html", legal_page(EN, slug))
+    write("404.html", not_found())
     write("config.js", "/* Single source: src/config.json. Edit there and run python3 src/build.py */\n"
           f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message'], 'question': CFG['whatsapp_question']}, ensure_ascii=False)};\n")
     urls = ["/", "/en"] + [legal_url(l, s) for s in PAGES for l in ("he", "en")]
