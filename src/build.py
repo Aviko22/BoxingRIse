@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "145"  # bump to bust caches of css/js
+VER = "146"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -195,6 +195,9 @@ def hgold(t, key):
     if key == "trial_h":
         a, _, z = text.partition(", ")
         return f'{e(a)},<br><span class="g">{e(z)}</span>'
+    if key == "voice_h" and "? " in text:
+        a, _, z = text.partition("? ")
+        return f'{e(a)}?<br><span class="g">{e(z)}</span>'
     if key in ("what_h", "about_h", "final_h", "voice_h", "def_h"):
         a, _, z = text.partition(". ")
         return f'{e(a)}.<br><span class="g">{e(z)}</span>'
@@ -222,7 +225,7 @@ RING = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle class="trk" cx="32" 
 def mirror(t):
     v = t["mv"]
     rows = "".join(f'<li class="mv-l">{e(x)}</li>' for x in v["lines"])
-    return (f'<section class="sec mv mv-big a4" aria-labelledby="mv-h"><div class="wrap">'
+    return (f'<section class="sec mv mv-big a4 cream" aria-labelledby="mv-h"><div class="wrap">'
             f'<h2 class="h2 mv-h" id="mv-h">{e(v["h"])}</h2><ul class="mv-list">{rows}</ul>'
             f'<p class="mv-turn">{e(v["turn"])}</p></div></section>')
 
@@ -238,8 +241,9 @@ def battery(t):
 
 def voice(t):
     rows = "".join(f'<li class="vc-p"><p class="vc-in">{"״" if t["lang"]=="he" else "“"}{e(a)}{"״" if t["lang"]=="he" else "”"}</p><p class="vc-out">{e(b)}</p></li>' for a, b in t["voice"])
-    return (f'<section class="sec voice" aria-labelledby="vc-h"><div class="wrap">{tag(t, "voice")}'
-            f'<h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><ul class="vc-list">{rows}</ul></div></section>')
+    return (f'<section class="sec voice cream" id="start" aria-labelledby="vc-h"><div class="wrap vc-wrap">'
+            f'<div class="vc-head"><h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><p class="lead">{e(t["voice_lead"])}</p>'
+            f'{btn(t, t["cta_trial"], "btn btn-gold magnetic")}</div><ul class="vc-list">{rows}</ul></div></section>')
 
 
 def defend(t):

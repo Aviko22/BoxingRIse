@@ -1134,3 +1134,25 @@ main .h2 { transition: opacity .7s ease, transform .9s cubic-bezier(.2,.8,.2,1);
 @keyframes intro-cap { to { opacity: 1; transform: none; } }
 @keyframes intro-safety { to { opacity: 0; visibility: hidden; } }
 @media (prefers-reduced-motion: reduce) { .intro-on .intro { display: none; } }
+
+/* ---- classic merge: cream sections, never-boxed block, bigger headings ---- */
+.h2, .mv-h { font-size: clamp(60px, 14.5vw, 116px); line-height: .95; }
+html[lang="en"] .h2 { font-size: clamp(50px, 8.6vw, 104px); }
+.cream { --line: rgba(26, 22, 14, .16); --white: #14261c; --text: #1d1b16; --ash: #5f5a4f; position: relative; background: #ece6d8; color: #1d1b16; isolation: isolate; }
+.cream::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .55; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .47  0 0 0 0 .4  0 0 0 .32 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.cream .h2, .cream .mv-h { color: #14261c; }
+.cream .h2 .g { background: none; -webkit-text-fill-color: #9a6f1c; color: #9a6f1c; }
+.cream .lead { color: #3c392f; }
+.mv.cream .mv-l, .mv.cream .mv-l:last-child { color: #3c392f; }
+.mv.cream.a4 .mv-turn { background: linear-gradient(100deg, #7a5814 0%, #a87a1c 35%, #d9ad52 50%, #a87a1c 65%, #7a5814 100%) 200% 0 / 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cream .vc-in { color: #6c665a; }
+.cream .vc-out { color: #14261c; }
+.voice.cream .h2 em { font-style: italic; }
+.vc-wrap { display: grid; gap: clamp(28px, 4vw, 56px); }
+.vc-head .lead { max-width: 26em; margin-bottom: 26px; font-size: clamp(18px, 2vw, 21px); }
+.voice.cream .vc-list { margin-top: 0; }
+@media (min-width: 1000px) {
+  .vc-wrap { grid-template-columns: 1.05fr 1fr; align-items: center; }
+  .voice.cream .vc-list { grid-template-columns: 1fr; }
+}
+.voice.cream .h2 .g { font-style: italic; }
