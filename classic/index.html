@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BoxingRise · אימון אגרוף אישי לנשים בפארק</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<style>
+@font-face { font-family: "Assistant Display"; src: url("/fonts/assistant-800.woff") format("woff"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "Bebas Neue"; src: url("/fonts/bebas-neue.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Heebo"; src: url("/fonts/heebo.woff") format("woff"); font-weight: 100 900; font-display: swap; }
+:root {
+  --ink: #0d1210; --ink-2: #131a17; --forest: #16201b; --cream: #ece6d8; --cream-ink: #1a1a16;
+  --gold: #d4a64a; --gold-hi: #e8c069; --text: #e9e4d8; --ash: #9ea197; --line: rgba(255,255,255,.1);
+  --head: "Bebas Neue", "Assistant Display", "Heebo", sans-serif;
+  --body: "Heebo", system-ui, sans-serif;
+  --pad: clamp(18px, 5vw, 64px); --max: 1200px; --ease: cubic-bezier(.2,.8,.2,1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ink); color: var(--text); font-family: var(--body); font-size: 17px; line-height: 1.6; overflow-x: clip; }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+.wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+.h { margin: 0; font-family: var(--head); font-weight: 800; line-height: .92; letter-spacing: .005em; text-transform: uppercase; }
+.h .g, .g { color: var(--gold); }
+.eyebrow { margin: 0 0 14px; font-size: 12px; font-weight: 700; letter-spacing: .22em; color: var(--ash); text-transform: uppercase; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 24px; border-radius: 2px; background: var(--gold); color: #120d03; font: 800 14px var(--body); letter-spacing: .06em; text-decoration: none; transition: background .2s, transform .2s; }
+.btn:hover { background: var(--gold-hi); transform: translateY(-1px); }
+.btn svg { width: 16px; height: 16px; }
+.small { font-size: 13px; color: var(--ash); }
+.grain::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .48  0 0 0 0 .42  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.cream { position: relative; background: var(--cream); color: var(--cream-ink); }
+.cream .eyebrow, .cream .small { color: #6c6a5e; }
+.cream .g { color: #a87a1c; }
+.forest { background: var(--forest); }
+section { position: relative; padding: clamp(72px, 10vw, 128px) 0; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .9s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* header */
+.top { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s; }
+.top.solid { background: rgba(13,18,16,.92); backdrop-filter: blur(8px); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.top img { height: 30px; width: auto; }
+.top nav { display: flex; align-items: center; gap: 24px; font-size: 13px; font-weight: 700; letter-spacing: .08em; }
+.top nav a { text-decoration: none; color: #d9d4c8; }
+.top nav a:hover { color: var(--gold); }
+.top .btn { min-height: 38px; padding: 0 16px; font-size: 12px; }
+@media (max-width: 860px) { .top nav a:not(.btn) { display: none; } }
+
+/* hero */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding: 0 0 clamp(48px, 8vh, 96px); overflow: hidden; }
+.hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,18,16,.55) 0%, rgba(13,18,16,.15) 30%, rgba(13,18,16,.75) 72%, var(--ink) 100%); }
+.hero .wrap { position: relative; z-index: 1; display: grid; gap: 28px; align-items: end; }
+@media (min-width: 900px) { .hero .wrap { grid-template-columns: 1.2fr 1fr; } }
+.hero .h { font-size: clamp(64px, 11vw, 150px); }
+.hero-side { max-width: 420px; }
+.hero-side .eyebrow { color: var(--gold); margin-bottom: 8px; }
+.hero-side p { margin: 0 0 18px; color: #d9d4c8; font-size: 16px; }
+.hero-meta { margin-top: 14px; display: grid; gap: 4px; }
+.hero-meta span { display: flex; align-items: center; gap: 8px; }
+.hero-meta span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+/* intro */
+.intro .wrap { display: grid; gap: 28px; }
+@media (min-width: 900px) { .intro .wrap { grid-template-columns: 1fr 1fr; align-items: end; } }
+.intro .h { font-size: clamp(56px, 8vw, 104px); color: #13261c; }
+.intro p { margin: 0 0 14px; font-size: 18px; max-width: 30em; }
+.intro .strong { font-weight: 800; color: #13261c; margin-top: 22px; font-size: 16px; letter-spacing: .02em; }
+
+/* experience */
+.exp .h { font-size: clamp(54px, 8vw, 104px); margin-bottom: clamp(36px, 5vw, 64px); }
+.pillars { display: grid; gap: 28px; }
+@media (min-width: 800px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
+.pillar { border-top: 1px solid var(--line); padding-top: 18px; }
+.pillar b { display: block; font: 800 12px var(--body); letter-spacing: .2em; color: var(--gold); }
+.pillar h3 { margin: 6px 0 6px; font-family: var(--head); font-size: 34px; line-height: 1; }
+.pillar p { margin: 0; color: var(--ash); font-size: 15px; }
+.exp-line { margin: clamp(48px, 7vw, 88px) 0 0; font-family: var(--head); font-size: clamp(32px, 4.6vw, 56px); line-height: 1.02; font-style: italic; }
+
+/* program */
+.prog { background: #090c0b; }
+.prog .h { font-size: clamp(60px, 10vw, 140px); }
+.prog .lead { max-width: 34em; color: var(--ash); margin: 22px 0 0; }
+.tl { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: clamp(48px, 7vw, 80px); padding-top: 26px; }
+.tl::before { content: ""; position: absolute; top: 4px; inset-inline: 0; height: 2px; background: var(--line); }
+.tl::after { content: ""; position: absolute; top: 4px; inset-inline-start: 0; height: 2px; width: calc(var(--tl, 0) * 100%); background: var(--gold); transition: width 1.6s var(--ease); }
+.tl li { position: relative; list-style: none; }
+.tl li::before { content: ""; position: absolute; top: -27px; inset-inline-start: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); box-shadow: inset 0 0 0 2px var(--gold); }
+.tl small { display: block; font: 800 11px var(--body); letter-spacing: .2em; color: var(--gold); }
+.tl h3 { margin: 4px 0 4px; font-family: var(--head); font-size: clamp(24px, 3vw, 38px); line-height: 1; }
+.tl p { margin: 0; font-size: 14px; color: var(--ash); }
+@media (max-width: 760px) { .tl { grid-template-columns: 1fr 1fr; row-gap: 34px; } .tl::before, .tl::after { display: none; } }
+.prog-foot { display: grid; gap: 22px; margin-top: clamp(40px, 6vw, 64px); padding-top: 26px; border-top: 1px solid var(--line); }
+@media (min-width: 900px) { .prog-foot { grid-template-columns: 1fr 1fr auto; align-items: center; } }
+.ticks { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 15px; }
+.ticks li::before { content: "—  "; color: var(--gold); }
+
+/* built around you */
+.cards { display: grid; gap: 22px; margin-top: clamp(36px, 5vw, 56px); }
+@media (min-width: 800px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card video, .card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #222; }
+.card h3 { margin: 16px 0 6px; font-family: var(--head); font-size: 32px; line-height: 1; color: #13261c; }
+.card p { margin: 0; font-size: 15px; color: #4a4a40; }
+.around .h { font-size: clamp(54px, 8vw, 104px); color: #13261c; }
+
+/* 60 minutes */
+.sixty .wrap { display: grid; gap: 36px; }
+@media (min-width: 900px) { .sixty .wrap { grid-template-columns: 1fr 1.1fr; align-items: start; } }
+.sixty .h { font-size: clamp(60px, 9vw, 120px); }
+.sixty .wrap > div:first-child p { color: var(--ash); max-width: 24em; }
+.mins { margin: 0; padding: 0; list-style: none; border-inline-start: 2px solid var(--line); }
+.mins li { position: relative; padding: 14px 26px 14px 0; border-bottom: 1px solid var(--line); }
+html[dir="ltr"] .mins li { padding: 14px 0 14px 26px; }
+.mins li::before { content: ""; position: absolute; inset-inline-start: -6px; top: 22px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+.mins b { font: 800 12px var(--body); letter-spacing: .18em; color: var(--gold); }
+.mins h3 { display: inline; margin: 0 10px; font-family: var(--head); font-size: 28px; }
+.mins p { margin: 2px 0 0; font-size: 14px; color: var(--ash); }
+
+/* coach */
+.coach .wrap { display: grid; gap: 40px; }
+@media (min-width: 900px) { .coach .wrap { grid-template-columns: 1fr 1fr; align-items: center; } }
+.coach img { width: 100%; aspect-ratio: 4 / 5; max-height: 72svh; object-fit: cover; filter: saturate(.92) contrast(1.04); }
+.coach .h { font-size: clamp(60px, 9vw, 120px); }
+.years { display: flex; align-items: center; gap: 14px; margin: 18px 0; }
+.years b { font-family: var(--head); font-size: 76px; line-height: .9; color: var(--gold); }
+.years span { font: 800 12px var(--body); letter-spacing: .14em; color: var(--ash); max-width: 14em; }
+.coach p { color: #c9c4b8; margin: 0 0 12px; max-width: 32em; }
+.coach blockquote { margin: 22px 0 0; padding: 16px 20px; border-inline-start: 3px solid var(--gold); background: rgba(212,166,74,.08); font-family: var(--head); font-size: clamp(24px, 2.6vw, 32px); line-height: 1.05; font-style: italic; }
+
+/* reviews */
+.rvs { display: grid; gap: 18px; margin-top: 40px; }
+@media (min-width: 900px) { .rvs { grid-template-columns: repeat(3, 1fr); } }
+.rv { margin: 0; padding: 22px; border: 1px solid var(--line); display: grid; grid-template-columns: 72px 1fr; gap: 16px; align-items: start; }
+.rv img { width: 72px; height: 90px; object-fit: cover; }
+.rv q { display: block; font-family: var(--head); font-size: 22px; line-height: 1.1; quotes: "״" "״"; }
+.rv figcaption { margin-top: 10px; font-size: 13px; color: var(--gold); font-weight: 700; }
+.reviews .h { font-size: clamp(54px, 8vw, 100px); }
+
+/* never boxed */
+.never .wrap { display: grid; gap: 30px; }
+@media (min-width: 900px) { .never .wrap { grid-template-columns: 1.1fr 1fr; align-items: end; } }
+.never .h { font-size: clamp(64px, 10vw, 140px); color: #13261c; }
+.never .h em { display: block; font-style: italic; font-size: .55em; color: #13261c; margin-top: 10px; }
+.never p { margin: 0 0 12px; font-size: 18px; max-width: 28em; }
+.never .btn { margin-top: 14px; }
+
+/* faq */
+.faq .wrap { display: grid; gap: 30px; }
+@media (min-width: 900px) { .faq .wrap { grid-template-columns: 1fr 1.6fr; } }
+.faq .h { font-size: clamp(60px, 9vw, 120px); }
+details { border-bottom: 1px solid var(--line); }
+summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 58px; cursor: pointer; list-style: none; font-weight: 600; font-size: 17px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--gold); font-size: 24px; font-weight: 300; transition: transform .3s; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { margin: 0 0 18px; color: var(--ash); max-width: 40em; }
+
+/* final */
+.final { text-align: center; background: radial-gradient(60% 70% at 50% 60%, rgba(212,166,74,.12), transparent 70%), #090c0b; }
+.final img { height: 44px; width: auto; margin: 0 auto 26px; }
+.final .h { font-size: clamp(70px, 12vw, 170px); }
+.final p { color: var(--ash); margin: 14px 0 26px; }
+.links { margin-top: 22px; display: flex; justify-content: center; gap: 22px; font-size: 12px; font-weight: 700; letter-spacing: .2em; }
+.links a { text-decoration: none; color: var(--ash); }
+.links a:hover { color: var(--gold); }
+footer { padding: 26px 0 40px; border-top: 1px solid var(--line); font-size: 12px; color: #6c7068; background: #090c0b; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+footer a { color: #6c7068; text-decoration: none; margin-inline-end: 14px; }
+
+.wa-fab { position: fixed; z-index: 60; bottom: 18px; inset-inline-end: 18px; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--gold); color: #120d03; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+.wa-fab svg { width: 26px; height: 26px; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .tl::after { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a href="#hero" aria-label="BoxingRise"><img src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468"></a>
+    <nav>
+      <a href="#program">התוכנית</a>
+      <a href="#coach">המאמן</a>
+      <a href="#faq">שאלות</a>
+      <a href="/en">EN</a>
+      <a class="btn js-wa" href="#">לאימון ניסיון</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="hero">
+    <video autoplay muted loop playsinline preload="auto" poster="/media/hero-mont-w.jpg"></video>
+    <div class="wrap">
+      <h1 class="h">ללמוד אגרוף.<br>להתחזק.<br><span class="g">לעלות.</span></h1>
+      <div class="hero-side">
+        <p class="eyebrow">אימון אגרוף אישי לנשים · 1:1</p>
+        <p>טכניקה אמיתית של אגרוף, כושר ממוקד וביטחון, באימון אישי בפארק קרוב אלייך.</p>
+        <a class="btn js-wa" href="#">לאימון ניסיון ב־49 ₪ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+        <div class="hero-meta small"><span>בלי ניסיון · בלי התחייבות</span><span>בתל אביב והמרכז · כל הציוד עליי</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cream grain intro">
+    <div class="wrap">
+      <h2 class="h reveal">לא עוד<br>אימון<br>כושר.</h2>
+      <div class="reveal">
+        <p>את לא צריכה עוד שגרה חוזרת בחדר כושר.</p>
+        <p>את צריכה אימון שמאתגר את הגוף, משאיר את הראש מרוכז, ונותן לך מיומנות אמיתית.</p>
+        <p class="strong">BOXINGRISE משלב אגרוף אמיתי עם אימון אישי, אחד על אחד.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="exp">
+    <div class="wrap">
+      <p class="eyebrow reveal">החוויה</p>
+      <h2 class="h reveal">זה <span class="g">BOXINGRISE</span>.</h2>
+      <div class="pillars">
+        <div class="pillar reveal"><b>01</b><h3>אגרוף</h3><p>עמידה, תנועה, מכות, הגנה וקומבינציות.</p></div>
+        <div class="pillar reveal"><b>02</b><h3>כריות</h3><p>עבודת כריות מול המאמן, שבונה תזמון, קואורדינציה וטכניקה.</p></div>
+        <div class="pillar reveal"><b>03</b><h3>כושר</h3><p>אימון כוח וכושר פונקציונלי שמשלים את האגרוף.</p></div>
+      </div>
+      <p class="exp-line reveal">לא צריך להיות לוחמת<br>כדי להתאמן <span class="g">כמו אחת.</span></p>
+    </div>
+  </section>
+
+  <section class="prog" id="program">
+    <div class="wrap">
+      <p class="eyebrow reveal">התוכנית · <span class="g">BOXINGRISE 8</span></p>
+      <h2 class="h reveal"><span class="g">8</span> שבועות.<br><span class="g">16</span> אימונים אישיים.</h2>
+      <p class="lead reveal">תוכנית מובנית אחד על אחד, מאפס ועד ביטחון: יסודות האגרוף, עבודת כריות, כושר וטכניקה.</p>
+      <ol class="tl" id="tl">
+        <li><small>01</small><h3>יסודות</h3><p>עמידה, שמירה, ג׳אב וקרוס.</p></li>
+        <li><small>02</small><h3>טכניקה</h3><p>הוק, אפרקאט ורצפים.</p></li>
+        <li><small>03</small><h3>כושר</h3><p>הגנה, תנועה וסיבובים.</p></li>
+        <li><small>04</small><h3>לעלות</h3><p>הכול ביחד, ותוכנית להמשך.</p></li>
+      </ol>
+      <div class="prog-foot">
+        <ul class="ticks"><li>שני אימונים אישיים בשבוע</li><li>עבודת כריות וכושר</li></ul>
+        <ul class="ticks"><li>אימון שמתקדם איתך</li><li>ליווי בוואטסאפ בין האימונים</li></ul>
+        <a class="btn js-wa" href="#">מתחילים באימון ניסיון</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cream grain around">
+    <div class="wrap">
+      <p class="eyebrow reveal">בשבילך</p>
+      <h2 class="h reveal">נבנה סביבך.</h2>
+      <div class="cards">
+        <article class="card reveal"><video class="clip" muted loop playsinline preload="none" poster="/media/clip-technique.jpg" data-src="/media/clip-technique.mp4"></video><h3>ביטחון</h3><p>לומדת לעמוד יציב, לזוז נכון ולהגן על עצמך. ביטחון שיוצא איתך מהאימון.</p></article>
+        <article class="card reveal"><video class="clip" muted loop playsinline preload="none" poster="/media/clip-power.jpg" data-src="/media/clip-power.mp4"></video><h3>כושר</h3><p>כל אימון שונה ועם מטרה. הגוף מתחזק ומתחטב, והשעה עפה.</p></article>
+        <article class="card reveal"><video class="clip" muted loop playsinline preload="none" poster="/media/clip-pads.jpg" data-src="/media/clip-pads.mp4"></video><h3>שקט</h3><p>בלי טלפון ובלי הסחות. רק את והכרית, ויוצאת רגועה וחזקה יותר.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="forest sixty">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow reveal">איך נראה אימון</p>
+        <h2 class="h reveal">60 הדקות<br><span class="g">שלך.</span></h2>
+        <p class="reveal">כל אימון מותאם לרמה ולקצב שלך.</p>
+      </div>
+      <ol class="mins">
+        <li class="reveal"><b>01</b><h3>חימום</h3><p>תנועה, תנועתיות ודופק עולה.</p></li>
+        <li class="reveal"><b>02</b><h3>תנועה וכושר</h3><p>עבודת רגליים ותרגילי כוח.</p></li>
+        <li class="reveal"><b>03</b><h3>טכניקת אגרוף</h3><p>עמידה, שמירה ומכות נכונות.</p></li>
+        <li class="reveal"><b>04</b><h3>כריות</h3><p>קומבינציות מול המאמן, בקצב שלך.</p></li>
+        <li class="reveal"><b>05</b><h3>סיום ושחרור</h3><p>נשימה, מתיחות ומה לקחת לשבוע.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="coach" id="coach">
+    <div class="wrap">
+      <img class="reveal" src="/media/opt/avi-pro-900.webp" alt="אבי אניחוביץ, מאמן האגרוף של BoxingRise" width="900" height="1080" loading="lazy">
+      <div>
+        <p class="eyebrow reveal">המאמן שלך</p>
+        <h2 class="h reveal">אבי<br>אניחוביץ</h2>
+        <div class="years reveal"><b>30</b><span>שנה באומנויות לחימה ובספורט קרבי</span></div>
+        <p class="reveal">10 שנים מואי תאי, 5 שנים אגרוף קלאסי וחגורה שחורה בג׳ו־ג׳יטסו.</p>
+        <p class="reveal">אני עובד עם מתחילות, בקצב שלהן, עם הסבר לכל תנועה. בלי צעקות, בלי לחץ, ועם הרבה סבלנות.</p>
+        <blockquote class="reveal">בלי אגו. בלי לחץ.<br>רק את, הכריות <span class="g">והמכה הבאה.</span></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="forest reviews">
+    <div class="wrap">
+      <p class="eyebrow reveal">הן כבר התחילו</p>
+      <h2 class="h reveal">ככה הן יוצאות<br><span class="g">מהאימון.</span></h2>
+      <div class="rvs">
+        <figure class="rv reveal"><img src="/media/review-victoria.jpg" alt="" loading="lazy"><div><q>יצאתי ממנו עוצמתית, משוחררת ועם טעם של עוד</q><figcaption>ויקטוריה · התחילה בלי רקע</figcaption></div></figure>
+        <figure class="rv reveal"><img src="/media/review-maria.jpg" alt="" loading="lazy"><div><q>האימונים האישיים עם אבי הביאו אותי לכושר ולחיטוב הכי חזק שהייתי בהם</q><figcaption>מריה · אחרי שנים בחדרי כושר</figcaption></div></figure>
+        <figure class="rv reveal"><img src="/media/review-neta.jpg" alt="" loading="lazy"><div><q>הזמן היחיד ביום שבו אני משחררת את כל הסטרס</q><figcaption>נטע · מגיעה לפרוק את השבוע</figcaption></div></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cream grain never">
+    <div class="wrap">
+      <h2 class="h reveal">אף פעם<br>לא התאגרפת?<em class="g">מושלם.</em></h2>
+      <div class="reveal">
+        <p>האימון הראשון שלך הוא כדי להבין מאיפה את מתחילה.</p>
+        <p>נעבור על היסודות, נזיז את הגוף, תרגישי את הכריות ותראי אם BoxingRise מתאים לך.</p>
+        <p class="small">לא צריך ניסיון. אנחנו מתאמנים בחוץ, בפארק קרוב אלייך, וכל הציוד עליי.</p>
+        <a class="btn js-wa" href="#">לאימון ניסיון ב־49 ₪</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div><p class="eyebrow reveal">שאלות</p><h2 class="h reveal">טוב<br>לדעת.</h2></div>
+      <div class="reveal">
+        <details><summary>צריך ניסיון באגרוף?</summary><p>לא. רוב המתאמנות מתחילות מאפס, והאימון הראשון בנוי בדיוק לזה.</p></details>
+        <details><summary>כמה זה עולה?</summary><p>אימון הניסיון עולה 49 ₪ במקום 250 ₪. את ההמשך נתאים יחד אחרי הניסיון, בלי התחייבות.</p></details>
+        <details><summary>צריך להיות בכושר כדי להתחיל?</summary><p>לא. האימון נבנה לפי הרמה שלך, והכושר מגיע באימונים.</p></details>
+        <details><summary>זה אגרוף או כושר?</summary><p>שניהם. טכניקת אגרוף אמיתית, עבודת כריות ואימון כוח שמשלים אותה.</p></details>
+        <details><summary>חייבת להתאגרף עם מישהו?</summary><p>לא. אין ספארינג חובה. עובדים על כריות, טכניקה ותנועה.</p></details>
+        <details><summary>המאמן גבר. זה בסדר?</summary><p>האימונים בפארק, במקום ציבורי ופתוח. אפשר להגיע עם חברה, ואת קובעת את הקצב.</p></details>
+        <details><summary>איפה מתאמנים?</summary><p>בפארק הירקון, או בפארק ליד הבית שלך באזור המרכז.</p></details>
+        <details><summary>מה קורה כשיורד גשם?</summary><p>אם יש מקום מקורה בקרבת מקום עוברים אליו. אם לא, מזיזים את האימון בלי חיוב.</p></details>
+        <details><summary>כמה זמן נמשך אימון?</summary><p>שישים דקות.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <img src="/brand/logo.webp" alt="" width="1202" height="468">
+      <h2 class="h reveal">מוכנה <span class="g">לעלות?</span></h2>
+      <p class="reveal">הסיבוב הראשון שלך מתחיל כאן.</p>
+      <a class="btn js-wa reveal" href="#">לאימון ניסיון ב־49 ₪</a>
+      <div class="links"><a class="js-wa" href="#">WHATSAPP · 050-2734456</a></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© BoxingRise · אבי אניחוביץ</span><span><a href="/privacy">פרטיות</a><a href="/terms">תנאי שימוש</a><a href="/accessibility">נגישות</a></span></div></footer>
+
+<a class="wa-fab js-wa" href="#" aria-label="וואטסאפ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg></a>
+
+<script>
+(function () {
+  var msg = 'היי אבי, אשמח לקבוע אימון ניסיון ב־49 ₪';
+  var href = 'https://wa.me/972502734456?text=' + encodeURIComponent(msg);
+  document.querySelectorAll('.js-wa').forEach(function (a) { a.href = href; a.target = '_blank'; a.rel = 'noopener'; });
+  var v = document.querySelector('.hero video'), wide = matchMedia('(min-width: 900px)').matches;
+  v.poster = '/media/hero-mont-' + (wide ? 'w' : 'm') + '.jpg'; v.src = '/media/hero-mont-' + (wide ? 'w' : 'm') + '.mp4';
+  var p = v.play(); if (p && p.catch) p.catch(function () {});
+  var top = document.getElementById('top');
+  addEventListener('scroll', function () { top.classList.toggle('solid', scrollY > 40); }, { passive: true });
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) els.forEach(function (e) { e.classList.add('in'); });
+  else { var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: .15 }); els.forEach(function (e) { io.observe(e); }); }
+  var tl = document.getElementById('tl');
+  new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { tl.style.setProperty('--tl', 1); o.disconnect(); } }, { threshold: .4 }).observe(tl);
+  var cio = new IntersectionObserver(function (es) { es.forEach(function (x) { var c = x.target; if (x.isIntersecting) { if (!c.src) c.src = c.dataset.src; var q = c.play(); if (q && q.catch) q.catch(function () {}); } else c.pause(); }); }, { rootMargin: '300px 0px' });
+  document.querySelectorAll('.clip').forEach(function (c) { cio.observe(c); });
+})();
+</script>
+</body>
+</html>
