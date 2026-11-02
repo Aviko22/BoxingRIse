@@ -82,7 +82,6 @@ def head(t, title, desc, path, alt_path, noindex):
   <title>{e(title)}</title>
   <meta name="description" content="{e(desc)}">
   {robots}
-  <!-- TODO: before launch on boxingrise.com set "noindex": false in src/config.json and rebuild -->
   <link rel="canonical" href="{SITE}{path}">
   <link rel="alternate" hreflang="{lang}" href="{SITE}{path}">
   <link rel="alternate" hreflang="{other}" href="{SITE}{alt_path}">
@@ -441,7 +440,7 @@ def legal_page(t, slug):
             body += "<ul>" + "".join(f"<li>{e(i)}</li>" for i in val) + "</ul>"
         elif kind == "form":
             body += health_form(lang)
-    todo = "<!-- TODO: לבדיקת עורך דין לפני עלייה לאוויר / Lawyer review required before launch -->\n"
+    todo = ""
     return todo + head(t, f"{page['title']} | BoxingRise", page["title"] + " – BoxingRise", path, alt, CFG["noindex"]) + "</head>\n<body class=\"legal\">\n" + header(t, False) + f"""
 <main id="main" class="legal-main">
   <div class="wrap narrow">

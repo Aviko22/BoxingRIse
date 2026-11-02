@@ -8,7 +8,7 @@
   "trial_price": 49,
   "trial_regular_price": 250,
   "show_testimonials": true,
-  "noindex": true,
+  "noindex": false,
   "accessibility_coordinator": {
     "he": "אבי אניחוביץ",
     "en": "Avi Anihovich"
