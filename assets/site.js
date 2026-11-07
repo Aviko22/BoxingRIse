@@ -53,6 +53,12 @@
   /* ---------- Hero: words enter like a jab, one orchestrated moment ---------- */
   /* wide screens get the wide poster frame */
   var hv = document.querySelector('.hero-video');
+  /* safety net: if the inline loader did not run (blocked or rewritten by an optimiser), set the source here */
+  if (hv && !hv.getAttribute('src') && !hv.querySelector('source')) {
+    var wideV = window.matchMedia('(min-width: 1000px)').matches;
+    hv.src = '/media/hero-mont-' + (wideV ? 'w' : 'm') + '.mp4';
+    if (!document.documentElement.classList.contains('intro-on')) { var hp = hv.play(); if (hp && hp.catch) hp.catch(function () {}); }
+  }
   if (hv && hv.dataset.posterWide && window.matchMedia('(min-width: 1000px)').matches) hv.poster = hv.dataset.posterWide;
   var hero = document.querySelector('.hero');
   if (hero) {
