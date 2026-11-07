@@ -1165,3 +1165,13 @@ html { scroll-padding-bottom: 96px; }
 .away, .sticky-bar.hold { visibility: hidden; transition: transform .3s var(--ease), opacity .3s, visibility 0s .3s; }
 .sticky-bar, .wa-float { transition: transform .3s var(--ease), opacity .3s, visibility 0s; }
 html { scroll-padding-top: 96px; }
+
+/* ---- phone: the video fills the whole first screen, words sit on a dark fade at the bottom ---- */
+@media (max-width: 999px) {
+  .hero { min-height: 100svh; padding-bottom: 96px; }
+  .hero-media { inset: 0; height: auto; }
+  .hero-video { object-position: 50% 30%; }
+  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.5) 0%, rgba(11,10,8,0) 16%, rgba(11,10,8,.3) 36%, rgba(11,10,8,.8) 56%, rgba(11,10,8,.92) 78%, var(--black) 100%) !important; }
+  .hero-inner { padding-top: 0; }
+  .hero .h1, .hero-sub { text-shadow: 0 2px 14px rgba(0,0,0,.6); }
+}
