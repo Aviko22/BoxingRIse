@@ -1165,3 +1165,12 @@ html { scroll-padding-bottom: 96px; }
 .away, .sticky-bar.hold { visibility: hidden; transition: transform .3s var(--ease), opacity .3s, visibility 0s .3s; }
 .sticky-bar, .wa-float { transition: transform .3s var(--ease), opacity .3s, visibility 0s; }
 html { scroll-padding-top: 96px; }
+
+/* phone: the black hero always reaches the bottom of the screen, even when the browser bars collapse;
+   the text and button stay where they were (anchored to the small viewport) */
+@media (max-width: 999px) {
+  .hero { min-height: 100svh; }
+  @supports (height: 100lvh) {
+    .hero { min-height: 100lvh; padding-bottom: calc(104px + (100lvh - 100svh)); }
+  }
+}
