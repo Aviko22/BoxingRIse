@@ -1138,8 +1138,8 @@ main .h2 { transition: opacity .7s ease, transform .9s cubic-bezier(.2,.8,.2,1);
 /* ---- classic merge: cream sections, never-boxed block, bigger headings ---- */
 .h2, .mv-h { font-size: clamp(60px, 14.5vw, 116px); line-height: .95; }
 html[lang="en"] .h2 { font-size: clamp(50px, 8.6vw, 104px); }
-.cream { --line: rgba(26, 22, 14, .16); --white: #14261c; --text: #1d1b16; --ash: #5f5a4f; position: relative; background: #ece6d8; color: #1d1b16; isolation: isolate; }
-.cream::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .55; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .47  0 0 0 0 .4  0 0 0 .32 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.cream { --line: rgba(26, 22, 14, .16); --white: #14261c; --text: #1d1b16; --ash: #5f5a4f; position: relative; background: #fff; color: #1d1b16; isolation: isolate; }
+.cream::before { display: none; content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .55; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .47  0 0 0 0 .4  0 0 0 .32 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
 .cream .h2, .cream .mv-h { color: #14261c; }
 .cream .h2 .g { background: none; -webkit-text-fill-color: #9a6f1c; color: #9a6f1c; }
 .cream .lead { color: #3c392f; }
@@ -1165,13 +1165,3 @@ html { scroll-padding-bottom: 96px; }
 .away, .sticky-bar.hold { visibility: hidden; transition: transform .3s var(--ease), opacity .3s, visibility 0s .3s; }
 .sticky-bar, .wa-float { transition: transform .3s var(--ease), opacity .3s, visibility 0s; }
 html { scroll-padding-top: 96px; }
-
-/* ---- phone: the video fills the whole first screen, words sit on a dark fade at the bottom ---- */
-@media (max-width: 999px) {
-  .hero { min-height: 100svh; padding-bottom: 96px; }
-  .hero-media { inset: 0; height: auto; }
-  .hero-video { object-position: 50% 30%; }
-  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.5) 0%, rgba(11,10,8,0) 16%, rgba(11,10,8,.3) 36%, rgba(11,10,8,.8) 56%, rgba(11,10,8,.92) 78%, var(--black) 100%) !important; }
-  .hero-inner { padding-top: 0; }
-  .hero .h1, .hero-sub { text-shadow: 0 2px 14px rgba(0,0,0,.6); }
-}
