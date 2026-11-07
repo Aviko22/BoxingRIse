@@ -1,6 +1,6 @@
 # BoxingRise
 
-One-page site for BoxingRise, private one-on-one boxing coaching. Hebrew (default, RTL) and English (LTR). Static HTML, CSS and JavaScript with no framework or dependencies, deployed on Vercel.
+One-page site for BoxingRise, private one-on-one boxing coaching. Hebrew (default, RTL) and English (LTR). Static HTML, CSS and JavaScript with no framework or dependencies, deployed on Cloudflare Pages (branch `rebuild`). See CLAUDE.md for the full working notes.
 
 ## Editing
 
