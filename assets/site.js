@@ -110,6 +110,17 @@
     tagSecs.forEach(function (s) { tio.observe(s); });
   }
 
+  /* ---------- Autoplay blocked (iPhone Low Power Mode, data saver): start the videos on the first touch ---------- */
+  var kick = function () {
+    document.querySelectorAll('video').forEach(function (v) {
+      if (!v.paused) return;
+      if (v.classList.contains('hero-video') && document.documentElement.classList.contains('intro-on')) return;
+      var r = v.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight && (v.currentSrc || v.getAttribute('src') || v.querySelector('source'))) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
+    });
+  };
+  if (!reduce) ['touchend', 'click', 'keydown'].forEach(function (t) { document.addEventListener(t, kick, { passive: true }); });
+
   /* ---------- Park clips: play only while on screen ---------- */
   var clips = document.querySelectorAll('.js-clip');
   if (clips.length && !reduce && 'IntersectionObserver' in window) {
