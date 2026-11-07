@@ -1156,3 +1156,12 @@ html[lang="en"] .h2 { font-size: clamp(50px, 8.6vw, 104px); }
   .voice.cream .vc-list { grid-template-columns: 1fr; }
 }
 .voice.cream .h2 .g { font-style: italic; }
+
+/* ---- a11y: focus ring visible on cream; focused items never hide under the sticky bar ---- */
+html { scroll-padding-bottom: 96px; }
+.cream :focus-visible { outline-color: #5a420f; }
+.mv.cream.a4 .mv-turn { background-image: linear-gradient(100deg, #6e5216 0%, #8a6418 35%, #a87a1c 50%, #8a6418 65%, #6e5216 100%); }
+/* hidden floating buttons leave the tab order too (visibility waits for the slide-out) */
+.away, .sticky-bar.hold { visibility: hidden; transition: transform .3s var(--ease), opacity .3s, visibility 0s .3s; }
+.sticky-bar, .wa-float { transition: transform .3s var(--ease), opacity .3s, visibility 0s; }
+html { scroll-padding-top: 96px; }

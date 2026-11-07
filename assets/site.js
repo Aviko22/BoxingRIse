@@ -189,13 +189,39 @@
     zones.forEach(function (z) { zio.observe(z); });
   }
 
-  /* ---------- Count WhatsApp taps (only reaches analytics after consent) ---------- */
+  /* ---------- Conversion events (no message text, no personal data) ----------
+     Every event is also pushed to window.brEvents so it can be checked in a test browser.
+     A WhatsApp click means "opened WhatsApp", not "booked". */
+  var an = (cfg && cfg.analytics) || { provider: 'none' };
+  window.brEvents = window.brEvents || [];
+  function track(name, data) {
+    data = data || {}; data.lang = lang;
+    window.brEvents.push({ name: name, data: data });
+    if (get() !== 'yes') return;
+    if (an.provider === 'ga4' && typeof window.gtag === 'function') window.gtag('event', name, data);
+    else if (an.provider === 'vercel' && typeof window.va === 'function') window.va('event', { name: name, data: data });
+    /* cloudflare: page views only, it has no custom events */
+  }
+  function placement(a) {
+    if (a.closest('.hero')) return 'hero';
+    if (a.closest('.sticky-bar')) return 'sticky_bar';
+    if (a.classList.contains('wa-float') || a.closest('.wa-float')) return 'float';
+    if (a.closest('.site-head')) return 'header';
+    if (a.closest('.site-foot')) return 'footer';
+    var sec = a.closest('section');
+    return (sec && (sec.id || sec.className.split(' ')[1])) || 'other';
+  }
   document.addEventListener('click', function (ev) {
-    var a = ev.target.closest && ev.target.closest('.js-wa, .js-wa-q');
-    if (!a || typeof window.va !== 'function' || !document.getElementById('va')) return;
-    var where = a.closest('.hero') ? 'hero' : a.closest('.sticky-bar') ? 'sticky-bar' : a.classList.contains('wa-float') ? 'float'
-      : a.closest('.site-head') ? 'header' : (a.closest('section') && (a.closest('section').id || a.closest('section').className.split(' ')[1])) || 'other';
-    window.va('event', { name: a.classList.contains('js-wa-q') ? 'whatsapp_question' : 'whatsapp_trial', data: { where: where, lang: lang } });
+    var a = ev.target.closest && ev.target.closest('.js-wa, .js-wa-q, .js-wa-pick, .lang-switch, a[hreflang]');
+    if (!a) return;
+    if (a.matches('.lang-switch, a[hreflang]')) { track('language_switch', { to: a.getAttribute('hreflang') || '' }); return; }
+    var where = placement(a), question = a.classList.contains('js-wa-q');
+    track('whatsapp_click', { placement: where, type: question ? 'question' : 'trial' });
+    if (!question) track('trial_booking_click', { placement: where, picked_slot: a.classList.contains('js-wa-pick') && document.querySelector('.pick-chip[aria-pressed="true"]') ? 'yes' : 'no' });
+    if (where === 'hero') track('hero_cta_click', {});
+  });
+  document.querySelectorAll('details.qa, details.faq-more').forEach(function (d, i) {
+    d.addEventListener('toggle', function () { if (d.open) track('faq_interaction', { item: d.classList.contains('faq-more') ? 'more' : String(i + 1) }); });
   });
 
   /* ---------- Cookie consent: analytics loads only after "yes" ---------- */
@@ -203,16 +229,32 @@
   var banner = document.getElementById('cookie');
   function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function set(v) { try { localStorage.setItem(KEY, v); } catch (e) { /* private mode */ } }
-  function loadAnalytics() {
-    if (document.getElementById('va')) return;
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    var s = document.createElement('script');
-    s.id = 'va'; s.defer = true; s.src = '/_vercel/insights/script.js';
+  function addScript(src, attrs) {
+    var s = document.createElement('script'); s.defer = true; s.src = src; s.id = 'br-an';
+    Object.keys(attrs || {}).forEach(function (k) { s.setAttribute(k, attrs[k]); });
     document.head.appendChild(s);
   }
+  function loadAnalytics() {
+    if (document.getElementById('br-an')) return;
+    if (an.provider === 'cloudflare' && an.cloudflare_token) {
+      addScript('https://static.cloudflareinsights.com/beacon.min.js', { 'data-cf-beacon': JSON.stringify({ token: an.cloudflare_token }) });
+    } else if (an.provider === 'ga4' && an.ga4_id) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', an.ga4_id, { anonymize_ip: true, allow_google_signals: false, allow_ad_personalization_signals: false });
+      addScript('https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(an.ga4_id));
+    } else if (an.provider === 'vercel') {
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+      addScript('/_vercel/insights/script.js');
+    }
+  }
+  var active = an.provider && an.provider !== 'none';
+  var cs = document.querySelectorAll('.js-cookie-settings');
+  if (!active) { cs.forEach(function (b) { var li = b.closest('li'); (li || b).hidden = true; }); }
   var choice = get();
-  if (choice === 'yes') loadAnalytics();
-  else if (choice !== 'no' && banner) {
+  if (active && choice === 'yes') loadAnalytics();
+  else if (active && choice !== 'no' && banner) {
     /* show after the visitor starts reading, so it never covers the first screen */
     var shown = false;
     var reveal = function () { if (shown || window.scrollY < 300) return; shown = true; banner.hidden = false; window.removeEventListener('scroll', reveal); };

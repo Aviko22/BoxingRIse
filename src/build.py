@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "146"  # bump to bust caches of css/js
+VER = "147"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -26,7 +26,7 @@ def wa_href(lang, question=False):
 
 
 def base(lang):
-    return "/" if lang == "he" else "/en"
+    return "/" if lang == "he" else "/en/"
 
 
 def legal_url(lang, slug):
@@ -95,6 +95,7 @@ def head(t, title, desc, path, alt_path, noindex):
   <meta property="og:url" content="{SITE}{path}">
   <meta property="og:image" content="{SITE}/media/og.jpg">
   <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{'BoxingRise – אימון אגרוף אישי לנשים' if t['lang']=='he' else 'BoxingRise – private boxing for women'}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -107,8 +108,9 @@ def head(t, title, desc, path, alt_path, noindex):
 """
 
 
-def header(t, home):
+def header(t, home, alt_href=None):
     lab, href, name = t["lang_switch"]
+    href = alt_href or href
     nav = "".join(f'<li><a href="{(base(t["lang"]) if not home else "")}{h}">{e(x)}</a></li>' for h, x in t["nav"])
     return f"""<a class="skip" href="#main">{e(t['skip'])}</a>
 <header class="site-head" id="top">
@@ -128,7 +130,7 @@ def footer(t):
     lang = t["lang"]
     lab, href, name = t["lang_switch"]
     links = "".join(f'<li><a href="{legal_url(lang, s)}">{e(x)}</a></li>' for s, x in t["legal_nav"])
-    root = "/" if lang == "he" else "/en"
+    root = "/" if lang == "he" else "/en/"
     nav = "".join(f'<li><a href="{root}{h}">{e(x)}</a></li>' for h, x in t["nav"])
     h1 = t["hero_h1"]
     return f"""<footer class="site-foot">
@@ -255,7 +257,7 @@ def defend(t):
 
 def home(t):
     lang = t["lang"]
-    path, alt = ("/", "/en") if lang == "he" else ("/en", "/")
+    path, alt = ("/", "/en/") if lang == "he" else ("/en/", "/")
     h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in line.split()) + "</span>" for line in t["hero_h1"])
     pains = "".join(f'<li><span class="pl">{e(p)}</span></li>' for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
@@ -445,7 +447,7 @@ def legal_page(t, slug):
         elif kind == "form":
             body += health_form(lang)
     todo = ""
-    return todo + head(t, f"{page['title']} | BoxingRise", page["title"] + " – BoxingRise", path, alt, CFG["noindex"]) + "</head>\n<body class=\"legal\">\n" + header(t, False) + f"""
+    return todo + head(t, f"{page['title']} | BoxingRise", t["legal_desc"].format(page["title"]), path, alt, CFG["noindex"]) + "</head>\n<body class=\"legal\">\n" + header(t, False, alt) + f"""
 <main id="main" class="legal-main">
   <div class="wrap narrow">
     <p class="crumb"><a href="{base(lang)}">{e(t['back_home'])}</a></p>
@@ -465,7 +467,7 @@ def not_found():
     <h1 class="legal-h1">הדף לא נמצא</h1>
     <div class="legal-body"><p>הקישור שהגעת אליו לא קיים או שהדף הועבר.</p>
     <p><a class="btn btn-gold" href="/">לדף הבית</a></p>
-    <p lang="en" dir="ltr">This page doesn't exist. <a href="/en">Go to the English home page</a>.</p></div>
+    <p lang="en" dir="ltr">This page doesn't exist. <a href="/en/">Go to the English home page</a>.</p></div>
   </div>
 </main>
 """ + footer(t) + floating(t) + "</body>\n</html>\n"
@@ -506,8 +508,8 @@ def main():
         write(f"en/{slug}.html", legal_page(EN, slug))
     write("404.html", not_found())
     write("config.js", "/* Single source: src/config.json. Edit there and run python3 src/build.py */\n"
-          f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message'], 'question': CFG['whatsapp_question']}, ensure_ascii=False)};\n")
-    urls = ["/", "/en"] + [legal_url(l, s) for s in PAGES for l in ("he", "en")]
+          f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message'], 'question': CFG['whatsapp_question'], 'analytics': {k: v for k, v in CFG.get('analytics', {}).items() if not k.startswith('_')}}, ensure_ascii=False)};\n")
+    urls = ["/", "/en/"] + [legal_url(l, s) for s in PAGES for l in ("he", "en")]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
          "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n"
     write("sitemap.xml", sm)

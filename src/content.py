@@ -4,11 +4,11 @@
 HE = {
     "lang": "he", "dir": "rtl", "locale": "he_IL",
     "title": "אימון אגרוף לנשים בתל אביב | אימון אישי בפארק | BoxingRise",
-    "description": "אימון אגרוף אישי לנשים, אחד על אחד, בפארקים בתל אביב והמרכז. בלי ניסיון ובלי התחייבות. אימון ניסיון ב־49 ₪.",
+    "description": "אימון אגרוף אישי לנשים ולמתחילות, אחד על אחד, בפארק הירקון ובפארקים בתל אביב והמרכז. בלי ניסיון ובלי התחייבות. אימון ניסיון ב־49 ₪.",
     "og_description": "אימון אגרוף אישי לנשים, אחד על אחד, בפארקים בתל אביב והמרכז. אימון ניסיון ב־49 ₪.",
     "skip": "דילוג לתוכן",
     "nav": [("#what", "האימון"), ("#defend", "ביטחון"), ("#about", "מי אני"), ("#program", "BoxingRise 8"), ("#faq", "שאלות")],
-    "lang_switch": ("EN", "/en", "English"),
+    "lang_switch": ("EN", "/en/", "English"),
     "cta_trial": "לאימון ניסיון ב־49 ₪",
     "cta_short": "לאימון ניסיון",
     "instead_of": "במקום 250 ₪",
@@ -139,13 +139,14 @@ HE = {
     "reviews_ph_name": "שם פרטי, תחום",
 
     "tag_hero": "אימון אגרוף אישי לנשים · בפארק",
+    "legal_desc": "{} של BoxingRise, אימון אגרוף אישי לנשים אחד על אחד בפארקים בתל אביב והמרכז.",
     "tag_pain": "רגע של כנות", "tag_about": "מי אני", "tag_reviews": "הן כבר התחילו", "tag_what": "האימון",
     "tag_for": "בשבילך", "tag_trial": "אימון ניסיון", "tag_program": "תוכנית הדגל", "tag_faq": "שאלות", "tag_final": "הסיבוב הראשון",
     "faq_h": "שאלות לפני שמתחילים",
     "faq_cta": "לקבוע אימון ניסיון ב־49 ₪", "faq_more": "עוד {n} שאלות: ניסיון, כושר, ביטולים, מזג אוויר ועוד", "faq_top": 6, "faq_cta_at": [0, 1, 2, 6, 7],
     "faq": [
         ("המאמן גבר. זה בסדר?", "האימונים בפארק, במקום ציבורי ופתוח. אפשר להגיע עם חברה, ואת קובעת את הקצב. אם משהו לא מרגיש לך נכון, עוצרים."),
-        ("כמה זה עולה?", "אימון הניסיון עולה 49 ₪ במקום 250 ₪. את המחיר של ההמשך נתאים יחד אחרי הניסיון, לפי מה שמתאים לך."),
+        ("כמה זה עולה?", "אימון הניסיון עולה 49 ₪ במקום 250 ₪. את המחיר של ההמשך, אימונים בודדים או BoxingRise 8, תקבלי ממני מראש, לפני שמתחייבים למשהו."),
         ("מה קורה אחרי אימון הניסיון?", "אם זה מתאים לך, נבנה יחד את ההמשך: תוכנית BoxingRise 8 או אימונים בודדים. אם לא, נפרדים כידידים, בלי שום התחייבות."),
         ("חייבת להתאגרף עם מישהו?", "לא. אין ספארינג חובה. עובדים על כריות, טכניקה ותנועה."),
         ("איפה מתאמנים?", "בפארק הירקון, או בפארק ליד הבית שלך באזור המרכז."),
@@ -162,7 +163,7 @@ HE = {
     ],
 
     "final_h": "הצעד הכי קשה הוא ההודעה הראשונה. השאר עליי.",
-    "final_sub": "בחרי יום ושעה, וההודעה כבר מוכנה.",
+    "final_sub": "בחרי יום ושעה שנוחים לך, וההודעה כבר מוכנה. את המועד המדויק נסגור יחד בוואטסאפ.",
     "pick_day": "יום", "pick_time": "שעה",
     "pick_days": ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי"],
     "pick_times": ["בוקר", "צהריים", "ערב"],
@@ -188,7 +189,7 @@ HE = {
 EN = {
     "lang": "en", "dir": "ltr", "locale": "en_US",
     "title": "Boxing for Women in Tel Aviv | Private Training in the Park | BoxingRise",
-    "description": "Private one-on-one boxing for women in parks across Tel Aviv and central Israel. No experience, no commitment. Trial session 49 ILS.",
+    "description": "Private one-on-one boxing for women and beginners, in Yarkon Park and parks across Tel Aviv and central Israel. No experience, no commitment. Trial session 49 ILS.",
     "og_description": "Private one-on-one boxing for women in parks across Tel Aviv. Trial session 49 ILS.",
     "skip": "Skip to content",
     "nav": [("#what", "The session"), ("#defend", "Confidence"), ("#about", "About"), ("#program", "BoxingRise 8"), ("#faq", "FAQ")],
@@ -324,13 +325,14 @@ EN = {
     "reviews_ph_name": "First name, occupation",
 
     "tag_hero": "Private boxing for women · in the park",
+    "legal_desc": "{} for BoxingRise, private one-on-one boxing for women in parks across Tel Aviv and central Israel.",
     "tag_pain": "Be honest", "tag_about": "About me", "tag_reviews": "They already started", "tag_what": "The session",
     "tag_for": "For you", "tag_trial": "Trial session", "tag_program": "Flagship program", "tag_faq": "Questions", "tag_final": "Round one",
     "faq_h": "Before you start",
     "faq_cta": "Book a trial for 49 ₪", "faq_more": "{n} more: experience, fitness, cancellations, weather and more", "faq_top": 6, "faq_cta_at": [0, 1, 2, 6, 7],
     "faq": [
         ("The coach is a man. Is that OK?", "Sessions are in the park, in a public, open space. You can bring a friend, and you set the pace. If anything doesn't feel right, we stop."),
-        ("How much does it cost?", "The trial is 49 ₪ instead of 250 ₪. We'll set the price for what comes next together after your trial, to suit you."),
+        ("How much does it cost?", "The trial is 49 ₪ instead of 250 ₪. You'll get the price for what comes next, single sessions or BoxingRise 8, up front, before you commit to anything."),
         ("What happens after the trial?", "If it's right for you, we plan what's next together: the BoxingRise 8 program or single sessions. If not, no hard feelings and no commitment."),
         ("Do I have to spar?", "No. There's no required sparring. We work on pads, technique and movement."),
         ("Where do we train?", "In Yarkon Park, or in a park near your home in central Israel."),
@@ -347,7 +349,7 @@ EN = {
     ],
 
     "final_h": "The hardest step is the first message. Leave the rest to me.",
-    "final_sub": "Pick a day and a time, and your message is ready.",
+    "final_sub": "Pick a day and time that suit you, and your message is ready. We'll confirm the exact slot together on WhatsApp.",
     "pick_day": "Day", "pick_time": "Time",
     "pick_days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     "pick_times": ["morning", "afternoon", "evening"],
