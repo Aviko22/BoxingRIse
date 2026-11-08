@@ -435,6 +435,10 @@
 
 /* =================== BoxingRise 8: interactive 8-week journey ===================
    Accessible tabs (arrow keys follow reading direction, Home/End), prev/next, swipe on the card.
+   Motion: a gold runner travels the line, the dots it passes light up one after another,
+   cards slide in the direction of travel with their lines staggered, the big number rolls,
+   the card's progress bar grows from the previous week. When the journey first comes into view
+   it plays itself week by week (once, stops at week 8, pauses on any touch; play/pause button).
    Panels share one grid cell, so switching never shifts the layout. Without JS every week is shown. */
 (function () {
   var sec = document.querySelector('.j8'); if (!sec) return;
@@ -442,67 +446,115 @@
   var rtl = document.documentElement.dir === 'rtl';
   var tabs = [].slice.call(sec.querySelectorAll('.j8-tab'));
   var panels = [].slice.call(sec.querySelectorAll('.j8-panel'));
-  var track = sec.querySelector('.j8-track');
+  var track = sec.querySelector('.j8-track'), box = sec.querySelector('.j8-panels');
   var prev = sec.querySelector('.j8-prev'), next = sec.querySelector('.j8-next');
-  var count = sec.querySelector('.j8-count b');
-  var cur = 0;
+  var count = sec.querySelector('.j8-count b'), play = sec.querySelector('.j8-play');
+  var cur = 0, last = tabs.length - 1, STEP = 3400, timer = null, litT = null, auto = false, started = false;
 
-  function show(i, focus) {
-    i = Math.max(0, Math.min(tabs.length - 1, i));
+  function show(i, opts) {
+    opts = opts || {};
+    i = Math.max(0, Math.min(last, i));
+    var from = cur, fwd = i >= from, dist = Math.abs(i - from);
     cur = i;
+    box.style.setProperty('--dir', (fwd ? 1 : -1) * (rtl ? -1 : 1));
+    box.style.setProperty('--ndir', fwd ? 1 : -1);
+    /* dots light up in order along the way */
     tabs.forEach(function (t, k) {
-      var on = k === i;
+      var on = k === i, step = fwd ? k - from : from - k;
+      t.style.setProperty('--dl', (step > 0 && step <= dist ? step * (520 / Math.max(dist, 1)) : 0) + 'ms');
       t.classList.toggle('is-on', on); t.classList.toggle('past', k < i);
       t.setAttribute('aria-selected', on ? 'true' : 'false');
       t.tabIndex = on ? 0 : -1;
     });
-    panels.forEach(function (p, k) { p.classList.toggle('is-on', k === i); });
     track.style.setProperty('--p', i);
-    if (count) count.textContent = i + 1;
+    track.style.setProperty('--dur', (420 + dist * 110) + 'ms');
+    /* the target dot lights up when the runner arrives */
+    var dur = reduce ? 0 : (dist ? 420 + dist * 110 : 0);
+    clearTimeout(litT);
+    tabs.forEach(function (t, k) { if (k !== i) t.classList.remove('lit'); });
+    if (dur) litT = setTimeout(function () { tabs[i].classList.add('lit'); }, dur * .85); else tabs[i].classList.add('lit');
+    track.classList.remove('moving'); void track.offsetWidth; if (dist) track.classList.add('moving');
+    panels.forEach(function (p, k) {
+      p.classList.toggle('leave', k === from && from !== i);
+      if (k === i) {
+        p.classList.remove('is-on'); void p.offsetWidth;
+        var bar = p.querySelector('.j8-bar i');
+        if (bar && !reduce) { bar.style.transition = 'none'; bar.style.width = ((from + 1) * 12.5) + '%'; void bar.offsetWidth; bar.style.transition = ''; bar.style.width = ((i + 1) * 12.5) + '%'; }
+      }
+      p.classList.toggle('is-on', k === i);
+    });
+    if (count) { count.textContent = i + 1; count.classList.remove('tick'); void count.offsetWidth; count.classList.add('tick'); }
     if (prev) prev.disabled = i === 0;
-    if (next) next.disabled = i === tabs.length - 1;
+    if (next) next.disabled = i === last;
     sec.classList.remove('final');
-    if (i === tabs.length - 1) { void sec.offsetWidth; sec.classList.add('final'); }
-    if (focus) tabs[i].focus();
+    if (i === last) { void sec.offsetWidth; sec.classList.add('final'); }
+    if (opts.focus) tabs[i].focus();
+    if (auto) restartTimer();
   }
 
+  /* ---- autoplay: once, from the current week to week 8 ---- */
+  function restartTimer() {
+    clearTimeout(timer);
+    sec.classList.remove('timing'); void sec.offsetWidth;
+    if (!auto || cur >= last) { setAuto(false); return; }
+    sec.classList.add('timing');
+    timer = setTimeout(function () { show(cur + 1); }, STEP);
+  }
+  function setAuto(on) {
+    auto = on;
+    if (!on) { clearTimeout(timer); sec.classList.remove('timing'); }
+    sec.classList.toggle('auto', on);
+    if (play) {
+      play.setAttribute('aria-label', play.getAttribute(on ? 'data-pause' : 'data-play'));
+      play.classList.toggle('paused', !on);
+    }
+    if (on) { if (cur >= last) show(0); else restartTimer(); }
+  }
+  function user() { if (auto) setAuto(false); }
+
   tabs.forEach(function (t, k) {
-    t.addEventListener('click', function () { show(k); });
+    t.addEventListener('click', function () { user(); show(k); });
     t.addEventListener('keydown', function (ev) {
       var fwd = rtl ? 'ArrowLeft' : 'ArrowRight', back = rtl ? 'ArrowRight' : 'ArrowLeft', n = null;
       if (ev.key === fwd || ev.key === 'ArrowDown') n = k + 1;
       else if (ev.key === back || ev.key === 'ArrowUp') n = k - 1;
       else if (ev.key === 'Home') n = 0;
-      else if (ev.key === 'End') n = tabs.length - 1;
+      else if (ev.key === 'End') n = last;
       if (n === null) return;
-      ev.preventDefault(); show((n + tabs.length) % tabs.length, true);
+      ev.preventDefault(); user(); show((n + tabs.length) % tabs.length, { focus: true });
     });
   });
-  if (prev) prev.addEventListener('click', function () { show(cur - 1); });
-  if (next) next.addEventListener('click', function () { show(cur + 1); });
+  if (prev) prev.addEventListener('click', function () { user(); show(cur - 1); });
+  if (next) next.addEventListener('click', function () { user(); show(cur + 1); });
+  if (play) play.addEventListener('click', function () { setAuto(!auto); });
+  box.addEventListener('focusin', user);
 
   /* swipe on the card: towards the reading direction = next week */
-  var box = sec.querySelector('.j8-panels'), x0 = null, y0 = 0;
-  box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  var x0 = null, y0 = 0;
+  box.addEventListener('touchstart', function (e) { user(); x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
   box.addEventListener('touchend', function (e) {
     if (x0 === null) return;
     var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
     if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
-    var forward = rtl ? dx > 0 : dx < 0;
-    show(cur + (forward ? 1 : -1));
+    show(cur + ((rtl ? dx > 0 : dx < 0) ? 1 : -1));
   }, { passive: true });
+  box.addEventListener('mouseenter', function () { if (auto) { clearTimeout(timer); sec.classList.add('hold'); } });
+  box.addEventListener('mouseleave', function () { if (auto) { sec.classList.remove('hold'); restartTimer(); } });
 
-  /* draw the line and bring in the milestones once, when the journey scrolls into view */
-  var j = sec.querySelector('.j8-journey');
-  var head = sec.querySelector('.j8-head');
-  if (reduce || !('IntersectionObserver' in window)) sec.classList.add('seen', 'hin');
-  else new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { sec.classList.add('hin'); o.disconnect(); } }, { rootMargin: '0px 0px -15% 0px' }).observe(head);
-  if (reduce || !('IntersectionObserver' in window)) sec.classList.add('seen');
+  /* reveal + autoplay when the journey comes into view; pause when it leaves */
+  var head = sec.querySelector('.j8-head'), j = sec.querySelector('.j8-journey');
+  if (reduce || !('IntersectionObserver' in window)) { sec.classList.add('seen', 'hin'); if (play) play.hidden = true; }
   else {
-    var io = new IntersectionObserver(function (en) {
-      en.forEach(function (x) { if (x.isIntersecting) { sec.classList.add('seen'); io.disconnect(); } });
-    }, { rootMargin: '0px 0px -20% 0px' });
-    io.observe(j);
+    new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { sec.classList.add('hin'); o.disconnect(); } }, { rootMargin: '0px 0px -15% 0px' }).observe(head);
+    new IntersectionObserver(function (en) {
+      var vis = en[0].isIntersecting;
+      if (vis) {
+        sec.classList.add('seen');
+        if (!started) { started = true; setTimeout(function () { if (!sec.classList.contains('touched')) setAuto(true); }, 1400); }
+        else if (auto) restartTimer();
+      } else if (auto) { clearTimeout(timer); sec.classList.remove('timing'); }
+    }, { threshold: .45 }).observe(j);
   }
+  ['pointerdown', 'keydown'].forEach(function (t) { j.addEventListener(t, function () { sec.classList.add('touched'); }, { passive: true }); });
   show(0);
 })();

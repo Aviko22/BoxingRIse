@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "153"  # bump to bust caches of css/js
+VER = "157"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -408,14 +408,16 @@ def home(t):
     </div>
     <div class="wrap j8-journey">
       <div class="j8-track" role="tablist" aria-label="{e(t['j8_tabs_label'])}" style="--p:0">
-        <span class="j8-line" aria-hidden="true"><span class="j8-fill"></span></span>
+        <span class="j8-line" aria-hidden="true"><span class="j8-fill"></span><span class="j8-runner"><i></i></span></span>
         {j8tabs}
       </div>
       <div class="j8-stage">
         <div class="j8-panels">{j8panels}</div>
+        <span class="j8-timer" aria-hidden="true"><i></i></span>
         <div class="j8-nav">
           <button type="button" class="j8-arrow j8-prev" aria-label="{e(t['j8_prev'])}" disabled><span aria-hidden="true">{j8_prev_arrow}</span></button>
           <p class="j8-count" aria-hidden="true"><b dir="ltr">1</b> <span>{e(t['j8_of'])}</span></p>
+          <button type="button" class="j8-play paused" aria-label="{e(t['j8_play'])}" data-play="{e(t['j8_play'])}" data-pause="{e(t['j8_pause'])}"><span class="j8-pi" aria-hidden="true"></span></button>
           <button type="button" class="j8-arrow j8-next" aria-label="{e(t['j8_next'])}"><span aria-hidden="true">{j8_next_arrow}</span></button>
         </div>
       </div>

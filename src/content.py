@@ -91,6 +91,8 @@ HE = {
     "j8_of": "מתוך 8",
     "j8_prev": "השבוע הקודם",
     "j8_next": "השבוע הבא",
+    "j8_play": "הפעלת מעבר אוטומטי בין השבועות",
+    "j8_pause": "עצירת המעבר האוטומטי בין השבועות",
     "j8_weeks": [
         ("מתחילים מהבסיס", "עמידת מוצא, שמירה, תנועה נכונה והיכרות עם האגרופים הראשונים."),
         ("לומדים לשלוט בתנועה", "עבודת רגליים, שיווי משקל, ג׳אב וקרוס, וחיבור בין תנועה לאגרוף."),
@@ -304,6 +306,8 @@ EN = {
     "j8_of": "of 8",
     "j8_prev": "Previous week",
     "j8_next": "Next week",
+    "j8_play": "Play the weeks automatically",
+    "j8_pause": "Pause the automatic weeks",
     "j8_weeks": [
         ("Starting from the base", "Stance, guard, moving correctly and your first punches."),
         ("Owning your movement", "Footwork, balance, jab and cross, and linking movement to the punch."),

@@ -1212,7 +1212,7 @@ html[dir="ltr"] .j8-line { --line-o: left; }
 .j8-tab:hover .j8-dot { border-color: var(--gold); color: var(--text); transform: translateY(-2px); }
 .j8-tab.past .j8-dot { border-color: var(--gold); color: var(--gold-hi); }
 .j8-tab.is-on { color: var(--text); }
-.j8-tab.is-on .j8-dot { background: var(--metal); border-color: transparent; color: #120e05; box-shadow: 0 0 0 5px rgba(201,162,75,.18), 0 0 22px rgba(230,201,125,.45); transform: scale(1.08); }
+.j8-tab.lit .j8-dot { background: var(--metal); border-color: transparent; color: #120e05; box-shadow: 0 0 0 5px rgba(201,162,75,.18), 0 0 22px rgba(230,201,125,.45); transform: scale(1.08); }
 .j8-tab:focus-visible { outline: none; }
 .j8-tab:focus-visible .j8-dot { outline: 3px solid var(--gold-hi); outline-offset: 4px; }
 .js .j8:not(.seen) .j8-tab { opacity: 0; transform: translateY(10px); }
@@ -1224,8 +1224,9 @@ html[dir="ltr"] .j8-line { --line-o: left; }
 .js .j8-panels { gap: 0; }
 .js .j8-panel { grid-area: 1 / 1; }
 .j8-panel { position: relative; display: grid; grid-template-columns: auto 1fr; gap: clamp(16px, 4vw, 48px); align-items: center; padding: clamp(24px, 4vw, 44px); border-radius: 26px; background: var(--leather); outline: 1.5px dashed var(--stitch); outline-offset: -8px; overflow: hidden; }
-.js .j8-panel { visibility: hidden; opacity: 0; transform: translateY(14px); transition: opacity .45s ease, transform .55s var(--ease), visibility 0s .45s; }
-.js .j8-panel.is-on { visibility: visible; opacity: 1; transform: none; transition: opacity .45s ease .05s, transform .55s var(--ease) .05s, visibility 0s; }
+.js .j8-panel { visibility: hidden; opacity: 0; transform: translateX(calc(var(--dir, 1) * 56px)) scale(.985); transition: opacity .4s ease, transform .6s var(--ease), visibility 0s .45s; }
+.js .j8-panel.leave { transform: translateX(calc(var(--dir, 1) * -56px)) scale(.985); }
+.js .j8-panel.is-on { visibility: visible; opacity: 1; transform: none; transition: opacity .45s ease .08s, transform .7s var(--ease) .08s, visibility 0s; }
 .j8-big { font-family: var(--latin); font-size: clamp(88px, 15vw, 190px); line-height: .8; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: -.03em; }
 .js .j8-panel .j8-big { transform: translateY(30%); opacity: 0; transition: transform .7s var(--ease) .08s, opacity .5s ease .08s; }
 .js .j8-panel.is-on .j8-big { transform: none; opacity: 1; }
@@ -1249,7 +1250,7 @@ html[dir="rtl"] .j8-bar i { margin-inline-start: 0; }
 .j8-panel::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; background: linear-gradient(110deg, transparent 30%, rgba(240,198,116,.16) 50%, transparent 70%) -120% 0 / 60% 100% no-repeat; }
 .j8.final .j8-panel.is-on::after { animation: j8sweep 1.4s ease .2s 1 both; }
 @keyframes j8sweep { 0% { opacity: 1; background-position: -60% 0; } 100% { opacity: 1; background-position: 170% 0; } }
-.j8.final .j8-tab.is-on .j8-dot { animation: j8ring 1.2s ease-out .1s 1; }
+.j8.final .j8-tab.lit .j8-dot { animation: j8ring 1.2s ease-out .1s 1; }
 @keyframes j8ring { 0% { box-shadow: 0 0 0 5px rgba(201,162,75,.18), 0 0 22px rgba(230,201,125,.45); } 50% { box-shadow: 0 0 0 16px rgba(201,162,75,0), 0 0 40px rgba(240,198,116,.7); } 100% { box-shadow: 0 0 0 5px rgba(201,162,75,.18), 0 0 22px rgba(230,201,125,.45); } }
 
 .j8-nav { display: none; }
@@ -1303,10 +1304,84 @@ html[lang="en"] .j8-cta h3 { font-weight: 400; letter-spacing: .01em; }
   .j8-rule, .j8-line { transform: none !important; transition: none !important; animation: none !important; }
   .j8-tab { opacity: 1 !important; transform: none !important; transition: color .2s !important; }
   .js .j8-panel, .js .j8-panel .j8-big, .js .j8-done { transition: none !important; transform: none !important; }
-  .j8-ico .dr, .j8.final .j8-panel.is-on::after, .j8.final .j8-tab.is-on .j8-dot, .j8-head .j8-rule { animation: none !important; }
+  .j8-ico .dr, .j8.final .j8-panel.is-on::after, .j8.final .j8-tab.lit .j8-dot, .j8-head .j8-rule { animation: none !important; }
   .j8-fill { transition: none; }
 }
 .j8-head, .j8-panel, .j8-benefits, .j8-card { text-align: start; }
 @media (max-width: 430px) {
   .j8-cta .btn-lg { font-size: 16px; padding: 0 20px; min-height: 54px; }
+}
+
+/* ---- BoxingRise 8: motion layer (travel, sequence, momentum) ---- */
+.j8-fill { transition: width var(--dur, .6s) cubic-bezier(.65, 0, .25, 1); background: linear-gradient(90deg, var(--gold), var(--gold-hi), var(--gold)) 0 0 / 200% 100%; }
+.j8.seen .j8-fill { animation: j8flow 3.2s linear infinite; }
+@keyframes j8flow { to { background-position: -200% 0; } }
+.j8-runner { position: absolute; top: 50%; inset-inline-start: calc(var(--p) / 7 * 100%); width: 16px; height: 16px; margin-top: -8px; margin-inline-start: -8px; transition: inset-inline-start var(--dur, .6s) cubic-bezier(.65, 0, .25, 1); z-index: 2; }
+.j8-runner::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #fff3cf; box-shadow: 0 0 0 3px rgba(240,198,116,.35), 0 0 18px 4px rgba(240,198,116,.75); }
+/* the streak behind the runner while it travels */
+.j8-runner i { position: absolute; top: 50%; height: 4px; margin-top: -2px; width: 90px; inset-inline-end: 8px; border-radius: 4px; background: linear-gradient(var(--streak, 270deg), rgba(240,198,116,0), rgba(255,236,190,.9)); opacity: 0; }
+html[dir="ltr"] .j8-runner i { --streak: 90deg; }
+.j8-track.moving .j8-runner i { animation: j8streak var(--dur, .6s) ease-out 1 both; }
+@keyframes j8streak { 0% { opacity: 0; transform: scaleX(.2); } 25% { opacity: 1; transform: scaleX(1); } 100% { opacity: 0; transform: scaleX(.4); } }
+.js .j8:not(.seen) .j8-runner { opacity: 0; }
+.j8-runner { transition: inset-inline-start var(--dur, .6s) cubic-bezier(.65, 0, .25, 1), opacity .5s ease 1s; }
+/* dots light up one after another as the runner passes */
+.j8-dot { transition: background .35s ease var(--dl, 0ms), border-color .35s ease var(--dl, 0ms), color .35s ease var(--dl, 0ms), box-shadow .35s ease var(--dl, 0ms), transform .45s var(--ease) var(--dl, 0ms); }
+.j8-tab.lit .j8-dot { transform: scale(1.14); }
+.j8.seen .j8-tab.lit .j8-dot::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 1.5px solid rgba(230,201,125,.55); animation: j8breathe 2.6s ease-in-out infinite; }
+.j8-dot { position: relative; }
+@keyframes j8breathe { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.18); opacity: 0; } }
+/* card content arrives in a staggered sequence */
+.js .j8-panel.is-on .j8-kick, .js .j8-panel.is-on .j8-pt, .js .j8-panel.is-on .j8-pd, .js .j8-panel.is-on .j8-bar { animation: j8in .7s var(--ease) both; }
+.js .j8-panel.is-on .j8-kick { animation-delay: .14s; }
+.js .j8-panel.is-on .j8-pt { animation-delay: .22s; }
+.js .j8-panel.is-on .j8-pd { animation-delay: .32s; }
+.js .j8-panel.is-on .j8-bar { animation-delay: .42s; }
+@keyframes j8in { from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 26px)); } to { opacity: 1; transform: none; } }
+.js .j8-panel.is-on .j8-ico { animation: j8pop .6s var(--ease) .06s both; }
+@keyframes j8pop { from { opacity: 0; transform: scale(.6) rotate(-12deg); } to { opacity: 1; transform: none; } }
+/* the big week number rolls in from the direction of travel */
+.js .j8-panel .j8-big { transform: translateY(calc(var(--ndir, 1) * 45%)); filter: blur(6px); }
+.js .j8-panel.is-on .j8-big { transform: none; filter: none; transition: transform .8s var(--ease) .05s, opacity .5s ease .05s, filter .6s ease .05s; }
+/* the card's own progress bar grows from last week's length */
+.j8-bar i { transition: width 1s cubic-bezier(.65, 0, .25, 1) .45s; }
+/* counter tick */
+.j8-count b { display: inline-block; }
+.j8-count.tick b, .j8-count b { }
+.j8-count b { animation: none; }
+.j8-count.tick b { animation: j8tick .5s var(--ease) both; }
+@keyframes j8tick { from { transform: translateY(-60%); opacity: 0; } to { transform: none; opacity: 1; } }
+/* autoplay timer under the card */
+.j8-timer { display: none; }
+.js .j8-timer { display: block; height: 2px; margin: 14px auto 0; max-width: 220px; border-radius: 2px; background: rgba(255,255,255,.08); overflow: hidden; opacity: 0; transition: opacity .3s; }
+.j8.auto .j8-timer { opacity: 1; }
+.j8-timer i { display: block; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: var(--line-o, right); }
+html[dir="ltr"] .j8-timer i { --line-o: left; }
+.j8.timing .j8-timer i { animation: j8timer 3.4s linear both; }
+.j8.hold .j8-timer i { animation-play-state: paused; }
+@keyframes j8timer { to { transform: scaleX(1); } }
+.j8-play { position: relative; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.18); background: transparent; color: var(--gold-hi); cursor: pointer; }
+.j8-play:hover { border-color: var(--gold); }
+.j8-pi, .j8-pi::before { position: absolute; top: 50%; left: 50%; }
+.j8-pi { width: 12px; height: 13px; margin: -6.5px 0 0 -6px; border-inline: 3.5px solid currentColor; box-sizing: border-box; }
+.j8-play.paused .j8-pi { width: 0; height: 0; margin: -7px 0 0 -4px; border: 0; border-left: 12px solid currentColor; border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+.j8-nav { flex-wrap: wrap; }
+/* week 8: the whole line glows once */
+.j8.final .j8-fill { box-shadow: 0 0 18px rgba(240,198,116,.8); }
+.j8.final .j8-tab .j8-dot { transition-duration: .5s; }
+@media (prefers-reduced-motion: reduce) {
+  .j8-fill, .j8.seen .j8-fill, .j8-runner i, .j8.seen .j8-tab.lit .j8-dot::after, .js .j8-panel.is-on *, .j8-count.tick b { animation: none !important; }
+  .j8-runner, .j8-dot, .j8-bar i { transition: none !important; }
+  .js .j8-panel, .js .j8-panel.leave, .js .j8-panel .j8-big { transform: none !important; filter: none !important; }
+  .j8-play, .j8-timer { display: none !important; }
+}
+/* the runner only shows while travelling, so it never covers the active number */
+.j8-runner::before, .j8-runner i { opacity: 0; }
+.j8-track.moving .j8-runner::before { animation: j8runner var(--dur, .6s) ease-in-out 1 both; }
+@keyframes j8runner { 0% { opacity: 0; transform: scale(.4); } 18%, 75% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.4); } }
+@media (prefers-reduced-motion: reduce) { .j8-runner { display: none; } }
+@media (max-width: 760px) {
+  /* .j8-big carries dir="ltr", so pin it with physical sides: away from the icon, on the reading-end side */
+  html[dir="rtl"] .j8-big { left: 18px; right: auto; }
+  html[dir="ltr"] .j8-big { right: 18px; left: auto; }
 }
