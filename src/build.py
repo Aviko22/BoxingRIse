@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "164"  # bump to bust caches of css/js
+VER = "165"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -304,7 +304,7 @@ def home(t):
     ST = t["j8_stages"]; NS = len(ST)
     j8tabs = "".join(
         f'<button type="button" role="tab" class="j8-tab{" is-on lit" if i == 0 else ""}" id="j8-tab-{i + 1}" aria-controls="j8-panel-{i + 1}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}" style="--i:{i}">'
-        f'<span class="j8-dot" dir="ltr">{i + 1}</span><span class="j8-tl"><small dir="ltr">{e(en)}</small>{e(name)}<em>{e(t["j8_weeks_word"])} <span dir="ltr">{wk}</span></em></span></button>'
+        f'<span class="j8-dot" dir="ltr">{i + 1}</span><span class="j8-tl">{e(name)}<em>{e(t["j8_weeks_word"])} <span dir="ltr">{wk}</span></em></span></button>'
         for i, (en, name, wk, bx, ft) in enumerate(ST))
     def chips(items, kind):
         return "".join(f'<li class="j8-chip {kind}" style="--c:{c}">{e(x)}</li>' for c, x in enumerate(items))
@@ -314,15 +314,12 @@ def home(t):
         f'<div class="j8-panel{" is-on" if i == 0 else ""}" role="tabpanel" id="j8-panel-{i + 1}" aria-labelledby="j8-tab-{i + 1}">'
         f'<span class="j8-big" aria-hidden="true" dir="ltr">{i + 1:02d}</span>'
         f'<div class="j8-body"><span class="j8-ico" aria-hidden="true">{J8_ICONS[i]}</span>'
-        f'<p class="j8-kick"><span dir="ltr">{e(en)}</span> · {e(t["j8_weeks_word"])} <span dir="ltr">{wk}</span></p><h3 class="j8-pt">{e(name)}</h3>'
-        f'<p class="j8-learn">{e(t["j8_learn"])}</p>'
-        f'<div class="j8-split2"><div><b>{e(t["j8_boxing"])}</b><ul class="j8-chips">{chips(bx, "bx")}</ul></div>'
-        f'<div><b>{e(t["j8_fitness"])}</b><ul class="j8-chips">{chips(ft, "ft")}</ul></div></div>'
-        f'<div class="j8-sess" aria-hidden="true"><span class="j8-sd">{sessions(i)}</span><small>{e(t["j8_sessions"])}</small></div>'
-        + (f'<p class="j8-done">{e(t["j8_done"])}</p>' if i == NS - 1 else "") + '</div></div>'
+        f'<p class="j8-kick">{e(t["j8_weeks_word"])} <span dir="ltr">{wk}</span></p><h3 class="j8-pt">{e(name)}</h3>'
+        f'<ul class="j8-chips">{chips(bx + ft, "bx")}</ul>'
+        '</div></div>'
         for i, (en, name, wk, bx, ft) in enumerate(ST))
-    j8split = "".join(f'<div class="j8-sp j8-sp{k}"><b dir="ltr">{e(a)}</b><span>{e(b)}</span></div>' for k, (a, b) in enumerate(t["j8_split"]))
-    j8cards = "".join(f'<li class="j8-card reveal" style="--d:{k * 90}ms"><span class="j8-cico" aria-hidden="true">{J8_BENEFIT_ICONS[k]}</span><h4>{e(h)}</h4><p>{e(d)}</p></li>' for k, (h, d) in enumerate(t["j8_benefits"]))
+    j8facts = "".join(f'<li><b dir="ltr">{e(n)}</b> {e(l)}</li>' for n, l in t["j8_facts"])
+    j8cards = "".join(f'<li class="j8-card reveal" style="--d:{k * 90}ms"><span class="j8-cico" aria-hidden="true">{J8_BENEFIT_ICONS[k]}</span><h4>{e(h)}</h4></li>' for k, (h, d) in enumerate(t["j8_benefits"]))
     j8_prev_arrow, j8_next_arrow = ("→", "←") if t["lang"] == "he" else ("←", "→")
     about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 0 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"][1:]))
     creds = "".join(f'<li>{e(x)}</li>' for x in t["about_facts"])
@@ -405,9 +402,7 @@ def home(t):
     <div class="wrap j8-head">
       {tag(t, 'program')}<h2 class="h2 prog-title j8-title reveal" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
       <p class="j8-h reveal">{e(t['j8_h'])}</p>
-      <p class="lead j8-lead reveal">{e(t['j8_lead'])}</p>
-      <dl class="j8-stats">{j8stats}</dl>
-      <div class="j8-split reveal" aria-label="{e(t['j8_split'][0][0])} {e(t['j8_split'][0][1])}, {e(t['j8_split'][1][0])} {e(t['j8_split'][1][1])}" role="img"><span class="j8-sb" aria-hidden="true"><i></i><i></i></span><div class="j8-spl" aria-hidden="true">{j8split}</div></div>
+      <ul class="j8-facts reveal">{j8facts}</ul>
     </div>
     <div class="wrap j8-journey">
       <div class="j8-track" role="tablist" aria-label="{e(t['j8_tabs_label'])}" style="--p:0;--n1:3">
@@ -428,11 +423,9 @@ def home(t):
     <div class="wrap j8-benefits">
       <h3 class="j8-bh reveal">{e(t['j8_benefits_h'])}</h3>
       <ul class="j8-cards">{j8cards}</ul>
-      <p class="p8-plus j8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
     </div>
     <div class="wrap j8-cta reveal">
       <h3>{e(t['j8_cta_h'])}</h3>
-      <p>{e(t['j8_cta_sub'])}</p>
       {btn(t, t['j8_cta'], 'btn btn-gold btn-lg magnetic')}
     </div>
   </section>
