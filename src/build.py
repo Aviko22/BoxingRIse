@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "152"  # bump to bust caches of css/js
+VER = "153"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -34,6 +34,36 @@ def legal_url(lang, slug):
 
 
 ICON_WA = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>')
+
+
+def _svg(paths):
+    return f'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{paths}</svg>'
+
+
+J8_ICONS = [
+    # 1 stance: two feet on a base line
+    _svg('<path class="dr" d="M14 8c4 0 6 4 6 9s-2 9-5 9-5-4-5-9 1-9 4-9z"/><path class="dr" d="M33 14c4 0 5 4 5 9s-2 9-5 9-5-4-5-9 2-9 5-9z"/><path class="dr" d="M6 40h36"/>'),
+    # 2 movement: foot with a curved step arrow
+    _svg('<path class="dr" d="M12 12c3 0 5 3 5 7s-2 7-4 7-4-3-4-7 1-7 3-7z"/><path class="dr" d="M14 34c6 6 16 6 22-2"/><path class="dr" d="M30 30l6 2 1-6"/><path class="dr" d="M30 10h10M35 5v10"/>'),
+    # 3 combine: three linked strikes
+    _svg('<circle class="dr" cx="10" cy="30" r="4"/><circle class="dr" cx="24" cy="16" r="4"/><circle class="dr" cx="38" cy="30" r="4"/><path class="dr" d="M13 27l8-8M27 19l8 8"/>'),
+    # 4 confidence: shield with a tick
+    _svg('<path class="dr" d="M24 5l15 6v11c0 10-7 17-15 21C16 39 9 32 9 22V11z"/><path class="dr" d="M17 24l5 5 9-10"/>'),
+    # 5 pace: heartbeat line
+    _svg('<path class="dr" d="M4 26h9l4-10 6 20 6-16 4 6h11"/>'),
+    # 6 smart: target with a cue spark
+    _svg('<circle class="dr" cx="22" cy="26" r="15"/><circle class="dr" cx="22" cy="26" r="7"/><path class="dr" d="M22 26l18-18M33 8h7v7"/>'),
+    # 7 all together: three joined rings
+    _svg('<circle class="dr" cx="17" cy="20" r="9"/><circle class="dr" cx="31" cy="20" r="9"/><circle class="dr" cx="24" cy="32" r="9"/>'),
+    # 8 progress: sun rising over the line (the brand mark idea)
+    _svg('<path class="dr" d="M4 36h40"/><path class="dr" d="M12 36a12 12 0 0124 0"/><path class="dr" d="M24 12v6M10 19l4 4M38 19l-4 4M4 29h4M40 29h4"/>'),
+]
+J8_BENEFIT_ICONS = [
+    _svg('<circle cx="16" cy="15" r="6"/><circle cx="33" cy="15" r="6"/><path d="M5 40c0-7 5-12 11-12s11 5 11 12M22 40c0-7 5-12 11-12s10 5 10 12"/>'),
+    _svg('<path d="M6 40h10v-9h10v-9h10v-9h6"/><path d="M36 7l6 6-6 6"/>'),
+    _svg('<path d="M14 22v-7a7 7 0 017-7h6a9 9 0 019 9v8a11 11 0 01-11 11h-4a7 7 0 01-7-7z"/><path d="M14 26c-4 0-6-2-6-5s3-5 6-4M19 36v5h14v-5"/>'),
+    _svg('<path d="M6 40V8M6 40h36"/><path d="M12 32l9-9 7 6 12-13"/><path d="M34 16h6v6"/>'),
+]
 
 
 def btn(t, label, cls="btn btn-gold", extra=""):
@@ -277,6 +307,21 @@ def home(t):
         f'<h3>{e(t["week_word"])} {i + 1} · {e(t["week_feel"][i])}: {e(h)}</h3><p>{e(d)}</p><p><b>{e(t["milestone_word"])}</b> {e(m)}</p></li>'
         for i, (h, d, m) in enumerate(t["weeks"]))
     p8phases = t["prog_phases"]
+    j8stats = "".join(f'<div class="j8-stat reveal" style="--d:{k * 120}ms"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for k, (n, l) in enumerate(t["j8_stats"]))
+    j8tabs = "".join(
+        f'<button type="button" role="tab" class="j8-tab{" is-on" if i == 0 else ""}" id="j8-tab-{i + 1}" aria-controls="j8-panel-{i + 1}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}" style="--i:{i}">'
+        f'<span class="j8-dot" dir="ltr">{i + 1}</span><span class="j8-tl"><small>{e(t["week_word"])} {i + 1}</small>{e(h)}</span></button>'
+        for i, (h, d) in enumerate(t["j8_weeks"]))
+    j8panels = "".join(
+        f'<div class="j8-panel{" is-on" if i == 0 else ""}" role="tabpanel" id="j8-panel-{i + 1}" aria-labelledby="j8-tab-{i + 1}">'
+        f'<span class="j8-big" aria-hidden="true" dir="ltr">{i + 1:02d}</span>'
+        f'<div class="j8-body"><span class="j8-ico" aria-hidden="true">{J8_ICONS[i]}</span>'
+        f'<p class="j8-kick">{e(t["week_word"])} {i + 1} {e(t["j8_of"])}</p><h3 class="j8-pt">{e(h)}</h3><p class="j8-pd">{e(d)}</p>'
+        f'<span class="j8-bar" aria-hidden="true"><i style="width:{(i + 1) * 12.5}%"></i></span>'
+        + (f'<p class="j8-done">{e(t["j8_done"])}</p>' if i == 7 else "") + '</div></div>'
+        for i, (h, d) in enumerate(t["j8_weeks"]))
+    j8cards = "".join(f'<li class="j8-card reveal" style="--d:{k * 90}ms"><span class="j8-cico" aria-hidden="true">{J8_BENEFIT_ICONS[k]}</span><h4>{e(h)}</h4><p>{e(d)}</p></li>' for k, (h, d) in enumerate(t["j8_benefits"]))
+    j8_prev_arrow, j8_next_arrow = ("→", "←") if t["lang"] == "he" else ("←", "→")
     about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 0 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"][1:]))
     creds = "".join(f'<li>{e(x)}</li>' for x in t["about_facts"])
     reviews = ""
@@ -354,39 +399,36 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
-    <div class="wrap p8-head">
-      {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
-      <p class="p8-sub">{e(t['prog_sub'])}</p>
-      <p class="lead">{e(t['prog_lead'])}</p>
-      <dl class="facts reveal">{pfacts}</dl>
-      <p class="p8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
+  <section class="sec j8" id="program" aria-labelledby="prog-h">
+    <div class="wrap j8-head">
+      {tag(t, 'program')}<h2 class="h2 prog-title j8-title reveal" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
+      <p class="j8-h reveal">{e(t['j8_h'])}</p>
+      <p class="lead j8-lead reveal">{e(t['j8_lead'])}</p>
+      <dl class="j8-stats">{j8stats}</dl>
     </div>
-    <div class="p8-run">
-      <div class="p8-stage" aria-hidden="true">
-        <div class="p8-glow"></div>
-        <div class="wrap p8-grid">
-          <div class="p8-mark"><span class="p8-rays"></span><i class="p8-mk-base"></i><i class="p8-mk-fill"></i><i class="p8-shine"></i></div>
-          <div class="p8-dial">
-            <svg viewBox="0 0 200 200">{p8segs}</svg>
-            <div class="p8-num"><small>{e(t['week_word'])}</small><span class="p8-roll" dir="ltr">{"".join(f"<b>{i}</b>" for i in range(1, 9))}</span><i dir="ltr">/ 8</i></div>
-          </div>
-          <div class="p8-copy">
-            <p class="p8-phase"><span class="p8-ph-n"></span> · <span class="p8-ph-t"></span></p>
-            <p class="p8-feel"></p>
-            <h3 class="p8-t"></h3>
-            <p class="p8-d"></p>
-            <p class="p8-m"><span>{e(t['milestone_word'])}</span> <em></em></p>
-          </div>
-        </div>
-        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}</div>
-        <p class="p8-hint">{e(t['prog_scroll'])} ↓</p>
+    <div class="wrap j8-journey">
+      <div class="j8-track" role="tablist" aria-label="{e(t['j8_tabs_label'])}" style="--p:0">
+        <span class="j8-line" aria-hidden="true"><span class="j8-fill"></span></span>
+        {j8tabs}
       </div>
-      <ol class="p8-steps">{p8steps}</ol>
+      <div class="j8-stage">
+        <div class="j8-panels">{j8panels}</div>
+        <div class="j8-nav">
+          <button type="button" class="j8-arrow j8-prev" aria-label="{e(t['j8_prev'])}" disabled><span aria-hidden="true">{j8_prev_arrow}</span></button>
+          <p class="j8-count" aria-hidden="true"><b dir="ltr">1</b> <span>{e(t['j8_of'])}</span></p>
+          <button type="button" class="j8-arrow j8-next" aria-label="{e(t['j8_next'])}"><span aria-hidden="true">{j8_next_arrow}</span></button>
+        </div>
+      </div>
     </div>
-    <div class="wrap p8-end">
-      <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
-      <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
+    <div class="wrap j8-benefits">
+      <h3 class="j8-bh reveal">{e(t['j8_benefits_h'])}</h3>
+      <ul class="j8-cards">{j8cards}</ul>
+      <p class="p8-plus j8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
+    </div>
+    <div class="wrap j8-cta reveal">
+      <h3>{e(t['j8_cta_h'])}</h3>
+      <p>{e(t['j8_cta_sub'])}</p>
+      {btn(t, t['j8_cta'], 'btn btn-gold btn-lg magnetic')}
     </div>
   </section>
 

@@ -432,3 +432,77 @@
   intro.addEventListener('click', leave);
   window.addEventListener('keydown', function k(e) { window.removeEventListener('keydown', k); leave(); });
 })();
+
+/* =================== BoxingRise 8: interactive 8-week journey ===================
+   Accessible tabs (arrow keys follow reading direction, Home/End), prev/next, swipe on the card.
+   Panels share one grid cell, so switching never shifts the layout. Without JS every week is shown. */
+(function () {
+  var sec = document.querySelector('.j8'); if (!sec) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rtl = document.documentElement.dir === 'rtl';
+  var tabs = [].slice.call(sec.querySelectorAll('.j8-tab'));
+  var panels = [].slice.call(sec.querySelectorAll('.j8-panel'));
+  var track = sec.querySelector('.j8-track');
+  var prev = sec.querySelector('.j8-prev'), next = sec.querySelector('.j8-next');
+  var count = sec.querySelector('.j8-count b');
+  var cur = 0;
+
+  function show(i, focus) {
+    i = Math.max(0, Math.min(tabs.length - 1, i));
+    cur = i;
+    tabs.forEach(function (t, k) {
+      var on = k === i;
+      t.classList.toggle('is-on', on); t.classList.toggle('past', k < i);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach(function (p, k) { p.classList.toggle('is-on', k === i); });
+    track.style.setProperty('--p', i);
+    if (count) count.textContent = i + 1;
+    if (prev) prev.disabled = i === 0;
+    if (next) next.disabled = i === tabs.length - 1;
+    sec.classList.remove('final');
+    if (i === tabs.length - 1) { void sec.offsetWidth; sec.classList.add('final'); }
+    if (focus) tabs[i].focus();
+  }
+
+  tabs.forEach(function (t, k) {
+    t.addEventListener('click', function () { show(k); });
+    t.addEventListener('keydown', function (ev) {
+      var fwd = rtl ? 'ArrowLeft' : 'ArrowRight', back = rtl ? 'ArrowRight' : 'ArrowLeft', n = null;
+      if (ev.key === fwd || ev.key === 'ArrowDown') n = k + 1;
+      else if (ev.key === back || ev.key === 'ArrowUp') n = k - 1;
+      else if (ev.key === 'Home') n = 0;
+      else if (ev.key === 'End') n = tabs.length - 1;
+      if (n === null) return;
+      ev.preventDefault(); show((n + tabs.length) % tabs.length, true);
+    });
+  });
+  if (prev) prev.addEventListener('click', function () { show(cur - 1); });
+  if (next) next.addEventListener('click', function () { show(cur + 1); });
+
+  /* swipe on the card: towards the reading direction = next week */
+  var box = sec.querySelector('.j8-panels'), x0 = null, y0 = 0;
+  box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  box.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+    if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+    var forward = rtl ? dx > 0 : dx < 0;
+    show(cur + (forward ? 1 : -1));
+  }, { passive: true });
+
+  /* draw the line and bring in the milestones once, when the journey scrolls into view */
+  var j = sec.querySelector('.j8-journey');
+  var head = sec.querySelector('.j8-head');
+  if (reduce || !('IntersectionObserver' in window)) sec.classList.add('seen', 'hin');
+  else new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { sec.classList.add('hin'); o.disconnect(); } }, { rootMargin: '0px 0px -15% 0px' }).observe(head);
+  if (reduce || !('IntersectionObserver' in window)) sec.classList.add('seen');
+  else {
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) { sec.classList.add('seen'); io.disconnect(); } });
+    }, { rootMargin: '0px 0px -20% 0px' });
+    io.observe(j);
+  }
+  show(0);
+})();
