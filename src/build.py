@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "161"  # bump to bust caches of css/js
+VER = "164"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -41,21 +41,13 @@ def _svg(paths):
 
 
 J8_ICONS = [
-    # 1 stance: two feet on a base line
+    # foundation: two feet planted on a base line
     _svg('<path class="dr" d="M14 8c4 0 6 4 6 9s-2 9-5 9-5-4-5-9 1-9 4-9z"/><path class="dr" d="M33 14c4 0 5 4 5 9s-2 9-5 9-5-4-5-9 2-9 5-9z"/><path class="dr" d="M6 40h36"/>'),
-    # 2 movement: foot with a curved step arrow
-    _svg('<path class="dr" d="M12 12c3 0 5 3 5 7s-2 7-4 7-4-3-4-7 1-7 3-7z"/><path class="dr" d="M14 34c6 6 16 6 22-2"/><path class="dr" d="M30 30l6 2 1-6"/><path class="dr" d="M30 10h10M35 5v10"/>'),
-    # 3 combine: three linked strikes
-    _svg('<circle class="dr" cx="10" cy="30" r="4"/><circle class="dr" cx="24" cy="16" r="4"/><circle class="dr" cx="38" cy="30" r="4"/><path class="dr" d="M13 27l8-8M27 19l8 8"/>'),
-    # 4 confidence: shield with a tick
-    _svg('<path class="dr" d="M24 5l15 6v11c0 10-7 17-15 21C16 39 9 32 9 22V11z"/><path class="dr" d="M17 24l5 5 9-10"/>'),
-    # 5 pace: heartbeat line
-    _svg('<path class="dr" d="M4 26h9l4-10 6 20 6-16 4 6h11"/>'),
-    # 6 smart: target with a cue spark
-    _svg('<circle class="dr" cx="22" cy="26" r="15"/><circle class="dr" cx="22" cy="26" r="7"/><path class="dr" d="M22 26l18-18M33 8h7v7"/>'),
-    # 7 all together: three joined rings
-    _svg('<circle class="dr" cx="17" cy="20" r="9"/><circle class="dr" cx="31" cy="20" r="9"/><circle class="dr" cx="24" cy="32" r="9"/>'),
-    # 8 progress: sun rising over the line (the brand mark idea)
+    # control: shield with linked strikes
+    _svg('<path class="dr" d="M24 5l15 6v11c0 10-7 17-15 21C16 39 9 32 9 22V11z"/><path class="dr" d="M16 26l5-6 5 5 6-8"/>'),
+    # power & flow: a wave of rhythm with a strike
+    _svg('<path class="dr" d="M4 30c5 0 5-10 10-10s5 10 10 10 5-10 10-10 5 10 10 10"/><path class="dr" d="M26 8l-6 10h8l-6 10"/>'),
+    # confidence: the sun rising over the line (the brand idea)
     _svg('<path class="dr" d="M4 36h40"/><path class="dr" d="M12 36a12 12 0 0124 0"/><path class="dr" d="M24 12v6M10 19l4 4M38 19l-4 4M4 29h4M40 29h4"/>'),
 ]
 J8_BENEFIT_ICONS = [
@@ -65,55 +57,6 @@ J8_BENEFIT_ICONS = [
     _svg('<path d="M6 40V8M6 40h36"/><path d="M12 32l9-9 7 6 12-13"/><path d="M34 16h6v6"/>'),
 ]
 
-
-def m8_build(t):
-    """Six mobile concepts for the BoxingRise 8 journey (preview: pick one with the switcher)."""
-    W = t["j8_weeks"]; ww = t["week_word"]; of = t["j8_of"]; n = len(W)
-    def card(i, cls=""):
-        h, d = W[i]
-        return (f'<div class="m8c {cls}"><span class="m8i" aria-hidden="true">{J8_ICONS[i]}</span>'
-                f'<p class="m8k">{e(ww)} {i + 1} {e(of)}</p><h3 class="m8t">{e(h)}</h3><p class="m8d">{e(d)}</p></div>')
-    # 1 road: vertical line that fills as you scroll, each week slides in
-    road = "".join(f'<li class="m8r" style="--i:{i}"><span class="m8rd" dir="ltr">{i + 1}</span>{card(i)}</li>' for i in range(n))
-    o1 = f'<div class="m8o m8-1" data-m8="1"><div class="m8road"><span class="m8rl" aria-hidden="true"><i></i></span><ol>{road}</ol></div></div>'
-    # 2 deck: stacked cards, swipe or wait, the top card flies off
-    deck = "".join(f'<div class="m8dk" style="--k:{i}" data-i="{i}"><span class="m8big" dir="ltr" aria-hidden="true">{i + 1:02d}</span>{card(i)}</div>' for i in range(n))
-    dots = "".join(f'<button type="button" class="m8dot" aria-label="{e(ww)} {i + 1}" data-go="{i}"></button>' for i in range(n))
-    o2 = f'<div class="m8o m8-2" data-m8="2"><div class="m8deck" aria-live="polite">{deck}</div><div class="m8dots">{dots}</div></div>'
-    # 3 ring: 8 segments fill around a dial, the week sits in the middle
-    import math
-    segs, btns = "", ""
-    for i in range(n):
-        a0 = -90 + i * 45 + 3; a1 = a0 + 39
-        x0, y0 = 100 + 84 * math.cos(math.radians(a0)), 100 + 84 * math.sin(math.radians(a0))
-        x1, y1 = 100 + 84 * math.cos(math.radians(a1)), 100 + 84 * math.sin(math.radians(a1))
-        segs += f'<path class="m8sg" data-i="{i}" d="M{x0:.1f} {y0:.1f} A84 84 0 0 1 {x1:.1f} {y1:.1f}"/>'
-        am = math.radians(-90 + i * 45 + 22.5)
-        btns += f'<button type="button" class="m8rb" data-go="{i}" style="left:{50 + 47 * math.cos(am):.1f}%;top:{50 + 47 * math.sin(am):.1f}%" aria-label="{e(ww)} {i + 1}" dir="ltr">{i + 1}</button>'
-    ringtxt = "".join(card(i, "m8rt") .replace('class="m8c m8rt"', f'class="m8c m8rt" data-i="{i}"') for i in range(n))
-    o3 = (f'<div class="m8o m8-3" data-m8="3"><div class="m8ring"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="84" class="m8rbg"/>{segs}'
-          f'<circle class="m8run" r="6" cx="100" cy="16"/></svg>{btns}<div class="m8mid"><span class="m8num" dir="ltr">01</span><small>{e(of)}</small></div></div><div class="m8rtx">{ringtxt}</div></div>')
-    # 4 stairs: eight rising steps, a gold dot climbs as you scroll
-    steps = "".join(f'<span class="m8st" style="--h:{14 + i * 11}%;--i:{i}"><b dir="ltr">{i + 1}</b></span>' for i in range(n))
-    sttx = "".join(card(i, "m8sx").replace('class="m8c m8sx"', f'class="m8c m8sx" data-i="{i}"') for i in range(n))
-    o4 = f'<div class="m8o m8-4 m8pin" data-m8="4"><div class="m8stick"><div class="m8stairs">{steps}<span class="m8climber" aria-hidden="true"></span></div><div class="m8stx">{sttx}</div></div></div>'
-    # 5 sunrise: the sun climbs over the horizon week by week as you scroll
-    ticks = "".join(f'<span class="m8tk" style="--i:{i}" dir="ltr">{i + 1}</span>' for i in range(n))
-    sutx = "".join(card(i, "m8ux").replace('class="m8c m8ux"', f'class="m8c m8ux" data-i="{i}"') for i in range(n))
-    o5 = (f'<div class="m8o m8-5 m8pin" data-m8="5"><div class="m8stick"><div class="m8sky"><span class="m8sun"></span><span class="m8rays"></span>'
-          f'<span class="m8hz"></span><div class="m8ticks">{ticks}</div></div><div class="m8utx">{sutx}</div></div></div>')
-    # 6 chapters: four two-week chapters that open one after another
-    ch = ""
-    for c in range(4):
-        a, b = 2 * c, 2 * c + 1
-        items = "".join(f'<li style="--j:{j}"><span class="m8cn" dir="ltr">{k + 1}</span><span class="m8ci" aria-hidden="true">{J8_ICONS[k]}</span><div><h4>{e(W[k][0])}</h4><p>{e(W[k][1])}</p></div></li>' for j, k in enumerate((a, b)))
-        ch += (f'<li class="m8ch" style="--c:{c}"><button type="button" class="m8chb" aria-expanded="false"><span class="m8chn" dir="ltr">{a + 1}–{b + 1}</span>'
-               f'<span class="m8cht"><small>{e(ww)}</small>{e(W[a][0])} · {e(W[b][0])}</span><span class="m8chi" aria-hidden="true"></span></button>'
-               f'<div class="m8chp"><ul>{items}</ul></div></li>')
-    o6 = f'<div class="m8o m8-6" data-m8="6"><div class="m8chs"><span class="m8chl" aria-hidden="true"><i></i></span><ol>{ch}</ol></div></div>'
-    sw = "".join(f'<button type="button" data-pick="{k}">{k}</button>' for k in range(1, 7))
-    switch = f'<div class="m8sw" role="group" aria-label="preview"><span>תכנית במובייל</span>{sw}</div>'
-    return o1 + o2 + o3 + o4 + o5 + o6 + switch
 
 
 def btn(t, label, cls="btn btn-gold", extra=""):
@@ -358,20 +301,28 @@ def home(t):
         for i, (h, d, m) in enumerate(t["weeks"]))
     p8phases = t["prog_phases"]
     j8stats = "".join(f'<div class="j8-stat reveal" style="--d:{k * 120}ms"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for k, (n, l) in enumerate(t["j8_stats"]))
+    ST = t["j8_stages"]; NS = len(ST)
     j8tabs = "".join(
-        f'<button type="button" role="tab" class="j8-tab{" is-on" if i == 0 else ""}" id="j8-tab-{i + 1}" aria-controls="j8-panel-{i + 1}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}" style="--i:{i}">'
-        f'<span class="j8-dot" dir="ltr">{i + 1}</span><span class="j8-tl"><small>{e(t["week_word"])} {i + 1}</small>{e(h)}</span></button>'
-        for i, (h, d) in enumerate(t["j8_weeks"]))
+        f'<button type="button" role="tab" class="j8-tab{" is-on lit" if i == 0 else ""}" id="j8-tab-{i + 1}" aria-controls="j8-panel-{i + 1}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}" style="--i:{i}">'
+        f'<span class="j8-dot" dir="ltr">{i + 1}</span><span class="j8-tl"><small dir="ltr">{e(en)}</small>{e(name)}<em>{e(t["j8_weeks_word"])} <span dir="ltr">{wk}</span></em></span></button>'
+        for i, (en, name, wk, bx, ft) in enumerate(ST))
+    def chips(items, kind):
+        return "".join(f'<li class="j8-chip {kind}" style="--c:{c}">{e(x)}</li>' for c, x in enumerate(items))
+    def sessions(i):  # 16 sessions, this stage's four lit
+        return "".join(f'<i class="{"on" if k // 4 == i else ("past" if k // 4 < i else "")}" style="--s:{k % 4}"></i>' for k in range(16))
     j8panels = "".join(
         f'<div class="j8-panel{" is-on" if i == 0 else ""}" role="tabpanel" id="j8-panel-{i + 1}" aria-labelledby="j8-tab-{i + 1}">'
         f'<span class="j8-big" aria-hidden="true" dir="ltr">{i + 1:02d}</span>'
         f'<div class="j8-body"><span class="j8-ico" aria-hidden="true">{J8_ICONS[i]}</span>'
-        f'<p class="j8-kick">{e(t["week_word"])} {i + 1} {e(t["j8_of"])}</p><h3 class="j8-pt">{e(h)}</h3><p class="j8-pd">{e(d)}</p>'
-        f'<span class="j8-bar" aria-hidden="true"><i style="width:{(i + 1) * 12.5}%"></i></span>'
-        + (f'<p class="j8-done">{e(t["j8_done"])}</p>' if i == 7 else "") + '</div></div>'
-        for i, (h, d) in enumerate(t["j8_weeks"]))
+        f'<p class="j8-kick"><span dir="ltr">{e(en)}</span> · {e(t["j8_weeks_word"])} <span dir="ltr">{wk}</span></p><h3 class="j8-pt">{e(name)}</h3>'
+        f'<p class="j8-learn">{e(t["j8_learn"])}</p>'
+        f'<div class="j8-split2"><div><b>{e(t["j8_boxing"])}</b><ul class="j8-chips">{chips(bx, "bx")}</ul></div>'
+        f'<div><b>{e(t["j8_fitness"])}</b><ul class="j8-chips">{chips(ft, "ft")}</ul></div></div>'
+        f'<div class="j8-sess" aria-hidden="true"><span class="j8-sd">{sessions(i)}</span><small>{e(t["j8_sessions"])}</small></div>'
+        + (f'<p class="j8-done">{e(t["j8_done"])}</p>' if i == NS - 1 else "") + '</div></div>'
+        for i, (en, name, wk, bx, ft) in enumerate(ST))
+    j8split = "".join(f'<div class="j8-sp j8-sp{k}"><b dir="ltr">{e(a)}</b><span>{e(b)}</span></div>' for k, (a, b) in enumerate(t["j8_split"]))
     j8cards = "".join(f'<li class="j8-card reveal" style="--d:{k * 90}ms"><span class="j8-cico" aria-hidden="true">{J8_BENEFIT_ICONS[k]}</span><h4>{e(h)}</h4><p>{e(d)}</p></li>' for k, (h, d) in enumerate(t["j8_benefits"]))
-    m8html = m8_build(t)
     j8_prev_arrow, j8_next_arrow = ("→", "←") if t["lang"] == "he" else ("←", "→")
     about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 0 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"][1:]))
     creds = "".join(f'<li>{e(x)}</li>' for x in t["about_facts"])
@@ -456,9 +407,10 @@ def home(t):
       <p class="j8-h reveal">{e(t['j8_h'])}</p>
       <p class="lead j8-lead reveal">{e(t['j8_lead'])}</p>
       <dl class="j8-stats">{j8stats}</dl>
+      <div class="j8-split reveal" aria-label="{e(t['j8_split'][0][0])} {e(t['j8_split'][0][1])}, {e(t['j8_split'][1][0])} {e(t['j8_split'][1][1])}" role="img"><span class="j8-sb" aria-hidden="true"><i></i><i></i></span><div class="j8-spl" aria-hidden="true">{j8split}</div></div>
     </div>
     <div class="wrap j8-journey">
-      <div class="j8-track" role="tablist" aria-label="{e(t['j8_tabs_label'])}" style="--p:0">
+      <div class="j8-track" role="tablist" aria-label="{e(t['j8_tabs_label'])}" style="--p:0;--n1:3">
         <span class="j8-line" aria-hidden="true"><span class="j8-fill"></span><span class="j8-runner"><i></i></span></span>
         {j8tabs}
       </div>
@@ -473,7 +425,6 @@ def home(t):
         </div>
       </div>
     </div>
-    <div class="wrap m8box">{m8html}</div>
     <div class="wrap j8-benefits">
       <h3 class="j8-bh reveal">{e(t['j8_benefits_h'])}</h3>
       <ul class="j8-cards">{j8cards}</ul>

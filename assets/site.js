@@ -449,7 +449,7 @@
   var track = sec.querySelector('.j8-track'), box = sec.querySelector('.j8-panels');
   var prev = sec.querySelector('.j8-prev'), next = sec.querySelector('.j8-next');
   var count = sec.querySelector('.j8-count b'), play = sec.querySelector('.j8-play');
-  var cur = 0, last = tabs.length - 1, STEP = 3400, timer = null, litT = null, auto = false, started = false;
+  var cur = 0, last = tabs.length - 1, STEP = 4200, timer = null, litT = null, auto = false, started = false;
 
   function show(i, opts) {
     opts = opts || {};
@@ -467,9 +467,9 @@
       t.tabIndex = on ? 0 : -1;
     });
     track.style.setProperty('--p', i);
-    track.style.setProperty('--dur', (420 + dist * 110) + 'ms');
+    track.style.setProperty('--dur', (520 + dist * 200) + 'ms');
     /* the target dot lights up when the runner arrives */
-    var dur = reduce ? 0 : (dist ? 420 + dist * 110 : 0);
+    var dur = reduce ? 0 : (dist ? 520 + dist * 200 : 0);
     clearTimeout(litT);
     tabs.forEach(function (t, k) { if (k !== i) t.classList.remove('lit'); });
     if (dur) litT = setTimeout(function () { tabs[i].classList.add('lit'); }, dur * .85); else tabs[i].classList.add('lit');
@@ -557,106 +557,4 @@
   }
   ['pointerdown', 'keydown'].forEach(function (t) { j.addEventListener(t, function () { sec.classList.add('touched'); }, { passive: true }); });
   show(0);
-})();
-
-/* =================== BoxingRise 8 · six mobile concepts + preview switcher =================== */
-(function () {
-  var box = document.querySelector('.m8box'); if (!box) return;
-  var root = document.documentElement, rtl = root.dir === 'rtl';
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var K = 'br-m8', pick = '1';
-  try { pick = new URLSearchParams(location.search).get('m8') || localStorage.getItem(K) || '1'; } catch (e) {}
-  var sw = box.querySelector('.m8sw');
-  function set(v) {
-    pick = String(v); if (pick === '0') root.removeAttribute('data-m8'); else root.setAttribute('data-m8', pick);
-    try { localStorage.setItem(K, pick); } catch (e) {}
-    sw.querySelectorAll('button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-pick') === pick); });
-    window.dispatchEvent(new Event('scroll'));
-  }
-  sw.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-pick')); }); });
-  set(pick);
-  /* switcher shows while the programme section is on screen */
-  var sec = document.querySelector('.j8');
-  new IntersectionObserver(function (en) { sw.classList.toggle('show', en[0].isIntersecting); }, { rootMargin: '-30% 0px -30% 0px' }).observe(sec);
-
-  function prog(el) { /* 0..1 as the element scrolls past the middle band of the screen */
-    var r = el.getBoundingClientRect(), vh = window.innerHeight;
-    return Math.max(0, Math.min(1, (vh * 0.62 - r.top) / Math.max(1, r.height - vh * 0.4)));
-  }
-  function pinProg(el) { var r = el.getBoundingClientRect(), vh = window.innerHeight; return Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - vh))); }
-  function onView(el, fn, th) { new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { fn(); o.disconnect(); } }, { threshold: th || .5 }).observe(el); }
-
-  /* 1 · road */
-  var road = box.querySelector('.m8road'), rItems = [].slice.call(box.querySelectorAll('.m8r'));
-  /* 4 · stairs */
-  var st = box.querySelector('.m8-4'), steps = [].slice.call(box.querySelectorAll('.m8st')), stx = [].slice.call(box.querySelectorAll('.m8sx')), climber = box.querySelector('.m8climber');
-  /* 5 · sunrise */
-  var su = box.querySelector('.m8-5'), sky = box.querySelector('.m8sky'), ticks = [].slice.call(box.querySelectorAll('.m8tk')), utx = [].slice.call(box.querySelectorAll('.m8ux'));
-  var lastS = -1, lastU = -1;
-  function frame() {
-    if (pick === '1') {
-      var f = prog(road); road.querySelector('.m8rl').style.setProperty('--f', f.toFixed(3));
-      var vh = window.innerHeight;
-      rItems.forEach(function (li) { li.classList.toggle('on', li.getBoundingClientRect().top < vh * 0.72); });
-    } else if (pick === '4') {
-      var w = Math.min(7, Math.floor(pinProg(st) * 8));
-      if (w !== lastS) {
-        lastS = w;
-        steps.forEach(function (s, k) { s.classList.toggle('on', k === w); s.classList.toggle('past', k < w); });
-        stx.forEach(function (c, k) { c.classList.toggle('on', k === w); });
-        var s = steps[w], wrap = s.parentNode.getBoundingClientRect(), r = s.getBoundingClientRect();
-        climber.style.setProperty('--cx', ((r.left + r.width / 2 - wrap.left) / wrap.width * 100) + '%');
-        climber.style.setProperty('--cy', ((r.top - wrap.top) / wrap.height * 100) + '%');
-      }
-    } else if (pick === '5') {
-      var p = pinProg(su); sky.style.setProperty('--s', p.toFixed(3));
-      var u = Math.min(7, Math.floor(p * 8));
-      if (u !== lastU) { lastU = u; ticks.forEach(function (t, k) { t.classList.toggle('on', k === u); t.classList.toggle('past', k < u); }); utx.forEach(function (c, k) { c.classList.toggle('on', k === u); }); }
-    } else if (pick === '6') {
-      chs.forEach(function (c, k) { if (!c.dataset.auto && c.getBoundingClientRect().top < window.innerHeight * 0.62) { c.dataset.auto = 1; openCh(k); } });
-    }
-  }
-  var ticking = false;
-  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; frame(); }); } }, { passive: true });
-  window.addEventListener('resize', function () { lastS = lastU = -1; frame(); });
-
-  /* 2 · deck: autoplay once while visible, swipe or tap a dot */
-  var deck = box.querySelector('.m8deck'), cards = [].slice.call(deck.querySelectorAll('.m8dk')), dots = [].slice.call(box.querySelectorAll('.m8dot')), dc = 0, dt = null, dAuto = !reduce;
-  function deckGo(i) {
-    dc = Math.max(0, Math.min(7, i)); deck.style.setProperty('--cur', dc);
-    cards.forEach(function (c, k) { c.classList.toggle('gone', k < dc); c.classList.toggle('top', k === dc); c.classList.toggle('far', k > dc + 3); });
-    dots.forEach(function (d, k) { d.classList.toggle('on', k === dc); d.classList.toggle('past', k < dc); });
-    clearTimeout(dt); if (dAuto && dc < 7) dt = setTimeout(function () { deckGo(dc + 1); }, 3000);
-  }
-  dots.forEach(function (d) { d.addEventListener('click', function () { dAuto = false; deckGo(+d.getAttribute('data-go')); }); });
-  var x0 = null;
-  deck.addEventListener('touchstart', function (e) { dAuto = false; clearTimeout(dt); x0 = e.touches[0].clientX; }, { passive: true });
-  deck.addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) < 40) { deckGo(dc < 7 ? dc + 1 : 0); return; } deckGo(dc + ((rtl ? dx > 0 : dx < 0) ? 1 : -1)); }, { passive: true });
-  deckGo(0); clearTimeout(dt);
-  onView(deck, function () { if (dAuto) deckGo(0); });
-
-  /* 3 · ring: autoplay once, tap a segment */
-  var ring = box.querySelector('.m8ring'), segs = [].slice.call(box.querySelectorAll('.m8sg')), rtx = [].slice.call(box.querySelectorAll('.m8rt')), num = box.querySelector('.m8num'), run = box.querySelector('.m8run'), rc = -1, rt = null, rAuto = !reduce, turns = 0;
-  function ringGo(i) {
-    if (i < rc && i === 0 && rc === 7) turns++;
-    rc = i;
-    segs.forEach(function (s, k) { s.classList.toggle('past', k < i); s.classList.remove('on'); });
-    void ring.offsetWidth; segs[i].classList.add('on');
-    rtx.forEach(function (c, k) { c.classList.toggle('on', k === i); });
-    num.textContent = ('0' + (i + 1)).slice(-2); num.classList.remove('roll'); void num.offsetWidth; num.classList.add('roll');
-    run.style.setProperty('--a', (turns * 360 + i * 45 + 22.5) + 'deg');
-    clearTimeout(rt); if (rAuto && i < 7) rt = setTimeout(function () { ringGo(i + 1); }, 3000);
-  }
-  box.querySelectorAll('.m8rb').forEach(function (b) { b.addEventListener('click', function () { rAuto = false; ringGo(+b.getAttribute('data-go')); }); });
-  rAuto = false; ringGo(0); rAuto = !reduce;
-  onView(ring, function () { if (rAuto) ringGo(0); });
-
-  /* 6 · chapters: open one by one as you scroll, tap to open any */
-  var chs = [].slice.call(box.querySelectorAll('.m8ch')), chl = box.querySelector('.m8chl');
-  function openCh(k) {
-    chs.forEach(function (c, j) { var o = j === k; c.classList.toggle('open', o); c.classList.toggle('done', j < k); c.querySelector('.m8chb').setAttribute('aria-expanded', o ? 'true' : 'false'); });
-    chl.style.setProperty('--f', ((k + 1) / chs.length).toFixed(3));
-  }
-  chs.forEach(function (c, k) { c.querySelector('.m8chb').addEventListener('click', function () { c.dataset.auto = 1; openCh(c.classList.contains('open') ? -1 : k); }); });
-  frame();
 })();
