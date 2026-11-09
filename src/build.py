@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "165"  # bump to bust caches of css/js
+VER = "167"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -135,6 +135,7 @@ def header(t, home, alt_href=None):
     lab, href, name = t["lang_switch"]
     href = alt_href or href
     nav = "".join(f'<li><a href="{(base(t["lang"]) if not home else "")}{h}">{e(x)}</a></li>' for h, x in t["nav"])
+    mnav = "".join(f'<li style="--k:{k}"><a href="{(base(t["lang"]) if not home else "")}{h}"><span dir="ltr">{k + 1:02d}</span>{e(x)}</a></li>' for k, (h, x) in enumerate(t["nav"]))
     return f"""<a class="skip" href="#main">{e(t['skip'])}</a>
 <header class="site-head" id="top">
   <div class="wrap head-row">
@@ -143,9 +144,15 @@ def header(t, home, alt_href=None):
     <div class="head-actions">
       <a class="lang-switch" href="{href}" hreflang="{'en' if t['lang']=='he' else 'he'}" lang="{'en' if t['lang']=='he' else 'he'}"><span aria-hidden="true">{lab}</span><span class="sr-only">{e(name)}</span></a>
       {btn(t, t['cta_short'], 'btn btn-gold btn-sm head-cta')}
+      <button type="button" class="menu-btn" aria-expanded="false" aria-controls="m-menu"><span class="sr-only">{'תפריט' if t['lang']=='he' else 'Menu'}</span><i aria-hidden="true"></i><i aria-hidden="true"></i></button>
     </div>
   </div>
 </header>
+  <div class="m-menu" id="m-menu" hidden>
+    <nav aria-label="{'ניווט ראשי' if t['lang']=='he' else 'Main'}"><ol>{mnav}</ol></nav>
+    {btn(t, t['cta_trial'], 'btn btn-gold btn-lg m-menu-cta')}
+    <p class="m-menu-note">{e(t['final_note'])}</p>
+  </div>
 """
 
 
@@ -292,14 +299,6 @@ def home(t):
         cards += (f'<article class="aud aud-text fc"><span class="aud-n" dir="ltr" aria-hidden="true">0{k}</span><div class="aud-body">'
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> <s class="x">{e(c["pain"])}</s></p><p class="aud-change">{e(c["change"])}</p></div></article>')
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>{e(t["step_word"])}</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
-    pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
-    C8 = 2 * 3.14159 * 84
-    p8segs = "".join(f'<circle class="p8-seg" cx="100" cy="100" r="84" stroke-dasharray="{C8 / 8 - 5:.1f} {C8 - C8 / 8 + 5:.1f}" stroke-dashoffset="{-(i * C8 / 8):.1f}"/>' for i in range(8))
-    p8steps = "".join(
-        f'<li class="p8-step" data-wk="{e(t["week_word"])}" data-i="{i}" data-phase="{i // 2}" data-feel="{e(t["week_feel"][i])}" data-t="{e(h)}" data-d="{e(d)}" data-m="{e(m)}">'
-        f'<h3>{e(t["week_word"])} {i + 1} · {e(t["week_feel"][i])}: {e(h)}</h3><p>{e(d)}</p><p><b>{e(t["milestone_word"])}</b> {e(m)}</p></li>'
-        for i, (h, d, m) in enumerate(t["weeks"]))
-    p8phases = t["prog_phases"]
     j8stats = "".join(f'<div class="j8-stat reveal" style="--d:{k * 120}ms"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for k, (n, l) in enumerate(t["j8_stats"]))
     ST = t["j8_stages"]; NS = len(ST)
     j8tabs = "".join(

@@ -31,14 +31,14 @@ HE = {
     "def": [
         ("לקרוא את הסביבה", "עמידה יציבה ועיניים פתוחות. לזהות מצב לא נעים לפני שהוא מתקרב."),
         ("להגן ולייצר מרחק", "לחסום, לזוז מהדרך, ולהכות נכון כשאין ברירה."),
-        ("ביטחון שמרגישים מבחוץ", "הליכה זקופה ומבט ישר. ביטחון שרואים מבחוץ."),
+        ("ביטחון שרואים מבחוץ", "הליכה זקופה, מבט ישר וקול ברור."),
     ],
     "def_note": "זה לא קורס קרב מגע, אבל זה בסיס אמיתי: גוף שיודע להגיב, וראש שלא נבהל.",
     "tag_batt": "הסוללה שלך", "batt_h": "איפה הסוללה שלך עומדת היום?",
     "batt": [["עבודה", 25], ["הבית והמשפחה", 30], ["כולם צריכים ממך משהו", 20], ["הראש שלא נח", 13]],
     "batt_turn": "שעה אחת על הכריות. 100% בחזרה.",
     "tag_voice": "בלי תירוצים", "voice_h": "אף פעם לא התאגרפת? מושלם.", "voice_lead": "האימון הראשון נועד להבין מאיפה את מתחילה. לא צריך ניסיון, וכל הציוד עליי.", "voice_in": "הקול בראש",
-    "voice": [["אני לא בכושר מספיק.", "בשביל זה באים. הכושר מגיע באימונים."], ["יהיה לי מביך להתחיל.", "רק את ואני, בלי קהל. אף אחד לא מסתכל."], ["אין לי זמן לעצמי.", "שעה אחת בשבוע, בפארק קרוב אלייך."]],
+    "voice": [["אני לא בכושר מספיק.", "בשביל זה באים. הכושר מגיע באימונים."], ["יהיה לי מביך להתחיל.", "רק את ואני, בלי קהל. אף אחד לא מסתכל."], ["אין לי זמן לעצמי.", "שעה שהיא רק שלך, בפארק קרוב אלייך."]],
     "pain_h": "מכירה את זה?",
     "pain": [
         "את דואגת לכולם. מתי בפעם האחרונה עשית משהו רק בשבילך?",
@@ -248,14 +248,14 @@ EN = {
     "def": [
         ("Read your surroundings", "A steady stance, hands up, eyes open. Spot an uncomfortable situation before it gets close."),
         ("Protect and make distance", "Cover your head, block and get out of the way. And know how to hit hard and right when there's no choice."),
-        ("Confidence people can see", "Standing tall, a clear voice and a direct look. Confidence others notice before anything happens."),
+        ("Confidence people can see", "Standing tall, a direct look and a clear voice."),
     ],
     "def_note": "It's not a self-defence course, but it's a real foundation: a body that knows how to react, and a mind that doesn't panic.",
     "tag_batt": "Your battery", "batt_h": "Where is your battery today?",
     "batt": [["Work", 25], ["Home and family", 30], ["Everyone needs something", 20], ["A mind that never rests", 13]],
     "batt_turn": "One hour on the pads. Back to 100%.",
     "tag_voice": "No excuses", "voice_h": "Never boxed before? Perfect.", "voice_lead": "Your first session is about finding where you start. No experience needed, and I bring all the gear.", "voice_in": "The voice in your head",
-    "voice": [["I'm not fit enough.", "That's what training is for. Fitness comes with it."], ["I'd feel awkward starting.", "Just you and me, no audience. Nobody is watching."], ["I have no time for myself.", "One hour a week, in a park near you."]],
+    "voice": [["I'm not fit enough.", "That's what training is for. Fitness comes with it."], ["I'd feel awkward starting.", "Just you and me, no audience. Nobody is watching."], ["I have no time for myself.", "An hour that is only yours, in a park near you."]],
     "pain_h": "Sound familiar?",
     "pain": [
         "You take care of everyone. When did you last do something just for you?",
