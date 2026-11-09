@@ -1523,3 +1523,4 @@ html[dir="ltr"] .pv-6 .pv6 { --sx: 1; }
   .pv2-n::after { clip-path: none !important; }
 }
 html[dir="rtl"] .pv1-n { left: 18px; right: auto; } html[dir="ltr"] .pv1-n { right: 18px; left: auto; }
+@media (max-width: 380px) { .pv-sw { gap: 2px; padding: 5px 6px; } .pv-sw button { width: 36px; height: 36px; } .pv-sw span { display: none; } }
