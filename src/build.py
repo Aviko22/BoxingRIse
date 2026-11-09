@@ -85,10 +85,10 @@ def pv_build(t):
     # 5 · sunrise arc: the sun climbs through four points
     import math
     angs = [165, 118, 62, 15] if t["lang"] != "he" else [15, 62, 118, 165]
-    pos = [(50 + 42.5 * math.cos(math.radians(g)), (200 - 170 * math.sin(math.radians(g))) / 220 * 100) for g in angs]
+    pos = [(50 + 38 * math.cos(math.radians(g)), (200 - 170 * math.sin(math.radians(g))) / 220 * 100) for g in angs]
     dots = "".join(f'<button type="button" class="pv5-dot" data-go="{i}" data-x="{x:.2f}" data-y="{y:.2f}" style="left:{x:.2f}%;top:{y:.2f}%" aria-label="{e(n)}"><span dir="ltr">{i + 1}</span></button>' for i, ((en, n, w, bx, ft), (x, y)) in enumerate(zip(ST, pos)))
     txt = "".join(f'<div class="pv5-t" data-i="{i}"><p class="pv-wk">{wk(w)}</p><h3>{e(n)}</h3>{chips(bx, ft)}</div>' for i, (en, n, w, bx, ft) in enumerate(ST))
-    out.append(f'<div class="pv pv-5" data-pv="5"><div class="pv5-sky"><svg class="pv5-arc" viewBox="0 0 400 220" preserveAspectRatio="none" aria-hidden="true"><path d="M30 200 A170 170 0 0 1 370 200" /></svg><span class="pv5-hz" aria-hidden="true"></span><span class="pv5-sun" aria-hidden="true" style="left:{pos[0][0]:.2f}%;top:{pos[0][1]:.2f}%"></span>{dots}</div><div class="pv5-txt">{txt}</div></div>')
+    out.append(f'<div class="pv pv-5" data-pv="5"><div class="pv5-sky"><svg class="pv5-arc" viewBox="0 0 400 220" preserveAspectRatio="none" aria-hidden="true"><path d="M48 200 A152 170 0 0 1 352 200" /></svg><span class="pv5-hz" aria-hidden="true"></span><span class="pv5-sun" aria-hidden="true" style="left:{pos[0][0]:.2f}%;top:{pos[0][1]:.2f}%"></span>{dots}</div><div class="pv5-txt">{txt}</div></div>')
     # 6 · vertical road: the line fills as you scroll, stages slide in
     out.append('<div class="pv pv-6" data-pv="6"><span class="pv6-line" aria-hidden="true"><i></i></span><ol>' + "".join(
         f'<li class="pv6" style="--i:{i}"><span class="pv6-dot" dir="ltr">{i + 1}</span><div class="pv6-card"><span class="pv-ico" aria-hidden="true">{J8_ICONS[i]}</span>'
