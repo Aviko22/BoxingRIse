@@ -550,7 +550,7 @@
   var box = document.querySelector('.pv-box'); if (!box) return;
   var root = document.documentElement, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var sw = box.querySelector('.pv-sw'), pick = '1';
-  try { pick = new URLSearchParams(location.search).get('pv') || localStorage.getItem('br-pv') || '1'; } catch (e) {}
+  try { pick = new URLSearchParams(location.search).get('pv') || localStorage.getItem('br-pv') || '7'; } catch (e) {}
   function set(v) {
     pick = String(v);
     if (pick === '0') root.removeAttribute('data-pv'); else root.setAttribute('data-pv', pick);

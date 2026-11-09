@@ -1524,3 +1524,27 @@ html[dir="ltr"] .pv-6 .pv6 { --sx: 1; }
 }
 html[dir="rtl"] .pv1-n { left: 18px; right: auto; } html[dir="ltr"] .pv1-n { right: 18px; left: auto; }
 @media (max-width: 380px) { .pv-sw { gap: 2px; padding: 5px 6px; } .pv-sw button { width: 36px; height: 36px; } .pv-sw span { display: none; } }
+
+/* 7 · four film cards */
+html[data-pv="7"] .pv-7 { display: grid; }
+.pv-7 { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.pv7 { position: relative; aspect-ratio: 3 / 4.6; border-radius: 22px; overflow: hidden; background: #111; isolation: isolate; }
+.pv7-v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 1.4s var(--ease); z-index: -2; }
+.pv7::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(11,10,8,.15) 0%, rgba(11,10,8,.05) 35%, rgba(11,10,8,.88) 78%, rgba(11,10,8,.96) 100%); }
+.pv7:hover .pv7-v { transform: scale(1.1); }
+.pv7-c { position: absolute; inset-inline: 0; bottom: 0; padding: 22px 20px 22px; }
+.pv7-n { display: block; font: 400 64px/.8 var(--latin); background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 10px; }
+.pv7 h3 { margin: 4px 0 6px; }
+.pv7-l { margin: 0; font-size: 15px; color: #ddd6c8; line-height: 1.45; }
+.pv7-bar { position: absolute; top: 16px; inset-inline: 16px; height: 3px; border-radius: 3px; background: rgba(255,255,255,.18); overflow: hidden; }
+.pv7-bar i { display: block; height: 100%; width: calc((var(--i) + 1) * 25%); background: linear-gradient(90deg, var(--gold), var(--gold-hi)); transform: scaleX(0); transform-origin: var(--lo, right); transition: transform 1.2s var(--ease) calc(.4s + var(--i) * .18s); }
+html[dir="ltr"] .pv7-bar i { --lo: left; }
+.pv-7.in .pv7-bar i { transform: none; }
+.pv7:last-child { box-shadow: 0 0 0 1px rgba(240,198,116,.45), 0 0 40px rgba(240,198,116,.15); }
+@media (max-width: 860px) {
+  .pv-7 { grid-template-columns: 1fr; gap: 12px; }
+  .pv7 { aspect-ratio: 16 / 10.5; }
+  .pv7-n { font-size: 52px; position: absolute; top: 30px; inset-inline-end: 20px; margin: 0; }
+  html[dir="rtl"] .pv7-n { left: 20px; right: auto; }
+  .pv7::after { background: linear-gradient(180deg, rgba(11,10,8,.2) 0%, rgba(11,10,8,.1) 30%, rgba(11,10,8,.9) 82%); }
+}

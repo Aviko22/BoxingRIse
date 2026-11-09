@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "169"  # bump to bust caches of css/js
+VER = "170"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -93,7 +93,14 @@ def pv_build(t):
     out.append('<div class="pv pv-6" data-pv="6"><span class="pv6-line" aria-hidden="true"><i></i></span><ol>' + "".join(
         f'<li class="pv6" style="--i:{i}"><span class="pv6-dot" dir="ltr">{i + 1}</span><div class="pv6-card"><span class="pv-ico" aria-hidden="true">{J8_ICONS[i]}</span>'
         f'<p class="pv-wk">{wk(w)}</p><h3>{e(n)}</h3>{chips(bx, ft)}</div></li>' for i, (en, n, w, bx, ft) in enumerate(ST)) + '</ol></div>')
-    sw = "".join(f'<button type="button" data-pick="{k}">{k}</button>' for k in range(0, 7))
+    # 7 · four film cards: real footage per stage, one short line each
+    clips = ["clip-technique", "clip-pads", "clip-power", "clip-confidence"]
+    lines = t["j8_lines"]
+    out.append('<ol class="pv pv-7" data-pv="7">' + "".join(
+        f'<li class="pv7" style="--i:{i}"><video class="pv7-v js-clip" muted loop playsinline preload="none" poster="/media/{clips[i]}.jpg" data-src="/media/{clips[i]}.mp4" aria-hidden="true"></video>'
+        f'<span class="pv7-bar" aria-hidden="true"><i></i></span><div class="pv7-c"><span class="pv7-n" dir="ltr">{i + 1:02d}</span>'
+        f'<p class="pv-wk">{wk(w)}</p><h3>{e(n)}</h3><p class="pv7-l">{e(lines[i])}</p></div></li>' for i, (en, n, w, bx, ft) in enumerate(ST)) + '</ol>')
+    sw = "".join(f'<button type="button" data-pick="{k}">{k}</button>' for k in range(0, 8))
     return "".join(out) + f'<div class="pv-sw" role="group" aria-label="preview"><span>תכנית</span>{sw}</div>'
 
 
