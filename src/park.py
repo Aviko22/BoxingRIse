@@ -1,4 +1,4 @@
-"""Builds /park/: a scroll-driven 3D walk through a park at sunrise (sample design, noindex).
+"""Builds /park/: a scroll-driven film of a real park session (sample design, noindex).
 Run: python3 src/park.py  (reads the same Hebrew content as the main site)."""
 import json
 import os
@@ -14,7 +14,8 @@ CFG = json.load(open(os.path.join(ROOT, "src", "config.json"), encoding="utf-8")
 T = content.HE
 WA = f"https://wa.me/{CFG['whatsapp_number']}?text={quote(CFG['whatsapp_message']['he'])}"
 WAQ = f"https://wa.me/{CFG['whatsapp_number']}?text={quote(CFG['whatsapp_question']['he'])}"
-VER = "1"
+VER = "2"
+NF = len([f for f in os.listdir(os.path.join(ROOT, "park", "f")) if f.endswith(".webp")])
 
 
 def cta(label="לאימון ניסיון ב־49 ₪", cls="pk-btn"):
@@ -122,13 +123,14 @@ html = f"""<!doctype html>
 <meta name="description" content="אימון אגרוף אישי לנשים, אחד על אחד, בפארק. תל אביב והמרכז.">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
 <link rel="preload" href="/fonts/assistant-800.woff" as="font" type="font/woff" crossorigin>
-<link rel="modulepreload" href="/park/three.module.min.js">
+<link rel="preload" href="/park/f/001.webp" as="image">
 <link rel="stylesheet" href="/park/park.css?v={VER}">
 </head>
 <body>
 <a class="skip" href="#r0">דילוג לתוכן</a>
 <div class="pk-load" aria-hidden="true"><img src="/brand/logo.webp" alt="" width="1202" height="468"><span class="pk-bar"><i></i></span><span class="pk-lbl"><b>מתחממים</b><b class="pk-pct" dir="ltr">0%</b></span></div>
-<canvas class="pk-gl" aria-hidden="true"></canvas>
+<canvas class="pk-gl" aria-hidden="true" data-frames="{NF}"></canvas>
+<div class="pk-light" aria-hidden="true"></div>
 <div class="pk-shade" aria-hidden="true"></div>
 <header class="pk-head">
   <a class="pk-brand" href="/" aria-label="BoxingRise, לאתר הראשי"><img src="/brand/logo.webp" alt="" width="1202" height="468"><span>אגרוף אישי לנשים · בפארק</span></a>
@@ -136,7 +138,7 @@ html = f"""<!doctype html>
 </header>
 <nav class="pk-prog" aria-label="סיבובים"><span class="pk-track"><i></i></span><ol>{ticks}</ol></nav>
 <main>{secs}</main>
-<p class="pk-hint" aria-hidden="true">גללי כדי להיכנס לפארק<span></span></p>
+<p class="pk-hint" aria-hidden="true">גללי כדי להתחיל<span></span></p>
 {drawers}
 <script type="module" src="/park/park.js?v={VER}"></script>
 </body>

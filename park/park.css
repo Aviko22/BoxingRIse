@@ -117,7 +117,9 @@ html[dir="ltr"] .dr { --dx: 1; }
 .dr details p { margin: 0 0 14px; }
 
 @media (max-width: 760px) {
-  .rd-in { top: 40vh; top: 40svh; }
+  .rd-in { top: 47vh; top: 47svh; }
+  .rd-h { font-size: clamp(40px, 11.5vw, 60px); }
+  .rd-sub { margin: 12px 0 18px; font-size: 16px; }
   .pk-prog { display: none; }
   .rd-h { font-size: clamp(46px, 13.5vw, 70px); }
   .pk-shade { background: linear-gradient(0deg, rgba(5,6,8,.9) 0%, rgba(5,6,8,.72) 42%, rgba(5,6,8,0) 66%); }
@@ -128,3 +130,12 @@ html[dir="ltr"] .dr { --dx: 1; }
   .rd-in { transform: none !important; }
   .pk-hint span::after, .dr[open] { animation: none; }
 }
+
+/* real footage: a warm morning light that grows as you go deeper */
+.pk-light { position: fixed; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: screen; opacity: calc(.15 + var(--p, 0) * .55);
+  background: radial-gradient(80% 60% at 18% -10%, rgba(255,196,110,.55), rgba(255,170,80,.12) 45%, transparent 70%); }
+@media (min-width: 761px) {
+  .pk-shade { background: linear-gradient(270deg, rgba(5,6,8,.82) 0%, rgba(5,6,8,.55) 36%, rgba(5,6,8,.1) 56%, rgba(5,6,8,0) 70%); }
+}
+@media (prefers-reduced-motion: reduce) { .pk-light { opacity: .25; } }
+@media (max-width: 760px) { .pk-hint { display: none; } }
