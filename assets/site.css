@@ -1523,7 +1523,7 @@ html[dir="ltr"] .pv-6 .pv6 { --sx: 1; }
   .pv2-n::after { clip-path: none !important; }
 }
 html[dir="rtl"] .pv1-n { left: 18px; right: auto; } html[dir="ltr"] .pv1-n { right: 18px; left: auto; }
-@media (max-width: 380px) { .pv-sw { gap: 2px; padding: 5px 6px; } .pv-sw button { width: 36px; height: 36px; } .pv-sw span { display: none; } }
+@media (max-width: 360px) { .pv-sw { gap: 2px; padding: 5px 6px; } .pv-sw button { width: 34px; height: 34px; } .pv-sw span { display: none; } }
 
 /* 7 · four film cards */
 html[data-pv="7"] .pv-7 { display: grid; }
@@ -1548,3 +1548,4 @@ html[dir="ltr"] .pv7-bar i { --lo: left; }
   html[dir="rtl"] .pv7-n { left: 20px; right: auto; }
   .pv7::after { background: linear-gradient(180deg, rgba(11,10,8,.2) 0%, rgba(11,10,8,.1) 30%, rgba(11,10,8,.9) 82%); }
 }
+@media (max-width: 400px) { .pv-sw span { display: none; } .pv-sw { gap: 2px; padding: 4px 5px; } }
