@@ -544,3 +544,59 @@
   });
   window.matchMedia('(min-width: 1000px)').addEventListener('change', function (m) { if (m.matches) close(); });
 })();
+
+/* =================== BoxingRise 8 · six layouts + preview switcher =================== */
+(function () {
+  var box = document.querySelector('.pv-box'); if (!box) return;
+  var root = document.documentElement, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sw = box.querySelector('.pv-sw'), pick = '1';
+  try { pick = new URLSearchParams(location.search).get('pv') || localStorage.getItem('br-pv') || '1'; } catch (e) {}
+  function set(v) {
+    pick = String(v);
+    if (pick === '0') root.removeAttribute('data-pv'); else root.setAttribute('data-pv', pick);
+    try { localStorage.setItem('br-pv', pick); } catch (e) {}
+    sw.querySelectorAll('button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-pick') === pick); });
+    var el = box.querySelector('.pv-' + pick); if (el) { el.classList.remove('in'); void el.offsetWidth; if (reduce) el.classList.add('in'); else io.observe(el); }
+    frame();
+  }
+  var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: .2 });
+  sw.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-pick')); }); });
+  var sec = document.querySelector('.j8');
+  new IntersectionObserver(function (en) { sw.classList.toggle('show', en[0].isIntersecting); }, { rootMargin: '-35% 0px -35% 0px' }).observe(sec);
+
+  function prog(el, a, b) { var r = el.getBoundingClientRect(), vh = window.innerHeight; return Math.max(0, Math.min(1, (vh * a - r.top) / Math.max(1, r.height - vh * b))); }
+  /* 3 · segments fill with scroll */
+  var p3 = box.querySelector('.pv-3'), segs = [].slice.call(box.querySelectorAll('.pv3-bar i')), l3 = [].slice.call(box.querySelectorAll('.pv3'));
+  /* 6 · road fills with scroll */
+  var p6 = box.querySelector('.pv-6'), l6 = [].slice.call(box.querySelectorAll('.pv6')), line6 = box.querySelector('.pv6-line');
+  function frame() {
+    if (pick === '3') {
+      var f = reduce ? 1 : prog(p3, .8, .1) * 4;
+      segs.forEach(function (s, k) { s.style.setProperty('--f', Math.max(0, Math.min(1, f - k)).toFixed(3)); });
+      l3.forEach(function (l, k) { l.classList.toggle('lit', f > k + .15); });
+    } else if (pick === '6') {
+      var g = reduce ? 1 : prog(p6, .65, .25);
+      line6.style.setProperty('--f', g.toFixed(3));
+      var vh = window.innerHeight;
+      l6.forEach(function (l) { l.classList.toggle('lit', reduce || l.getBoundingClientRect().top < vh * .68); });
+    }
+  }
+  var tk = false;
+  window.addEventListener('scroll', function () { if (!tk) { tk = true; requestAnimationFrame(function () { tk = false; frame(); }); } }, { passive: true });
+
+  /* 5 · the sun climbs once when seen; tap a point to move it */
+  var p5 = box.querySelector('.pv-5'), sun = box.querySelector('.pv5-sun'), dots = [].slice.call(box.querySelectorAll('.pv5-dot')), tx = [].slice.call(box.querySelectorAll('.pv5-t')), c5 = 0, t5 = null, auto5 = !reduce;
+  function go5(i) {
+    c5 = i; var d = dots[i];
+    sun.style.left = d.getAttribute('data-x') + '%'; sun.style.top = d.getAttribute('data-y') + '%';
+    sun.style.boxShadow = '0 0 ' + (50 + i * 22) + 'px ' + (14 + i * 6) + 'px rgba(240,180,80,' + (.45 + i * .08) + ')';
+    dots.forEach(function (x, k) { x.classList.toggle('lit', k <= i); x.classList.toggle('here', k === i); });
+    tx.forEach(function (x, k) { x.classList.toggle('on', k === i); });
+    clearTimeout(t5); if (auto5 && i < 3) t5 = setTimeout(function () { go5(i + 1); }, 3200);
+  }
+  dots.forEach(function (d, k) { d.addEventListener('click', function () { auto5 = false; go5(k); }); });
+  auto5 = false; go5(0); auto5 = !reduce;
+  new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { o.disconnect(); if (auto5) setTimeout(function () { go5(1); }, 1600); } }, { threshold: .5 }).observe(p5);
+
+  set(pick);
+})();

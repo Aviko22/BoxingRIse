@@ -1404,3 +1404,122 @@ html[lang="en"] .h2, html[lang="en"] .mv-h { font-size: clamp(46px, 11vw, 100px)
   .mv-turn { grid-area: t; margin-top: 22px; }
   .mv .mv-l { font-size: 20px; }
 }
+
+/* =================== BoxingRise 8 · six layouts for the four stages (preview switcher) =================== */
+.pv, .pv-sw { display: none; }
+html[data-pv] .j8-journey { display: none; }
+html[data-pv="1"] .pv-1, html[data-pv="2"] .pv-2, html[data-pv="3"] .pv-3, html[data-pv="4"] .pv-4, html[data-pv="5"] .pv-5, html[data-pv="6"] .pv-6 { display: block; }
+html[data-pv="1"] .pv-1, html[data-pv="4"] .pv-4 { display: grid; }
+.pv-box { margin-top: clamp(36px, 5vw, 64px); }
+.pv-sw { display: flex; position: fixed; z-index: 95; bottom: 84px; left: 50%; transform: translateX(-50%); gap: 4px; align-items: center; padding: 6px 8px; border-radius: 999px; background: rgba(12,11,9,.94); border: 1px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,.5); opacity: 0; pointer-events: none; transition: opacity .3s; }
+.pv-sw.show { opacity: 1; pointer-events: auto; }
+.pv-sw span { font-size: 12px; color: var(--ash); margin-inline-end: 4px; }
+.pv-sw button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); background: none; color: var(--text); font: 400 16px var(--latin); cursor: pointer; }
+.pv-sw button.on { background: var(--metal); color: #120e05; border-color: transparent; }
+/* shared bits */
+.pv ol, ol.pv { margin: 0; padding: 0; list-style: none; }
+.pv h3 { margin: 4px 0 12px; font-family: var(--display); font-weight: 800; font-size: clamp(26px, 3vw, 38px); line-height: 1.05; color: var(--text); }
+html[lang="en"] .pv h3 { font-weight: 400; }
+.pv-wk { margin: 0; font-size: 12px; font-weight: 800; letter-spacing: .16em; color: var(--gold); }
+.pv-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.pv-chips li { padding: 5px 11px; border-radius: 999px; font-size: 14px; color: var(--text); border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); }
+.pv-ico { display: inline-grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; background: rgba(201,162,75,.1); color: var(--gold-hi); }
+.pv-ico svg { width: 32px; height: 32px; }
+.pv .dr { stroke-dasharray: 160; stroke-dashoffset: 0; }
+.pv .in .dr, .pv.in .dr { animation: m8d 1.2s var(--ease) both; animation-delay: calc(.2s + var(--i, 0) * .15s); }
+@keyframes m8d { from { stroke-dashoffset: 160; } to { stroke-dashoffset: 0; } }
+.js .pv [style*="--i"] { opacity: 0; transform: translateY(26px); transition: opacity .7s ease calc(var(--i) * .14s), transform .8s var(--ease) calc(var(--i) * .14s); }
+.js .pv.in [style*="--i"] { opacity: 1; transform: none; }
+
+/* 1 · rising steps */
+.pv-1 { position: relative; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: end; }
+.pv1 { position: relative; padding: 22px 20px 24px; border-radius: 22px; background: var(--leather); outline: 1.5px dashed var(--stitch); outline-offset: -7px; margin-bottom: calc(var(--i) * 46px); }
+.js .pv-1.in .pv1 { transform: translateY(0); }
+.pv1-n { position: absolute; top: 14px; inset-inline-end: 18px; font: 400 44px/1 var(--latin); background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: .55; }
+.pv1 .pv-ico { margin-bottom: 14px; }
+.pv1:last-of-type { background: linear-gradient(160deg, rgba(201,162,75,.22), rgba(201,162,75,.05)), var(--leather); }
+.pv1-line { position: absolute; bottom: -18px; inset-inline: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-hi)); transform: scaleX(0); transform-origin: var(--lo, right); transition: transform 1.4s var(--ease) .3s; }
+html[dir="ltr"] .pv1-line { --lo: left; }
+.pv-1.in .pv1-line { transform: scaleX(1); }
+@media (max-width: 860px) {
+  .pv-1 { grid-template-columns: 1fr; gap: 12px; }
+  .pv1 { margin: 0; margin-inline-start: calc(var(--i) * 16px); }
+  .pv1-line { display: none; }
+}
+
+/* 2 · editorial rows */
+.pv2 { display: grid; grid-template-columns: clamp(110px, 16vw, 210px) minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(16px, 3vw, 40px); align-items: center; padding: clamp(18px, 2.4vw, 28px) 0; border-top: 1px solid rgba(255,255,255,.1); }
+.pv2:last-child { border-bottom: 1px solid rgba(255,255,255,.1); }
+.pv2-n { position: relative; font: 400 clamp(76px, 11vw, 150px)/.8 var(--latin); color: transparent; -webkit-text-stroke: 1.5px rgba(230,201,125,.55); }
+.pv2-n::after { content: attr(data-n); position: absolute; inset: 0; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 0; clip-path: inset(100% 0 0 0); transition: clip-path 1.1s var(--ease) calc(.3s + var(--i) * .18s); }
+.pv-2.in .pv2-n::after { clip-path: inset(0 0 0 0); }
+.pv2 h3 { margin-bottom: 0; }
+@media (max-width: 760px) {
+  .pv2 { grid-template-columns: 84px 1fr; row-gap: 10px; }
+  .pv2-n { font-size: 74px; }
+  .pv2 .pv-chips { grid-column: 1 / -1; }
+}
+
+/* 3 · one bar, four segments */
+.pv3-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 26px; }
+.pv3-bar span { height: 8px; border-radius: 8px; background: rgba(255,255,255,.08); overflow: hidden; }
+.pv3-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-hi)); transform: scaleX(var(--f, 0)); transform-origin: var(--lo, right); box-shadow: 0 0 10px rgba(240,198,116,.6); }
+html[dir="ltr"] .pv3-bar i { --lo: left; }
+.pv-3 ol { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.pv3 .pv-wk b { font: 400 22px var(--latin); color: var(--gold-hi); margin-inline-end: 6px; }
+.pv3 { transition: opacity .5s ease; }
+.pv-3 .pv3:not(.lit) h3 { color: var(--ash); }
+@media (max-width: 760px) {
+  .pv-3 { display: none; position: relative; padding-inline-start: 22px; }
+  html[data-pv="3"] .pv-3 { display: block; }
+  .pv3-bar { position: absolute; inset-block: 0; inset-inline-start: 0; width: 6px; grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); margin: 0; }
+  .pv3-bar span { width: 6px; height: auto; }
+  .pv3-bar i { transform: scaleY(var(--f, 0)); transform-origin: top; }
+  .pv-3 ol { grid-template-columns: 1fr; gap: 26px; }
+}
+
+/* 4 · cards warming to gold */
+.pv-4 { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.pv4 { padding: 22px 20px 24px; border-radius: 22px; outline: 1.5px dashed var(--stitch); outline-offset: -7px; background: linear-gradient(180deg, rgba(201,162,75, calc(.04 + var(--i) * .07)), rgba(201,162,75, calc(var(--i) * .03))), var(--leather); transition: transform .35s var(--ease), box-shadow .35s; }
+.pv4:hover { transform: translateY(-6px) !important; box-shadow: 0 18px 40px rgba(0,0,0,.45); }
+.pv4-top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 18px; }
+.pv4-n { font: 400 54px/.8 var(--latin); background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pv4:last-child { box-shadow: 0 0 0 1px rgba(240,198,116,.35), 0 0 40px rgba(240,198,116,.12); }
+@media (max-width: 999px) { .pv-4 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .pv-4 { grid-template-columns: 1fr; } }
+
+/* 5 · sunrise arc */
+.pv5-sky { position: relative; width: min(720px, 100%); aspect-ratio: 400 / 220; margin: 0 auto; }
+.pv5-arc { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.pv5-arc path { fill: none; stroke: rgba(230,201,125,.4); stroke-width: 1.5; stroke-dasharray: 5 7; vector-effect: non-scaling-stroke; }
+.pv5-hz { position: absolute; left: 0; right: 0; top: 90.9%; height: 1px; background: linear-gradient(90deg, transparent, rgba(240,198,116,.7), transparent); }
+.pv5-sun { position: absolute; width: 70px; height: 70px; margin: -35px; border-radius: 50%; background: radial-gradient(circle at 45% 40%, #fff6dc, #f3c66a 55%, #c98b23); box-shadow: 0 0 50px 14px rgba(240,180,80,.45); transition: left 1s cubic-bezier(.65,0,.25,1), top 1s cubic-bezier(.65,0,.25,1), box-shadow 1s; z-index: 1; }
+.pv5-dot { position: absolute; z-index: 2; width: 40px; height: 40px; margin: -20px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.3); background: var(--coal); color: var(--ash); font: 400 17px var(--latin); cursor: pointer; transition: background .4s, color .4s, border-color .4s, opacity .4s; }
+.pv5-dot.lit { background: var(--metal); color: #120e05; border-color: transparent; }
+.pv5-dot.here { opacity: 0; }
+.pv5-txt { display: grid; max-width: 720px; margin: 22px auto 0; text-align: center; }
+.pv5-txt .pv-chips { justify-content: center; }
+.pv5-t { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(14px); transition: opacity .4s, transform .5s var(--ease), visibility 0s .4s; }
+.pv5-t.on { opacity: 1; visibility: visible; transform: none; transition-delay: .1s, .1s, 0s; }
+@media (max-width: 560px) { .pv5-sun { width: 50px; height: 50px; margin: -25px; } .pv5-dot { width: 34px; height: 34px; margin: -17px; } }
+
+/* 6 · vertical road */
+.pv-6 { position: relative; max-width: 760px; }
+.pv-6 ol { display: grid; gap: 22px; }
+.pv6-line { position: absolute; top: 26px; bottom: 26px; inset-inline-start: 25px; width: 2px; background: rgba(255,255,255,.1); }
+.pv6-line i { position: absolute; top: 0; inset-inline: 0; height: calc(var(--f, 0) * 100%); background: linear-gradient(var(--gold-hi), var(--gold)); box-shadow: 0 0 12px rgba(240,198,116,.6); }
+.pv6 { display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; }
+.pv6-dot { position: relative; z-index: 1; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--coal); border: 1.5px solid rgba(255,255,255,.22); font: 400 22px var(--latin); color: var(--ash); transition: all .5s ease; }
+.pv6.lit .pv6-dot { background: var(--metal); color: #120e05; border-color: transparent; box-shadow: 0 0 0 5px rgba(201,162,75,.18), 0 0 22px rgba(240,198,116,.5); }
+.pv6-card { padding: 20px 22px 22px; border-radius: 22px; background: var(--leather); outline: 1.5px dashed var(--stitch); outline-offset: -7px; }
+.pv6-card .pv-ico { float: inline-end; margin-inline-start: 12px; }
+.js .pv-6 .pv6 { opacity: .25; transform: translateX(calc(var(--sx, -1) * 30px)); transition: opacity .6s ease, transform .7s var(--ease); }
+html[dir="ltr"] .pv-6 .pv6 { --sx: 1; }
+.js .pv-6 .pv6.lit { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pv *, .pv *::before, .pv *::after { transition: none !important; animation: none !important; }
+  .js .pv [style*="--i"], .js .pv-6 .pv6 { opacity: 1 !important; transform: none !important; }
+  .pv2-n::after { clip-path: none !important; }
+}
+html[dir="rtl"] .pv1-n { left: 18px; right: auto; } html[dir="ltr"] .pv1-n { right: 18px; left: auto; }

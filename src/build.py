@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "167"  # bump to bust caches of css/js
+VER = "169"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -57,6 +57,44 @@ J8_BENEFIT_ICONS = [
     _svg('<path d="M6 40V8M6 40h36"/><path d="M12 32l9-9 7 6 12-13"/><path d="M34 16h6v6"/>'),
 ]
 
+
+
+def pv_build(t):
+    """Six layouts for the four BoxingRise 8 stages (preview: switch with ?pv=N)."""
+    ST = t["j8_stages"]; ww = t["j8_weeks_word"]
+    def chips(bx, ft):
+        return '<ul class="pv-chips">' + "".join(f'<li style="--c:{c}">{e(x)}</li>' for c, x in enumerate(bx + ft)) + "</ul>"
+    def wk(w):
+        return f'{e(ww)} <span dir="ltr">{w}</span>'
+    out = []
+    # 1 · rising steps: each stage stands a step higher
+    out.append('<ol class="pv pv-1" data-pv="1">' + "".join(
+        f'<li class="pv1" style="--i:{i}"><span class="pv1-n" dir="ltr">{i + 1:02d}</span><span class="pv-ico" aria-hidden="true">{J8_ICONS[i]}</span>'
+        f'<p class="pv-wk">{wk(w)}</p><h3>{e(n)}</h3>{chips(bx, ft)}</li>' for i, (en, n, w, bx, ft) in enumerate(ST)) + '<li class="pv1-line" aria-hidden="true"></li></ol>')
+    # 2 · editorial rows with huge outline numbers that fill with gold
+    out.append('<ol class="pv pv-2" data-pv="2">' + "".join(
+        f'<li class="pv2" style="--i:{i}"><span class="pv2-n" dir="ltr" data-n="{i + 1:02d}">{i + 1:02d}</span>'
+        f'<div class="pv2-t"><p class="pv-wk">{wk(w)}</p><h3>{e(n)}</h3></div>{chips(bx, ft)}</li>' for i, (en, n, w, bx, ft) in enumerate(ST)) + '</ol>')
+    # 3 · one bar, four segments that fill as you scroll
+    out.append('<div class="pv pv-3" data-pv="3"><div class="pv3-bar" aria-hidden="true">' + "".join(f'<span><i></i></span>' for _ in ST) + '</div><ol>' + "".join(
+        f'<li class="pv3" style="--i:{i}"><p class="pv-wk"><b dir="ltr">{i + 1}</b> {wk(w)}</p><h3>{e(n)}</h3>{chips(bx, ft)}</li>' for i, (en, n, w, bx, ft) in enumerate(ST)) + '</ol></div>')
+    # 4 · four cards warming from dark to gold
+    out.append('<ol class="pv pv-4" data-pv="4">' + "".join(
+        f'<li class="pv4" style="--i:{i}"><div class="pv4-top"><span class="pv-ico" aria-hidden="true">{J8_ICONS[i]}</span><span class="pv4-n" dir="ltr">{i + 1}</span></div>'
+        f'<p class="pv-wk">{wk(w)}</p><h3>{e(n)}</h3>{chips(bx, ft)}</li>' for i, (en, n, w, bx, ft) in enumerate(ST)) + '</ol>')
+    # 5 · sunrise arc: the sun climbs through four points
+    import math
+    angs = [165, 118, 62, 15] if t["lang"] != "he" else [15, 62, 118, 165]
+    pos = [(50 + 42.5 * math.cos(math.radians(g)), (200 - 170 * math.sin(math.radians(g))) / 220 * 100) for g in angs]
+    dots = "".join(f'<button type="button" class="pv5-dot" data-go="{i}" data-x="{x:.2f}" data-y="{y:.2f}" style="left:{x:.2f}%;top:{y:.2f}%" aria-label="{e(n)}"><span dir="ltr">{i + 1}</span></button>' for i, ((en, n, w, bx, ft), (x, y)) in enumerate(zip(ST, pos)))
+    txt = "".join(f'<div class="pv5-t" data-i="{i}"><p class="pv-wk">{wk(w)}</p><h3>{e(n)}</h3>{chips(bx, ft)}</div>' for i, (en, n, w, bx, ft) in enumerate(ST))
+    out.append(f'<div class="pv pv-5" data-pv="5"><div class="pv5-sky"><svg class="pv5-arc" viewBox="0 0 400 220" preserveAspectRatio="none" aria-hidden="true"><path d="M30 200 A170 170 0 0 1 370 200" /></svg><span class="pv5-hz" aria-hidden="true"></span><span class="pv5-sun" aria-hidden="true" style="left:{pos[0][0]:.2f}%;top:{pos[0][1]:.2f}%"></span>{dots}</div><div class="pv5-txt">{txt}</div></div>')
+    # 6 · vertical road: the line fills as you scroll, stages slide in
+    out.append('<div class="pv pv-6" data-pv="6"><span class="pv6-line" aria-hidden="true"><i></i></span><ol>' + "".join(
+        f'<li class="pv6" style="--i:{i}"><span class="pv6-dot" dir="ltr">{i + 1}</span><div class="pv6-card"><span class="pv-ico" aria-hidden="true">{J8_ICONS[i]}</span>'
+        f'<p class="pv-wk">{wk(w)}</p><h3>{e(n)}</h3>{chips(bx, ft)}</div></li>' for i, (en, n, w, bx, ft) in enumerate(ST)) + '</ol></div>')
+    sw = "".join(f'<button type="button" data-pick="{k}">{k}</button>' for k in range(0, 7))
+    return "".join(out) + f'<div class="pv-sw" role="group" aria-label="preview"><span>תכנית</span>{sw}</div>'
 
 
 def btn(t, label, cls="btn btn-gold", extra=""):
@@ -301,6 +339,7 @@ def home(t):
     steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>{e(t["step_word"])}</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     j8stats = "".join(f'<div class="j8-stat reveal" style="--d:{k * 120}ms"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for k, (n, l) in enumerate(t["j8_stats"]))
     ST = t["j8_stages"]; NS = len(ST)
+    pvhtml = pv_build(t)
     j8tabs = "".join(
         f'<button type="button" role="tab" class="j8-tab{" is-on lit" if i == 0 else ""}" id="j8-tab-{i + 1}" aria-controls="j8-panel-{i + 1}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}" style="--i:{i}">'
         f'<span class="j8-dot" dir="ltr">{i + 1}</span><span class="j8-tl">{e(name)}<em>{e(t["j8_weeks_word"])} <span dir="ltr">{wk}</span></em></span></button>'
@@ -403,6 +442,7 @@ def home(t):
       <p class="j8-h reveal">{e(t['j8_h'])}</p>
       <ul class="j8-facts reveal">{j8facts}</ul>
     </div>
+    <div class="wrap pv-box">{pvhtml}</div>
     <div class="wrap j8-journey">
       <div class="j8-track" role="tablist" aria-label="{e(t['j8_tabs_label'])}" style="--p:0;--n1:3">
         <span class="j8-line" aria-hidden="true"><span class="j8-fill"></span><span class="j8-runner"><i></i></span></span>
