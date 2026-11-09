@@ -1549,3 +1549,4 @@ html[dir="ltr"] .pv7-bar i { --lo: left; }
   .pv7::after { background: linear-gradient(180deg, rgba(11,10,8,.2) 0%, rgba(11,10,8,.1) 30%, rgba(11,10,8,.9) 82%); }
 }
 @media (max-width: 400px) { .pv-sw span { display: none; } .pv-sw { gap: 2px; padding: 4px 5px; } }
+.pv-sw { width: max-content; max-width: calc(100vw - 16px); } .pv-sw button { flex: 0 0 auto; }
