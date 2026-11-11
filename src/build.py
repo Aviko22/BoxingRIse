@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "155"  # bump to bust caches of css/js
+VER = "156"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -233,6 +233,7 @@ def mirror(t):
 
 
 def mirror_opts():
+    T_HE = HE
     """Six alternative takes on 'מכירה את זה?' (preview: ?mv=1..6)."""
     o = []
     # 1 · objections struck through and answered (white, black and gold)
@@ -266,7 +267,34 @@ def mirror_opts():
     o.append('<section class="sec mo mo-6" data-mo="6" aria-labelledby="mo6-h"><div class="wrap"><h2 class="mo-h" id="mo6-h">מה עצר אותך?</h2><ul class="mo6-cards">'
              + "".join(f'<li style="--i:{i}"><div class="mo6-in"><p class="mo6-f"><small>מה שחששת</small>{e(a)}</p><p class="mo6-b"><small>מה שמחכה לך</small>{e(b)}</p></div></li>' for i, (a, b) in enumerate(pairs))
              + '</ul><p class="mo-turn">כאן הכול אחד על אחד, בפארק.</p></div></section>')
-    sw = "".join(f'<a href="?mv={k}#mo" data-k="{k}">{k}</a>' for k in range(0, 7))
+    # 7 · a real photo and three short lines (photo turns from grey to colour)
+    o.append('<section class="sec mo mo-7" data-mo="7" aria-labelledby="mo7-h"><div class="mo7-img"><img src="/media/clip-technique.jpg" alt="אימון אגרוף אחד על אחד בפארק" loading="lazy" width="1280" height="720"></div>'
+             '<div class="mo7-txt"><h2 class="mo-h" id="mo7-h">מכירה<br>את זה?</h2><ul class="mo7-l"><li style="--i:0">תמיד רצית לנסות אגרוף.</li><li style="--i:1">אבל לא מול חדר מלא גברים.</li><li style="--i:2">ולא בקבוצה שכבר יודעת הכול.</li></ul>'
+             '<p class="mo-turn">כאן זה רק את והמאמן. בפארק.</p></div></section>')
+    # 8 · video behind, one line at a time in the middle
+    o.append('<section class="sec mo mo-8" data-mo="8" aria-labelledby="mo8-h"><video class="mo8-v js-clip" muted loop playsinline preload="none" poster="/media/clip-calm.jpg" data-src="/media/clip-calm.mp4" aria-hidden="true"></video>'
+             '<div class="wrap mo8-in"><h2 class="mo8-q" id="mo8-h">מכירה את זה?</h2><p class="mo8-l" style="--i:0">רצית לנסות אגרוף.</p><p class="mo8-l" style="--i:1">חדר מלא גברים? לא בשבילך.</p><p class="mo8-l" style="--i:2">קבוצה שכבר יודעת הכול? עוד פחות.</p>'
+             '<p class="mo-turn">אז בואי לפארק. רק את ואני.</p></div></section>')
+    # 9 · numbers instead of words
+    nums = [("0", "גברים שמסתכלים"), ("0", "צעקות ומוזיקה"), ("1", "מאמן. רק בשבילך")]
+    o.append('<section class="sec mo mo-9" data-mo="9" aria-labelledby="mo9-h"><div class="wrap"><h2 class="mo-h" id="mo9-h">תמיד רצית לנסות אגרוף.<br><em>ככה זה נראה כאן:</em></h2><ul class="mo9-n">'
+             + "".join(f'<li style="--i:{i}"><b dir="ltr">{n}</b><span>{e(l)}</span></li>' for i, (n, l) in enumerate(nums))
+             + '</ul><p class="mo-turn">אחד על אחד. בפארק. בקצב שלך.</p></div></section>')
+    # 10 · a running strip of what you leave behind, then one statement
+    strip = " · ".join(["רעש", "מבטים", "צעקות", "קהל", "לחץ", "מראות", "תורים למכשירים"])
+    o.append('<section class="sec mo mo-10" data-mo="10" aria-labelledby="mo10-h"><div class="mo10-strip" aria-hidden="true"><div><span>' + e(strip) + ' · </span><span>' + e(strip) + ' · </span></div></div>'
+             '<div class="wrap"><p class="mo-eb">את כל זה משאירים בחוץ</p><h2 class="mo-h" id="mo10-h">כאן יש רק<br><em>אותך.</em></h2><p class="mo10-sub">אימון אגרוף אישי, אחד על אחד, באוויר הפתוח.</p></div></section>')
+    # 11 · her doubt, then a real client's words with her photo
+    vq = T_HE["reviews"][0][1]
+    o.append('<section class="sec mo mo-11" data-mo="11" aria-labelledby="mo11-h"><div class="wrap mo11-wrap"><div><h2 class="mo-h" id="mo11-h">מכירה<br>את זה?</h2>'
+             '<p class="mo11-d" style="--i:0">רצית לנסות אגרוף, אבל חדר מלא גברים וקבוצה שכבר יודעת הכול? לא בשבילך.</p></div>'
+             f'<figure class="mo11-q" style="--i:1"><img src="/media/review-victoria.jpg" alt="" loading="lazy" width="300" height="375"><blockquote><p>״{e(vq)}״</p><footer>ויקטוריה, התחילה מאפס</footer></blockquote></figure></div></section>')
+    # 12 · one line, the last word keeps changing
+    swaps = ["קהל", "מבטים", "צעקות", "לחץ", "ניסיון"]
+    o.append('<section class="sec mo mo-12" data-mo="12" aria-labelledby="mo12-h"><div class="wrap"><p class="mo-eb">מכירה את זה? אז ככה זה כאן:</p>'
+             '<h2 class="mo12-h" id="mo12-h">בלי <span class="mo12-w" aria-live="off">' + "".join(f'<b class="{"on" if i == 0 else ""}">{e(w)}</b>' for i, w in enumerate(swaps)) + '</span>.<br><em>רק את.</em></h2>'
+             '<p class="mo10-sub">אימון אגרוף אישי לנשים, אחד על אחד, בפארק.</p></div></section>')
+    sw = "".join(f'<a href="?mv={k}#mo" data-k="{k}">{k}</a>' for k in range(0, 13))
     return "".join(o) + f'<nav class="mo-sw" aria-label="preview" id="mo">{sw}</nav>'
 
 

@@ -462,3 +462,14 @@
   }
   window.addEventListener('scroll', light, { passive: true }); light();
 })();
+/* option 12: the struck-through word keeps changing */
+(function () {
+  var w = document.querySelector('.mo12-w'); if (!w || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var bs = [].slice.call(w.querySelectorAll('b')), i = 0;
+  setInterval(function () {
+    if (document.documentElement.getAttribute('data-mv') !== '12') return;
+    var a = bs[i]; i = (i + 1) % bs.length; var b = bs[i];
+    a.classList.remove('on'); a.classList.add('out'); setTimeout(function () { a.classList.remove('out'); }, 600);
+    b.classList.add('on');
+  }, 1700);
+})();
