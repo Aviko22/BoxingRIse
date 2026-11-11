@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "154"  # bump to bust caches of css/js
+VER = "155"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -157,7 +157,7 @@ def footer(t):
 def floating(t):
     return f"""<a class="wa-float js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener" aria-label="{e(t['wa_label'])} {e(t['new_tab'])}">{ICON_WA}</a>
 <div class="sticky-bar" aria-hidden="false">
-  <a class="sticky-cta js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener">{ICON_WA}<span>{e(t['cta_trial'])}</span><s>{e(t['instead_of'].split()[-2])} ₪</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
+  <a class="sticky-cta js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener">{ICON_WA}<span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a>
 </div>
 """
 
@@ -270,14 +270,14 @@ def home(t):
     h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in line.split()) + "</span>" for line in t["hero_h1"])
     pains = "".join(f'<li><span class="pl">{e(p)}</span></li>' for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
-    rounds = "".join(f'<li class="round"><figure>{media(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
+    rounds = "".join(f'<li class="round"><figure>{media(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<figcaption><h3 class="rd-h">{e(h)}</h3><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
     cards = ""
     for c in t["for"]:
         media_html = media(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])
         k = len(cards and cards.split("<article")) if cards else 1
         cards += (f'<article class="aud aud-text fc"><span class="aud-n" dir="ltr" aria-hidden="true">0{k}</span><div class="aud-body">'
                   f'<h3>{e(c["h"])}</h3><p class="aud-pain"><span>{e(t["pain_prefix"])}</span> <s class="x">{e(c["pain"])}</s></p><p class="aud-change">{e(c["change"])}</p></div></article>')
-    steps = "".join(f'<li class="step reveal"><span class="step-n" dir="ltr">{RING}<small>{e(t["step_word"])}</small>{i}</span><h3>{e(h)}</h3><p>{e(p)}</p></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
+    steps = "".join(f'<li class="bk-st"><span class="bk-n" dir="ltr" aria-hidden="true">{i}</span><div><h3>{e(h)}</h3><p>{e(p)}</p></div></li>' for i, (h, p) in enumerate(t["trial_steps"], 1))
     pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["prog_facts"])
     C8 = 2 * 3.14159 * 84
     p8segs = "".join(f'<circle class="p8-seg" cx="100" cy="100" r="84" stroke-dasharray="{C8 / 8 - 5:.1f} {C8 - C8 / 8 + 5:.1f}" stroke-dashoffset="{-(i * C8 / 8):.1f}"/>' for i in range(8))
@@ -286,6 +286,13 @@ def home(t):
         f'<h3>{e(t["week_word"])} {i + 1} · {e(t["week_feel"][i])}: {e(h)}</h3><p>{e(d)}</p><p><b>{e(t["milestone_word"])}</b> {e(m)}</p></li>'
         for i, (h, d, m) in enumerate(t["weeks"]))
     p8phases = t["prog_phases"]
+    hmeta = " <span aria-hidden=\"true\">·</span> ".join(f"<span>{e(x)}</span>" for x in t["hero_meta"])
+    pfacts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["pr8_facts"])
+    pstages = "".join(
+        f'<li class="pr8-st reveal"><p class="pr8-wk"><span>{e(t["pr8_weeks_word"])}</span> <b dir="ltr">{e(w)}</b></p><h3>{e(n)}</h3>'
+        f'<dl><div class="pr8-b"><dt>{e(t["pr8_rows"][0])}</dt><dd>{e(bx)}</dd></div><div class="pr8-f"><dt>{e(t["pr8_rows"][1])}</dt><dd>{e(ft)}</dd></div></dl></li>'
+        for w, n, bx, ft in t["pr8_stages"])
+    pweeks = "".join(f'<li><b>{e(t["week_word"])} <span dir="ltr">{i}</span> · {e(h)}</b> <span>{e(d)}</span></li>' for i, (h, d, m) in enumerate(t["weeks"], 1))
     about = "".join(f'<blockquote class="about-quote"><p>{e(p)}</p></blockquote>' if k == 0 else f"<p>{e(p)}</p>" for k, p in enumerate(t["about"][1:]))
     creds = "".join(f'<li>{e(x)}</li>' for x in t["about_facts"])
     reviews = ""
@@ -318,9 +325,11 @@ def home(t):
       <div class="hero-fx"></div>
     </div>
     <div class="wrap hero-inner">
-      <p class="h1">{h1}</p>
-      <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
-      <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
+      <p class="hero-brand">{e(t['hero_brand'])}</p>
+      <h1 class="h1" id="hero-h">{h1}</h1>
+      <p class="hero-sub">{e(t['hero_sub'])}</p>
+      <p class="hero-meta">{hmeta}</p>
+      <div class="hero-cta">{btn(t, t['cta_trial'], 'btn btn-gold btn-lg magnetic')}</div>
     </div>
   </section>
   <div class="intro" aria-hidden="true">
@@ -331,85 +340,56 @@ def home(t):
     <div class="intro-in"><img class="intro-logo" src="/brand/logo.webp" alt="" width="1202" height="468"><p class="intro-cap">{e(t['intro_cap'])}</p><span class="ir-load"><i></i></span></div>
   </div>
 
-  {mirror(t)}
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
       <div class="split">
-        <div class="h2-wrap">{tag(t, 'what')}<h2 class="h2" id="what-h">{hgold(t, 'what_h')}</h2></div>
+        <div class="h2-wrap">{tag(t, 'what')}<h2 class="h2" id="what-h">{e(t['what_h'])}</h2></div>
         <div><p class="lead">{e(t['what_lead'])}</p><dl class="facts reveal">{facts}</dl></div>
       </div>
-      <h3 class="h3 rounds-h">{e(t['rounds_h'])}</h3>
-      <ol class="rounds rd6" tabindex="0" aria-label="{e(t['rounds_h'])}">{rounds}</ol>
+      <ol class="rounds rd6" tabindex="0" aria-label="{e(t['what_h'])}">{rounds}</ol>
+      <p class="what-note reveal"><span class="what-note-i" aria-hidden="true"></span>{e(t['what_note'])}</p>
     </div>
   </section>
 
+  <section class="sec about alt ab3 ab-v2" id="about" aria-labelledby="about-h">
+    {GRASS}
+    <div class="wrap">
+      <div class="ab-head">
+        <h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
+        <blockquote class="about-quote"><p>{e(t['about_beg'])}</p></blockquote>
+      </div>
+      <div class="about-grid">
+        <figure class="about-photo">{img('avi-pro', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
+        <div class="about-text">
+          <p class="about-years"><span class="num" data-count="{t['about_years']}" dir="ltr">{t['about_years']}</span><span>{e(t['about_years_label'])}</span></p>
+          <p>{e(t['about_phil'])}</p>
+          <ul class="about-facts">{creds}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  {defend(t)}
   {reviews}
 
-  <section class="sec about alt ab3" id="about" aria-labelledby="about-h">
-    {GRASS}
-    <div class="wrap about-grid">
-      <figure class="about-photo">{img('avi-pro', t['about_alt'], 'about-img', '(max-width: 760px) 100vw, 40vw')}</figure>
-      <div class="about-text">
-        {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
-        <p class="about-years"><span class="num" data-count="{t['about_years']}" dir="ltr">{t['about_years']}</span><span>{e(t['about_years_label'])}</span></p>
-        {about}
-        <ul class="about-facts">{creds}</ul>
-      </div>
-    </div>
-  </section>
-
-  {voice(t)}
-  <section class="sec trial" id="trial" aria-labelledby="trial-h">
+  <section class="sec pr8" id="program" aria-labelledby="prog-h">
     <div class="wrap">
-      {tag(t, 'trial')}<h2 class="h2" id="trial-h">{hgold(t, 'trial_h')}</h2>
-      <ol class="steps">{steps}</ol>
-      <div class="trial-foot reveal"><p class="trial-why">{e(t['trial_why'])}</p><div class="trial-cta"><a class="btn btn-gold magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a><p class="trial-note">{e(t['final_note'])}</p></div></div>
-    </div>
-  </section>
-
-  <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
-    <div class="wrap p8-head">
-      {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
-      <p class="p8-sub">{e(t['prog_sub'])}</p>
-      <p class="lead">{e(t['prog_lead'])}</p>
-      <dl class="facts reveal">{pfacts}</dl>
-      <p class="p8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
-    </div>
-    <div class="p8-run">
-      <div class="p8-stage" aria-hidden="true">
-        <div class="p8-glow"></div>
-        <div class="wrap p8-grid">
-          <div class="p8-mark"><span class="p8-rays"></span><i class="p8-mk-base"></i><i class="p8-mk-fill"></i><i class="p8-shine"></i></div>
-          <div class="p8-dial">
-            <svg viewBox="0 0 200 200">{p8segs}</svg>
-            <div class="p8-num"><small>{e(t['week_word'])}</small><span class="p8-roll" dir="ltr">{"".join(f"<b>{i}</b>" for i in range(1, 9))}</span><i dir="ltr">/ 8</i></div>
-          </div>
-          <div class="p8-copy">
-            <p class="p8-phase"><span class="p8-ph-n"></span> · <span class="p8-ph-t"></span></p>
-            <p class="p8-feel"></p>
-            <h3 class="p8-t"></h3>
-            <p class="p8-d"></p>
-            <p class="p8-m"><span>{e(t['milestone_word'])}</span> <em></em></p>
-          </div>
-        </div>
-        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}</div>
-        <p class="p8-hint">{e(t['prog_scroll'])} ↓</p>
+      <div class="pr8-head">
+        {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
+        <p class="pr8-offer">{e(t['pr8_offer'])}</p>
+        <p class="lead">{e(t['pr8_lead'])}</p>
       </div>
-      <ol class="p8-steps">{p8steps}</ol>
-    </div>
-    <div class="wrap p8-end">
-      <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
-      <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
+      <dl class="facts pr8-facts reveal">{pfacts}</dl>
+      <ol class="pr8-stages">{pstages}</ol>
+      <p class="pr8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
+      <details class="pr8-weeks"><summary><span>{e(t['pr8_weeks_btn'])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{pweeks}</ol></details>
+      <div class="pr8-foot reveal"><p>{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
     </div>
   </section>
-
 
   <section class="sec faq alt" id="faq" aria-labelledby="faq-h">
     {GRASS}
     <div class="wrap faq-wrap">
-      {tag(t, 'faq')}<h2 class="h2" id="faq-h">{hgold(t, 'faq_h')}</h2>
+      <h2 class="h2" id="faq-h">{hgold(t, 'faq_h')}</h2>
       <div class="qa-list">{faq_top}<details class="faq-more"><summary><span>{e(t['faq_more'].format(n=len(t['faq']) - t['faq_top']))}</span><span class="qa-x" aria-hidden="true"></span></summary>{faq_rest}</details></div>
       <div class="ask"><p>{e(t['ask_text'])}</p><a class="btn btn-line js-wa-q" href="{wa_href(t['lang'], True)}" target="_blank" rel="noopener"><span>{e(t['ask_btn'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
@@ -417,18 +397,24 @@ def home(t):
 
   <section class="final" id="final" aria-labelledby="final-h">
     <div class="wrap final-inner">
-      {tag(t, 'final')}
+      <p class="tag">{e(t['tag_trial'])}</p>
       <h2 class="final-h" id="final-h">{hgold(t, 'final_h')}</h2>
       <p class="final-sub">{e(t['final_sub'])}</p>
-      <div class="pick" data-day-tpl="{e(t['pick_day_tpl'])}" data-time-tpl="{e(t['pick_time_tpl'])}">
-        <p class="pick-lbl" id="pick-d">{e(t['pick_day'])}</p>
-        <div class="pick-row" role="group" aria-labelledby="pick-d" data-group="day">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_days'])}</div>
-        <p class="pick-lbl" id="pick-t">{e(t['pick_time'])}</p>
-        <div class="pick-row" role="group" aria-labelledby="pick-t" data-group="time">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_times'])}</div>
-        <p class="pick-preview" aria-live="polite">{e(t['pick_preview'])} <b class="js-pick-msg">{e(CFG['whatsapp_message'][t['lang']])}</b></p>
-      </div>
-      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
+      <ol class="bk-steps">{steps}</ol>
+      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a>
       <p class="final-note">{e(t['final_note'])}</p>
+      <details class="pick-opt">
+        <summary><span>{e(t['pick_opt'])}</span><span class="qa-x" aria-hidden="true"></span></summary>
+        <div class="pick" data-day-tpl="{e(t['pick_day_tpl'])}" data-time-tpl="{e(t['pick_time_tpl'])}">
+          <p class="pick-lbl" id="pick-d">{e(t['pick_day'])}</p>
+          <div class="pick-row" role="group" aria-labelledby="pick-d" data-group="day">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_days'])}</div>
+          <p class="pick-lbl" id="pick-t">{e(t['pick_time'])}</p>
+          <div class="pick-row" role="group" aria-labelledby="pick-t" data-group="time">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_times'])}</div>
+          <p class="pick-preview" aria-live="polite">{e(t['pick_preview'])} <b class="js-pick-msg">{e(CFG['whatsapp_message'][t['lang']])}</b></p>
+          <p class="pick-hint">{e(t['pick_hint'])}</p>
+        </div>
+      </details>
+      <p class="trial-why">{e(t['trial_why'])}</p>
     </div>
   </section>
 </main>

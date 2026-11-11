@@ -373,3 +373,138 @@ EN = {
     "cookie_more": "Privacy policy",
     "photo_note": "Photo to shoot:",
 }
+
+
+# ---------------------------------------------------------------- home v2 (beginner-first homepage)
+HE.update({
+    "nav": [("#what", "האימון הראשון"), ("#about", "מי אני"), ("#reviews", "המלצות"), ("#program", "BoxingRise 8"), ("#faq", "שאלות")],
+    "cta_trial": "לקביעת אימון ניסיון ב־49 ₪",
+    "hero_brand": "לא צריך להיות לוחמת. צריך רק להתחיל.",
+    "hero_h1": ["אימון אגרוף אישי", "לנשים בפארק"],
+    "hero_sub": "שעה של אימון אחד על אחד בתל אביב והמרכז. תלמדי את הבסיס, תתרגלי מכות על כריות ותשלבי תרגילי כוח בקצב שלך.",
+    "hero_meta": ["מתאים למתחילות", "כל הציוד עליי"],
+
+    "tag_what": "האימון הראשון",
+    "what_h": "ככה נראית שעה איתי.",
+    "what_lead": "מתחילות מהבסיס, באימון אישי שמותאם לקצב שלך.",
+    "rounds": [
+        ("round-1", "עמידה ותנועה", "לומדות לעמוד יציב, להרים שמירה ולזוז בלי לאבד שיווי משקל. עוד לפני המכה הראשונה.", "המתאמנת והמאמן עומדים זה מול זה בעמידת אגרוף"),
+        ("round-2", "מכות על כריות", "מכות בסיסיות לכריות שאני מחזיק. הכרית זזה, ואת מתרגלת לשמור, לזוז ולהגיב.", "עבודת כריות: המתאמנת מכה, המאמן מחזיק כריות"),
+        ("round-3", "כוח וכושר", "תרגילי כוח בין הסבבים, לפי הרמה שלך. הגוף מתחזק והדופק עולה.", "המתאמנת עושה שכיבות סמיכה על הדשא בפארק"),
+    ],
+    "what_note": "בלי ספארינג. עובדים על כריות, ואת קובעת את הקצב.",
+
+    "about_beg": "אני עובד עם מתחילות, בקצב שלהן, עם הסבר לכל תנועה. בלי צעקות, בלי לחץ, ועם הרבה סבלנות.",
+    "about_phil": "בשבילי אגרוף הוא לא אלימות, הוא שקט. שעה שבה הראש מתרכז בדבר אחד, והגוף לומד לעמוד יציב.",
+
+    "tag_program": "אחרי אימון הניסיון",
+    "pr8_offer": "16 אימונים אישיים ב־8 שבועות. חצי אגרוף קלאסי, חצי כוח וכושר.",
+    "pr8_lead": "אם אימון הניסיון התאים לך, זה ההמשך: פעמיים בשבוע, אחד על אחד, ובכל שלב מוסיפים עוד יסוד.",
+    "pr8_facts": [("8", "שבועות"), ("16", "אימונים אישיים"), ("60", "דקות לאימון"), ("50/50", "אגרוף · כוח וכושר")],
+    "pr8_rows": ["אגרוף", "כוח וכושר"],
+    "pr8_stages": [
+        ("1–2", "יסודות", "עמידה, תנועה, ג׳אב וקרוס", "כוח בסיסי"),
+        ("3–4", "שליטה", "הוק, אפרקאט ורצפים", "שיווי משקל וקואורדינציה"),
+        ("5–6", "הגנה", "לחסום, לזוז ולהחזיר מכה", "סיבולת"),
+        ("7–8", "הכול ביחד", "סיבובים מלאים עם כל מה שלמדת", "הערכת התקדמות ותוכנית להמשך"),
+    ],
+    "pr8_weeks_word": "שבועות",
+    "pr8_weeks_btn": "מה לומדים בכל שבוע?",
+    "prog_cta": "מתחילים באימון ניסיון ב־49 ₪",
+
+    "faq_top": 6,
+    "faq": [
+        ("איפה מתאמנים?", "בפארק הירקון, או בפארק ליד הבית שלך באזור המרכז."),
+        ("כמה זה עולה?", "אימון הניסיון עולה 49 ₪. המחיר הרגיל של אימון בודד הוא 250 ₪. את המחיר של ההמשך, אימונים בודדים או BoxingRise 8, תקבלי ממני מראש, לפני שמתחייבים למשהו."),
+        ("מה להביא?", "בגדי ספורט, נעליים נוחות ובקבוק מים. כפפות וכריות עליי."),
+        ("חייבת להתאגרף עם מישהו?", "לא. אין ספארינג חובה. עובדים על כריות, טכניקה ותנועה."),
+        ("מה קורה אחרי אימון הניסיון?", "אם זה מתאים לך, נבנה יחד את ההמשך: תוכנית BoxingRise 8 או אימונים בודדים. אם לא, נפרדים כידידים, בלי שום התחייבות."),
+        ("המאמן גבר. זה בסדר?", "האימונים בפארק, במקום ציבורי ופתוח. אפשר להגיע עם חברה, ואת קובעת את הקצב. אם משהו לא מרגיש לך נכון, עוצרים."),
+        ("צריך ניסיון קודם?", "לא. רוב המתאמנות מתחילות מאפס, והאימון הראשון בנוי בדיוק לזה."),
+        ("מתאים לגיל ולכושר שלי?", "האימון נבנה לפי הרמה שלך, אז לא צריך להיות בכושר כדי להתחיל. לפני האימון הראשון ממלאים הצהרת בריאות."),
+        ("אפשר להגיע עם חברה?", "כן. יש גם אימון זוגי, בתיאום מראש. כתבי לי בוואטסאפ ונבנה אותו לשתיכן."),
+        ("כמה זמן נמשך אימון?", "שישים דקות."),
+        ("מה קורה כשיורד גשם או כשחם מאוד?", "אם יש מקום מקורה בקרבת מקום, עוברים אליו. אם לא, מזיזים את האימון למועד אחר, בלי חיוב."),
+        ("אפשר לבטל או להזיז אימון?", "כן, עד 24 שעות לפני האימון, בהודעה בוואטסאפ. ביטול מאוחר יותר נחשב כאימון שהתקיים."),
+        ("איך משלמים?", "בביט, בפייבוקס או במזומן."),
+        ("מה קורה אחרי 8 השבועות?", "ממשיכים בקצב שמתאים לך: אימונים בודדים או מנוי חודשי. בסוף התוכנית נבנה יחד את ההמשך."),
+        ("ומה אם צריך לעצור באמצע?", "אפשר להקפיא את התוכנית פעם אחת, עד 4 שבועות. אם צריך להפסיק לגמרי, מקבלים החזר על האימונים שלא נוצלו, בניכוי דמי ביטול."),
+    ],
+    "faq_cta_at": [0, 1, 4, 6],
+    "faq_more": "עוד {n} שאלות: ניסיון, כושר, ביטולים, מזג אוויר ועוד",
+
+    "trial_steps": [
+        ("שולחים הודעה", "לחיצה אחת, וההודעה כבר מוכנה. אני חוזר באותו יום."),
+        ("קובעים מקום ושעה", "בפארק הירקון או בפארק קרוב אלייך במרכז, בשעה שנוחה לך."),
+        ("מתאמנים", "שעה אחד על אחד, והמכות הראשונות שלך על הכריות."),
+    ],
+    "final_sub": "לחיצה אחת פותחת וואטסאפ עם הודעה מוכנה. את היום, השעה והפארק נסגור יחד בשיחה.",
+    "pick_opt": "רוצה לציין יום ושעה? (לא חובה)",
+    "pick_hint": "ההעדפה שלך תיכנס להודעה. את המועד המדויק נסגור בוואטסאפ.",
+})
+
+EN.update({
+    "nav": [("#what", "First session"), ("#about", "About"), ("#reviews", "Reviews"), ("#program", "BoxingRise 8"), ("#faq", "FAQ")],
+    "cta_trial": "Book a trial for 49 ₪",
+    "hero_brand": "You don't have to be a fighter. You just have to start.",
+    "hero_h1": ["Private boxing", "for women, in the park"],
+    "hero_sub": "One hour, one on one, in Tel Aviv and central Israel. Learn the basics, practise punches on pads and add strength work at your own pace.",
+    "hero_meta": ["Made for beginners", "I bring all the gear"],
+
+    "tag_what": "Your first session",
+    "what_h": "What an hour with me looks like.",
+    "what_lead": "We start from the basics, in a private session that follows your pace.",
+    "rounds": [
+        ("round-1", "Stance and movement", "Learn to stand steady, keep your guard up and move without losing balance. Before the first punch.", "The trainee and coach facing each other in boxing stance"),
+        ("round-2", "Punches on pads", "Basic punches into the pads I hold. The pads move, and you practise guarding, moving and reacting.", "Pad work: the trainee punches, the coach holds the pads"),
+        ("round-3", "Strength and fitness", "Strength work between rounds, at your level. Your body gets stronger and your heart rate goes up.", "The trainee doing push-ups on the grass in the park"),
+    ],
+    "what_note": "No sparring. We work on pads, and you set the pace.",
+
+    "about_beg": "I work with beginners, at their pace, explaining every move. No shouting, no pressure, and a lot of patience.",
+    "about_phil": "To me boxing isn't violence, it's quiet. An hour where your mind holds one thing, and your body learns to stand steady.",
+
+    "tag_program": "After your trial",
+    "pr8_offer": "16 private sessions in 8 weeks. Half classic boxing, half strength and fitness.",
+    "pr8_lead": "If the trial felt right, this is what comes next: twice a week, one on one, adding one more fundamental at every stage.",
+    "pr8_facts": [("8", "weeks"), ("16", "private sessions"), ("60", "minutes a session"), ("50/50", "boxing · strength")],
+    "pr8_rows": ["Boxing", "Strength & fitness"],
+    "pr8_stages": [
+        ("1–2", "Foundations", "Stance, movement, jab and cross", "Foundational strength"),
+        ("3–4", "Control", "Hook, uppercut and combinations", "Balance and coordination"),
+        ("5–6", "Defence", "Block, move and punch back", "Endurance"),
+        ("7–8", "All together", "Full rounds with everything you learned", "Progress check and a plan for what's next"),
+    ],
+    "pr8_weeks_word": "Weeks",
+    "pr8_weeks_btn": "What do you learn each week?",
+    "prog_cta": "Start with a trial for 49 ₪",
+
+    "faq_top": 6,
+    "faq": [
+        ("Where do we train?", "In Yarkon Park, or in a park near your home in central Israel."),
+        ("How much does it cost?", "The trial is 49 ₪. The regular price of a single session is 250 ₪. You'll get the price for what comes next, single sessions or BoxingRise 8, up front, before you commit to anything."),
+        ("What should I bring?", "Sports clothes, comfortable shoes and a water bottle. Gloves and pads are on me."),
+        ("Do I have to spar?", "No. There's no required sparring. We work on pads, technique and movement."),
+        ("What happens after the trial?", "If it's right for you, we plan what's next together: the BoxingRise 8 program or single sessions. If not, no hard feelings and no commitment."),
+        ("The coach is a man. Is that OK?", "Sessions are in the park, in a public, open space. You can bring a friend, and you set the pace. If anything doesn't feel right, we stop."),
+        ("Do I need experience?", "No. Most women start from zero, and the first session is built for exactly that."),
+        ("Is it right for my age and fitness?", "Sessions are built around your level, so you don't need to be fit to start. Before the first session you fill in a health declaration."),
+        ("Can I come with a friend?", "Yes. There are also duo sessions, arranged in advance. Message me on WhatsApp and I'll set one up for you both."),
+        ("How long is a session?", "Sixty minutes."),
+        ("What if it rains or it's very hot?", "If there's a covered spot nearby, we move there. If not, we reschedule at no charge."),
+        ("Can I cancel or reschedule?", "Yes, up to 24 hours before the session, by WhatsApp. Later cancellations count as a completed session."),
+        ("How do I pay?", "Bit, PayBox or cash."),
+        ("What happens after the 8 weeks?", "You continue at the pace that suits you: single sessions or a monthly plan. We'll plan it together at the end of the program."),
+        ("What if I need to stop midway?", "You can pause the program once, for up to 4 weeks. If you need to stop completely, you get a refund for unused sessions, minus a cancellation fee."),
+    ],
+    "faq_cta_at": [0, 1, 4, 6],
+
+    "trial_steps": [
+        ("Send a message", "One tap and the message is ready. I reply the same day."),
+        ("Pick a place and time", "Yarkon Park or a park near you in central Israel, at a time that suits you."),
+        ("Train", "One hour, one on one, and your first punches on the pads."),
+    ],
+    "final_sub": "One tap opens WhatsApp with a ready message. We'll set the day, time and park together in the chat.",
+    "pick_opt": "Want to mention a day and time? (optional)",
+    "pick_hint": "Your preference goes into the message. We'll confirm the exact slot on WhatsApp.",
+})
