@@ -1241,3 +1241,19 @@ html[dir="ltr"] .ir-load i { --ir-o: left; }
 .ir-sw { position: fixed; z-index: 1100; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; padding: 6px 8px; border-radius: 999px; background: rgba(12,11,9,.94); border: 1px solid var(--gold, #c9a24b); width: max-content; }
 .ir-sw a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); color: #f3efe6; text-decoration: none; font: 400 16px var(--latin, sans-serif); }
 .ir-sw a.on { background: var(--metal, #c9a24b); color: #120e05; border-color: transparent; }
+
+/* ===== "מכירה את זה?" · one line, the struck-through word keeps changing ===== */
+.nb { background: #0b0a08; padding-block: clamp(90px, 13vw, 160px); }
+.nb-eb { margin: 0 0 16px; font-size: 13px; font-weight: 800; letter-spacing: .18em; color: var(--gold); }
+.nb-h { margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(58px, 11vw, 140px); line-height: 1; color: #f3efe6; }
+html[lang="en"] .nb-h { font-weight: 400; }
+.nb-h em { font-style: normal; color: var(--gold-hi); }
+.nb-w { position: relative; display: inline-grid; vertical-align: bottom; color: #8d897f; }
+.nb-w b { grid-area: 1 / 1; font-weight: inherit; opacity: 0; transform: translateY(40%); filter: blur(6px); transition: opacity .45s ease, transform .55s var(--ease), filter .45s; text-decoration: line-through; text-decoration-color: var(--gold); text-decoration-thickness: .07em; }
+.nb-w b.on { opacity: 1; transform: none; filter: none; }
+.nb-w b.out { opacity: 0; transform: translateY(-40%); filter: blur(6px); }
+.nb-sub { margin: 20px 0 0; font-size: clamp(18px, 2vw, 22px); color: #b9b3a6; }
+.js .nb .nb-eb, .js .nb .nb-h, .js .nb .nb-sub { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .8s var(--ease); }
+.js .nb .nb-h { transition-delay: .12s; } .js .nb .nb-sub { transition-delay: .3s; }
+.js .nb.in .nb-eb, .js .nb.in .nb-h, .js .nb.in .nb-sub { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .nb .nb-eb, .js .nb .nb-h, .js .nb .nb-sub { opacity: 1; transform: none; transition: none; } .nb-w b { transition: none; } }

@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "153"  # bump to bust caches of css/js
+VER = "154"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -225,6 +225,15 @@ RING = '<svg viewBox="0 0 64 64" aria-hidden="true"><circle class="trk" cx="32" 
 
 # ---------------------------------------------------------------- home page
 def mirror(t):
+    """'מכירה את זה?' as one line: the struck-through word keeps changing."""
+    v = t["nb"]
+    ws = "".join(f'<b class="{"on" if i == 0 else ""}">{e(w)}</b>' for i, w in enumerate(v["words"]))
+    return (f'<section class="sec nb" aria-labelledby="nb-h"><div class="wrap"><p class="nb-eb">{e(v["eb"])}</p>'
+            f'<h2 class="nb-h" id="nb-h"><span class="sr-only">{e(v["sr"])}</span><span aria-hidden="true">{e(v["pre"])} <span class="nb-w">{ws}</span><br><em>{e(v["end"])}</em></span></h2>'
+            f'<p class="nb-sub">{e(v["sub"])}</p></div></section>')
+
+
+def mirror_old(t):
     v = t["mv"]
     rows = "".join(f'<li class="mv-l">{e(x)}</li>' for x in v["lines"])
     return (f'<section class="sec mv mv-big a4 cream" aria-labelledby="mv-h"><div class="wrap">'

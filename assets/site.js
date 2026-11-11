@@ -299,7 +299,25 @@
   watch(document.querySelectorAll('.vc-p'), function (s) { s.classList.add('in'); }, .5);
 })();
 
-/* mirror: lines come into focus when the section is on screen */
+/* "מכירה את זה?": the line comes in, then the struck-through word keeps changing while it's on screen */
+(function () {
+  var s = document.querySelector('.nb'); if (!s) return;
+  var bs = [].slice.call(s.querySelectorAll('.nb-w b')), i = 0, vis = false, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && bs.length > 1) {
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }).observe(s);
+    setInterval(function () {
+      if (!vis || document.hidden) return;
+      var a = bs[i]; i = (i + 1) % bs.length; var b = bs[i];
+      a.classList.remove('on'); a.classList.add('out'); setTimeout(function () { a.classList.remove('out'); }, 600);
+      b.classList.add('on');
+    }, 1700);
+  }
+  if (!('IntersectionObserver' in window) || reduce) { s.classList.add('in'); return; }
+  var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { s.classList.add('in'); io.disconnect(); } }, { threshold: .35 });
+  io.observe(s);
+})();
+
+/* (retired) mirror list */
 (function () {
   var s = document.querySelector('.mv'); if (!s) return;
   if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { s.classList.add('in'); return; }
