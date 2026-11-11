@@ -420,15 +420,26 @@
     startHero();
     intro.classList.add('out');
     if (!dock || !logo || !dock.getBoundingClientRect().width) { intro.style.transition = 'opacity .6s'; intro.style.opacity = '0'; setTimeout(finish, 650); return; }
+    if (root.getAttribute('data-intro') === '3') { /* walk through the logo */
+      logo.style.animation = 'none'; logo.style.opacity = '1';
+      logo.style.transition = 'transform 1s cubic-bezier(.6,0,.2,1), opacity .8s ease .15s';
+      requestAnimationFrame(function () { logo.style.transform = 'scale(16)'; logo.style.opacity = '0'; });
+      intro.style.transition = 'background .9s ease .25s';
+      setTimeout(function () { root.classList.remove('intro-on'); }, 950);
+      setTimeout(finish, 1050);
+      return;
+    }
     var a = logo.getBoundingClientRect(), b = dock.getBoundingClientRect();
     var s = b.width / a.width, dx = (b.left + b.width / 2) - (a.left + a.width / 2), dy = (b.top + b.height / 2) - (a.top + a.height / 2);
     logo.style.animation = 'none'; logo.style.opacity = '1';
     logo.style.transition = 'transform .95s cubic-bezier(.65,0,.25,1)';
     requestAnimationFrame(function () { logo.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) scale(' + s.toFixed(3) + ')'; });
-    setTimeout(function () { root.classList.remove('intro-on'); }, 900);
-    setTimeout(finish, 1000);
+    setTimeout(function () { root.classList.remove('intro-on'); }, 1050);
+    setTimeout(finish, 1200);
   }
-  timer = setTimeout(leave, 2700);
+  timer = setTimeout(leave, 2800);
+  /* preview: ?intro=1..4 shows a switcher to compare the entrances */
+  try { var q = new URLSearchParams(location.search).get('intro'); if (q) { var sw = document.createElement('nav'); sw.className = 'ir-sw'; sw.setAttribute('aria-label', 'preview'); for (var k = 1; k <= 4; k++) { var l = document.createElement('a'); l.href = '?intro=' + k; l.textContent = k; if (String(k) === q) l.className = 'on'; sw.appendChild(l); } document.body.appendChild(sw); } } catch (e) {}
   intro.addEventListener('click', leave);
   window.addEventListener('keydown', function k(e) { window.removeEventListener('keydown', k); leave(); });
 })();

@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "152"  # bump to bust caches of css/js
+VER = "153"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -71,8 +71,8 @@ def head(t, title, desc, path, alt_path, noindex):
     lang = t["lang"]
     other = "en" if lang == "he" else "he"
     robots = '<meta name="robots" content="noindex, nofollow">' if noindex else '<meta name="robots" content="index, follow">'
-    intro = (";try{if(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro'))document.documentElement.classList.add('intro-on')}catch(e){}"
-             if path in ('/', '/en') else "")
+    intro = (";try{var q=new URLSearchParams(location.search).get('intro'),d=document.documentElement;d.setAttribute('data-intro',q||'1');if(q||(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro')))d.classList.add('intro-on')}catch(e){}"
+             if path in ('/', '/en', '/en/') else "")
     return f"""<!doctype html>
 <html lang="{lang}" dir="{t['dir']}">
 <head>
@@ -314,7 +314,13 @@ def home(t):
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
   </section>
-  <div class="intro" aria-hidden="true"><div class="intro-in"><img class="intro-logo" src="/brand/logo.webp" alt="" width="1202" height="468"><p class="intro-cap">{e(t['intro_cap'])}</p></div></div>
+  <div class="intro" aria-hidden="true">
+    <div class="ir-half ir-top"></div><div class="ir-half ir-bot"></div>
+    <div class="ir-ropes"><i class="ir-r1"></i><i class="ir-r2"><b></b><b></b></i><i class="ir-r3"></i><span class="ir-post ir-pl"></span><span class="ir-post ir-pr"></span></div>
+    <div class="ir-spots"><i></i><i></i><i></i></div>
+    <div class="ir-flash"></div>
+    <div class="intro-in"><img class="intro-logo" src="/brand/logo.webp" alt="" width="1202" height="468"><p class="intro-cap">{e(t['intro_cap'])}</p><span class="ir-load"><i></i></span></div>
+  </div>
 
   {mirror(t)}
   <section class="sec what" id="what" aria-labelledby="what-h">
