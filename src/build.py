@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "153"  # bump to bust caches of css/js
+VER = "155"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -71,7 +71,7 @@ def head(t, title, desc, path, alt_path, noindex):
     lang = t["lang"]
     other = "en" if lang == "he" else "he"
     robots = '<meta name="robots" content="noindex, nofollow">' if noindex else '<meta name="robots" content="index, follow">'
-    intro = (";try{var q=new URLSearchParams(location.search).get('intro'),d=document.documentElement;d.setAttribute('data-intro',q||'3');if(q||(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro')))d.classList.add('intro-on')}catch(e){}"
+    intro = (";try{var q=new URLSearchParams(location.search).get('intro'),d=document.documentElement;d.setAttribute('data-intro',q||'3');var m=new URLSearchParams(location.search).get('mv');if(m)d.setAttribute('data-mv',m);if(q||(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro')))d.classList.add('intro-on')}catch(e){}"
              if path in ('/', '/en', '/en/') else "")
     return f"""<!doctype html>
 <html lang="{lang}" dir="{t['dir']}">
@@ -229,7 +229,45 @@ def mirror(t):
     rows = "".join(f'<li class="mv-l">{e(x)}</li>' for x in v["lines"])
     return (f'<section class="sec mv mv-big a4 cream" aria-labelledby="mv-h"><div class="wrap">'
             f'<h2 class="h2 mv-h" id="mv-h">{e(v["h"])}</h2><ul class="mv-list">{rows}</ul>'
-            f'<p class="mv-turn">{e(v["turn"])}</p></div></section>')
+            f'<p class="mv-turn">{e(v["turn"])}</p></div></section>' + (mirror_opts() if t["lang"] == "he" else ""))
+
+
+def mirror_opts():
+    """Six alternative takes on 'מכירה את זה?' (preview: ?mv=1..6)."""
+    o = []
+    # 1 · objections struck through and answered (white, black and gold)
+    pairs = [("חדר מלא גברים", "רק את והמאמן"), ("צעקות ומבטים", "שקט, באוויר הפתוח"), ("קבוצה שכבר יודעת הכול", "מתחילות מאפס, בקצב שלך")]
+    o.append('<section class="sec mo mo-1" data-mo="1" aria-labelledby="mo1-h"><div class="wrap"><p class="mo-eb">למה עוד לא התחלת?</p>'
+             '<h2 class="mo-h" id="mo1-h">מה עצר אותך<br>עד היום?</h2><ul class="mo1-list">'
+             + "".join(f'<li style="--i:{i}"><s>{e(a)}</s><span>{e(b)}</span></li>' for i, (a, b) in enumerate(pairs))
+             + '</ul><p class="mo-turn">אז מה עוצר אותך עכשיו?</p></div></section>')
+    # 2 · words light up as you scroll (black, cinematic)
+    lines = ["תמיד רצית לנסות אגרוף.", "אבל לא בחדר מלא גברים.", "לא מול מראות וצעקות.", "ולא בקבוצה שכבר יודעת הכול."]
+    words = "".join('<p class="mo2-line">' + " ".join(f'<span class="w">{e(w)}</span>' for w in ln.split()) + '</p>' for ln in lines)
+    o.append('<section class="sec mo mo-2" data-mo="2" aria-label="מכירה את זה?"><div class="wrap"><div class="mo2-text">' + words
+             + '<p class="mo2-line mo2-gold">' + " ".join(f'<span class="w">{e(w)}</span>' for w in "אז הבאנו את האגרוף לפארק.".split()) + '</p></div></div></section>')
+    # 3 · there vs here (split, grey against gold)
+    rows = [("רעש ומוזיקה", "שקט וציפורים"), ("קבוצה של 20", "אחד על אחד"), ("מבטים מכל כיוון", "אף אחד לא מסתכל"), ("מזגן ומראות", "אוויר פתוח ודשא")]
+    o.append('<section class="sec mo mo-3" data-mo="3" aria-labelledby="mo3-h"><div class="wrap"><h2 class="mo-h" id="mo3-h">שם, <em>או כאן?</em></h2>'
+             '<div class="mo3-grid"><p class="mo3-lab mo3-there">חדר כושר</p><p class="mo3-lab mo3-here">BoxingRise</p>'
+             + "".join(f'<p class="mo3-a" style="--i:{i}">{e(a)}</p><p class="mo3-b" style="--i:{i}">{e(b)}</p>' for i, (a, b) in enumerate(rows))
+             + '</div></div></section>')
+    # 4 · her thoughts as chat bubbles, the coach answers (warm cream)
+    bub = ["תמיד רציתי לנסות אגרוף", "אבל חדר מלא גברים וצעקות? לא בשבילי", "ולהיכנס לקבוצה בלי לדעת כלום?"]
+    o.append('<section class="sec mo mo-4" data-mo="4" aria-labelledby="mo4-h"><div class="wrap"><h2 class="mo-h" id="mo4-h">מה שעובר<br>לך בראש</h2><div class="mo4-chat">'
+             + "".join(f'<p class="mo4-b mo4-her" style="--i:{i}">{e(x)}</p>' for i, x in enumerate(bub))
+             + '<p class="mo4-typing" style="--i:3" aria-hidden="true"><i></i><i></i><i></i></p>'
+             + '<p class="mo4-b mo4-me" style="--i:4">בגלל זה אצלי הכול אחד על אחד, בפארק. בלי קהל ובלי לחץ.</p></div></div></section>')
+    # 5 · one big sentence, a gold highlighter runs over the key words
+    o.append('<section class="sec mo mo-5" data-mo="5" aria-labelledby="mo5-h"><div class="wrap"><p class="mo-eb">מכירה את זה?</p>'
+             '<h2 class="mo5-big" id="mo5-h">תמיד רצית לנסות אגרוף. אבל <mark style="--i:0">חדר מלא גברים</mark>, <mark style="--i:1">צעקות ומבטים</mark> ו<mark style="--i:2">קבוצה שכבר יודעת הכול</mark>? זה ממש לא בשבילך.</h2>'
+             '<p class="mo-turn">אז הבאנו את האגרוף לפארק. אחד על אחד.</p></div></section>')
+    # 6 · fear on the front, answer on the back: cards flip as they come in (black and gold)
+    o.append('<section class="sec mo mo-6" data-mo="6" aria-labelledby="mo6-h"><div class="wrap"><h2 class="mo-h" id="mo6-h">מה עצר אותך?</h2><ul class="mo6-cards">'
+             + "".join(f'<li style="--i:{i}"><div class="mo6-in"><p class="mo6-f"><small>מה שחששת</small>{e(a)}</p><p class="mo6-b"><small>מה שמחכה לך</small>{e(b)}</p></div></li>' for i, (a, b) in enumerate(pairs))
+             + '</ul><p class="mo-turn">כאן הכול אחד על אחד, בפארק.</p></div></section>')
+    sw = "".join(f'<a href="?mv={k}#mo" data-k="{k}">{k}</a>' for k in range(0, 7))
+    return "".join(o) + f'<nav class="mo-sw" aria-label="preview" id="mo">{sw}</nav>'
 
 
 def battery(t):

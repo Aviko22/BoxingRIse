@@ -443,3 +443,22 @@
   intro.addEventListener('click', leave);
   window.addEventListener('keydown', function k(e) { window.removeEventListener('keydown', k); leave(); });
 })();
+
+/* "מכירה את זה?" alternatives: reveal once in view; option 2 lights words with the scroll */
+(function () {
+  var opts = [].slice.call(document.querySelectorAll('.mo')); if (!opts.length) return;
+  var root = document.documentElement, cur = root.getAttribute('data-mv') || '0';
+  document.querySelectorAll('.mo-sw a').forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-k') === cur); });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: .3 });
+  opts.forEach(function (o) { if (reduce) o.classList.add('in'); else io.observe(o); });
+  var two = document.querySelector('.mo-2'), words = two ? [].slice.call(two.querySelectorAll('.w')) : [];
+  function light() {
+    if (!two || cur !== '2') return;
+    var r = two.getBoundingClientRect(), vh = window.innerHeight;
+    var p = reduce ? 1 : Math.max(0, Math.min(1, (vh * .75 - r.top) / (r.height * .75)));
+    var n = Math.round(p * words.length);
+    words.forEach(function (w, k) { w.classList.toggle('lit', k < n); });
+  }
+  window.addEventListener('scroll', light, { passive: true }); light();
+})();
