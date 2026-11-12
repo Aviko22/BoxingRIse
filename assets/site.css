@@ -1331,17 +1331,30 @@ html:not(.js) .hero-sun i { opacity: 1; transform: none; }
 @media (max-width: 999px) { .hs-glow { top: calc(58svh - 60vmax); background: radial-gradient(closest-side, rgba(255, 196, 112, .36) 0%, rgba(240, 160, 70, .2) 24%, rgba(201, 140, 60, .08) 46%, rgba(201, 162, 75, .03) 62%, transparent 75%); } .hs-rays { top: calc(58svh - 70vmax); } }
 @media (max-width: 999px) { .hero-sun { z-index: 0; mix-blend-mode: screen; } .hero-inner { position: relative; z-index: 1; } }
 
-/* sunrise that travels with you down the whole page; "lighten" means it only lifts the dark areas,
-   photos, video, white sections and text stay as they are */
-.sun-glow { position: fixed; inset: 0; z-index: 70; pointer-events: none; mix-blend-mode: lighten; overflow: hidden; opacity: 0; transition: opacity 1.6s ease; }
-.sun-glow.on { opacity: 1; }
-html.intro-on .sun-glow { opacity: 0; }
-.sun-glow i { position: absolute; left: 0; top: 0; display: block; will-change: transform; }
-.sg-core { width: 120vmax; height: 120vmax; margin: -60vmax 0 0 -60vmax; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(255, 196, 112, .30) 0%, rgba(240, 160, 70, .17) 24%, rgba(201, 140, 60, .07) 46%, rgba(201, 162, 75, .025) 62%, transparent 75%);
-  animation: sg-breathe 7s ease-in-out infinite alternate; }
-.sg-rays { width: 140vmax; height: 140vmax; margin: -70vmax 0 0 -70vmax;
-  background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255, 214, 140, .035) 0deg 2deg, transparent 4deg 14deg); filter: blur(1.5px);
-  -webkit-mask: radial-gradient(closest-side, #000 18%, transparent 60%); mask: radial-gradient(closest-side, #000 18%, transparent 60%); }
-@keyframes sg-breathe { from { opacity: 1; } to { opacity: .78; } }
-@media (prefers-reduced-motion: reduce) { .sg-core { animation: none; } }
+
+/* hero only · light beams coming in from the side, lighting the black area (blend "lighten": the clip and text stay as they are) */
+.hero-sun { display: none !important; }
+.hero-beams { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; mix-blend-mode: lighten; --ox: 100%; --oy: 0%; --dir: 1; }
+html[dir="ltr"] .hero-beams { --ox: 0%; --dir: -1; }
+@media (max-width: 999px) { .hero-beams { --oy: 44svh; } }
+.hero-inner { position: relative; z-index: 1; }
+.hb, .hb-src { position: absolute; left: var(--ox); top: var(--oy); display: block; }
+.hb { width: 150vmax; height: var(--h, 90px); margin-top: calc(var(--h, 90px) / -2); transform-origin: 0 50%;
+  transform: scaleX(calc(var(--dir) * -1)) rotate(var(--a)); opacity: 0;
+  background: linear-gradient(90deg, rgba(255, 214, 150, var(--o, .22)) 0%, rgba(240, 175, 90, calc(var(--o, .22) * .55)) 30%, rgba(201, 150, 70, calc(var(--o, .22) * .2)) 60%, transparent 85%);
+  clip-path: polygon(0 46%, 100% 0, 100% 100%, 0 54%); filter: blur(6px); }
+.hb-src { width: 70vmin; height: 70vmin; margin: -35vmin; border-radius: 50%; opacity: 0; background: radial-gradient(closest-side, rgba(255, 210, 140, .35), rgba(240, 170, 80, .12) 45%, transparent 75%); }
+.b1 { --a: 18deg; --h: 140px; --o: .20; } .b2 { --a: 30deg; --h: 70px; --o: .26; } .b3 { --a: 42deg; --h: 180px; --o: .14; } .b4 { --a: 55deg; --h: 60px; --o: .2; } .b5 { --a: 68deg; --h: 120px; --o: .12; }
+@media (max-width: 999px) { .b1 { --a: 8deg; } .b2 { --a: 20deg; } .b3 { --a: 32deg; } .b4 { --a: 46deg; } .b5 { --a: 60deg; } }
+.hero.go .hb { animation: hb-in 2s ease forwards, hb-sway var(--t, 9s) ease-in-out 2s infinite alternate; }
+.hero.go .hb-src { animation: hb-in 1.6s ease forwards; }
+.b1 { --t: 9s; animation-delay: .1s !important; } .b2 { --t: 7s; } .b3 { --t: 11s; } .b4 { --t: 8s; } .b5 { --t: 10s; }
+.hero.go .b2 { animation-delay: .3s, 2.3s; } .hero.go .b3 { animation-delay: .5s, 2.5s; } .hero.go .b4 { animation-delay: .7s, 2.7s; } .hero.go .b5 { animation-delay: .9s, 2.9s; }
+@keyframes hb-in { to { opacity: 1; } }
+@keyframes hb-sway { from { opacity: 1; transform: scaleX(calc(var(--dir) * -1)) rotate(var(--a)); } to { opacity: .55; transform: scaleX(calc(var(--dir) * -1)) rotate(calc(var(--a) + 3deg)); } }
+@media (prefers-reduced-motion: reduce) { .hb, .hb-src { animation: none !important; opacity: 1 !important; } }
+.hb { clip-path: none; filter: none; width: 110vmax;
+  -webkit-mask: linear-gradient(180deg, transparent 0%, #000 42%, #000 58%, transparent 100%); mask: linear-gradient(180deg, transparent 0%, #000 42%, #000 58%, transparent 100%); }
+.b1 { --o: .16; } .b2 { --o: .2; } .b3 { --o: .11; } .b4 { --o: .16; } .b5 { --o: .1; }
+@media (max-width: 999px) { .hero-beams { --oy: 50svh; } .hb { width: 130vmax; } }
+@media (max-width: 999px) { .b1 { --o: .22; } .b2 { --o: .28; } .b3 { --o: .16; } .b4 { --o: .22; } .b5 { --o: .14; } .hb { --h: 110px; } .b2, .b4 { --h: 60px; } }

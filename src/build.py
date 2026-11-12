@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "163"  # bump to bust caches of css/js
+VER = "165"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -155,8 +155,7 @@ def footer(t):
 
 
 def floating(t):
-    return f"""<div class="sun-glow" aria-hidden="true"><i class="sg-core"></i><i class="sg-rays"></i></div>
-<a class="wa-float js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener" aria-label="{e(t['wa_label'])} {e(t['new_tab'])}">{ICON_WA}</a>
+    return f"""<a class="wa-float js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener" aria-label="{e(t['wa_label'])} {e(t['new_tab'])}">{ICON_WA}</a>
 <div class="sticky-bar" aria-hidden="false">
   <a class="sticky-cta js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener">{ICON_WA}<span>{e(t['cta_trial'])}</span><s>{e(t['instead_of'].split()[-2])} ₪</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
 </div>
@@ -312,6 +311,7 @@ def home(t):
     return head(t, t["title"], t["description"], path, alt, CFG["noindex"]) + schema(t, path) + "\n</head>\n<body class=\"home\">\n" + header(t, True) + f"""
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
+    <div class="hero-beams" aria-hidden="true"><i class="hb-src"></i><i class="hb b1"></i><i class="hb b2"></i><i class="hb b3"></i><i class="hb b4"></i><i class="hb b5"></i></div>
     <div class="hero-media" aria-hidden="true">
       <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/media/hero-mont-m.jpg?v={VER}" data-poster-wide="/media/hero-mont-w.jpg?v={VER}"></video>
       <script data-cfasync="false">(function(v){{if(!v)return;var w=matchMedia('(min-width: 1000px)').matches;if(w)v.poster=v.dataset.posterWide;if(document.documentElement.classList.contains('intro-on'))v.removeAttribute('autoplay');v.src='/media/hero-mont-'+(w?'w':'m')+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.querySelector('.hero-video'));</script>
