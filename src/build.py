@@ -79,6 +79,7 @@ def head(t, title, desc, path, alt_path, noindex):
   <meta charset="utf-8">
   <script data-cfasync="false">document.documentElement.classList.add('js'){intro}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script data-cfasync="false">try{{if(/[?&]desk=1/.test(location.search))document.querySelector('meta[name=viewport]').setAttribute('content','width=1440')}}catch(e){{}}</script>
   <title>{e(title)}</title>
   <meta name="description" content="{e(desc)}">
   {robots}

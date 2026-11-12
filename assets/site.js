@@ -471,7 +471,7 @@
   var q = null; try { q = new URLSearchParams(location.search).get('wv'); } catch (e) {}
   if (!q) return;
   var sw = document.createElement('nav'); sw.className = 'ir-sw'; sw.setAttribute('aria-label', 'preview');
-  for (var k = 1; k <= 5; k++) { var l = document.createElement('a'); l.href = '?wv=' + k + '#what'; l.textContent = k; if (String(k) === q) l.className = 'on'; sw.appendChild(l); }
+  for (var k = 1; k <= 5; k++) { var l = document.createElement('a'); l.href = '?wv=' + k + (/[?&]desk=1/.test(location.search) ? '&desk=1' : '') + '#what'; l.textContent = k; if (String(k) === q) l.className = 'on'; sw.appendChild(l); }
   document.body.appendChild(sw);
   if (!sec.classList.contains('wv3')) return;
   var list = sec.querySelector('.rounds'), items = [].slice.call(list.querySelectorAll('.round'));
