@@ -463,10 +463,25 @@
 })();
 
 
-/* hero sunrise follows the scroll: top of the hero at first, sinking as you scroll */
+
+/* sunrise glow: starts at the top of the screen, travels down with you to the end of the page */
 (function () {
-  var hero = document.querySelector('.hero'), sun = document.querySelector('.hero-sun'); if (!hero || !sun) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var tick = false, upd = function () { tick = false; var h = hero.offsetHeight || 1; var p = Math.min(1, Math.max(0, window.scrollY / (h * .9))); sun.style.setProperty('--sp', p.toFixed(3)); };
-  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
+  var g = document.querySelector('.sun-glow'); if (!g) return;
+  var core = g.querySelector('.sg-core'), rays = g.querySelector('.sg-rays');
+  var rtl = document.documentElement.dir === 'rtl', reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rot = 0, last = 0, tick = false;
+  function place() {
+    tick = false;
+    var W = innerWidth, H = innerHeight, max = Math.max(1, document.documentElement.scrollHeight - H);
+    var p = reduce ? 0 : Math.min(1, Math.max(0, scrollY / max));
+    var desk = W >= 1000, x0 = desk ? (rtl ? .8 : .2) : .5;
+    var x = W * (x0 + (.5 - x0) * Math.min(1, p * 4));            /* drifts from the text side to the middle */
+    var y = H * (desk ? .08 : .55) + (H * (desk ? .84 : .4)) * p;  /* top of the screen -> bottom by the end */
+    if (!reduce) rot = scrollY * .03;
+    core.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+    rays.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + rot.toFixed(2) + 'deg)';
+  }
+  function req() { if (!tick) { tick = true; requestAnimationFrame(place); } }
+  window.addEventListener('scroll', req, { passive: true }); window.addEventListener('resize', req);
+  place(); setTimeout(function () { g.classList.add('on'); }, 300);
 })();
