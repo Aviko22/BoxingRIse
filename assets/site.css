@@ -1257,3 +1257,24 @@ html[lang="en"] .nb-h { font-weight: 400; }
 .js .nb .nb-h { transition-delay: .12s; } .js .nb .nb-sub { transition-delay: .3s; }
 .js .nb.in .nb-eb, .js .nb.in .nb-h, .js .nb.in .nb-sub { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .js .nb .nb-eb, .js .nb .nb-h, .js .nb .nb-sub { opacity: 1; transform: none; transition: none; } .nb-w b { transition: none; } }
+
+/* tape labels · livelier: slapped on with a bounce, then a gleam runs across */
+.tag { position: relative; overflow: hidden; }
+.tag::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, .75) 48%, transparent 66%); transform: translateX(-130%); pointer-events: none; }
+html[dir="rtl"] .tag::after { transform: translateX(130%); }
+@keyframes tape-slap2 { 0% { opacity: 0; transform: rotate(-16deg) scale(1.7) translateY(-14px); } 50% { opacity: 1; transform: rotate(2deg) scale(.94); } 72% { transform: rotate(-4deg) scale(1.03); } 100% { opacity: 1; transform: rotate(-2deg); } }
+@keyframes tape-gleam { to { transform: translateX(130%); } }
+@keyframes tape-gleam-rtl { to { transform: translateX(-130%); } }
+.js .sec.tag-in .tag, .js .final.tag-in .tag { animation: tape-slap2 .7s cubic-bezier(.3, 1.3, .5, 1) both; }
+.js .sec.tag-in .tag::after, .js .final.tag-in .tag::after { animation: tape-gleam .9s ease .6s both; }
+html[dir="rtl"].js .sec.tag-in .tag::after, html[dir="rtl"].js .final.tag-in .tag::after { animation-name: tape-gleam-rtl; }
+.js .final .tag { opacity: 0; }
+.hero .tag { animation: tape-slap2 .7s 1s cubic-bezier(.3, 1.3, .5, 1) both !important; }
+.hero .tag::after { animation: tape-gleam .9s ease 1.6s both; }
+html[dir="rtl"] .hero .tag::after { animation-name: tape-gleam-rtl; }
+html.intro-on .hero .tag, html.intro-on .hero .tag::after { animation-play-state: paused; }
+.tag:hover { animation: tape-wiggle .5s ease !important; opacity: 1 !important; }
+@keyframes tape-wiggle { 0%, 100% { transform: rotate(-2deg); } 30% { transform: rotate(2deg) scale(1.04); } 60% { transform: rotate(-4deg); } }
+.voice .tag, .cream .tag { background: #1d1912; color: #f1e9da; }
+.final .tag { margin-inline: auto; }
+@media (prefers-reduced-motion: reduce) { .tag, .tag::after, .hero .tag { animation: none !important; opacity: 1 !important; } .tag::after { display: none; } }

@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "155"  # bump to bust caches of css/js
+VER = "156"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -210,7 +210,7 @@ def hgold(t, key):
     return e(" ".join(w[:-n])) + ('<br>' if key == "batt_h" else ' ') + '<span class="g">' + e(" ".join(w[-n:])) + "</span>"
 
 
-TAGGED = {"what", "reviews", "trial", "program"}
+TAGGED = {"what", "reviews", "trial", "program", "about", "voice", "faq", "final", "hero"}
 
 
 def tag(t, key):
@@ -253,7 +253,7 @@ def battery(t):
 def voice(t):
     rows = "".join(f'<li class="vc-p"><p class="vc-in">{"״" if t["lang"]=="he" else "“"}{e(a)}{"״" if t["lang"]=="he" else "”"}</p><p class="vc-out">{e(b)}</p></li>' for a, b in t["voice"])
     return (f'<section class="sec voice cream" id="start" aria-labelledby="vc-h"><div class="wrap vc-wrap">'
-            f'<div class="vc-head"><h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><p class="lead">{e(t["voice_lead"])}</p>'
+            f'<div class="vc-head">{tag(t, "voice")}<h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><p class="lead">{e(t["voice_lead"])}</p>'
             f'{btn(t, t["cta_trial"], "btn btn-gold magnetic")}</div><ul class="vc-list">{rows}</ul></div></section>')
 
 
@@ -318,6 +318,7 @@ def home(t):
       <div class="hero-fx"></div>
     </div>
     <div class="wrap hero-inner">
+      {tag(t, 'hero')}
       <p class="h1">{h1}</p>
       <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>

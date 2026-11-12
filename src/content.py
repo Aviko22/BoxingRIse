@@ -139,7 +139,7 @@ HE = {
     "reviews_ph": "המלצה של מתאמנת תתווסף כאן, באישורה",
     "reviews_ph_name": "שם פרטי, תחום",
 
-    "tag_hero": "אימון אגרוף אישי לנשים · בפארק",
+    "tag_hero": "רק לנשים · בפארק",
     "legal_desc": "{} של BoxingRise, אימון אגרוף אישי לנשים אחד על אחד בפארקים בתל אביב והמרכז.",
     "tag_pain": "רגע של כנות", "tag_about": "מי אני", "tag_reviews": "הן כבר התחילו", "tag_what": "האימון",
     "tag_for": "בשבילך", "tag_trial": "אימון ניסיון", "tag_program": "תוכנית הדגל", "tag_faq": "שאלות", "tag_final": "הסיבוב הראשון",
@@ -326,7 +326,7 @@ EN = {
     "reviews_ph": "A trainee's testimonial will go here, with her consent",
     "reviews_ph_name": "First name, occupation",
 
-    "tag_hero": "Private boxing for women · in the park",
+    "tag_hero": "Women only · in the park",
     "legal_desc": "{} for BoxingRise, private one-on-one boxing for women in parks across Tel Aviv and central Israel.",
     "tag_pain": "Be honest", "tag_about": "About me", "tag_reviews": "They already started", "tag_what": "The session",
     "tag_for": "For you", "tag_trial": "Trial session", "tag_program": "Flagship program", "tag_faq": "Questions", "tag_final": "Round one",

@@ -103,7 +103,7 @@
   }
 
   /* ---------- Tape labels slap on when their section arrives ---------- */
-  var tagSecs = document.querySelectorAll('.sec');
+  var tagSecs = document.querySelectorAll('.sec, .final');
   if (reduce || !('IntersectionObserver' in window)) tagSecs.forEach(function (s) { s.classList.add('tag-in'); });
   else {
     var tio = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('tag-in'); tio.unobserve(x.target); } }); }, { rootMargin: '0px 0px -15% 0px' });
