@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "173"  # bump to bust caches of css/js
+VER = "190"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -265,6 +265,40 @@ def defend(t):
             f'<div><ol class="df-list">{items}</ol><p class="df-note reveal">{e(t["def_note"])}</p></div></div></section>')
 
 
+PP = {
+    "he": {"kind": "תוכנית אישית", "hint": "לחצי על הכרטיס", "back_h": "מה כלול", "flip_back": "חזרה",
+           "inc": ["16 אימונים אישיים, אחד על אחד", "8 שבועות, כל שבוע מוסיף יסוד", "אגרוף קלאסי, כוח וכושר", "ליווי אישי בוואטסאפ בין האימונים", "תוכנית אישית להמשך בסוף הדרך"],
+           "weeks_h": "שמונה שבועות. שמונה יסודות."},
+    "en": {"kind": "Private program", "hint": "Tap the card", "back_h": "What's included", "flip_back": "Back",
+           "inc": ["16 private sessions, one on one", "8 weeks, one new fundamental each week", "Classic boxing, strength and fitness", "Personal WhatsApp support between sessions", "A personal plan for what comes next"],
+           "weeks_h": "Eight weeks. Eight fundamentals."},
+}
+PP_VID = ["clip-technique", "clip-power", "clip-confidence", "clip-fitness"]
+
+
+def pp_card(t):
+    c = PP[t["lang"]]
+    f = "".join(f'<span><b dir="ltr">{e(n)}</b>{e(l)}</span>' for n, l in t["prog_facts"])
+    inc = "".join(f"<li>{e(x)}</li>" for x in c["inc"])
+    weeks = "".join(f'<li class="ppw"><span class="ppw-n" dir="ltr">{i:02d}</span><h3>{e(h)}</h3><p>{e(d)}</p></li>' for i, (h, d, m) in enumerate(t["weeks"], 1))
+    return (f'<div class="pp1-only pp-cardwrap wrap">'
+            f'<div class="pp-scene"><button type="button" class="pp-card" aria-pressed="false" aria-label="{e(t["prog_h"])} · {e(c["back_h"])}">'
+            f'<span class="pp-face pp-front"><span class="pp-top"><img src="/brand/logo.webp" alt="" width="1202" height="468" class="pp-logo"><span class="pp-kind">{e(c["kind"])}</span></span>'
+            f'<span class="pp-chip" aria-hidden="true"></span><span class="pp-name" dir="ltr">BoxingRise <em>8</em></span>'
+            f'<span class="pp-facts">{f}</span><i class="pp-gloss" aria-hidden="true"></i><i class="pp-holo" aria-hidden="true"></i></span>'
+            f'<span class="pp-face pp-back"><span class="pp-back-h">{e(c["back_h"])}</span><ul>{inc}</ul><span class="pp-back-x">{e(c["flip_back"])} ↺</span></span>'
+            f'</button></div><p class="pp-hint">{e(c["hint"])} ↺</p>'
+            f'<h3 class="pp-weeks-h">{e(c["weeks_h"])}</h3><ol class="pp-weeks">{weeks}</ol></div>')
+
+
+def pp_cine(t):
+    vids = "".join(f'<video class="pc-v" muted loop playsinline preload="none" data-src="/media/{v}.mp4?v={VER}" poster="/media/{v}.jpg?v={VER}"></video>' for v in PP_VID)
+    steps = "".join(f'<li class="pc-s" data-ph="{(i - 1) // 2}"><span class="pc-n" dir="ltr">{i:02d}</span><span class="pc-ph">{e(t["prog_phases"][(i - 1) // 2])}</span><h3>{e(h)}</h3><p>{e(d)}</p></li>' for i, (h, d, m) in enumerate(t["weeks"], 1))
+    ticks = "".join("<i></i>" for _ in range(8))
+    return (f'<div class="pp4-only pc-run"><div class="pc-stage"><div class="pc-bg" aria-hidden="true">{vids}<i class="pc-shade"></i></div>'
+            f'<ol class="pc-steps">{steps}</ol><div class="pc-ticks" aria-hidden="true">{ticks}</div></div></div>')
+
+
 def home(t):
     lang = t["lang"]
     path, alt = ("/", "/en/") if lang == "he" else ("/en/", "/")
@@ -374,36 +408,17 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
-    <div class="wrap p8-head">
+  <section class="sec pp pp1" id="program" aria-labelledby="prog-h">
+    <script data-cfasync="false">(function(){{var q=new URLSearchParams(location.search).get("pp");if(q==="4"){{var s=document.currentScript.parentNode;s.className=s.className.replace("pp1","pp4");}}}})();</script>
+    <div class="wrap pp-head">
       {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
       <p class="p8-sub">{e(t['prog_sub'])}</p>
       <p class="lead">{e(t['prog_lead'])}</p>
-      <dl class="facts reveal">{pfacts}</dl>
-      <p class="p8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
+      <dl class="facts reveal pp4-only">{pfacts}</dl>
+      <p class="p8-plus reveal pp4-only"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
     </div>
-    <div class="p8-run">
-      <div class="p8-stage" aria-hidden="true">
-        <div class="p8-glow"></div>
-        <div class="wrap p8-grid">
-          <div class="p8-mark"><span class="p8-rays"></span><i class="p8-mk-base"></i><i class="p8-mk-fill"></i><i class="p8-shine"></i></div>
-          <div class="p8-dial">
-            <svg viewBox="0 0 200 200">{p8segs}</svg>
-            <div class="p8-num"><small>{e(t['week_word'])}</small><span class="p8-roll" dir="ltr">{"".join(f"<b>{i}</b>" for i in range(1, 9))}</span><i dir="ltr">/ 8</i></div>
-          </div>
-          <div class="p8-copy">
-            <p class="p8-phase"><span class="p8-ph-n"></span> · <span class="p8-ph-t"></span></p>
-            <p class="p8-feel"></p>
-            <h3 class="p8-t"></h3>
-            <p class="p8-d"></p>
-            <p class="p8-m"><span>{e(t['milestone_word'])}</span> <em></em></p>
-          </div>
-        </div>
-        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}</div>
-        <p class="p8-hint">{e(t['prog_scroll'])} ↓</p>
-      </div>
-      <ol class="p8-steps">{p8steps}</ol>
-    </div>
+    {pp_card(t)}
+    {pp_cine(t)}
     <div class="wrap p8-end">
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
       <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>

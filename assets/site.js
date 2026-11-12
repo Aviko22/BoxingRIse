@@ -480,3 +480,55 @@
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
   window.addEventListener('resize', upd); upd();
 })();
+
+/* preview: BoxingRise 8 premium — member card (pp1) and cinematic (pp4) */
+(function () {
+  var sec = document.querySelector('.pp'); if (!sec) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var q = null; try { q = new URLSearchParams(location.search).get('pp'); } catch (e) {}
+  if (q) {
+    var desk = /[?&]desk=1/.test(location.search) ? '&desk=1' : '';
+    var sw = document.createElement('nav'); sw.className = 'ir-sw'; sw.setAttribute('aria-label', 'preview');
+    ['1', '4'].forEach(function (k) { var l = document.createElement('a'); l.href = '?pp=' + k + desk + '#program'; l.textContent = k; if (k === q) l.className = 'on'; sw.appendChild(l); });
+    document.body.appendChild(sw);
+  }
+  var seen = function (els, cls, stagger) {
+    if (!('IntersectionObserver' in window)) { els.forEach(function (x) { x.classList.add(cls); }); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { var x = en.target, i = els.indexOf(x) % 4; setTimeout(function () { x.classList.add(cls); }, stagger ? i * stagger : 0); io.unobserve(x); } }); }, { threshold: .25 });
+    els.forEach(function (x) { io.observe(x); });
+  };
+  if (sec.classList.contains('pp1')) {
+    var scene = sec.querySelector('.pp-scene'), card = sec.querySelector('.pp-card');
+    seen([scene], 'in'); seen([].slice.call(sec.querySelectorAll('.ppw')), 'in', 110);
+    card.addEventListener('click', function () { card.setAttribute('aria-pressed', card.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); });
+    if (!reduce) {
+      var fine = window.matchMedia('(pointer: fine)').matches;
+      if (fine) {
+        scene.addEventListener('pointermove', function (ev) { var r = scene.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width - .5, y = (ev.clientY - r.top) / r.height - .5; card.classList.add('tilting'); card.style.setProperty('--ry', (x * 18).toFixed(2) + 'deg'); card.style.setProperty('--rx', (-y * 14).toFixed(2) + 'deg'); card.style.setProperty('--gx', ((x + .5) * 100).toFixed(1) + '%'); card.style.setProperty('--gy', ((y + .5) * 100).toFixed(1) + '%'); });
+        scene.addEventListener('pointerleave', function () { card.classList.remove('tilting'); card.style.setProperty('--ry', '0deg'); card.style.setProperty('--rx', '0deg'); });
+      } else {
+        /* touch: the card sways gently with the scroll */
+        var tk = false, sway = function () { tk = false; var r = scene.getBoundingClientRect(), p = (r.top + r.height / 2) / innerHeight - .5; card.style.setProperty('--rx', (p * 16).toFixed(2) + 'deg'); card.style.setProperty('--ry', (p * -10).toFixed(2) + 'deg'); card.style.setProperty('--gy', ((p + .5) * 100).toFixed(1) + '%'); };
+        window.addEventListener('scroll', function () { if (!tk) { tk = true; requestAnimationFrame(sway); } }, { passive: true }); sway();
+      }
+    }
+  }
+  if (sec.classList.contains('pp4')) {
+    var run = sec.querySelector('.pc-run'), steps = [].slice.call(run.querySelectorAll('.pc-s')), ticks = [].slice.call(run.querySelectorAll('.pc-ticks i')), vids = [].slice.call(run.querySelectorAll('.pc-v'));
+    if (reduce) { run.classList.add('static'); return; }
+    var cur = -1, ph = -1, loaded = false, t2 = false;
+    var load = function () { if (loaded) return; loaded = true; vids.forEach(function (v) { v.src = v.getAttribute('data-src'); }); };
+    var upd = function () {
+      t2 = false;
+      var r = run.getBoundingClientRect(), total = r.height - innerHeight;
+      if (r.top < innerHeight * 2) load();
+      var p = Math.min(.9999, Math.max(0, -r.top / total)), i = Math.floor(p * steps.length);
+      if (i === cur) return; cur = i;
+      steps.forEach(function (s, k) { s.classList.toggle('on', k === i); s.classList.toggle('past', k < i); });
+      ticks.forEach(function (tk, k) { tk.classList.toggle('on', k <= i); });
+      var np = +steps[i].getAttribute('data-ph');
+      if (np !== ph) { ph = np; vids.forEach(function (v, k) { v.classList.toggle('on', k === ph); if (k === ph) { var pr = v.play && v.play(); pr && pr.catch && pr.catch(function () {}); } else if (v.pause) v.pause(); }); }
+    };
+    window.addEventListener('scroll', function () { if (!t2) { t2 = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
+  }
+})();
