@@ -50,7 +50,8 @@ HE = {
     "pain_turn": "שעה אחת מול הכרית משנה את הכיוון.",
 
     "what_h": "אגרוף אמיתי. רק את והמאמן.",
-    "what_lead": "כריות, תנועת רגליים ושמירה. כל אימון נבנה לפי הרמה והקצב שלך.",
+    "what_kick": ["אימון אגרוף אישי.", "אחד על אחד."],
+    "what_lead": "שעה שמשלבת כושר, טכניקת אגרוף קלאסי ועבודה על כריות. תלמדי איך לעמוד, לזוז ולהכות, ותשלבי תרגילי כוח לפי הרמה והקצב שלך.",
     "what_facts": [("1:1", "אישי לגמרי"), ("60", "דקות לאימון"), ("0", "ניסיון נדרש")],
     "rounds_h": "ככה נראית שעה איתי",
     "rounds": [
@@ -236,7 +237,8 @@ EN = {
     "pain_turn": "One hour on the pads changes the direction.",
 
     "what_h": "Real boxing. Just you and your coach.",
-    "what_lead": "Classic boxing, the way it's really trained: pad work, footwork and guard. Every session is built just for you, at your level and pace.",
+    "what_kick": ["Private boxing training.", "One on one."],
+    "what_lead": "An hour that combines fitness, classic boxing technique and pad work. You'll learn how to stand, move and punch, and add strength exercises at your level and pace.",
     "what_facts": [("1:1", "fully personal"), ("60", "minutes per session"), ("0", "experience needed")],
     "rounds_h": "What an hour with me looks like",
     "rounds": [

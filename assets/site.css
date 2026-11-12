@@ -1352,3 +1352,10 @@ html[dir="ltr"] .hero-beams { --ox: 0%; --dir: -1; }
 .b1 { --o: .16; } .b2 { --o: .2; } .b3 { --o: .11; } .b4 { --o: .16; } .b5 { --o: .1; }
 @media (max-width: 999px) { .hero-beams { --oy: 50svh; } .hb { width: 130vmax; } }
 @media (max-width: 999px) { .b1 { --o: .22; } .b2 { --o: .28; } .b3 { --o: .16; } .b4 { --o: .22; } .b5 { --o: .14; } .hb { --h: 110px; } .b2, .b4 { --h: 60px; } }
+
+/* "what" description: two short lines, then the paragraph */
+.what-kick { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.2; color: var(--white); margin: 0 0 12px; }
+html[lang="en"] .what-kick { font-weight: 400; letter-spacing: .02em; }
+.what-kick br + * , .what-kick { }
+.what-desc .lead { margin-top: 0 !important; }
+@media (min-width: 1000px) { .what-side .what-desc { margin-top: 12px; } }
