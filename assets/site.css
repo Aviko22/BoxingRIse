@@ -1279,10 +1279,18 @@ html.intro-on .hero .tag, html.intro-on .hero .tag::after { animation-play-state
 .final .tag { margin-inline: auto; }
 @media (prefers-reduced-motion: reduce) { .tag, .tag::after, .hero .tag { animation: none !important; opacity: 1 !important; } .tag::after { display: none; } }
 
-/* "what" facts stay pinned under the header while the session clips scroll by (like the FAQ heading) */
-.what .wrap { position: relative; }
-.what-stick { position: sticky; top: var(--stick-top, 72px); z-index: 5; margin-top: 24px; margin-bottom: 24px; padding-block: 8px; background: rgba(14, 13, 11, .9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: box-shadow .3s ease; }
-.what-stick.stuck { box-shadow: 0 14px 28px -14px rgba(0, 0, 0, .9); }
-@media (min-width: 1000px) { .what-stick { max-width: 760px; margin-inline-start: auto; margin-inline-end: 0; } }
-@media (max-width: 999px) { .what-stick { margin-inline: calc(var(--pad) * -1); padding: 10px var(--pad); background: #0e0d0b; border-block: 1px solid var(--line); } }
-@media (min-width: 1000px) { .what-stick { position: static; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding-block: 0; } }
+
+/* "what": like the FAQ — on desktop the text column rides down with the scroll while the session clips pass by */
+.what-side .lead { margin-top: 0; }
+@media (min-width: 1000px) {
+  .what-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(48px, 5vw, 88px); align-items: start; }
+  .what-side { position: sticky; top: 110px; }
+  .what-side .h2 { font-size: clamp(56px, 5.4vw, 88px); }
+  .what-main .rounds-h { margin-top: 0; }
+  .what-main .rounds { grid-template-columns: 1fr !important; grid-auto-flow: row; gap: 28px; }
+  .what-main .round figure { position: relative; margin: 0; }
+  .what-main video.round-img, .what-main .round-img { width: 100%; aspect-ratio: 16 / 10 !important; object-fit: cover; border-radius: 18px; }
+  .what-main .round figcaption { position: absolute; inset: auto 0 0 0; padding: 70px 26px 22px; border-radius: 0 0 18px 18px; background: linear-gradient(transparent, rgba(10, 9, 7, .92) 70%); }
+  .what-main .round .rd-h, .what-main .round h4 { color: var(--white); }
+  .what-main .round p { color: #e4ddd0; }
+}
