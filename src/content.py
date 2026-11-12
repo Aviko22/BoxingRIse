@@ -375,3 +375,36 @@ EN = {
     "cookie_more": "Privacy policy",
     "photo_note": "Photo to shoot:",
 }
+
+
+# ---------------------------------------------------------------- BoxingRise 8 · "the 8 becomes the route"
+HE["e8"] = {
+    "hl": ["מהמכה הראשונה", "לקומבינציה שלמה."],
+    "meta": ["8 שבועות", "16 אימונים אישיים", "פעמיים בשבוע"],
+    "lead": "חצי אגרוף קלאסי, חצי כוח וכושר. מתאמנות אחד על אחד, בקצב שלך.",
+    "legend": ["אגרוף קלאסי", "כוח וכושר"],
+    "weeks_word": "שבועות",
+    "stages": [
+        ("1–2", "מתחילה מהבסיס", "עמידה, תנועה, ג׳אב וקרוס.", "בסיס של כוח ותנועה, ברמה שמתאימה לך."),
+        ("3–4", "נכנסת לקצב", "הוק, אפרקאט והרצפים הראשונים על הכריות.", "העבודה בין הסבבים מתחילה לזרום."),
+        ("5–6", "מתחזקת מסבב לסבב", "הגנה, ולהחזיר מכה מיד.", "העומס עולה בהדרגה, לפי ההתקדמות שלך."),
+        ("7–8", "מחברת הכול", "סיבובים מלאים עם כל מה שלמדת.", "כושר אגרוף: הטכניקה נשארת נקייה גם כשמתעייפים."),
+    ],
+    "cta": "לקביעת אימון ניסיון ב־49 ₪",
+    "weeks_btn": "מה לומדים בכל שבוע?",
+}
+EN["e8"] = {
+    "hl": ["From the first punch", "to a full combination."],
+    "meta": ["8 weeks", "16 private sessions", "twice a week"],
+    "lead": "Half classic boxing, half strength and fitness. One on one, at your pace.",
+    "legend": ["Classic boxing", "Strength & fitness"],
+    "weeks_word": "Weeks",
+    "stages": [
+        ("1–2", "Starting from the basics", "Stance, movement, jab and cross.", "A base of strength and movement, at your level."),
+        ("3–4", "Finding the rhythm", "Hook, uppercut and your first combinations on the pads.", "The work between rounds starts to flow."),
+        ("5–6", "Stronger round by round", "Defence, and punching straight back.", "The load builds gradually, as you progress."),
+        ("7–8", "Putting it all together", "Full rounds with everything you've learned.", "Boxing fitness: technique stays clean even when you're tired."),
+    ],
+    "cta": "Book a trial for 49 ₪",
+    "weeks_btn": "What do you learn each week?",
+}

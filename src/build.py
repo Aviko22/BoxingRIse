@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "173"  # bump to bust caches of css/js
+VER = "200"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -265,6 +265,61 @@ def defend(t):
             f'<div><ol class="df-list">{items}</ol><p class="df-note reveal">{e(t["def_note"])}</p></div></div></section>')
 
 
+def _eight_paths():
+    """A continuous figure-eight (top loop first, then the bottom loop), plus two parallel lanes."""
+    import math
+    cx, N = 170.0, 120
+    top = (148.0, 86.0, 100.0)    # centre y, rx, ry — the top loop is a little smaller, like a real 8
+    bot = (366.0, 112.0, 118.0)   # touches the top loop at y=248, so the line passes through in one smooth S
+    pts = []
+    for k in range(N + 1):        # top loop first, counter-clockwise from its lowest point
+        a = 2 * math.pi * k / N
+        pts.append((cx + top[1] * math.sin(a), top[0] + top[2] * math.cos(a)))
+    for k in range(1, N + 1):     # then the bottom loop, clockwise from its highest point
+        b = 2 * math.pi * k / N
+        pts.append((cx + bot[1] * math.sin(b), bot[0] - bot[2] * math.cos(b)))
+    N = len(pts) - 1
+    def lane(off):
+        out = []
+        for i, (x, y) in enumerate(pts):
+            x0, y0 = pts[max(0, i - 1)]; x1, y1 = pts[min(N, i + 1)]
+            dx, dy = x1 - x0, y1 - y0; L = math.hypot(dx, dy) or 1
+            out.append((x - dy / L * off, y + dx / L * off))
+        return "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in out)
+    dots = [pts[int(N * f)] for f in (0.125, 0.375, 0.625, 0.875)]
+    return lane(0), lane(-4.5), lane(4.5), dots
+
+
+def eight(t):
+    v = t["e8"]
+    base, gold, white, dots = _eight_paths()
+    dl = "".join(f'<circle class="e8-dot" data-i="{i}" cx="{x:.1f}" cy="{y:.1f}" r="7"/>' for i, (x, y) in enumerate(dots))
+    svg = (f'<svg class="e8-svg" viewBox="0 0 340 500" role="img" aria-label="8">'
+           f'<defs><linearGradient id="e8g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc9f"/><stop offset=".55" stop-color="#c99a3e"/><stop offset="1" stop-color="#9c7427"/></linearGradient>'
+           f'<filter id="e8blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter></defs>'
+           f'<path class="e8-track" d="{base}"/>'
+           f'<path class="e8-glow" d="{gold}" pathLength="1" filter="url(#e8blur)"/>'
+           f'<path class="e8-line e8-gold" d="{gold}" pathLength="1"/><path class="e8-line e8-white" d="{white}" pathLength="1"/>'
+           f'{dl}</svg>')
+    legend = (f'<p class="e8-legend"><span><i class="lg-gold"></i>{e(v["legend"][0])}</span>'
+              f'<span><i class="lg-white"></i>{e(v["legend"][1])}</span></p>')
+    stages = "".join(
+        f'<li class="e8-st" data-i="{i}"><p class="e8-wk"><span>{e(v["weeks_word"])}</span> <b dir="ltr">{e(w)}</b></p><h3>{e(h)}</h3>'
+        f'<p class="e8-b"><i aria-hidden="true"></i>{e(bx)}</p><p class="e8-f"><i aria-hidden="true"></i>{e(ft)}</p></li>'
+        for i, (w, h, bx, ft) in enumerate(v["stages"]))
+    weeks = "".join(f'<li><b>{e(t["week_word"])} <span dir="ltr">{i}</span> · {e(h)}</b> <span>{e(d)}</span></li>' for i, (h, d, m) in enumerate(t["weeks"], 1))
+    meta = ' <span aria-hidden="true">·</span> '.join(f"<span>{e(x)}</span>" for x in v["meta"])
+    return (f'<section class="sec e8" id="program" aria-labelledby="prog-h"><div class="wrap e8-grid">'
+            f'<div class="e8-head">{tag(t, "program")}<h2 class="h2 prog-title e8-title" id="prog-h" dir="ltr">{e(t["prog_h"])}</h2>'
+            f'<p class="e8-hl">{e(v["hl"][0])}<br><span class="g">{e(v["hl"][1])}</span></p>'
+            f'<p class="e8-meta">{meta}</p><p class="lead e8-lead">{e(v["lead"])}</p></div>'
+            f'<div class="e8-fig">{svg}{legend}</div>'
+            f'<ol class="e8-stages">{stages}</ol>'
+            f'<div class="e8-end">{btn(t, v["cta"], "btn btn-gold btn-lg magnetic")}'
+            f'<details class="e8-weeks"><summary><span>{e(v["weeks_btn"])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{weeks}</ol></details></div>'
+            f'</div></section>')
+
+
 def home(t):
     lang = t["lang"]
     path, alt = ("/", "/en/") if lang == "he" else ("/en/", "/")
@@ -374,41 +429,7 @@ def home(t):
     </div>
   </section>
 
-  <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
-    <div class="wrap p8-head">
-      {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
-      <p class="p8-sub">{e(t['prog_sub'])}</p>
-      <p class="lead">{e(t['prog_lead'])}</p>
-      <dl class="facts reveal">{pfacts}</dl>
-      <p class="p8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
-    </div>
-    <div class="p8-run">
-      <div class="p8-stage" aria-hidden="true">
-        <div class="p8-glow"></div>
-        <div class="wrap p8-grid">
-          <div class="p8-mark"><span class="p8-rays"></span><i class="p8-mk-base"></i><i class="p8-mk-fill"></i><i class="p8-shine"></i></div>
-          <div class="p8-dial">
-            <svg viewBox="0 0 200 200">{p8segs}</svg>
-            <div class="p8-num"><small>{e(t['week_word'])}</small><span class="p8-roll" dir="ltr">{"".join(f"<b>{i}</b>" for i in range(1, 9))}</span><i dir="ltr">/ 8</i></div>
-          </div>
-          <div class="p8-copy">
-            <p class="p8-phase"><span class="p8-ph-n"></span> · <span class="p8-ph-t"></span></p>
-            <p class="p8-feel"></p>
-            <h3 class="p8-t"></h3>
-            <p class="p8-d"></p>
-            <p class="p8-m"><span>{e(t['milestone_word'])}</span> <em></em></p>
-          </div>
-        </div>
-        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}</div>
-        <p class="p8-hint">{e(t['prog_scroll'])} ↓</p>
-      </div>
-      <ol class="p8-steps">{p8steps}</ol>
-    </div>
-    <div class="wrap p8-end">
-      <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
-      <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
-    </div>
-  </section>
+  {eight(t)}
 
 
   <section class="sec faq alt" id="faq" aria-labelledby="faq-h">

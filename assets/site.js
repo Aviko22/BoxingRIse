@@ -480,3 +480,41 @@
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
   window.addEventListener('resize', upd); upd();
 })();
+
+/* BoxingRise 8: the figure-eight draws itself along the program route */
+(function () {
+  var sec = document.querySelector('.e8'); if (!sec) return;
+  var fig = sec.querySelector('.e8-fig'), lines = [].slice.call(sec.querySelectorAll('.e8-line, .e8-glow'));
+  var dots = [].slice.call(sec.querySelectorAll('.e8-dot')), stages = [].slice.call(sec.querySelectorAll('.e8-st')), list = sec.querySelector('.e8-stages');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { dots.forEach(function (d) { d.classList.add('on'); }); return; }
+  var desk = window.matchMedia('(min-width: 1000px)'), flashed = false;
+  function flash() { if (flashed) return; flashed = true; fig.classList.add('flash'); setTimeout(function () { fig.classList.remove('flash'); }, 1200); }
+  /* phone: draw once when it enters, light the dots in turn */
+  function drawOnce() {
+    if (fig.classList.contains('drawn')) return;
+    fig.classList.add('drawn');
+    dots.forEach(function (d, i) { setTimeout(function () { d.classList.add('on'); }, 350 + i * 600); });
+    setTimeout(flash, 2700);
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting && !desk.matches) { drawOnce(); io.disconnect(); } }); }, { threshold: .4 });
+    io.observe(fig);
+    var so = new IntersectionObserver(function (es) { es.forEach(function (en) { if (!desk.matches && en.isIntersecting) en.target.classList.add('on'); }); }, { threshold: .6 });
+    stages.forEach(function (s) { so.observe(s); });
+  } else drawOnce();
+  /* desktop: the line follows the scroll through the stages */
+  var tick = false;
+  function upd() {
+    tick = false; if (!desk.matches) return;
+    fig.classList.add('drawn');
+    var r = list.getBoundingClientRect(), line = innerHeight * .62;
+    var first = stages[0].getBoundingClientRect(), last = stages[stages.length - 1].getBoundingClientRect();
+    var start = first.top, end = last.top + last.height * .5;
+    var p = Math.min(1, Math.max(0, (line - start) / Math.max(1, end - start)));
+    lines.forEach(function (l) { l.style.setProperty('--p-off', (1 - p).toFixed(4)); });
+    stages.forEach(function (s, i) { var on = s.getBoundingClientRect().top < line; s.classList.toggle('on', on); dots[i] && dots[i].classList.toggle('on', on); });
+    if (p >= 1) flash(); else if (p < .9) flashed = false;
+  }
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+  window.addEventListener('resize', upd); upd();
+})();
