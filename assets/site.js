@@ -461,3 +461,12 @@
   intro.addEventListener('click', leave);
   window.addEventListener('keydown', function k(e) { window.removeEventListener('keydown', k); leave(); });
 })();
+
+/* pinned "what" facts: sit just under the header, shadow once stuck */
+(function () {
+  var f = document.querySelector('.what-stick'); if (!f) return;
+  var head = document.querySelector('.site-head');
+  var set = function () { var h = head ? head.getBoundingClientRect().height : 64; f.style.setProperty('--stick-top', Math.round(h) + 'px'); };
+  set(); window.addEventListener('resize', set);
+  window.addEventListener('scroll', function () { requestAnimationFrame(function () { var top = parseFloat(getComputedStyle(f).top) || 0; f.classList.toggle('stuck', Math.abs(f.getBoundingClientRect().top - top) < 2); }); }, { passive: true });
+})();

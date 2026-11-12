@@ -1278,3 +1278,11 @@ html.intro-on .hero .tag, html.intro-on .hero .tag::after { animation-play-state
 .voice .tag, .cream .tag { background: #1d1912; color: #f1e9da; }
 .final .tag { margin-inline: auto; }
 @media (prefers-reduced-motion: reduce) { .tag, .tag::after, .hero .tag { animation: none !important; opacity: 1 !important; } .tag::after { display: none; } }
+
+/* "what" facts stay pinned under the header while the session clips scroll by (like the FAQ heading) */
+.what .wrap { position: relative; }
+.what-stick { position: sticky; top: var(--stick-top, 72px); z-index: 5; margin-top: 24px; margin-bottom: 24px; padding-block: 8px; background: rgba(14, 13, 11, .9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: box-shadow .3s ease; }
+.what-stick.stuck { box-shadow: 0 14px 28px -14px rgba(0, 0, 0, .9); }
+@media (min-width: 1000px) { .what-stick { max-width: 760px; margin-inline-start: auto; margin-inline-end: 0; } }
+@media (max-width: 999px) { .what-stick { margin-inline: calc(var(--pad) * -1); padding: 10px var(--pad); background: #0e0d0b; border-block: 1px solid var(--line); } }
+@media (min-width: 1000px) { .what-stick { position: static; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding-block: 0; } }
