@@ -1294,3 +1294,4 @@ html.intro-on .hero .tag, html.intro-on .hero .tag::after { animation-play-state
   .what-main .round .rd-h, .what-main .round h4 { color: var(--white); }
   .what-main .round p { color: #e4ddd0; }
 }
+.hero-inner > .tag { width: fit-content !important; max-width: none !important; }
