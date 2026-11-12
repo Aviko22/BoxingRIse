@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "154"  # bump to bust caches of css/js
+VER = "160"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -264,6 +264,30 @@ def defend(t):
             f'<div><ol class="df-list">{items}</ol><p class="df-note reveal">{e(t["def_note"])}</p></div></div></section>')
 
 
+def what_opts(t, facts):
+    """Preview: six openers for the 'what' section, picked with ?wo=1..6 (default 1)."""
+    out = ""
+    for n, v in enumerate(t["wo"], 1):
+        hid = ' id="what-h"' if n == 1 else ""
+        words = lambda line: " ".join(f'<span class="wo-w"><span>{e(w)}</span></span>' for w in line.split())
+        h = f'<span class="wo-l">{words(v["h"][0])}</span><span class="wo-l wo-g">{words(v["h"][1])}</span>'
+        extra = ""
+        if n == 2:
+            extra = '<div class="wo-big">' + "".join(f'<div class="wo-bn"><b dir="ltr">{e(x)}</b><span>{e(l)}</span></div>' for x, l in t["what_facts"]) + "</div>"
+        elif n == 3:
+            extra = '<div class="wo-beam" aria-hidden="true"></div><div class="wo-dust" aria-hidden="true">' + "<i></i>" * 14 + "</div>"
+        elif n == 5:
+            band = " · ".join(e(x) for x in v["band"] * 2)
+            extra = f'<div class="wo-band" aria-hidden="true"><p class="wo-b1"><span>{band} · {band}</span></p><p class="wo-b2"><span>{band} · {band}</span></p></div>'
+        elif n == 6:
+            extra = '<p class="wo-11" aria-hidden="true" dir="ltr">1:1</p>'
+        fdl = "" if n == 2 else f'<dl class="facts wo-facts">{facts}</dl>'
+        out += (f'<div class="wo wo{n}" data-v="{n}"{"" if n == 1 else " hidden"}>{extra if n in (3, 6) else ""}<div class="wrap wo-in">'
+                f'<p class="wo-eb">{e(v["eb"])}</p><h2 class="h2 wo-h"{hid}>{h}</h2><p class="lead wo-lead">{e(v["lead"])}</p>'
+                f'{extra if n in (2, 5) else ""}{fdl}</div></div>')
+    return out
+
+
 def home(t):
     lang = t["lang"]
     path, alt = ("/", "/en/") if lang == "he" else ("/en/", "/")
@@ -331,13 +355,9 @@ def home(t):
     <div class="intro-in"><img class="intro-logo" src="/brand/logo.webp" alt="" width="1202" height="468"><p class="intro-cap">{e(t['intro_cap'])}</p><span class="ir-load"><i></i></span></div>
   </div>
 
-  {mirror(t)}
-  <section class="sec what" id="what" aria-labelledby="what-h">
+  <section class="sec what wo-sec" id="what" aria-labelledby="what-h">
+    {what_opts(t, facts)}
     <div class="wrap">
-      <div class="split">
-        <div class="h2-wrap">{tag(t, 'what')}<h2 class="h2" id="what-h">{hgold(t, 'what_h')}</h2></div>
-        <div><p class="lead">{e(t['what_lead'])}</p><dl class="facts reveal">{facts}</dl></div>
-      </div>
       <h3 class="h3 rounds-h">{e(t['rounds_h'])}</h3>
       <ol class="rounds rd6" tabindex="0" aria-label="{e(t['rounds_h'])}">{rounds}</ol>
     </div>

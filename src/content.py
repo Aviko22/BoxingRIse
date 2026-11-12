@@ -373,3 +373,22 @@ EN = {
     "cookie_more": "Privacy policy",
     "photo_note": "Photo to shoot:",
 }
+
+
+# ---------------------------------------------------------------- preview: six options for the "what" opener (?wo=1..6)
+HE["wo"] = [
+    {"name": "מסכה", "eb": "האימון", "h": ["אגרוף אמיתי.", "רק את והמאמן."], "lead": "כריות, תנועת רגליים ושמירה. כל אימון נבנה לפי הרמה והקצב שלך."},
+    {"name": "מספרים", "eb": "האימון", "h": ["שעה אחת. מאמן אחד.", "וכל הקשב עלייך."], "lead": "בלי קבוצה ובלי לחכות לתור. כל השעה בנויה סביבך."},
+    {"name": "זרקור", "eb": "האימון", "h": ["כל תשומת הלב.", "עלייך."], "lead": "אגרוף קלאסי אחד על אחד: כריות, תנועת רגליים ושמירה, בקצב שלך."},
+    {"name": "פגיעה", "eb": "האימון", "h": ["ג׳אב. קרוס.", "ואת כבר בפנים."], "lead": "לא צריך ניסיון. מהמכה הראשונה זה אגרוף אמיתי, על כריות, מול מאמן שעומד רק מולך."},
+    {"name": "סרט נע", "eb": "האימון", "h": ["אגרוף קלאסי,", "כמו שמאמנים אותו באמת."], "lead": "רק בלי חדר מלא אנשים. את, המאמן והפארק.", "band": ["שמירה", "ג׳אב", "קרוס", "תנועה", "כריות", "כוח", "קצב", "נשימה"]},
+    {"name": "לבן", "eb": "האימון", "h": ["אחד על אחד.", "שעה שכולה שלך."], "lead": "את והמאמן. בלי קבוצה ובלי השוואות. כריות, תנועה ושמירה, לפי הרמה שלך."},
+]
+EN["wo"] = [
+    {"name": "Mask", "eb": "The session", "h": ["Real boxing.", "Just you and your coach."], "lead": "Pads, footwork and guard. Every session is built around your level and pace."},
+    {"name": "Numbers", "eb": "The session", "h": ["One hour. One coach.", "All eyes on you."], "lead": "No class and no waiting your turn. The whole hour is built around you."},
+    {"name": "Spotlight", "eb": "The session", "h": ["All the attention.", "On you."], "lead": "Classic boxing, one on one: pads, footwork and guard, at your pace."},
+    {"name": "Impact", "eb": "The session", "h": ["Jab. Cross.", "And you're in."], "lead": "No experience needed. From the first punch it's real boxing, on pads, with a coach who faces only you."},
+    {"name": "Band", "eb": "The session", "h": ["Classic boxing,", "trained the real way."], "lead": "Just without a room full of people. You, your coach and the park.", "band": ["Guard", "Jab", "Cross", "Footwork", "Pads", "Power", "Rhythm", "Breath"]},
+    {"name": "White", "eb": "The session", "h": ["One on one.", "An hour that's all yours."], "lead": "You and your coach. No class, no comparisons. Pads, footwork and guard, at your level."},
+]
