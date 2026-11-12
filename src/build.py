@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "165"  # bump to bust caches of css/js
+VER = "170"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -333,7 +333,8 @@ def home(t):
     <div class="intro-in"><img class="intro-logo" src="/brand/logo.webp" alt="" width="1202" height="468"><p class="intro-cap">{e(t['intro_cap'])}</p><span class="ir-load"><i></i></span></div>
   </div>
 
-  <section class="sec what" id="what" aria-labelledby="what-h">
+  <section class="sec what wv1" id="what" aria-labelledby="what-h">
+    <script data-cfasync="false">(function(){{var q=new URLSearchParams(location.search).get('wv');if(q&&/^[1-5]$/.test(q)){{var s=document.currentScript.parentNode;s.className=s.className.replace('wv1','wv'+q);}}}})();</script>
     <div class="wrap what-grid">
       <div class="what-side">
         <div class="h2-wrap">{tag(t, 'what')}<h2 class="h2" id="what-h">{hgold(t, 'what_h')}</h2></div>

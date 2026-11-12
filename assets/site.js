@@ -464,3 +464,25 @@
 
 
 
+
+/* preview: calmer "what" options (?wv=1..5) — tabs for option 3 + switcher */
+(function () {
+  var sec = document.querySelector('.what'); if (!sec) return;
+  var q = null; try { q = new URLSearchParams(location.search).get('wv'); } catch (e) {}
+  if (!q) return;
+  var sw = document.createElement('nav'); sw.className = 'ir-sw'; sw.setAttribute('aria-label', 'preview');
+  for (var k = 1; k <= 5; k++) { var l = document.createElement('a'); l.href = '?wv=' + k + '#what'; l.textContent = k; if (String(k) === q) l.className = 'on'; sw.appendChild(l); }
+  document.body.appendChild(sw);
+  if (!sec.classList.contains('wv3')) return;
+  var list = sec.querySelector('.rounds'), items = [].slice.call(list.querySelectorAll('.round'));
+  var tabs = document.createElement('div'); tabs.className = 'wv-tabs'; tabs.setAttribute('role', 'tablist');
+  var cur = 0, timer = null, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(i, user) {
+    cur = i;
+    items.forEach(function (r, k) { r.classList.toggle('on', k === i); var v = r.querySelector('video'); if (v) { if (k === i) { var p = v.play && v.play(); p && p.catch && p.catch(function () {}); } else if (v.pause) v.pause(); } });
+    [].forEach.call(tabs.children, function (b, k) { b.setAttribute('aria-selected', k === i ? 'true' : 'false'); var bar = b.querySelector('i'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
+    clearTimeout(timer); if (!reduce && !user) timer = setTimeout(function () { show((cur + 1) % items.length); }, 6000);
+  }
+  items.forEach(function (r, k) { var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.textContent = r.querySelector('h4').textContent; b.appendChild(document.createElement('i')); b.addEventListener('click', function () { show(k, true); }); tabs.appendChild(b); });
+  list.parentNode.insertBefore(tabs, list); show(0);
+})();
