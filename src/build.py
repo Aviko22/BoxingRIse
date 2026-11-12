@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "154"  # bump to bust caches of css/js
+VER = "155"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -331,7 +331,6 @@ def home(t):
     <div class="intro-in"><img class="intro-logo" src="/brand/logo.webp" alt="" width="1202" height="468"><p class="intro-cap">{e(t['intro_cap'])}</p><span class="ir-load"><i></i></span></div>
   </div>
 
-  {mirror(t)}
   <section class="sec what" id="what" aria-labelledby="what-h">
     <div class="wrap">
       <div class="split">
