@@ -464,3 +464,25 @@
 
 
 
+
+/* preview: six animations for "protect yourself" (?da=1..6) */
+(function () {
+  var sec = document.querySelector('.defend'); if (!sec) return;
+  var cards = [].slice.call(sec.querySelectorAll('.df'));
+  var NS = 'http://www.w3.org/2000/svg';
+  cards.forEach(function (c) { var s = document.createElementNS(NS, 'svg'); s.setAttribute('class', 'df-svg'); s.setAttribute('aria-hidden', 'true'); var r = document.createElementNS(NS, 'rect'); r.setAttribute('x', '1'); r.setAttribute('y', '1'); r.setAttribute('rx', '22'); r.setAttribute('pathLength', '1'); r.style.width = 'calc(100% - 2px)'; r.style.height = 'calc(100% - 2px)'; s.appendChild(r); c.appendChild(s); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { var c = en.target, i = cards.indexOf(c); setTimeout(function () { c.classList.add('hit'); }, i * 220); io.unobserve(c); } }); }, { threshold: .35 });
+    cards.forEach(function (c) { io.observe(c); });
+  } else cards.forEach(function (c) { c.classList.add('hit'); });
+  if (sec.classList.contains('da5')) {
+    var tick = false, upd = function () { tick = false; var mid = innerHeight / 2, best = null, bd = 1e9; cards.forEach(function (c) { var r = c.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid); if (d < bd) { bd = d; best = c; } }); var r = sec.getBoundingClientRect(), inSec = r.top < innerHeight * .6 && r.bottom > innerHeight * .4; cards.forEach(function (c) { c.classList.toggle('focus', inSec && c === best); c.classList.toggle('dim', inSec && c !== best); }); };
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
+  }
+  var q = null; try { q = new URLSearchParams(location.search).get('da'); } catch (e) {}
+  if (!q) return;
+  var desk = /[?&]desk=1/.test(location.search) ? '&desk=1' : '';
+  var sw = document.createElement('nav'); sw.className = 'ir-sw'; sw.setAttribute('aria-label', 'preview');
+  for (var k = 1; k <= 6; k++) { var l = document.createElement('a'); l.href = '?da=' + k + desk + '#defend'; l.textContent = k; if (String(k) === q) l.className = 'on'; sw.appendChild(l); }
+  document.body.appendChild(sw);
+})();
