@@ -1370,3 +1370,14 @@ html[lang="en"] .what-kick { font-weight: 400; letter-spacing: .02em; }
 /* program: gold rule sits under the title (title is dir=ltr inside RTL); button alone in the footer */
 html[dir="rtl"] .prog-title::after { margin-left: auto; margin-right: 0; }
 .prog-foot { justify-content: flex-start; }
+
+/* about: the beginners line in white */
+.about-quote p { color: #fff !important; background: none !important; -webkit-background-clip: border-box; background-clip: border-box; }
+
+/* final: the three steps from the old trial section, compact */
+.fin-steps { list-style: none; margin: 0 0 6px; padding: 0; width: 100%; max-width: 980px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; text-align: start; }
+@media (max-width: 760px) { .fin-steps { grid-template-columns: 1fr; max-width: 460px; } }
+.fin-steps li { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; background: rgba(255, 255, 255, .035); box-shadow: inset 0 0 0 1px var(--line); font-size: 15px; line-height: 1.45; color: var(--ash); }
+.fin-steps b { display: block; color: #fff; font-size: 17px; margin-bottom: 2px; }
+.fs-n { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--metal); color: #120e05; font: 700 15px var(--latin); }
+.fin-why { font-size: 14px; color: var(--ash); max-width: 34em; }

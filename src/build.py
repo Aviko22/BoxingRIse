@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "174"  # bump to bust caches of css/js
+VER = "175"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -366,14 +366,6 @@ def home(t):
   </section>
 
   {voice(t)}
-  <section class="sec trial" id="trial" aria-labelledby="trial-h">
-    <div class="wrap">
-      {tag(t, 'trial')}<h2 class="h2" id="trial-h">{hgold(t, 'trial_h')}</h2>
-      <ol class="steps">{steps}</ol>
-      <div class="trial-foot reveal"><p class="trial-why">{e(t['trial_why'])}</p><div class="trial-cta"><a class="btn btn-gold magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a><p class="trial-note">{e(t['final_note'])}</p></div></div>
-    </div>
-  </section>
-
   <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
     <div class="wrap p8-head">
       {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
@@ -425,6 +417,7 @@ def home(t):
       {tag(t, 'final')}
       <h2 class="final-h" id="final-h">{hgold(t, 'final_h')}</h2>
       <p class="final-sub">{e(t['final_sub'])}</p>
+      <ol class="fin-steps">{''.join(f'<li><span class="fs-n" dir="ltr" aria-hidden="true">{i}</span><span><b>{e(h)}</b> {e(d)}</span></li>' for i, (h, d) in enumerate(t['trial_steps'], 1))}</ol>
       <div class="pick" data-day-tpl="{e(t['pick_day_tpl'])}" data-time-tpl="{e(t['pick_time_tpl'])}">
         <p class="pick-lbl" id="pick-d">{e(t['pick_day'])}</p>
         <div class="pick-row" role="group" aria-labelledby="pick-d" data-group="day">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_days'])}</div>
@@ -434,6 +427,7 @@ def home(t):
       </div>
       <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
       <p class="final-note">{e(t['final_note'])}</p>
+      <p class="fin-why">{e(t['trial_why'])}</p>
     </div>
   </section>
 </main>
