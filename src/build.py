@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "159"  # bump to bust caches of css/js
+VER = "160"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -311,6 +311,7 @@ def home(t):
     return head(t, t["title"], t["description"], path, alt, CFG["noindex"]) + schema(t, path) + "\n</head>\n<body class=\"home\">\n" + header(t, True) + f"""
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
+    <div class="hero-sun" aria-hidden="true"><i class="hs-glow"></i><i class="hs-rays"></i><i class="hs-haze"></i></div>
     <div class="hero-media" aria-hidden="true">
       <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/media/hero-mont-m.jpg?v={VER}" data-poster-wide="/media/hero-mont-w.jpg?v={VER}"></video>
       <script data-cfasync="false">(function(v){{if(!v)return;var w=matchMedia('(min-width: 1000px)').matches;if(w)v.poster=v.dataset.posterWide;if(document.documentElement.classList.contains('intro-on'))v.removeAttribute('autoplay');v.src='/media/hero-mont-'+(w?'w':'m')+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.querySelector('.hero-video'));</script>

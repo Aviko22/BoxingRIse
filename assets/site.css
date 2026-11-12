@@ -1295,3 +1295,27 @@ html.intro-on .hero .tag, html.intro-on .hero .tag::after { animation-play-state
   .what-main .round p { color: #e4ddd0; }
 }
 .hero-inner > .tag { width: fit-content !important; max-width: none !important; }
+
+/* hero · sunrise on the black side: a warm glow rises from below, faint rays turn slowly */
+.hero { isolation: isolate; }
+.hero-sun { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; --sx: 50%; }
+@media (min-width: 1000px) { html[dir="rtl"] .hero-sun { --sx: 80%; } html[dir="ltr"] .hero-sun { --sx: 20%; } }
+.hero-sun i { position: absolute; display: block; }
+.hs-glow { left: calc(var(--sx) - 60vmax); bottom: -60vmax; width: 120vmax; height: 120vmax; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 196, 112, .55) 0%, rgba(240, 160, 70, .32) 22%, rgba(201, 140, 60, .14) 44%, rgba(201, 162, 75, .05) 62%, transparent 75%);
+  opacity: 0; transform: translateY(18%) scale(.85); }
+.hs-rays { left: calc(var(--sx) - 70vmax); bottom: -70vmax; width: 140vmax; height: 140vmax;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255, 214, 140, .10) 0deg 3deg, transparent 3deg 12deg);
+  -webkit-mask: radial-gradient(closest-side, #000 30%, transparent 72%); mask: radial-gradient(closest-side, #000 30%, transparent 72%);
+  opacity: 0; }
+.hs-haze { inset: auto 0 0 0; height: 30%; background: linear-gradient(0deg, rgba(240, 170, 80, .14), transparent); opacity: 0; }
+.hero.go .hs-glow { animation: sunrise 3.6s cubic-bezier(.2, .7, .2, 1) .2s forwards, sun-breathe 7s ease-in-out 3.8s infinite alternate; }
+.hero.go .hs-rays { animation: rays-in 3s ease 1.4s forwards, rays-turn 60s linear 1.4s infinite; }
+.hero.go .hs-haze { animation: rays-in 3s ease .6s forwards; }
+@keyframes sunrise { to { opacity: 1; transform: none; } }
+@keyframes sun-breathe { from { opacity: 1; transform: none; } to { opacity: .82; transform: scale(1.05); } }
+@keyframes rays-in { to { opacity: 1; } }
+@keyframes rays-turn { to { transform: rotate(360deg); } }
+html:not(.js) .hero-sun i { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .hero-sun i { animation: none !important; opacity: 1 !important; transform: none !important; } }
+.hs-rays { background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255, 214, 140, .045) 0deg 2deg, transparent 4deg 14deg); filter: blur(1.5px); -webkit-mask: radial-gradient(closest-side, #000 18%, transparent 60%); mask: radial-gradient(closest-side, #000 18%, transparent 60%); }
