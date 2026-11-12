@@ -464,3 +464,19 @@
 
 
 
+
+/* protect yourself · focus follows the scroll */
+(function () {
+  var sec = document.querySelector('.defend'); if (!sec) return;
+  var cards = [].slice.call(sec.querySelectorAll('.df')); if (!cards.length) return;
+  var tick = false;
+  function upd() {
+    tick = false;
+    var mid = innerHeight / 2, best = null, bd = 1e9;
+    cards.forEach(function (c) { var r = c.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid); if (d < bd) { bd = d; best = c; } });
+    var r = sec.getBoundingClientRect(), on = r.top < innerHeight * .6 && r.bottom > innerHeight * .4;
+    cards.forEach(function (c) { c.classList.toggle('focus', on && c === best); c.classList.toggle('dim', on && c !== best); });
+  }
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+  window.addEventListener('resize', upd); upd();
+})();

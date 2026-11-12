@@ -1359,3 +1359,10 @@ html[lang="en"] .what-kick { font-weight: 400; letter-spacing: .02em; }
 .what-kick br + * , .what-kick { }
 .what-desc .lead { margin-top: 0 !important; }
 @media (min-width: 1000px) { .what-side .what-desc { margin-top: 12px; } }
+
+/* protect yourself · focus: the card in the middle of the screen lights up, the others step back */
+.defend .df { transition: transform .5s var(--ease), opacity .5s ease, box-shadow .5s ease, filter .5s ease; }
+.defend .df.in.dim { opacity: .4; transform: scale(.97); filter: saturate(.5); }
+.defend .df.in.focus { transform: scale(1.03); box-shadow: 0 0 0 1.5px var(--gold), 0 20px 50px -20px rgba(201, 162, 75, .55); }
+.defend .df.focus .df-n { color: var(--gold); transition: color .5s ease; }
+@media (prefers-reduced-motion: reduce) { .defend .df.in.dim, .defend .df.in.focus { transform: none; } }
