@@ -1319,3 +1319,14 @@ html.intro-on .hero .tag, html.intro-on .hero .tag::after { animation-play-state
 html:not(.js) .hero-sun i { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .hero-sun i { animation: none !important; opacity: 1 !important; transform: none !important; } }
 .hs-rays { background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255, 214, 140, .045) 0deg 2deg, transparent 4deg 14deg); filter: blur(1.5px); -webkit-mask: radial-gradient(closest-side, #000 18%, transparent 60%); mask: radial-gradient(closest-side, #000 18%, transparent 60%); }
+
+/* sunrise v2: the light starts at the top and comes down as you scroll; softer */
+.hs-move { position: absolute; inset: 0; transform: translateY(calc(var(--sp, 0) * 85%)); will-change: transform; }
+.hs-glow { bottom: auto; top: -60vmax; background: radial-gradient(closest-side, rgba(255, 196, 112, .30) 0%, rgba(240, 160, 70, .17) 24%, rgba(201, 140, 60, .07) 46%, rgba(201, 162, 75, .025) 62%, transparent 75%); transform: none; }
+.hs-rays { bottom: auto; top: -70vmax; background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255, 214, 140, .03) 0deg 2deg, transparent 4deg 14deg); }
+.hero.go .hs-glow { animation: sun-on 2.4s ease .2s forwards, sun-breathe2 7s ease-in-out 2.6s infinite alternate; }
+@keyframes sun-on { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sun-breathe2 { from { opacity: 1; } to { opacity: .78; } }
+@media (max-width: 999px) { .hs-glow { top: calc(46svh - 60vmax); } .hs-rays { top: calc(46svh - 70vmax); } .hs-move { transform: translateY(calc(var(--sp, 0) * 45%)); } }
+@media (max-width: 999px) { .hs-glow { top: calc(58svh - 60vmax); background: radial-gradient(closest-side, rgba(255, 196, 112, .36) 0%, rgba(240, 160, 70, .2) 24%, rgba(201, 140, 60, .08) 46%, rgba(201, 162, 75, .03) 62%, transparent 75%); } .hs-rays { top: calc(58svh - 70vmax); } }
+@media (max-width: 999px) { .hero-sun { z-index: 0; mix-blend-mode: screen; } .hero-inner { position: relative; z-index: 1; } }

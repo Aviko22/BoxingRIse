@@ -462,3 +462,11 @@
   window.addEventListener('keydown', function k(e) { window.removeEventListener('keydown', k); leave(); });
 })();
 
+
+/* hero sunrise follows the scroll: top of the hero at first, sinking as you scroll */
+(function () {
+  var hero = document.querySelector('.hero'), sun = document.querySelector('.hero-sun'); if (!hero || !sun) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tick = false, upd = function () { tick = false; var h = hero.offsetHeight || 1; var p = Math.min(1, Math.max(0, window.scrollY / (h * .9))); sun.style.setProperty('--sp', p.toFixed(3)); };
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
+})();
