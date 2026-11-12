@@ -1366,3 +1366,7 @@ html[lang="en"] .what-kick { font-weight: 400; letter-spacing: .02em; }
 .defend .df.in.focus { transform: scale(1.03); box-shadow: 0 0 0 1.5px var(--gold), 0 20px 50px -20px rgba(201, 162, 75, .55); }
 .defend .df.focus .df-n { color: var(--gold); transition: color .5s ease; }
 @media (prefers-reduced-motion: reduce) { .defend .df.in.dim, .defend .df.in.focus { transform: none; } }
+
+/* program: gold rule sits under the title (title is dir=ltr inside RTL); button alone in the footer */
+html[dir="rtl"] .prog-title::after { margin-left: auto; margin-right: 0; }
+.prog-foot { justify-content: flex-start; }

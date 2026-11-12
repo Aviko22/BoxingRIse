@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "173"  # bump to bust caches of css/js
+VER = "174"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -406,7 +406,7 @@ def home(t):
     </div>
     <div class="wrap p8-end">
       <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
-      <div class="prog-foot reveal"><p class="prog-price">{e(t['prog_price'])}</p>{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
+      <div class="prog-foot reveal">{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
     </div>
   </section>
 
