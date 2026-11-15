@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "185"  # bump to bust caches of css/js
+VER = "190"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -273,18 +273,30 @@ ICON_STOP = [
 ]
 
 
+PS_ICONS = [
+    '<ellipse cx="8.5" cy="14" rx="2.6" ry="5.5" transform="rotate(-12 8.5 14)"/><ellipse cx="15.5" cy="10" rx="2.6" ry="5.5" transform="rotate(12 15.5 10)"/>',
+    '<path d="M7 12V8.5a4.5 4.5 0 0 1 9 0V10h1a2.5 2.5 0 0 1 0 5h-1v1.5a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2zM8.5 21h6"/>',
+    '<path d="M12 3l7 3v5c0 5-3.4 8-7 10-3.6-2-7-5-7-10V6z"/>',
+    '<path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.8z"/>',
+]
+PS_IMG = ["round-1", "round-2", "clip-confidence", "clip-pads"]
+PS_END = {"he": "8 שבועות. בסיס אמיתי באגרוף.", "en": "8 weeks. A real foundation in boxing."}
+
+
 def offer8(t):
     v = t["ps"]
     meta = ' <span aria-hidden="true">·</span> '.join(f"<span>{e(x)}</span>" for x in v["meta"])
     stops = "".join(
-        f'<li class="ps-stop"><span class="ps-dot" aria-hidden="true" dir="ltr">{i}</span>'
+        f'<li class="ps-stop"><span class="ps-big" aria-hidden="true" dir="ltr">0{i}</span><span class="ps-dot" aria-hidden="true" dir="ltr"><b>{i}</b><svg viewBox="0 0 24 24">{PS_ICONS[i - 1]}</svg></span>'
+        f'<img class="ps-img" src="/media/{PS_IMG[i - 1]}.jpg?v={VER}" alt="" loading="lazy" width="96" height="96">'
         f'<div><small>{e(v["weeks_word"])} <span dir="ltr">{e(w)}</span></small><h3>{e(n)}</h3><p>{e(d)}</p></div></li>'
         for i, (w, n, d) in enumerate(v["stops"], 1))
     weeks = "".join(f'<li><b>{e(t["week_word"])} <span dir="ltr">{i}</span> · {e(h)}</b> <span>{e(d)}</span></li>' for i, (h, d, m) in enumerate(t["weeks"], 1))
-    return (f'<section class="sec ps" id="program" aria-labelledby="prog-h"><div class="wrap">'
+    return (f'<section class="sec ps pv0" id="program" aria-labelledby="prog-h"><script data-cfasync="false">(function(){{var q=new URLSearchParams(location.search).get("pv");if(q&&/^[0-6]$/.test(q)){{var s=document.currentScript.parentNode;s.className=s.className.replace("pv0","pv"+q);}}}})();</script><div class="wrap">'
             f'<div class="ps-head">{tag(t, "program")}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t["prog_h"])}</h2>'
             f'<p class="ps-meta">{meta}</p><p class="lead">{e(v["line"])}</p></div>'
-            f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i></i>{stops}</ol>'
+            f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i><u class="ps-spark"></u></i>{stops}</ol>'
+            f'<p class="ps-end">{e(PS_END[t["lang"]])}</p>'
             f'<div class="ps-foot">{btn(t, t["prog_cta"], "btn btn-gold magnetic")}</div>'
             f'<details class="po-weeks"><summary><span>{e(v["weeks_btn"])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{weeks}</ol></details>'
             f'</div></section>')

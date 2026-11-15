@@ -1464,3 +1464,40 @@ html[lang="en"] .ps-stop h3 { font-weight: 400; letter-spacing: .015em; }
 .ps-foot { margin-top: clamp(32px, 4vw, 48px); }
 .ps .po-weeks { margin-top: 26px; }
 @media (prefers-reduced-motion: reduce) { .ps-stop > div { opacity: 1; } .ps-dot { transition: none; } }
+
+/* ===== preview · visual upgrades for the route (?pv=0..6) ===== */
+.ps-dot svg, .ps-img, .ps-big, .ps-spark, .ps-end { display: none; }
+/* 1 · icons */
+.pv1 .ps-dot b, .pv6 .ps-dot b { display: none; }
+.pv1 .ps-dot svg, .pv6 .ps-dot svg { display: block; width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.pv1 .ps-dot, .pv6 .ps-dot { width: 56px; height: 56px; }
+.pv1 .ps-rail, .pv6 .ps-rail { inset-inline-start: 27px; }
+@media (min-width: 900px) { .pv1 .ps-rail, .pv6 .ps-rail { inset-block: 27px auto; inset-inline: 28px; } }
+/* 2 · a spark that rides the line */
+.pv2 .ps-spark, .pv6 .ps-spark { display: block; position: absolute; width: 12px; height: 12px; margin: -5px; border-radius: 50%; background: #fff6dc; box-shadow: 0 0 0 4px rgba(230, 201, 125, .35), 0 0 22px 8px rgba(230, 201, 125, .7); inset-inline-start: 1px; top: calc(var(--p) * 100%); opacity: calc(var(--p) * 20); animation: ps-pulse 1.4s ease-in-out infinite; }
+@keyframes ps-pulse { 50% { box-shadow: 0 0 0 7px rgba(230, 201, 125, .2), 0 0 30px 12px rgba(230, 201, 125, .8); } }
+@media (min-width: 900px) { .pv2 .ps-spark, .pv6 .ps-spark { top: 1px; inset-inline-start: calc(var(--p) * 100%); } }
+/* 3 · a small round photo per stage */
+.pv3 .ps-img { display: block; flex: none; width: 84px; height: 84px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px rgba(230, 201, 125, .35); filter: grayscale(1) brightness(.6); transition: filter .5s ease, box-shadow .5s ease; }
+.pv3 .ps-stop.on .ps-img { filter: none; box-shadow: 0 0 0 2px var(--gold-hi), 0 0 24px rgba(230, 201, 125, .4); }
+@media (max-width: 899px) { .pv3 .ps-stop { flex-wrap: wrap; } .pv3 .ps-img { order: 3; margin-inline-start: auto; width: 72px; height: 72px; } .pv3 .ps-stop > div { flex: 1; min-width: 0; } }
+/* 4 · finale */
+.pv4 .ps-end, .pv6 .ps-end { display: block; margin-top: clamp(26px, 3.4vw, 40px); font-family: var(--display); font-weight: 800; font-size: clamp(26px, 3.4vw, 44px); line-height: 1.1; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: 0; transform: translateY(14px); transition: opacity .8s ease .2s, transform .9s var(--ease) .2s; }
+html[lang="en"] .ps-end { font-weight: 400; letter-spacing: .015em; }
+.pv4.done .ps-end, .pv6.done .ps-end { opacity: 1; transform: none; }
+.pv4.done .ps-stop:last-of-type .ps-dot, .pv6.done .ps-stop:last-of-type .ps-dot { animation: ps-fin 1.1s ease; }
+@keyframes ps-fin { 0% { box-shadow: 0 0 0 0 rgba(230, 201, 125, .9); } 100% { box-shadow: 0 0 0 46px rgba(230, 201, 125, 0); } }
+/* 5 · big outlined numbers behind */
+.pv5 .ps-big { display: block; position: absolute; z-index: 0; inset-inline-end: 0; top: -18px; font: 600 clamp(110px, 12vw, 170px)/.8 var(--latin); color: transparent; -webkit-text-stroke: 1.3px rgba(230, 201, 125, .16); transition: -webkit-text-stroke-color .5s ease; pointer-events: none; }
+.pv5 .ps-stop.on .ps-big { -webkit-text-stroke-color: rgba(230, 201, 125, .42); }
+.pv5 .ps-stop > div, .pv5 .ps-dot { position: relative; z-index: 1; }
+@media (min-width: 900px) { .pv5 .ps-big { top: 30px; inset-inline-end: 8px; } }
+@media (prefers-reduced-motion: reduce) { .ps-spark { animation: none !important; } .ps-end { opacity: 1 !important; transform: none !important; } }
+.tx-sw { position: fixed; z-index: 9999; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; width: max-content; max-width: calc(100vw - 20px); padding: 6px; border-radius: 16px; background: rgba(12, 11, 9, .94); box-shadow: 0 0 0 1px rgba(230, 201, 125, .4), 0 10px 30px rgba(0, 0, 0, .5); }
+.tx-sw a { padding: 8px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; color: #e8e2d6; text-decoration: none; white-space: nowrap; }
+.tx-sw a.on { background: var(--metal); color: #120e05; }
+@media (max-width: 999px) { .tx-sw { bottom: auto; top: 64px; padding: 4px; gap: 4px; } .tx-sw a { padding: 6px 9px; font-size: 12px; } }
+.pv5 .ps-big { inset-inline-end: auto; }
+html[dir="rtl"] .pv5 .ps-big { left: 0; right: auto; }
+html[dir="ltr"] .pv5 .ps-big { right: 0; left: auto; }
+@media (max-width: 899px) { .pv5 .ps-big { top: -6px; font-size: 96px; } }

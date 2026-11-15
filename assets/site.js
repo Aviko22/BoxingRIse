@@ -495,6 +495,20 @@
     p = Math.min(1, Math.max(0, p));
     route.style.setProperty('--p', p.toFixed(3));
     stops.forEach(function (s, i) { s.classList.toggle('on', p >= (i + .5) / stops.length - .12); });
+    if (p >= .98) sec.classList.add('done');
   }
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
+})();
+
+/* preview: visual upgrades for the route (?pv=0..6) */
+(function () {
+  var sec = document.querySelector('.ps'); if (!sec) return;
+  var q = null; try { q = new URLSearchParams(location.search).get('pv'); } catch (e) {}
+  if (q === null) return;
+  var he = document.documentElement.lang === 'he';
+  var names = he ? ['נוכחי', 'אייקונים', 'נקודת אור', 'תמונות', 'סיום חגיגי', 'מספרים ברקע', '1+2+4 יחד'] : ['Current', 'Icons', 'Spark', 'Photos', 'Finale', 'Big numbers', '1+2+4'];
+  var desk = /[?&]desk=1/.test(location.search) ? '&desk=1' : '';
+  var sw = document.createElement('nav'); sw.className = 'tx-sw'; sw.setAttribute('aria-label', 'preview');
+  names.forEach(function (n, k) { var l = document.createElement('a'); l.href = '?pv=' + k + desk + '#program'; l.textContent = (k ? k + ' · ' : '') + n; if (String(k) === q) l.className = 'on'; sw.appendChild(l); });
+  document.body.appendChild(sw);
 })();
