@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "175"  # bump to bust caches of css/js
+VER = "179"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -158,7 +158,7 @@ def footer(t):
 def floating(t):
     return f"""<a class="wa-float js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener" aria-label="{e(t['wa_label'])} {e(t['new_tab'])}">{ICON_WA}</a>
 <div class="sticky-bar" aria-hidden="false">
-  <a class="sticky-cta js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener">{ICON_WA}<span>{e(t['cta_trial'])}</span><s>{e(t['instead_of'].split()[-2])} ₪</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
+  <a class="sticky-cta js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener">{ICON_WA}<span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a>
 </div>
 """
 
@@ -323,7 +323,8 @@ def home(t):
       {tag(t, 'hero')}
       <p class="h1">{h1}</p>
       <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
-      <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
+      <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a><p class="hero-wa">{ICON_WA}<span>{e(t['hero_wa'])}</span></p></div>
+      <p class="hero-meta">{' <span aria-hidden="true">·</span> '.join(f'<span>{e(x)}</span>' for x in t['hero_meta'])}</p>
     </div>
   </section>
   <div class="intro" aria-hidden="true">
@@ -344,6 +345,7 @@ def home(t):
       <div class="what-main">
       <h3 class="h3 rounds-h">{e(t['rounds_h'])}</h3>
       <ol class="rounds rd6" tabindex="0" aria-label="{e(t['rounds_h'])}">{rounds}</ol>
+      <figure class="early-rv reveal"><blockquote><p>״{e(t['review_hl'][0])}.״</p></blockquote><figcaption>{e(t['reviews'][0][0])} · {e(t['review_sub'][0])}</figcaption></figure>
       </div>
     </div>
   </section>
@@ -372,6 +374,7 @@ def home(t):
       <p class="p8-sub">{e(t['prog_sub'])}</p>
       <p class="lead">{e(t['prog_lead'])}</p>
       <dl class="facts reveal">{pfacts}</dl>
+      <p class="p8-split reveal">{e(t['prog_split'])}</p>
       <p class="p8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
     </div>
     <div class="p8-run">
@@ -423,9 +426,10 @@ def home(t):
         <div class="pick-row" role="group" aria-labelledby="pick-d" data-group="day">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_days'])}</div>
         <p class="pick-lbl" id="pick-t">{e(t['pick_time'])}</p>
         <div class="pick-row" role="group" aria-labelledby="pick-t" data-group="time">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_times'])}</div>
+        <p class="pick-hint">{e(t['pick_hint'])}</p>
         <p class="pick-preview" aria-live="polite">{e(t['pick_preview'])} <b class="js-pick-msg">{e(CFG['whatsapp_message'][t['lang']])}</b></p>
       </div>
-      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
+      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a>
       <p class="final-note">{e(t['final_note'])}</p>
       <p class="fin-why">{e(t['trial_why'])}</p>
     </div>
