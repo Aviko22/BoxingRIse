@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "185"  # bump to bust caches of css/js
+VER = "186"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -284,7 +284,7 @@ def offer8(t):
     return (f'<section class="sec ps" id="program" aria-labelledby="prog-h"><div class="wrap">'
             f'<div class="ps-head">{tag(t, "program")}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t["prog_h"])}</h2>'
             f'<p class="ps-meta">{meta}</p><p class="lead">{e(v["line"])}</p></div>'
-            f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i></i>{stops}</ol>'
+            f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i><u class="ps-spark"></u></i>{stops}</ol>'
             f'<div class="ps-foot">{btn(t, t["prog_cta"], "btn btn-gold magnetic")}</div>'
             f'<details class="po-weeks"><summary><span>{e(v["weeks_btn"])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{weeks}</ol></details>'
             f'</div></section>')

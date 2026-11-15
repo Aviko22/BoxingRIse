@@ -495,6 +495,7 @@
     p = Math.min(1, Math.max(0, p));
     route.style.setProperty('--p', p.toFixed(3));
     stops.forEach(function (s, i) { s.classList.toggle('on', p >= (i + .5) / stops.length - .12); });
+    if (p >= .98) sec.classList.add('done'); else if (p < .85) sec.classList.remove('done');
   }
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
 })();
