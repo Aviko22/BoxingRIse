@@ -402,7 +402,7 @@ EN["po"] = {
 
 # ---------------------------------------------------------------- BoxingRise 8 · simple route
 HE["ps"] = {
-    "line": "ההמשך אחרי אימון הניסיון. בכל שלב מוסיפים עוד יסוד.",
+    "line": "מאפס לביטחון, ב־8 שבועות.",
     "meta": ["8 שבועות", "16 אימונים אישיים", "פעמיים בשבוע"],
     "weeks_word": "שבועות",
     "stops": [("1–2", "בסיס", "עמידה, תנועה, ג׳אב וקרוס."), ("3–4", "רצפים", "הוק, אפרקאט ורצפים על הכריות."),
@@ -410,7 +410,7 @@ HE["ps"] = {
     "weeks_btn": "מה לומדים בכל שבוע?",
 }
 EN["ps"] = {
-    "line": "What comes after your trial. Each stage adds one more fundamental.",
+    "line": "From zero to confident, in 8 weeks.",
     "meta": ["8 weeks", "16 private sessions", "twice a week"],
     "weeks_word": "Weeks",
     "stops": [("1–2", "Basics", "Stance, movement, jab and cross."), ("3–4", "Combinations", "Hook, uppercut and combinations on the pads."),

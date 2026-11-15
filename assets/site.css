@@ -1512,3 +1512,6 @@ html[lang="en"] .ps-stop h3 { font-weight: 400; letter-spacing: .015em; }
 .rv-photo { border-radius: 16px; outline: 1.5px dashed var(--stitch); outline-offset: -6px; }
 .fin-steps li { border-radius: 22px; background: var(--leather); box-shadow: none; outline: 1.5px dashed var(--stitch); outline-offset: -7px; padding: 20px; }
 .round-img, video.round-img, .about-img, .rv-photo { outline-color: rgba(236, 208, 136, .8); }
+.ps-line { margin-top: 12px; font-family: var(--display); font-weight: 800; font-size: clamp(26px, 3.4vw, 44px); line-height: 1.1; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
+html[lang="en"] .ps-line { font-weight: 400; letter-spacing: .015em; }
+.ps-line + .ps-meta { margin-top: 12px; color: var(--text); font-weight: 600; }
