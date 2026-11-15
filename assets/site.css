@@ -1381,3 +1381,41 @@ html[dir="rtl"] .prog-title::after { margin-left: auto; margin-right: 0; }
 .fin-steps b { display: block; color: #fff; font-size: 17px; margin-bottom: 2px; }
 .fs-n { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--metal); color: #120e05; font: 700 15px var(--latin); }
 .fin-why { font-size: 14px; color: var(--ash); max-width: 34em; }
+
+
+/* ===== preview · black/white transitions (?tx=1..4) and white reviews (?rw=1|0) ===== */
+.reviews.rv-white { border-top: 0; }
+.reviews.rv-white .rv { --white: #fff; --text: #e8e2d6; --ash: #a39d90; }
+.reviews.rv-white .rv-foot p { color: #14261c; }
+.cream { z-index: 1; }
+
+/* 1 · torn paper: the white edge is ripped, like the tape labels */
+html[data-tx="1"] .cream { margin-block: -14px; padding-block: calc(clamp(72px, 12vw, 150px) + 14px);
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27600%27%20height%3D%2726%27%20viewBox%3D%270%200%20600%2026%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%2C26%20L0.0%2C9.2%20L7.8%2C14.4%20L14.7%2C12.6%20L25.1%2C4.9%20L37.2%2C4.6%20L48.4%2C5.1%20L55.4%2C10.8%20L71.4%2C6.0%20L80.1%2C14.0%20L97.4%2C13.2%20L108.2%2C19.6%20L114.7%2C17.7%20L124.2%2C6.3%20L131.6%2C8.9%20L147.4%2C6.9%20L160.4%2C14.2%20L170.9%2C12.8%20L177.6%2C5.0%20L186.1%2C14.9%20L197.2%2C9.0%20L210.3%2C11.3%20L219.9%2C16.7%20L234.2%2C7.9%20L247.1%2C12.4%20L263.6%2C15.7%20L273.1%2C19.7%20L280.5%2C10.7%20L295.6%2C6.4%20L307.5%2C4.6%20L321.5%2C16.2%20L334.4%2C18.0%20L344.1%2C15.1%20L357.3%2C13.3%20L368.7%2C17.4%20L386.1%2C11.6%20L400.0%2C5.0%20L414.5%2C14.4%20L432.4%2C17.2%20L441.8%2C10.2%20L455.8%2C4.4%20L467.3%2C6.7%20L474.8%2C4.9%20L490.0%2C6.1%20L498.9%2C10.3%20L515.4%2C5.3%20L526.8%2C12.8%20L543.4%2C17.1%20L559.8%2C8.5%20L570.7%2C9.7%20L587.4%2C19.3%20L595.2%2C6.8%20L600.0%2C9.2%20L600%2C26%20Z%27%20fill%3D%27black%27/%3E%3C/svg%3E") top left / 600px 26px repeat-x, linear-gradient(#000 0 0) 0 25px / 100% calc(100% - 50px) no-repeat, url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27600%27%20height%3D%2726%27%20viewBox%3D%270%200%20600%2026%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%2C0%20L0.0%2C16.8%20L7.8%2C11.6%20L14.7%2C13.4%20L25.1%2C21.1%20L37.2%2C21.4%20L48.4%2C20.9%20L55.4%2C15.2%20L71.4%2C20.0%20L80.1%2C12.0%20L97.4%2C12.8%20L108.2%2C6.4%20L114.7%2C8.3%20L124.2%2C19.7%20L131.6%2C17.1%20L147.4%2C19.1%20L160.4%2C11.8%20L170.9%2C13.2%20L177.6%2C21.0%20L186.1%2C11.1%20L197.2%2C17.0%20L210.3%2C14.7%20L219.9%2C9.3%20L234.2%2C18.1%20L247.1%2C13.6%20L263.6%2C10.3%20L273.1%2C6.3%20L280.5%2C15.3%20L295.6%2C19.6%20L307.5%2C21.4%20L321.5%2C9.8%20L334.4%2C8.0%20L344.1%2C10.9%20L357.3%2C12.7%20L368.7%2C8.6%20L386.1%2C14.4%20L400.0%2C21.0%20L414.5%2C11.6%20L432.4%2C8.8%20L441.8%2C15.8%20L455.8%2C21.6%20L467.3%2C19.3%20L474.8%2C21.1%20L490.0%2C19.9%20L498.9%2C15.7%20L515.4%2C20.7%20L526.8%2C13.2%20L543.4%2C8.9%20L559.8%2C17.5%20L570.7%2C16.3%20L587.4%2C6.7%20L595.2%2C19.2%20L600.0%2C16.8%20L600%2C0%20Z%27%20fill%3D%27black%27/%3E%3C/svg%3E") bottom left / 600px 26px repeat-x;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27600%27%20height%3D%2726%27%20viewBox%3D%270%200%20600%2026%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%2C26%20L0.0%2C9.2%20L7.8%2C14.4%20L14.7%2C12.6%20L25.1%2C4.9%20L37.2%2C4.6%20L48.4%2C5.1%20L55.4%2C10.8%20L71.4%2C6.0%20L80.1%2C14.0%20L97.4%2C13.2%20L108.2%2C19.6%20L114.7%2C17.7%20L124.2%2C6.3%20L131.6%2C8.9%20L147.4%2C6.9%20L160.4%2C14.2%20L170.9%2C12.8%20L177.6%2C5.0%20L186.1%2C14.9%20L197.2%2C9.0%20L210.3%2C11.3%20L219.9%2C16.7%20L234.2%2C7.9%20L247.1%2C12.4%20L263.6%2C15.7%20L273.1%2C19.7%20L280.5%2C10.7%20L295.6%2C6.4%20L307.5%2C4.6%20L321.5%2C16.2%20L334.4%2C18.0%20L344.1%2C15.1%20L357.3%2C13.3%20L368.7%2C17.4%20L386.1%2C11.6%20L400.0%2C5.0%20L414.5%2C14.4%20L432.4%2C17.2%20L441.8%2C10.2%20L455.8%2C4.4%20L467.3%2C6.7%20L474.8%2C4.9%20L490.0%2C6.1%20L498.9%2C10.3%20L515.4%2C5.3%20L526.8%2C12.8%20L543.4%2C17.1%20L559.8%2C8.5%20L570.7%2C9.7%20L587.4%2C19.3%20L595.2%2C6.8%20L600.0%2C9.2%20L600%2C26%20Z%27%20fill%3D%27black%27/%3E%3C/svg%3E") top left / 600px 26px repeat-x, linear-gradient(#000 0 0) 0 25px / 100% calc(100% - 50px) no-repeat, url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27600%27%20height%3D%2726%27%20viewBox%3D%270%200%20600%2026%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%2C0%20L0.0%2C16.8%20L7.8%2C11.6%20L14.7%2C13.4%20L25.1%2C21.1%20L37.2%2C21.4%20L48.4%2C20.9%20L55.4%2C15.2%20L71.4%2C20.0%20L80.1%2C12.0%20L97.4%2C12.8%20L108.2%2C6.4%20L114.7%2C8.3%20L124.2%2C19.7%20L131.6%2C17.1%20L147.4%2C19.1%20L160.4%2C11.8%20L170.9%2C13.2%20L177.6%2C21.0%20L186.1%2C11.1%20L197.2%2C17.0%20L210.3%2C14.7%20L219.9%2C9.3%20L234.2%2C18.1%20L247.1%2C13.6%20L263.6%2C10.3%20L273.1%2C6.3%20L280.5%2C15.3%20L295.6%2C19.6%20L307.5%2C21.4%20L321.5%2C9.8%20L334.4%2C8.0%20L344.1%2C10.9%20L357.3%2C12.7%20L368.7%2C8.6%20L386.1%2C14.4%20L400.0%2C21.0%20L414.5%2C11.6%20L432.4%2C8.8%20L441.8%2C15.8%20L455.8%2C21.6%20L467.3%2C19.3%20L474.8%2C21.1%20L490.0%2C19.9%20L498.9%2C15.7%20L515.4%2C20.7%20L526.8%2C13.2%20L543.4%2C8.9%20L559.8%2C17.5%20L570.7%2C16.3%20L587.4%2C6.7%20L595.2%2C19.2%20L600.0%2C16.8%20L600%2C0%20Z%27%20fill%3D%27black%27/%3E%3C/svg%3E") bottom left / 600px 26px repeat-x; }
+html[data-tx="1"] .cream + .sec, html[data-tx="1"] .sec:has(+ .cream) { position: relative; }
+
+/* 2 · the page itself turns light as the white section scrolls in, then dark again */
+html[data-tx="2"] .cream { --k: 0; background: color-mix(in srgb, #fff calc(var(--k) * 100%), #0e0d0b);
+  --white: color-mix(in srgb, #14261c calc(var(--k) * 100%), #fff); --text: color-mix(in srgb, #1d1b16 calc(var(--k) * 100%), #e8e2d6);
+  --ash: color-mix(in srgb, #5f5a4f calc(var(--k) * 100%), #a39d90); --line: color-mix(in srgb, rgba(26, 22, 14, .16) calc(var(--k) * 100%), rgba(255, 255, 255, .1));
+  color: var(--text); }
+html[data-tx="2"] .cream .h2, html[data-tx="2"] .cream .vc-out, html[data-tx="2"] .cream .rv-foot p { color: var(--white); }
+html[data-tx="2"] .cream .h2 .g { -webkit-text-fill-color: color-mix(in srgb, #9a6f1c calc(var(--k) * 100%), #e6c97d); color: color-mix(in srgb, #9a6f1c calc(var(--k) * 100%), #e6c97d); }
+html[data-tx="2"] .cream .lead, html[data-tx="2"] .cream .vc-in { color: var(--ash); }
+html[data-tx="2"] .cream .tag { background: color-mix(in srgb, #1d1912 calc(var(--k) * 100%), #f1e9da); color: color-mix(in srgb, #f1e9da calc(var(--k) * 100%), #1d1912); }
+
+/* 3 · diagonal: the white section comes in at an angle */
+html[data-tx="3"] .cream { margin-block: -3.5vw; padding-block: calc(clamp(72px, 12vw, 150px) + 3.5vw); clip-path: polygon(0 3.5vw, 100% 0, 100% calc(100% - 3.5vw), 0 100%); }
+
+/* 4 · gold rope: a thin glowing gold line where black meets white */
+html[data-tx="4"] .cream { box-shadow: 0 -2px 0 0 #c99a3e, 0 2px 0 0 #c99a3e, 0 -10px 30px -6px rgba(230, 201, 125, .55), 0 10px 30px -6px rgba(230, 201, 125, .55); }
+html[data-tx="4"] .cream::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 120px; background: linear-gradient(180deg, rgba(201, 162, 75, .14), transparent); pointer-events: none; z-index: -1; }
+
+@media (prefers-reduced-motion: reduce) { html[data-tx="2"] .cream { --k: 1 !important; } }
+.tx-sw { position: fixed; z-index: 9999; left: 50%; bottom: 84px; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; width: max-content; max-width: calc(100vw - 20px); padding: 6px; border-radius: 16px; background: rgba(12, 11, 9, .92); box-shadow: 0 0 0 1px rgba(230, 201, 125, .4), 0 10px 30px rgba(0, 0, 0, .5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.tx-sw a { padding: 8px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; color: #e8e2d6; text-decoration: none; white-space: nowrap; }
+.tx-sw a.on { background: var(--metal); color: #120e05; }
+.tx-sw .tx-rw { color: var(--gold-hi); }
+@media (min-width: 1000px) { .tx-sw { bottom: 22px; } }
+@media (max-width: 999px) { .tx-sw { bottom: auto; top: 64px; padding: 4px; gap: 4px; } .tx-sw a { padding: 6px 9px; font-size: 12px; } }

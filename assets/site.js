@@ -480,3 +480,19 @@
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
   window.addEventListener('resize', upd); upd();
 })();
+
+/* preview: black/white transitions — option 2 drives the colour with the scroll; switcher */
+(function () {
+  var de = document.documentElement, tx = de.getAttribute('data-tx'), rw = de.getAttribute('data-rw');
+  if (tx === '2' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var secs = [].slice.call(document.querySelectorAll('.cream')), tick = false;
+    var upd = function () { tick = false; var H = innerHeight; secs.forEach(function (s) { var r = s.getBoundingClientRect(), mid = r.top + Math.min(r.height, H) / 2; var inP = Math.min(1, Math.max(0, (H * .95 - r.top) / (H * .55))); var outP = Math.min(1, Math.max(0, (r.bottom - H * .05) / (H * .55))); s.style.setProperty('--k', Math.min(inP, outP).toFixed(3)); }); };
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
+  }
+  var names = { he: ['קרע נייר', 'מעבר בגלילה', 'אלכסון', 'קו זהב'], en: ['Torn paper', 'Scroll fade', 'Diagonal', 'Gold line'] }[de.lang === 'he' ? 'he' : 'en'];
+  var desk = /[?&]desk=1/.test(location.search) ? '&desk=1' : '';
+  var sw = document.createElement('nav'); sw.className = 'tx-sw'; sw.setAttribute('aria-label', 'preview');
+  for (var k = 1; k <= 4; k++) { var l = document.createElement('a'); l.href = '?tx=' + k + '&rw=' + rw + desk + location.hash; l.textContent = k + ' · ' + names[k - 1]; if (String(k) === tx) l.className = 'on'; sw.appendChild(l); }
+  var t = document.createElement('a'); t.href = '?tx=' + tx + '&rw=' + (rw === '1' ? '0' : '1') + desk + location.hash; t.textContent = (rw === '1' ? '☐ ' : '☑ ') + (de.lang === 'he' ? 'המלצות בשחור' : 'Reviews in black'); t.className = 'tx-rw'; sw.appendChild(t);
+  document.body.appendChild(sw);
+})();
