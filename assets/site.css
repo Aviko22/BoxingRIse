@@ -1479,3 +1479,22 @@ html[lang="en"] .ps-stop h3 { font-weight: 400; letter-spacing: .015em; }
 .ps.done .ps-rail i { animation: ps-glow 1.4s ease .2s; }
 @keyframes ps-glow { 40% { box-shadow: 0 0 22px 4px rgba(255, 236, 190, .95); filter: brightness(1.5); } }
 @media (prefers-reduced-motion: reduce) { .ps-spark { display: none; } .ps.done .ps-dot, .ps.done .ps-dot::after, .ps.done .ps-rail i { animation: none !important; } }
+
+/* route finish line: a victorious boxer (logo-style silhouette) rises when the line is complete */
+.ps-win { position: relative; display: grid; place-items: center; width: 110px; height: 104px; }
+.ps-win svg { position: relative; width: 100%; height: 100%; fill: rgba(255, 255, 255, .1); transform: translateY(14px) scale(.86); transform-origin: 50% 100%; transition: fill .6s ease, transform .9s cubic-bezier(.2, 1.4, .4, 1); }
+.ps-win-glow { position: absolute; inset: -30%; border-radius: 50%; background: radial-gradient(closest-side, rgba(230, 201, 125, .55), rgba(201, 162, 75, .18) 55%, transparent 75%); opacity: 0; transform: scale(.5); transition: opacity .8s ease, transform 1s var(--ease); }
+.ps.done .ps-win svg { fill: #fff; transform: none; transition-delay: .45s; filter: drop-shadow(0 0 14px rgba(230, 201, 125, .7)); }
+.ps.done .ps-win-glow { opacity: 1; transform: none; transition-delay: .45s; animation: ps-winpulse 3s ease-in-out 1.6s infinite; }
+@keyframes ps-winpulse { 50% { opacity: .6; transform: scale(1.08); } }
+@media (max-width: 899px) { .ps-win { margin-inline-start: -33px; margin-top: -6px; } }
+@media (min-width: 900px) {
+  .ps-route { grid-template-columns: repeat(4, 1fr) 110px; }
+  .ps-win { margin-top: -52px; align-self: start; }
+  .ps-rail { inset-inline-end: 110px !important; }
+}
+@media (prefers-reduced-motion: reduce) { .ps-win svg { fill: #fff; transform: none; transition: none; } .ps-win-glow { opacity: 1; transform: none; animation: none !important; } }
+.ps-win { width: 132px; height: 124px; }
+@media (min-width: 900px) { .ps-route { grid-template-columns: repeat(4, 1fr) 132px; } .ps-win { margin-top: -70px; } .ps-rail { inset-inline-end: 132px !important; } }
+@media (max-width: 899px) { .ps-win { margin-inline-start: -44px; } }
+@media (max-width: 899px) { .ps-win { width: 104px; height: 98px; margin-inline-start: -14px; margin-top: 0; } .ps-rail { inset-block-end: 100px; } }

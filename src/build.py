@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "186"  # bump to bust caches of css/js
+VER = "187"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -273,6 +273,9 @@ ICON_STOP = [
 ]
 
 
+WIN_SVG = '<svg viewBox="0 0 220 206" aria-hidden="true" focusable="false"><path d="M110 62c10 0 17 8 17 19 0 9-4 17-10 21l1 9h-16l1-9c-6-4-10-12-10-21 0-11 7-19 17-19z"/><path d="M123 68c9-7 20-4 22 6 1 8-3 17-9 23 0-9-3-16-8-21z"/><path d="M94 108c-12 3-22 8-30 14 6 10 13 20 17 31 3 10 3 19 1 28-2 8-3 15-3 24h62c0-9-1-16-3-24-2-9-2-18 1-28 4-11 11-21 17-31-8-6-18-11-30-14-6 5-12 7-16 7s-10-2-16-7z"/><path d="M70 120c-9-10-19-25-27-41-3-6 6-12 11-7 11 12 22 25 31 38z"/><path d="M43 82c-4-14-5-28-4-42 1-6 15-6 17 0 2 14 2 27 1 40-1 8-12 9-14 2z"/><path d="M32 30c-2-13 5-24 16-25 10-1 18 7 19 18 1 6-1 12-4 16 4 2 5 8 1 11-3 3-9 2-11-2-11 1-19-6-21-18z"/><g transform="translate(220 0) scale(-1 1)"><path d="M70 120c-9-10-19-25-27-41-3-6 6-12 11-7 11 12 22 25 31 38z"/><path d="M43 82c-4-14-5-28-4-42 1-6 15-6 17 0 2 14 2 27 1 40-1 8-12 9-14 2z"/><path d="M32 30c-2-13 5-24 16-25 10-1 18 7 19 18 1 6-1 12-4 16 4 2 5 8 1 11-3 3-9 2-11-2-11 1-19-6-21-18z"/></g></svg>'
+
+
 def offer8(t):
     v = t["ps"]
     meta = ' <span aria-hidden="true">·</span> '.join(f"<span>{e(x)}</span>" for x in v["meta"])
@@ -284,7 +287,7 @@ def offer8(t):
     return (f'<section class="sec ps" id="program" aria-labelledby="prog-h"><div class="wrap">'
             f'<div class="ps-head">{tag(t, "program")}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t["prog_h"])}</h2>'
             f'<p class="ps-meta">{meta}</p><p class="lead">{e(v["line"])}</p></div>'
-            f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i><u class="ps-spark"></u></i>{stops}</ol>'
+            f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i><u class="ps-spark"></u></i>{stops}<li class="ps-win" aria-hidden="true"><span class="ps-win-glow"></span>{WIN_SVG}</li></ol>'
             f'<div class="ps-foot">{btn(t, t["prog_cta"], "btn btn-gold magnetic")}</div>'
             f'<details class="po-weeks"><summary><span>{e(v["weeks_btn"])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{weeks}</ol></details>'
             f'</div></section>')
