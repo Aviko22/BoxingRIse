@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "176"  # bump to bust caches of css/js
+VER = "180"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -265,6 +265,32 @@ def defend(t):
             f'<div><ol class="df-list">{items}</ol><p class="df-note reveal">{e(t["def_note"])}</p></div></div></section>')
 
 
+ICON_STOP = [
+    '<path d="M6 20h12M9 20v-6l3-2 3 2v6M12 12V4"/>',
+    '<path d="M3 12h3l2-5 4 10 2-5h7"/>',
+    '<path d="M7 9a5 5 0 0 1 10 0v4a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4z M7 11h10"/>',
+    '<path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.8z"/>',
+]
+
+
+def offer8(t):
+    v = t["po"]
+    inc = "".join(f'<li><span class="po-chk" aria-hidden="true"></span>{e(x)}</li>' for x in v["inc"])
+    stops = "".join(
+        f'<li class="po-stop"><span class="po-ic" aria-hidden="true"><svg viewBox="0 0 24 24">{ICON_STOP[i]}</svg></span>'
+        f'<b>{e(n)}</b><small>{e(v["weeks_word"])} <span dir="ltr">{e(w)}</span></small></li>'
+        for i, (w, n) in enumerate(v["stops"]))
+    weeks = "".join(f'<li><b>{e(t["week_word"])} <span dir="ltr">{i}</span> · {e(h)}</b> <span>{e(d)}</span></li>' for i, (h, d, m) in enumerate(t["weeks"], 1))
+    return (f'<section class="sec po" id="program" aria-labelledby="prog-h"><div class="wrap">'
+            f'<div class="po-head">{tag(t, "program")}<h2 class="h2 prog-title po-title" id="prog-h" dir="ltr">{e(t["prog_h"])}</h2>'
+            f'<p class="po-line">{e(v["line"])}</p></div>'
+            f'<div class="po-grid"><div class="po-inc"><h3>{e(v["inc_h"])}</h3><ul>{inc}</ul></div>'
+            f'<div class="po-route"><h3>{e(v["route_h"])}</h3><ol class="po-stops"><i class="po-rail" aria-hidden="true"><i></i></i>{stops}</ol></div></div>'
+            f'<details class="po-weeks"><summary><span>{e(v["weeks_btn"])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{weeks}</ol></details>'
+            f'<div class="po-foot">{btn(t, t["prog_cta"], "btn btn-gold btn-lg magnetic")}</div>'
+            f'</div></section>')
+
+
 def home(t):
     lang = t["lang"]
     path, alt = ("/", "/en/") if lang == "he" else ("/en/", "/")
@@ -366,41 +392,7 @@ def home(t):
   </section>
 
   {voice(t)}
-  <section class="sec p8 lgA fx4" id="program" aria-labelledby="prog-h" data-phases="{e("|".join(t["prog_phases"]))}" data-phase-word="{e(t["phase_word"])}">
-    <div class="wrap p8-head">
-      {tag(t, 'program')}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t['prog_h'])}</h2>
-      <p class="p8-sub">{e(t['prog_sub'])}</p>
-      <p class="lead">{e(t['prog_lead'])}</p>
-      <dl class="facts reveal">{pfacts}</dl>
-      <p class="p8-plus reveal"><span aria-hidden="true">+</span> {e(t['prog_plus'])}</p>
-    </div>
-    <div class="p8-run">
-      <div class="p8-stage" aria-hidden="true">
-        <div class="p8-glow"></div>
-        <div class="wrap p8-grid">
-          <div class="p8-mark"><span class="p8-rays"></span><i class="p8-mk-base"></i><i class="p8-mk-fill"></i><i class="p8-shine"></i></div>
-          <div class="p8-dial">
-            <svg viewBox="0 0 200 200">{p8segs}</svg>
-            <div class="p8-num"><small>{e(t['week_word'])}</small><span class="p8-roll" dir="ltr">{"".join(f"<b>{i}</b>" for i in range(1, 9))}</span><i dir="ltr">/ 8</i></div>
-          </div>
-          <div class="p8-copy">
-            <p class="p8-phase"><span class="p8-ph-n"></span> · <span class="p8-ph-t"></span></p>
-            <p class="p8-feel"></p>
-            <h3 class="p8-t"></h3>
-            <p class="p8-d"></p>
-            <p class="p8-m"><span>{e(t['milestone_word'])}</span> <em></em></p>
-          </div>
-        </div>
-        <div class="wrap p8-ticks">{"".join(f"<i></i>" for _ in range(8))}</div>
-        <p class="p8-hint">{e(t['prog_scroll'])} ↓</p>
-      </div>
-      <ol class="p8-steps">{p8steps}</ol>
-    </div>
-    <div class="wrap p8-end">
-      <div class="prog-outcome reveal"><p><b>{e(t['prog_outcome_h'])}</b> {e(t['prog_outcome'])}</p></div>
-      <div class="prog-foot reveal">{btn(t, t['prog_cta'], 'btn btn-gold magnetic')}</div>
-    </div>
-  </section>
+  {offer8(t)}
 
 
   <section class="sec faq alt" id="faq" aria-labelledby="faq-h">

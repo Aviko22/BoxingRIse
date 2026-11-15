@@ -375,3 +375,24 @@ EN = {
     "cookie_more": "Privacy policy",
     "photo_note": "Photo to shoot:",
 }
+
+
+# ---------------------------------------------------------------- BoxingRise 8 · offer layout
+HE["po"] = {
+    "line": "אחרי אימון הניסיון, זה ההמשך: שמונה שבועות של אימון אישי, עם מטרה ברורה ומאמן שמלווה אותך לאורך כל הדרך.",
+    "inc_h": "מה כלול",
+    "inc": ["16 אימונים אישיים, אחד על אחד", "פעמיים בשבוע, 60 דקות כל אימון", "חצי אגרוף קלאסי, חצי כוח וכושר", "ליווי אישי בוואטסאפ בין האימונים", "תוכנית אישית להמשך בסוף הדרך"],
+    "route_h": "המסלול",
+    "stops": [("1–2", "בסיס"), ("3–4", "קצב"), ("5–6", "כוח"), ("7–8", "הכול ביחד")],
+    "weeks_word": "שבועות",
+    "weeks_btn": "מה לומדים בכל שבוע?",
+}
+EN["po"] = {
+    "line": "After your trial, this is what comes next: eight weeks of private training, with a clear goal and a coach beside you the whole way.",
+    "inc_h": "What's included",
+    "inc": ["16 private sessions, one on one", "Twice a week, 60 minutes each", "Half classic boxing, half strength and fitness", "Personal WhatsApp support between sessions", "A personal plan for what comes next"],
+    "route_h": "The route",
+    "stops": [("1–2", "Basics"), ("3–4", "Rhythm"), ("5–6", "Power"), ("7–8", "All together")],
+    "weeks_word": "Weeks",
+    "weeks_btn": "What do you learn each week?",
+}

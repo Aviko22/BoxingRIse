@@ -480,3 +480,20 @@
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
   window.addEventListener('resize', upd); upd();
 })();
+
+/* BoxingRise 8 offer: the gold rail fills and the stops light up as the route scrolls through */
+(function () {
+  var sec = document.querySelector('.po'); if (!sec) return;
+  var route = sec.querySelector('.po-stops'), rail = sec.querySelector('.po-rail i'), stops = [].slice.call(sec.querySelectorAll('.po-stop'));
+  if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { sec.classList.add('in'); io.disconnect(); } }, { threshold: .15 }); io.observe(sec); } else sec.classList.add('in');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { stops.forEach(function (s) { s.classList.add('on'); }); return; }
+  var tick = false;
+  function upd() {
+    tick = false;
+    var r = route.getBoundingClientRect(), H = innerHeight;
+    var p = Math.min(1, Math.max(0, (H * .85 - r.top) / (H * .5)));
+    rail.parentNode.style.setProperty('--p', p.toFixed(3));
+    stops.forEach(function (s, i) { s.classList.toggle('on', p >= i / (stops.length - 1) - .02); });
+  }
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
+})();
