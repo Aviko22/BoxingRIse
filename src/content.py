@@ -417,3 +417,8 @@ EN["ps"] = {
               ("5–6", "Defence", "Block, move and punch back."), ("7–8", "All together", "Full rounds with everything you learned.")],
     "weeks_btn": "What do you learn each week?",
 }
+
+
+# ---------------------------------------------------------------- final headline (last word is gold)
+HE["rr"] = ["מוכנה", "לעלות?"]
+EN["rr"] = ["READY TO", "RISE?"]
