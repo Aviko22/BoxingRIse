@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "188"  # bump to bust caches of css/js
+VER = "189"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -273,9 +273,6 @@ ICON_STOP = [
 ]
 
 
-WIN_SVG = '<svg viewBox="0 0 220 206" aria-hidden="true" focusable="false" fill="currentColor"><ellipse cx="110" cy="84" rx="18" ry="21"/><circle cx="125" cy="69" r="8.5"/><path d="M101 98h18v14h-18z"/><path d="M110 107c-8 0-14 2-20 5-10 4-19 9-24 15l5 9c7 11 13 22 15 33 1 9 0 16-2 24l-2 13h56l-2-13c-2-8-3-15-2-24 2-11 8-22 15-33l5-9c-5-6-14-11-24-15-6-3-12-5-20-5z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M75 127 51 91" stroke-width="23"/><path d="M51 91 53 56" stroke-width="20"/><path d="M145 127 169 91" stroke-width="23"/><path d="M169 91 167 56" stroke-width="20"/></g><ellipse cx="53" cy="31" rx="19" ry="24" transform="rotate(-6 53 31)"/><ellipse cx="69" cy="41" rx="8" ry="11" transform="rotate(-22 69 41)"/><ellipse cx="167" cy="31" rx="19" ry="24" transform="rotate(6 167 31)"/><ellipse cx="151" cy="41" rx="8" ry="11" transform="rotate(22 151 41)"/></svg>'
-
-
 def offer8(t):
     v = t["ps"]
     meta = ' <span aria-hidden="true">·</span> '.join(f"<span>{e(x)}</span>" for x in v["meta"])
@@ -287,7 +284,7 @@ def offer8(t):
     return (f'<section class="sec ps" id="program" aria-labelledby="prog-h"><div class="wrap">'
             f'<div class="ps-head">{tag(t, "program")}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t["prog_h"])}</h2>'
             f'<p class="ps-meta">{meta}</p><p class="lead">{e(v["line"])}</p></div>'
-            f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i><u class="ps-spark"></u></i>{stops}<li class="ps-win" aria-hidden="true"><span class="ps-win-glow"></span>{WIN_SVG}</li></ol>'
+            f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i><u class="ps-spark"></u></i>{stops}<li class="ps-win" aria-hidden="true"><span class="ps-win-glow"></span><img class="ps-win-img" src="/media/win-boxer.png?v={VER}" alt="" width="360" height="340" loading="lazy"></li></ol>'
             f'<div class="ps-foot">{btn(t, t["prog_cta"], "btn btn-gold magnetic")}</div>'
             f'<details class="po-weeks"><summary><span>{e(v["weeks_btn"])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{weeks}</ol></details>'
             f'</div></section>')
