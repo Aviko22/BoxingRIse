@@ -499,3 +499,15 @@
   }
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
 })();
+
+/* mobile menu */
+(function () {
+  var b = document.querySelector('.m-burger'), m = document.getElementById('m-menu'); if (!b || !m) return;
+  var de = document.documentElement;
+  function close(focus) { b.setAttribute('aria-expanded', 'false'); m.classList.remove('open'); de.classList.remove('menu-open'); setTimeout(function () { if (b.getAttribute('aria-expanded') === 'false') m.hidden = true; }, 300); if (focus) b.focus(); }
+  function open() { m.hidden = false; void m.offsetWidth; m.classList.add('open'); b.setAttribute('aria-expanded', 'true'); de.classList.add('menu-open'); }
+  b.addEventListener('click', function () { b.getAttribute('aria-expanded') === 'true' ? close() : open(); });
+  m.addEventListener('click', function (ev) { if (ev.target.closest('a')) close(); });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && b.getAttribute('aria-expanded') === 'true') close(true); });
+  window.matchMedia('(min-width: 1000px)').addEventListener('change', function (q) { if (q.matches) close(); });
+})();

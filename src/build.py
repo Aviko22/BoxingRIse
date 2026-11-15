@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "195"  # bump to bust caches of css/js
+VER = "196"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -121,9 +121,14 @@ def header(t, home, alt_href=None):
     <div class="head-actions">
       <a class="lang-switch" href="{href}" hreflang="{'en' if t['lang']=='he' else 'he'}" lang="{'en' if t['lang']=='he' else 'he'}"><span aria-hidden="true">{lab}</span><span class="sr-only">{e(name)}</span></a>
       {btn(t, t['cta_short'], 'btn btn-gold btn-sm head-cta')}
+      <button type="button" class="m-burger" aria-expanded="false" aria-controls="m-menu" aria-label="{'תפריט' if t['lang']=='he' else 'Menu'}"><i></i><i></i><i></i></button>
     </div>
   </div>
 </header>
+<div class="m-menu" id="m-menu" hidden>
+  <nav aria-label="{'תפריט' if t['lang']=='he' else 'Menu'}"><ul>{nav}</ul></nav>
+  <div class="m-menu-foot">{btn(t, t['cta_trial'], 'btn btn-gold btn-lg')}</div>
+</div>
 """
 
 
