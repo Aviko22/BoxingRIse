@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "189"  # bump to bust caches of css/js
+VER = "196"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -71,7 +71,8 @@ def head(t, title, desc, path, alt_path, noindex):
     lang = t["lang"]
     other = "en" if lang == "he" else "he"
     robots = '<meta name="robots" content="noindex, nofollow">' if noindex else '<meta name="robots" content="index, follow">'
-    intro = (";try{var q=new URLSearchParams(location.search).get('intro'),d=document.documentElement;d.setAttribute('data-intro',q||'3');if(q||(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro')))d.classList.add('intro-on')}catch(e){}"
+    intro = (";try{document.documentElement.setAttribute('data-bx',new URLSearchParams(location.search).get('bx')||'1')}catch(e){}"
+             ";try{var q=new URLSearchParams(location.search).get('intro'),d=document.documentElement;d.setAttribute('data-intro',q||'3');if(q||(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro')))d.classList.add('intro-on')}catch(e){}"
              if path in ('/', '/en', '/en/') else "")
     return f"""<!doctype html>
 <html lang="{lang}" dir="{t['dir']}">
@@ -296,7 +297,7 @@ def home(t):
     h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in line.split()) + "</span>" for line in t["hero_h1"])
     pains = "".join(f'<li><span class="pl">{e(p)}</span></li>' for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
-    rounds = "".join(f'<li class="round"><figure>{media(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
+    rounds = "".join(f'<li class="round"><figure>{media(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<span class="rd-plate" aria-hidden="true">{"סבב" if t["lang"] == "he" else "Round"} <b dir="ltr">{n}</b></span><figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
     cards = ""
     for c in t["for"]:
         media_html = media(c["img"], c["alt"], "card-img", "(max-width: 760px) 100vw, 33vw") if c["img"] else placeholder(t, c["ph"])

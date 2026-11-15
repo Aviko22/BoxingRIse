@@ -499,3 +499,13 @@
   }
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
 })();
+
+/* preview: boxing language on/off switch; stitch frame follows the clip height on desktop */
+(function () {
+  var de = document.documentElement, bx = de.getAttribute('data-bx'); if (!bx) return;
+  if (bx === '1') { var fit = function () { [].forEach.call(document.querySelectorAll('.round figure'), function (f) { var m = f.querySelector('.round-img'); if (m) f.style.setProperty('--mh', m.offsetHeight + 'px'); }); }; fit(); window.addEventListener('resize', fit); window.addEventListener('load', fit); }
+  var he = de.lang === 'he', desk = /[?&]desk=1/.test(location.search) ? '&desk=1' : '';
+  var sw = document.createElement('nav'); sw.className = 'tx-sw'; sw.setAttribute('aria-label', 'preview');
+  [['1', he ? 'שפת האגרוף' : 'Boxing look'], ['0', he ? 'כמו היום' : 'As today']].forEach(function (o) { var l = document.createElement('a'); l.href = '?bx=' + o[0] + desk + location.hash; l.textContent = o[1]; if (o[0] === bx) l.className = 'on'; sw.appendChild(l); });
+  document.body.appendChild(sw);
+})();
