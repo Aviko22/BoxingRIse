@@ -1506,3 +1506,9 @@ html[lang="en"] .ps-stop h3 { font-weight: 400; letter-spacing: .015em; }
 .ps.done .ps-win-img { opacity: 1; transform: none; transition-delay: .45s; filter: drop-shadow(0 0 14px rgba(230, 201, 125, .7)); }
 @media (prefers-reduced-motion: reduce) { .ps-win-img { opacity: 1; transform: none; transition: none; } }
 @media (max-width: 899px) { .ps-win { margin-inline-start: -6px; } }
+
+/* one leather-and-stitch frame across the site: clips, photos and the booking steps match the cards */
+.round-img, video.round-img, .about-img { border-radius: 22px !important; outline: 1.5px dashed var(--stitch); outline-offset: -8px; }
+.rv-photo { border-radius: 16px; outline: 1.5px dashed var(--stitch); outline-offset: -6px; }
+.fin-steps li { border-radius: 22px; background: var(--leather); box-shadow: none; outline: 1.5px dashed var(--stitch); outline-offset: -7px; padding: 20px; }
+.round-img, video.round-img, .about-img, .rv-photo { outline-color: rgba(236, 208, 136, .8); }
