@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "194"  # bump to bust caches of css/js
+VER = "200"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -291,7 +291,7 @@ def offer8(t):
 
 
 def rr_letters(word):
-    return "".join(f'<span class="rr-l" style="--i:{i}"><b>{e(ch)}</b></span>' for i, ch in enumerate(word))
+    return "".join('<span class="rr-sp"></span>' if ch == " " else f'<span class="rr-l" style="--i:{i}"><b>{e(ch)}</b></span>' for i, ch in enumerate(word))
 
 
 def home(t):
@@ -406,11 +406,12 @@ def home(t):
     </div>
   </section>
 
-  <section class="final rr" id="final" aria-labelledby="final-h">
-    <i class="rr-sun" aria-hidden="true"></i>
+  <section class="final rr fa1" id="final" aria-labelledby="final-h">
+    <script data-cfasync="false">(function(){{var q=new URLSearchParams(location.search).get("fa");if(q&&/^[1-6]$/.test(q)){{var s=document.currentScript.parentNode;s.className=s.className.replace("fa1","fa"+q);}}}})();</script>
+    <i class="rr-sun" aria-hidden="true"></i><i class="rr-beam" aria-hidden="true"></i><i class="rr-ring" aria-hidden="true"></i>
     <div class="wrap final-inner">
       {tag(t, 'final')}
-      <h2 class="rr-h" id="final-h" dir="ltr" lang="en" aria-label="Ready to rise?"><span class="rr-w" aria-hidden="true">{rr_letters("READY")}</span> <span class="rr-w" aria-hidden="true">{rr_letters("TO")}</span> <span class="rr-w rr-gold" aria-hidden="true">{rr_letters("RISE?")}</span></h2>
+      <h2 class="rr-h" id="final-h" aria-label="{e(' '.join(t['rr']))}">{''.join(f'<span class="rr-w{" rr-gold" if k == len(t["rr"]) - 1 else ""}" aria-hidden="true">{rr_letters(w)}</span> ' for k, w in enumerate(t['rr']))}</h2>
       <a class="btn btn-gold btn-lg magnetic js-wa rr-btn" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a>
       <p class="final-note">{e(t['final_note'])}</p>
     </div>

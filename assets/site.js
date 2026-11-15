@@ -499,3 +499,22 @@
   }
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
 })();
+
+/* preview: six animations for the final headline (?fa=1..6) */
+(function () {
+  var sec = document.querySelector('.rr'); if (!sec) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (sec.classList.contains('fa5') && !reduce) {
+    var h = sec.querySelector('.rr-h'), tick = false;
+    var upd = function () { tick = false; var r = sec.getBoundingClientRect(), H = innerHeight; var z = Math.min(1, Math.max(0, (H - r.top) / (H * .75))); h.style.setProperty('--z', z.toFixed(3)); sec.classList.toggle('locked', z >= 1); };
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
+  } else if (sec.classList.contains('fa5')) sec.classList.add('locked');
+  var q = null; try { q = new URLSearchParams(location.search).get('fa'); } catch (e) {}
+  if (q === null) return;
+  var he = document.documentElement.lang === 'he';
+  var names = he ? ['זריחה', 'נוקאאוט', 'זרקור', 'מילוי', 'זום בגלילה', 'היפוך'] : ['Rise', 'Knockout', 'Spotlight', 'Fill', 'Scroll zoom', 'Flip'];
+  var desk = /[?&]desk=1/.test(location.search) ? '&desk=1' : '';
+  var sw = document.createElement('nav'); sw.className = 'tx-sw'; sw.setAttribute('aria-label', 'preview');
+  names.forEach(function (n, k) { var l = document.createElement('a'); l.href = '?fa=' + (k + 1) + desk + '#faq'; l.textContent = (k + 1) + ' · ' + n; if (String(k + 1) === q) l.className = 'on'; sw.appendChild(l); });
+  document.body.appendChild(sw);
+})();
