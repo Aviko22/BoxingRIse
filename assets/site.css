@@ -1515,3 +1515,5 @@ html[lang="en"] .ps-stop h3 { font-weight: 400; letter-spacing: .015em; }
 .ps-line { margin-top: 12px; font-family: var(--display); font-weight: 800; font-size: clamp(26px, 3.4vw, 44px); line-height: 1.1; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
 html[lang="en"] .ps-line { font-weight: 400; letter-spacing: .015em; }
 .ps-line + .ps-meta { margin-top: 12px; color: var(--text); font-weight: 600; }
+.ps-foot { display: flex; justify-content: center; margin-top: clamp(28px, 4vw, 44px); }
+.ps .po-weeks { margin-top: clamp(30px, 4vw, 46px); }
