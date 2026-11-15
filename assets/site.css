@@ -1506,3 +1506,41 @@ html[lang="en"] .ps-stop h3 { font-weight: 400; letter-spacing: .015em; }
 .ps.done .ps-win-img { opacity: 1; transform: none; transition-delay: .45s; filter: drop-shadow(0 0 14px rgba(230, 201, 125, .7)); }
 @media (prefers-reduced-motion: reduce) { .ps-win-img { opacity: 1; transform: none; transition: none; } }
 @media (max-width: 899px) { .ps-win { margin-inline-start: -6px; } }
+
+/* ===== preview · paper language, step 1 (?pl=1 on, ?pl=0 off) ===== */
+/* 1 · media looks taped to the wall: a slight tilt and a strip of torn tape */
+html[data-pl="1"] .round figure, html[data-pl="1"] .about-photo { position: relative; }
+html[data-pl="1"] .round-img, html[data-pl="1"] .about-img { border-radius: 3px !important; box-shadow: 0 0 0 6px #f4efe4, 0 18px 40px -14px rgba(0, 0, 0, .8); }
+html[data-pl="1"] .round:nth-child(odd) figure { transform: rotate(-1.4deg); }
+html[data-pl="1"] .round:nth-child(even) figure { transform: rotate(1.2deg); }
+html[data-pl="1"] .about-photo { transform: rotate(1.6deg); }
+html[data-pl="1"] .round figure::before, html[data-pl="1"] .about-photo::before, html[data-pl="1"] .about-photo::after, html[data-pl="1"] .rv::after {
+  content: ""; position: absolute; z-index: 3; width: 92px; height: 26px; background: rgba(239, 231, 214, .88); box-shadow: 0 2px 6px rgba(0, 0, 0, .35);
+  clip-path: polygon(0 12%, 3% 0, 7% 14%, 11% 0, 15% 10%, 100% 0, 100% 88%, 97% 100%, 93% 86%, 89% 100%, 85% 90%, 0 100%); }
+html[data-pl="1"] .round figure::before { top: -13px; left: 50%; margin-left: -46px; transform: rotate(-3deg); }
+html[data-pl="1"] .round:nth-child(even) figure::before { transform: rotate(4deg); }
+html[data-pl="1"] .about-photo::before { top: -10px; left: -26px; transform: rotate(-38deg); }
+html[data-pl="1"] .about-photo::after { top: -10px; right: -26px; transform: rotate(38deg); }
+html[data-pl="1"] .rv::after { top: 2px; inset-inline-start: 34px; width: 70px; height: 22px; transform: rotate(-5deg); }
+html[data-pl="1"] .rv:nth-child(even)::after { transform: rotate(4deg); }
+html[data-pl="1"] .rv-photo { border-radius: 3px; box-shadow: 0 0 0 4px #f4efe4; }
+html[data-pl="1"].js .round figure::before, html[data-pl="1"].js .about-photo::before, html[data-pl="1"].js .about-photo::after { opacity: 0; }
+html[data-pl="1"].js .sec.tag-in .round figure::before, html[data-pl="1"].js .sec.tag-in .about-photo::before, html[data-pl="1"].js .sec.tag-in .about-photo::after { opacity: 1; transition: opacity .3s ease .5s; }
+@media (max-width: 760px) { html[data-pl="1"] .round figure { margin-inline: 8px; } }
+
+/* 2 · the gold words sit on a strip of tape instead of the thin gold rule */
+html[data-pl="1"] main .h2::after { display: none; }
+html[data-pl="1"] .h2 .g, html[data-pl="1"] .final-h .g { position: relative; display: inline-block; }
+html[data-pl="1"] .h2 .g::after, html[data-pl="1"] .final-h .g::after { content: ""; position: absolute; inset-inline: -.06em; bottom: -.06em; height: .13em; background: var(--tape); transform: rotate(-.8deg) scaleX(0); transform-origin: right center;
+  clip-path: polygon(0 20%, 1.5% 0, 3% 30%, 4.5% 0, 6% 20%, 100% 0, 100% 80%, 98.5% 100%, 97% 70%, 95.5% 100%, 94% 80%, 0 100%); transition: transform .7s cubic-bezier(.2, .8, .2, 1) .35s; }
+html[dir="ltr"][data-pl="1"] .h2 .g::after, html[dir="ltr"][data-pl="1"] .final-h .g::after { transform-origin: left center; }
+html[data-pl="1"] .h2.rs-in .g::after, html[data-pl="1"] .sec.tag-in .h2 .g::after, html[data-pl="1"] .final.tag-in .final-h .g::after, html[data-pl="1"]:not(.js) .h2 .g::after { transform: rotate(-.8deg) scaleX(1); }
+html[data-pl="1"] .cream .h2 .g::after { background: #1d1912; }
+@media (prefers-reduced-motion: reduce) { html[data-pl="1"] .h2 .g::after, html[data-pl="1"] .final-h .g::after { transform: rotate(-.8deg) !important; transition: none; } html[data-pl="1"] .round figure, html[data-pl="1"] .about-photo { transform: none !important; } }
+.tx-sw { position: fixed; z-index: 9999; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; gap: 6px; width: max-content; max-width: calc(100vw - 20px); padding: 6px; border-radius: 16px; background: rgba(12, 11, 9, .94); box-shadow: 0 0 0 1px rgba(230, 201, 125, .4), 0 10px 30px rgba(0, 0, 0, .5); }
+.tx-sw a { padding: 8px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; color: #e8e2d6; text-decoration: none; white-space: nowrap; }
+.tx-sw a.on { background: var(--metal); color: #120e05; }
+@media (max-width: 999px) { .tx-sw { bottom: auto; top: 64px; } }
+@media (min-width: 760px) { html[data-pl="1"] .rounds { gap: 30px !important; padding-top: 14px; } }
+html[data-pl="1"] .what, html[data-pl="1"] .about, html[data-pl="1"] .reviews { overflow-x: clip; }
+@media (max-width: 760px) { html[data-pl="1"] .about-photo { margin-inline: 10px; } html[data-pl="1"] .about-photo::before { left: -14px; } html[data-pl="1"] .about-photo::after { right: -14px; } }

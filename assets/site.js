@@ -499,3 +499,12 @@
   }
   window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); window.addEventListener('resize', upd); upd();
 })();
+
+/* preview: paper language on/off switch */
+(function () {
+  var de = document.documentElement, pl = de.getAttribute('data-pl'); if (!pl) return;
+  var he = de.lang === 'he', desk = /[?&]desk=1/.test(location.search) ? '&desk=1' : '';
+  var sw = document.createElement('nav'); sw.className = 'tx-sw'; sw.setAttribute('aria-label', 'preview');
+  [['1', he ? 'שפת הנייר' : 'Paper look'], ['0', he ? 'כמו היום' : 'As today']].forEach(function (o) { var l = document.createElement('a'); l.href = '?pl=' + o[0] + desk + location.hash; l.textContent = o[1]; if (o[0] === pl) l.className = 'on'; sw.appendChild(l); });
+  document.body.appendChild(sw);
+})();
