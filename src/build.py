@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "180"  # bump to bust caches of css/js
+VER = "183"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -275,6 +275,7 @@ ICON_STOP = [
 
 def offer8(t):
     v = t["po"]
+    stats = "".join(f'<div><dt>{e(l)}</dt><dd dir="ltr" data-n="{e(n)}">{e(n)}</dd></div>' for n, l in v["stats"])
     inc = "".join(f'<li><span class="po-chk" aria-hidden="true"></span>{e(x)}</li>' for x in v["inc"])
     stops = "".join(
         f'<li class="po-stop"><span class="po-ic" aria-hidden="true"><svg viewBox="0 0 24 24">{ICON_STOP[i]}</svg></span>'
@@ -282,8 +283,11 @@ def offer8(t):
         for i, (w, n) in enumerate(v["stops"]))
     weeks = "".join(f'<li><b>{e(t["week_word"])} <span dir="ltr">{i}</span> · {e(h)}</b> <span>{e(d)}</span></li>' for i, (h, d, m) in enumerate(t["weeks"], 1))
     return (f'<section class="sec po" id="program" aria-labelledby="prog-h"><div class="wrap">'
+            f'<div class="po-stage"><div class="po-bg" aria-hidden="true"><video class="po-v" muted loop playsinline preload="none" data-src="/media/clip-pads.mp4?v={VER}" poster="/media/clip-pads.jpg?v={VER}"></video><i class="po-tint"></i></div>'
+            f'<span class="po-8" aria-hidden="true" dir="ltr">8</span>'
             f'<div class="po-head">{tag(t, "program")}<h2 class="h2 prog-title po-title" id="prog-h" dir="ltr">{e(t["prog_h"])}</h2>'
             f'<p class="po-line">{e(v["line"])}</p></div>'
+            f'<dl class="po-stats">{stats}</dl></div>'
             f'<div class="po-grid"><div class="po-inc"><h3>{e(v["inc_h"])}</h3><ul>{inc}</ul></div>'
             f'<div class="po-route"><h3>{e(v["route_h"])}</h3><ol class="po-stops"><i class="po-rail" aria-hidden="true"><i></i></i>{stops}</ol></div></div>'
             f'<details class="po-weeks"><summary><span>{e(v["weeks_btn"])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{weeks}</ol></details>'

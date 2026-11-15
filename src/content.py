@@ -386,6 +386,7 @@ HE["po"] = {
     "stops": [("1–2", "בסיס"), ("3–4", "קצב"), ("5–6", "כוח"), ("7–8", "הכול ביחד")],
     "weeks_word": "שבועות",
     "weeks_btn": "מה לומדים בכל שבוע?",
+    "stats": [("16", "אימונים אישיים"), ("8", "שבועות"), ("2", "אימונים בשבוע"), ("50/50", "אגרוף · כוח וכושר")],
 }
 EN["po"] = {
     "line": "After your trial, this is what comes next: eight weeks of private training, with a clear goal and a coach beside you the whole way.",
@@ -395,4 +396,5 @@ EN["po"] = {
     "stops": [("1–2", "Basics"), ("3–4", "Rhythm"), ("5–6", "Power"), ("7–8", "All together")],
     "weeks_word": "Weeks",
     "weeks_btn": "What do you learn each week?",
+    "stats": [("16", "private sessions"), ("8", "weeks"), ("2", "sessions a week"), ("50/50", "boxing · strength")],
 }
