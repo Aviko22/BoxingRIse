@@ -1498,3 +1498,6 @@ html[lang="en"] .ps-stop h3 { font-weight: 400; letter-spacing: .015em; }
 @media (min-width: 900px) { .ps-route { grid-template-columns: repeat(4, 1fr) 132px; } .ps-win { margin-top: -70px; } .ps-rail { inset-inline-end: 132px !important; } }
 @media (max-width: 899px) { .ps-win { margin-inline-start: -44px; } }
 @media (max-width: 899px) { .ps-win { width: 104px; height: 98px; margin-inline-start: -14px; margin-top: 0; } .ps-rail { inset-block-end: 100px; } }
+.ps-win svg { fill: currentColor !important; color: #fff; opacity: .1; transition: opacity .6s ease, transform .9s cubic-bezier(.2, 1.4, .4, 1); }
+.ps.done .ps-win svg { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .ps-win svg { opacity: 1; } }
