@@ -398,3 +398,22 @@ EN["po"] = {
     "weeks_btn": "What do you learn each week?",
     "stats": [("16", "private sessions"), ("8", "weeks"), ("2", "sessions a week"), ("50/50", "boxing · strength")],
 }
+
+
+# ---------------------------------------------------------------- BoxingRise 8 · simple route
+HE["ps"] = {
+    "line": "ההמשך אחרי אימון הניסיון. בכל שלב מוסיפים עוד יסוד.",
+    "meta": ["8 שבועות", "16 אימונים אישיים", "פעמיים בשבוע"],
+    "weeks_word": "שבועות",
+    "stops": [("1–2", "בסיס", "עמידה, תנועה, ג׳אב וקרוס."), ("3–4", "רצפים", "הוק, אפרקאט ורצפים על הכריות."),
+              ("5–6", "הגנה", "לחסום, לזוז ולהחזיר מכה."), ("7–8", "הכול ביחד", "סיבובים מלאים עם כל מה שלמדת.")],
+    "weeks_btn": "מה לומדים בכל שבוע?",
+}
+EN["ps"] = {
+    "line": "What comes after your trial. Each stage adds one more fundamental.",
+    "meta": ["8 weeks", "16 private sessions", "twice a week"],
+    "weeks_word": "Weeks",
+    "stops": [("1–2", "Basics", "Stance, movement, jab and cross."), ("3–4", "Combinations", "Hook, uppercut and combinations on the pads."),
+              ("5–6", "Defence", "Block, move and punch back."), ("7–8", "All together", "Full rounds with everything you learned.")],
+    "weeks_btn": "What do you learn each week?",
+}

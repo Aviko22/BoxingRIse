@@ -1473,3 +1473,31 @@ html[dir="rtl"] .po-stage .po-title::after { margin-left: auto !important; }
 .po-route .po-stops { margin-block: auto; }
 html[dir="rtl"] .po-stats dd { text-align: right; }
 .po-stats dd { font-size: clamp(40px, 5.6vw, 80px); }
+
+/* ================= BoxingRise 8 · simple route with progress ================= */
+.ps-head { max-width: 40em; }
+.ps-meta { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 17px; font-weight: 700; color: var(--gold-hi); }
+.ps-meta span[aria-hidden] { color: var(--ash); }
+.ps-head .lead { margin-top: 10px; }
+.ps-route { --p: 0; list-style: none; position: relative; margin: clamp(36px, 5vw, 60px) 0 0; padding: 0; display: grid; gap: 30px; }
+.ps-rail { position: absolute; inset-block: 22px; inset-inline-start: 21px; width: 2px; background: rgba(255, 255, 255, .12); }
+.ps-rail i { position: absolute; inset: 0; background: var(--metal); transform: scaleY(var(--p)); transform-origin: top; box-shadow: 0 0 10px rgba(230, 201, 125, .6); }
+.ps-stop { position: relative; display: flex; gap: 18px; align-items: flex-start; }
+.ps-dot { flex: none; position: relative; z-index: 1; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #0e0d0b; box-shadow: inset 0 0 0 2px rgba(230, 201, 125, .3); font: 600 20px var(--latin); color: rgba(230, 201, 125, .5); transition: background .4s ease, color .4s ease, box-shadow .4s ease, transform .4s var(--ease); }
+.ps-stop.on .ps-dot { background: var(--metal); color: #120e05; box-shadow: 0 0 0 5px rgba(201, 162, 75, .16); transform: scale(1.08); }
+.ps-stop small { font-size: 13px; font-weight: 700; color: var(--gold); }
+.ps-stop h3 { margin-top: 2px; font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.6vw, 32px); line-height: 1.1; color: #fff; }
+html[lang="en"] .ps-stop h3 { font-weight: 400; letter-spacing: .015em; }
+.ps-stop p { margin-top: 4px; font-size: 16px; line-height: 1.5; color: var(--ash); }
+.ps-stop > div { opacity: .45; transition: opacity .4s ease; }
+.ps-stop.on > div { opacity: 1; }
+@media (min-width: 900px) {
+  .ps-route { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .ps-rail { inset-block: 21px auto; inset-inline: 22px; width: auto; height: 2px; }
+  .ps-rail i { transform: scaleX(var(--p)); transform-origin: right; }
+  html[dir="ltr"] .ps-rail i { transform-origin: left; }
+  .ps-stop { flex-direction: column; gap: 16px; }
+}
+.ps-foot { margin-top: clamp(32px, 4vw, 48px); }
+.ps .po-weeks { margin-top: 26px; }
+@media (prefers-reduced-motion: reduce) { .ps-stop > div { opacity: 1; } .ps-dot { transition: none; } }
