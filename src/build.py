@@ -158,7 +158,7 @@ def footer(t):
 def floating(t):
     return f"""<a class="wa-float js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener" aria-label="{e(t['wa_label'])} {e(t['new_tab'])}">{ICON_WA}</a>
 <div class="sticky-bar" aria-hidden="false">
-  <a class="sticky-cta js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener">{ICON_WA}<span>{e(t['cta_trial'])}</span><s>{e(t['instead_of'].split()[-2])} ₪</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
+  <a class="sticky-cta js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener">{ICON_WA}<span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a>
 </div>
 """
 
@@ -323,7 +323,7 @@ def home(t):
       {tag(t, 'hero')}
       <p class="h1">{h1}</p>
       <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
-      <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
+      <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
   </section>
   <div class="intro" aria-hidden="true">
@@ -425,7 +425,7 @@ def home(t):
         <div class="pick-row" role="group" aria-labelledby="pick-t" data-group="time">{''.join(f'<button type="button" class="pick-chip" aria-pressed="false">{e(x)}</button>' for x in t['pick_times'])}</div>
         <p class="pick-preview" aria-live="polite">{e(t['pick_preview'])} <b class="js-pick-msg">{e(CFG['whatsapp_message'][t['lang']])}</b></p>
       </div>
-      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><s class="btn-was"><span class="sr-only">{e(' '.join(t['instead_of'].split()[:-2]))} </span>{e(' '.join(t['instead_of'].split()[-2:]))}</s><span class="sr-only"> {e(t['new_tab'])}</span></a>
+      <a class="btn btn-gold btn-lg magnetic js-wa js-wa-pick" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a>
       <p class="final-note">{e(t['final_note'])}</p>
       <p class="fin-why">{e(t['trial_why'])}</p>
     </div>
