@@ -422,3 +422,6 @@ EN["ps"] = {
 # ---------------------------------------------------------------- final headline (last word is gold)
 HE["rr"] = ["מוכנה", "לעלות?"]
 EN["rr"] = ["READY TO", "RISE?"]
+
+HE["ps"]["out"] = "בסוף 8 השבועות יש לך בסיס אמיתי באגרוף קלאסי, יותר כוח וסיבולת, וביטחון בתנועה שלך."
+EN["ps"]["out"] = "After 8 weeks you have a real foundation in classic boxing, more strength and endurance, and confidence in how you move."
