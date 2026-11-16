@@ -507,3 +507,15 @@
   document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && b.getAttribute('aria-expanded') === 'true') close(true); });
   window.matchMedia('(min-width: 1000px)').addEventListener('change', function (q) { if (q.matches) close(); });
 })();
+
+
+/* preview: ?foot=1..6 compares footer looks */
+(function () {
+  var q; try { q = new URLSearchParams(location.search).get('foot'); } catch (e) { return; }
+  if (q === null) return;
+  var root = document.documentElement, sw = document.createElement('nav'); sw.className = 'ft-sw'; sw.setAttribute('aria-label', 'preview');
+  function pick(n) { if (n === '0') root.removeAttribute('data-foot'); else root.setAttribute('data-foot', n); [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === n); }); try { history.replaceState(null, '', location.pathname + '?foot=' + n + (/desk=1/.test(location.search) ? '&desk=1' : '')); } catch (e) {} }
+  ['0', '1', '2', '3', '4', '5', '6'].forEach(function (n) { var b = document.createElement('button'); b.type = 'button'; b.value = n; b.textContent = n === '0' ? (root.lang === 'he' ? 'קיים' : 'Now') : n; b.addEventListener('click', function () { pick(n); var f = document.querySelector('.site-foot'); if (f) f.scrollIntoView({ block: 'end' }); }); sw.appendChild(b); });
+  document.body.appendChild(sw); pick(/^[1-6]$/.test(q) ? q : '0');
+  window.addEventListener('load', function () { setTimeout(function () { window.scrollTo(0, document.documentElement.scrollHeight); }, 400); });
+})();

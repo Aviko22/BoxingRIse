@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "198"  # bump to bust caches of css/js
+VER = "199"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -140,8 +140,10 @@ def footer(t):
     nav = "".join(f'<li><a href="{root}{h}">{e(x)}</a></li>' for h, x in t["nav"])
     h1 = t["hero_h1"]
     return f"""<footer class="site-foot">
+  <span class="foot-sun" aria-hidden="true"></span>
   <div class="wrap foot-top">
     <div class="foot-brand">
+      <p class="tag foot-tape">{e(t['tag_hero'])}</p>
       <img class="foot-logo" src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468" loading="lazy">
       <p class="foot-line">{e(h1[0])} <span class="g">{e(h1[1])}</span></p>
       <p class="foot-tag">{e(t['footer_tag'])}</p>
@@ -152,6 +154,7 @@ def footer(t):
     <nav aria-label="{e(t['foot_legal_h'])}"><ul class="foot-legal">{links}<li><button type="button" class="linklike js-cookie-settings">{e(t['cookie_settings'])}</button></li></ul></nav>
     <p>© <span class="js-year">2026</span> BoxingRise · {e('אבי אניחוביץ' if lang=='he' else 'Avi Anihovich')}</p>
   </div>
+  <p class="foot-word" aria-hidden="true" dir="ltr">BOXING<span class="g">RISE</span></p>
 </footer>
 <div class="cookie" id="cookie" role="region" aria-label="{'עוגיות' if t['lang']=='he' else 'Cookies'}" hidden>
   <p>{e(t['cookie_text'])} <a href="{legal_url(t['lang'], 'privacy')}">{e(t['cookie_more'])}</a></p>
