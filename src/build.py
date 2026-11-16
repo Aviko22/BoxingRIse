@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "199"  # bump to bust caches of css/js
+VER = "200"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -141,7 +141,12 @@ def footer(t):
     return f"""<footer class="site-foot">
   <div class="wrap foot-top">
     <div class="foot-brand">
-      <img class="foot-logo" src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468" loading="lazy">
+      <div class="foot-rise">
+        <span class="foot-sky" aria-hidden="true"><i class="foot-rays"></i><i class="foot-sun"></i></span>
+        <img class="foot-logo" src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468" loading="lazy">
+        <span class="foot-shine" aria-hidden="true"></span>
+        <span class="foot-hor" aria-hidden="true"></span>
+      </div>
       <p class="foot-tag">{e(t['footer_tag'])}</p>
     </div>
     <nav class="foot-col" aria-label="{e(t['foot_nav_h'])}"><ul class="foot-nav">{nav}<li><a href="{href}" hreflang="{'en' if lang=='he' else 'he'}" lang="{'en' if lang=='he' else 'he'}">{e(name)}</a></li></ul></nav>

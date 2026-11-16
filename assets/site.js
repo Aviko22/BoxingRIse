@@ -507,3 +507,13 @@
   document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && b.getAttribute('aria-expanded') === 'true') close(true); });
   window.matchMedia('(min-width: 1000px)').addEventListener('change', function (q) { if (q.matches) close(); });
 })();
+
+
+/* footer finale: light it when it scrolls into view */
+(function () {
+  var f = document.querySelector('.site-foot'); if (!f) return;
+  var t = f.querySelector('.foot-rise') || f;
+  if (!('IntersectionObserver' in window)) { f.classList.add('lit'); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { f.classList.add('lit'); io.disconnect(); } }); }, { threshold: .6 });
+  io.observe(t);
+})();
