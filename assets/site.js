@@ -56,7 +56,7 @@
   /* safety net: if the inline loader did not run (blocked or rewritten by an optimiser), set the source here */
   if (hv && !hv.getAttribute('src') && !hv.querySelector('source')) {
     var wideV = window.matchMedia('(min-width: 1000px)').matches;
-    hv.src = '/media/hero-mont-' + (wideV ? 'w' : 'm') + '.mp4';
+    hv.src = '/media/hero-start-' + (wideV ? 'w' : 'm') + '.mp4';
     if (!document.documentElement.classList.contains('intro-on')) { var hp = hv.play(); if (hp && hp.catch) hp.catch(function () {}); }
   }
   if (hv && hv.dataset.posterWide && window.matchMedia('(min-width: 1000px)').matches) hv.poster = hv.dataset.posterWide;
@@ -185,7 +185,7 @@
     var showing = new Set();
     var hio = new IntersectionObserver(function (en) {
       en.forEach(function (x) { if (x.isIntersecting) showing.add(x.target); else showing.delete(x.target); });
-      heroSeen = showing.size > 0; bar.classList.toggle('hold', heroSeen);
+      heroSeen = showing.size > 0; bar.classList.toggle('hold', heroSeen); bar.classList.add('live');
     }, { threshold: 0 });
     inline.forEach(function (b) { hio.observe(b); });
   }

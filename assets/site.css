@@ -252,13 +252,10 @@ html[lang="en"] .legal-h1 { font-size: clamp(38px, 6vw, 60px); }
 /* ---------- motion (one orchestrated hero moment; sharp, short reveals) ---------- */
 .js .h1 .w > span { transform: translateX(60%); opacity: 0; }
 html[dir="ltr"].js .h1 .w > span { transform: translateX(-60%); }
-.js .hero.go .h1 .w > span { animation: jab .5s var(--ease) both; animation-delay: calc(var(--i) * 70ms + 120ms); }
+.js .hero.go .h1 .w > span { animation: jab .45s var(--ease) both; animation-delay: calc(var(--i) * 35ms); }
 @keyframes jab { 0% { transform: translateX(var(--from, 60%)); opacity: 0; } 55% { transform: translateX(-5%); opacity: 1; } 100% { transform: none; opacity: 1; } }
 html[dir="ltr"] .h1 .w > span { --from: -60%; }
-.js .hero-sub, .js .hero-cta, .js .hero-note { opacity: 0; transform: translateY(10px); }
-.js .hero.go .hero-sub, .js .hero.go .hero-cta, .js .hero.go .hero-note { animation: up .45s var(--ease) both; animation-delay: .65s; }
-.js .hero.go .hero-cta { animation-delay: .75s; }
-.js .hero.go .hero-note { animation-delay: .85s; }
+/* subtitle, button and note are on screen from the first paint, so the trial button never waits for an animation */
 @keyframes up { to { opacity: 1; transform: none; } }
 .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .35s ease, transform .4s var(--ease); }
 .js .reveal.in { opacity: 1; transform: none; }
@@ -1673,3 +1670,6 @@ html[lang="en"] .reviews .rv-body::before { content: "“"; font-family: Georgia
 .reviews .h2 { text-align: center; }
 .reviews .h2::after { margin-inline: auto; }
 .reviews .tag { margin-inline: auto; }
+
+/* home: the sticky bar stays out of sight until the page knows whether the hero button is on screen, so the first paint never shows two trial buttons */
+.js .home .sticky-bar:not(.live) { transform: translateY(120%); opacity: 0; visibility: hidden; pointer-events: none; }
