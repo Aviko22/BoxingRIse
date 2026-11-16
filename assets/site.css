@@ -1648,3 +1648,28 @@ main:has(.rr) ~ .site-foot::before { left: 0; right: 0; top: 0; height: calc(var
 html.foot-lit.js .rr .rr-sun, html.foot-lit main:has(.rr) ~ .site-foot::before { opacity: 1; transition: opacity 2.6s ease .5s; }
 html:not(.js) main:has(.rr) ~ .site-foot::before { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { main:has(.rr) ~ .site-foot::before { opacity: 1 !important; transition: none !important; } }
+
+
+/* reviews: three centred columns on white, round photos, gold quote mark */
+.reviews .rv { --white: #14261c; --text: #1d1b16; --ash: #5f5a4f; outline: 0; box-shadow: none; background: none;
+  grid-template-columns: 1fr !important; justify-items: center; text-align: center; padding: 0 !important; gap: 14px !important; border-radius: 0 !important; }
+.js .reviews .rv.in { animation: none; }
+.reviews .rv-q { color: #14261c; }
+.reviews .rv figcaption b { color: #8a6418; }
+.reviews .rv figcaption span { color: #6d675b !important; }
+.reviews .rv figcaption { color: #6d675b; }
+.reviews .rv-more summary { color: #5f5a4f; }
+.reviews .rv-more summary:hover, .reviews .rv-more[open] summary { color: #8a6418; }
+.reviews .rv-more p { color: #3c392f; }
+.reviews .wrap { align-items: center; text-align: center; }
+.reviews .tag { justify-self: center; align-self: center; }
+.reviews .rv-grid { max-width: 1120px !important; width: 100%; margin-inline: auto !important; gap: 44px !important; }
+.reviews .rv-photo { width: 128px !important; height: 128px !important; border-radius: 50%; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #c9a24b; }
+.reviews .rv-body { align-items: center; }
+.reviews .rv-body::before { content: "״"; display: block; height: 34px; margin-bottom: -6px; font: 800 72px/1 var(--display); color: #c9a24b; }
+html[lang="en"] .reviews .rv-body::before { content: "“"; font-family: Georgia, serif; }
+.reviews .rv-foot { justify-content: center !important; text-align: center !important; align-items: center !important; }
+@media (min-width: 900px) { .reviews .rv-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+.reviews .h2 { text-align: center; }
+.reviews .h2::after { margin-inline: auto; }
+.reviews .tag { margin-inline: auto; }
