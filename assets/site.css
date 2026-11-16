@@ -1605,14 +1605,14 @@ html:not(.js) .rr-sun { opacity: 1; transform: none; }
 .foot-legal { justify-content: center; }
 
 /* footer finale: the sun rises behind the logo */
-.site-foot { overflow: hidden; overflow: clip; }
+.site-foot { overflow-x: clip; }
 .foot-rise { position: relative; display: inline-block; padding: 150px 0 20px; isolation: isolate; }
 .foot-rise .foot-logo { position: relative; display: block; height: 62px; }
-.foot-sky { position: absolute; z-index: -1; left: 50%; bottom: 0; width: min(760px, 100vw); height: 300px; margin-left: calc(min(760px, 100vw) / -2); overflow: hidden; pointer-events: none;
+.foot-sky { position: absolute; z-index: -1; left: 50%; bottom: 0; width: min(900px, 100vw); height: 470px; margin-left: calc(min(900px, 100vw) / -2); overflow: hidden; pointer-events: none;
   -webkit-mask: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%); }
 .foot-sun { position: absolute; left: 50%; bottom: -170px; width: 340px; height: 340px; margin-left: -170px; border-radius: 50%;
   background: radial-gradient(closest-side, rgba(255, 226, 160, .95) 0%, rgba(255, 196, 110, .6) 22%, rgba(232, 160, 70, .28) 48%, rgba(201, 140, 60, .1) 70%, transparent 100%); }
-.foot-rays { position: absolute; left: 50%; bottom: -380px; width: 760px; height: 760px; margin-left: -380px; border-radius: 50%;
+.foot-rays { position: absolute; left: 50%; bottom: -450px; width: 900px; height: 900px; margin-left: -450px; border-radius: 50%;
   background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255, 214, 140, .2) 0deg 3deg, transparent 3deg 15deg);
   -webkit-mask: radial-gradient(closest-side, transparent 16%, #000 30%, transparent 92%); mask: radial-gradient(closest-side, transparent 16%, #000 30%, transparent 92%); }
 .foot-hor { position: absolute; left: 50%; bottom: 0; width: min(560px, 86vw); height: 2px; margin-left: calc(min(560px, 86vw) / -2); background: linear-gradient(90deg, transparent, #f1d58e 30%, #fff3cf 50%, #f1d58e 70%, transparent); box-shadow: 0 0 18px rgba(255, 206, 128, .6); }
@@ -1630,6 +1630,21 @@ html:not(.js) .rr-sun { opacity: 1; transform: none; }
 .js .site-foot.lit .foot-shine { animation: foot-shine 1.3s ease 2.3s 1 both; }
 @keyframes foot-spin { to { transform: rotate(360deg); } }
 @keyframes foot-shine { 0% { opacity: 1; background-position: 130% 0; } 100% { opacity: 1; background-position: -30% 0; } }
-@media (max-width: 759px) { .foot-rise { padding-top: 120px; } .foot-rise .foot-logo, .foot-shine { height: 54px; } .foot-sky { height: 240px; } }
+@media (max-width: 759px) { .foot-rise { padding-top: 120px; } .foot-rise .foot-logo, .foot-shine { height: 54px; } }
 @media (prefers-reduced-motion: reduce) { .js .foot-sun, .js .foot-rays, .js .foot-hor, .js .foot-rise .foot-logo { transition: none !important; animation: none !important; opacity: 1; transform: none; filter: none; } .foot-shine { display: none; } }
 @media print { .foot-sky, .foot-hor, .foot-shine { display: none; } }
+
+/* one light source: the footer sunrise also lights the closing section above it */
+:root { --sun-h: min(120vh, 900px); --sun-y: 232px; --sun-w: 62%;
+  --sun-g: rgba(255, 206, 128, .46) 0%, rgba(232, 160, 70, .24) 34%, rgba(201, 140, 60, .09) 58%, transparent 78%; }
+@media (max-width: 759px) { :root { --sun-y: 194px; --sun-w: 125%; } }
+.rr-sun { left: 0; right: 0; bottom: 0; width: auto; height: var(--sun-h); margin: 0; border-radius: 0; transform: none !important;
+  background: radial-gradient(ellipse var(--sun-w) var(--sun-h) at 50% calc(100% + var(--sun-y)), var(--sun-g)); }
+main:has(.rr) ~ .site-foot { padding-top: 0; }
+main:has(.rr) ~ .site-foot > .wrap { position: relative; }
+main:has(.rr) ~ .site-foot::before { left: 0; right: 0; top: 0; height: calc(var(--sun-y) + 130px); border: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(180deg, transparent 0, transparent calc(var(--sun-y) - 40px), var(--black) 100%), radial-gradient(ellipse var(--sun-w) var(--sun-h) at 50% var(--sun-y), var(--sun-g)); }
+.js .rr.tag-in .rr-sun, main:has(.rr.tag-in) ~ .site-foot::before { opacity: .3; transition: opacity 2s ease 1.3s; }
+html.foot-lit.js .rr .rr-sun, html.foot-lit main:has(.rr) ~ .site-foot::before { opacity: 1; transition: opacity 2.6s ease .5s; }
+html:not(.js) main:has(.rr) ~ .site-foot::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { main:has(.rr) ~ .site-foot::before { opacity: 1 !important; transition: none !important; } }

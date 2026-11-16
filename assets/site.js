@@ -513,7 +513,8 @@
 (function () {
   var f = document.querySelector('.site-foot'); if (!f) return;
   var t = f.querySelector('.foot-rise') || f;
-  if (!('IntersectionObserver' in window)) { f.classList.add('lit'); return; }
-  var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { f.classList.add('lit'); io.disconnect(); } }); }, { threshold: .6 });
+  function on() { f.classList.add('lit'); document.documentElement.classList.add('foot-lit'); }
+  if (!('IntersectionObserver' in window)) { on(); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { on(); io.disconnect(); } }); }, { threshold: .6 });
   io.observe(t);
 })();
