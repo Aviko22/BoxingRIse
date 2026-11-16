@@ -216,7 +216,6 @@
     window.brEvents.push({ name: name, data: data });
     if (get() !== 'yes') return;
     if (an.provider === 'ga4' && typeof window.gtag === 'function') window.gtag('event', name, data);
-    else if (an.provider === 'vercel' && typeof window.va === 'function') window.va('event', { name: name, data: data });
     /* cloudflare: page views only, it has no custom events */
   }
   function placement(a) {
@@ -261,9 +260,6 @@
       window.gtag('js', new Date());
       window.gtag('config', an.ga4_id, { anonymize_ip: true, allow_google_signals: false, allow_ad_personalization_signals: false });
       addScript('https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(an.ga4_id));
-    } else if (an.provider === 'vercel') {
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-      addScript('/_vercel/insights/script.js');
     }
   }
   var active = an.provider && an.provider !== 'none';

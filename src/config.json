@@ -18,7 +18,7 @@
     "en": "Hi Avi, I have a question before I book a trial:"
   },
   "analytics": {
-    "_note": "provider: none | cloudflare | ga4 | vercel. Loads only after the visitor accepts the banner. With none, no banner is shown.",
+    "_note": "provider: none | cloudflare | ga4. Loads only after the visitor accepts the banner. With none, no banner is shown.",
     "provider": "none",
     "cloudflare_token": "",
     "ga4_id": ""

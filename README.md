@@ -21,8 +21,8 @@ The build writes `index.html`, `en/index.html`, the legal pages, `config.js`, `s
 - `assets/site.css`, `assets/site.js`: styles and behaviour.
 - `fonts/`: Heebo, Karantina and Oswald, self-hosted (SIL Open Font License).
 - `media/`, `brand/`: photos, the hero video and the logo.
-- `vercel.json`: clean URLs and cache headers.
+- `_headers`: security and cache headers for Cloudflare Pages, where the site is hosted.
 
 ## Analytics
 
-Vercel Web Analytics loads only after the visitor allows it in the cookie banner. To turn it on, enable Web Analytics for the project in the Vercel dashboard.
+No analytics tool is active (`src/config.json` → `analytics.provider` is `none`). To turn one on, set the provider to `cloudflare` (with a Web Analytics token) or `ga4`; it loads only after the visitor allows it in the cookie banner. Update the privacy policy in `src/legal.py` at the same time.

@@ -2,7 +2,7 @@
 """Legal pages, Hebrew and English. Drafts only: every page needs a lawyer's review before launch.
 Blocks: ("h", text) heading, ("p", text) paragraph, ("ul", [items]) list, ("form", None) printable health form."""
 
-UPDATED = {"he": "עודכן לאחרונה: אוקטובר 2026", "en": "Last updated: October 2026"}
+UPDATED = {"he": "עודכן לאחרונה: נובמבר 2026", "en": "Last updated: November 2026"}
 
 PAGES = {
 "privacy": {
@@ -11,12 +11,12 @@ PAGES = {
   ("h", "איזה מידע נאסף"),
   ("ul", ["פניות בוואטסאפ: כשאתם שולחים הודעה, אני מקבל את השם והמספר שמופיעים בוואטסאפ ואת תוכן ההודעה. האתר עצמו לא שומר את הפרטים האלה, ואין בו טפסים.",
           "הצהרת בריאות: לפני האימון הראשון ממלאים הצהרת בריאות. היא נשמרת אצלי בלבד, לצורך בטיחות האימון, ולא באתר.",
-          "מדידת שימוש: אם תאשרו בבאנר העוגיות, נטען כלי מדידה אנונימי (Vercel Web Analytics) שסופר כניסות ועמודים, בלי לזהות אתכם אישית. בלי אישור הוא לא נטען.",
-          "העדפת עוגיות: הבחירה שלכם בבאנר נשמרת בדפדפן שלכם בלבד."]),
+          "מדידת שימוש ועוגיות: כרגע לא פועל באתר כלי מדידה, ואין בו עוגיות מעקב או פרסום. אם יתווסף כלי מדידה בעתיד, הוא ייטען רק אחרי שתאשרו זאת בבאנר, הבחירה שלכם תישמר בדפדפן שלכם בלבד, והמדיניות הזו תתעדכן.",
+          "נתונים טכניים: כמו בכל אתר, ספקית האחסון מקבלת נתונים טכניים של הגלישה, כמו כתובת IP וסוג הדפדפן, כדי להציג את האתר ולהגן עליו."]),
   ("h", "למה המידע משמש"),
   ("p", "לתיאום אימונים, למענה על פניות, לבטיחות במהלך האימון ולשיפור האתר. המידע לא נמכר ולא מועבר לצד שלישי לצורכי שיווק."),
   ("h", "שירותים חיצוניים"),
-  ("p", "האתר מאוחסן ב־Vercel. התקשורת מתבצעת דרך WhatsApp, שכפוף למדיניות הפרטיות של Meta. למידע נוסף ראו את מדיניות הפרטיות של כל שירות."),
+  ("p", "האתר מאוחסן ב־Cloudflare, שמעבדת את הנתונים הטכניים של הגלישה לצורך הצגת האתר ואבטחתו. התקשורת מתבצעת דרך WhatsApp, שכפוף למדיניות הפרטיות של Meta. למידע נוסף ראו את מדיניות הפרטיות של כל שירות."),
   ("h", "הזכויות שלכם"),
   ("p", "אתם רשאים לבקש לעיין במידע שנשמר עליכם, לבקש לתקן אותו או למחוק אותו, בהתאם לחוק. אפשר לפנות בכל עת בוואטסאפ, ואענה בתוך 30 יום."),
   ("h", "אבטחת מידע"),
@@ -29,12 +29,12 @@ PAGES = {
   ("h", "What we collect"),
   ("ul", ["WhatsApp messages: when you write, I receive the name and number shown in WhatsApp and the content of your message. The site itself has no forms and stores none of this.",
           "Health declaration: before the first session you fill in a health declaration. I keep it privately for training safety, not on the site.",
-          "Usage measurement: if you allow it in the cookie banner, an anonymous tool (Vercel Web Analytics) counts visits and pages without identifying you. Without consent it doesn't load.",
-          "Cookie preference: your banner choice is stored in your own browser only."]),
+          "Usage measurement and cookies: no measurement tool is running on the site at the moment, and it sets no tracking or advertising cookies. If a measurement tool is added later, it will load only after you allow it in a banner, your choice will be stored in your own browser only, and this policy will be updated.",
+          "Technical data: as with any website, the hosting provider receives technical browsing data, such as IP address and browser type, in order to deliver the site and protect it."]),
   ("h", "How it is used"),
   ("p", "To schedule sessions, answer messages, keep training safe and improve the site. Information is never sold or shared with third parties for marketing."),
   ("h", "Third-party services"),
-  ("p", "The site is hosted on Vercel. Communication happens on WhatsApp, which is subject to Meta's privacy policy. See each service's policy for details."),
+  ("p", "The site is hosted on Cloudflare, which processes technical browsing data in order to deliver and secure the site. Communication happens on WhatsApp, which is subject to Meta's privacy policy. See each service's policy for details."),
   ("h", "Your rights"),
   ("p", "You may ask to see the information held about you, and to correct or delete it, as the law allows. Message me on WhatsApp at any time and I'll reply within 30 days."),
   ("h", "Security"),

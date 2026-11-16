@@ -34,7 +34,7 @@ Avi likes to choose: for a new visual idea, show several options (a preview swit
 - Cloudflare Pages project `boxingrise`, production branch `rebuild`, no build command (the built files are committed). Pushing to `rebuild` updates https://boxingrise.com within a minute or two. Any other branch gets a preview at `<branch>.boxingrise.pages.dev`.
 - Domain at Namecheap, DNS on Cloudflare.
 - English home is `/en/` (with the slash; Cloudflare redirects `/en`).
-- Analytics: none active yet (`config.json` → `analytics.provider`). Vercel analytics doesn't work on Cloudflare.
+- Analytics: none active yet (`config.json` → `analytics.provider`).
 - Before working: `git pull`. Other sessions may have pushed. Work in one session at a time.
 - Commit as Avi: `git -c user.name="Avi" -c user.email="aviko2210@gmail.com" commit ...`
 
@@ -42,7 +42,7 @@ Avi likes to choose: for a new visual idea, show several options (a preview swit
 Serve the repo root locally (for example `python3 -m http.server 8770`) and look at it on a phone width (390px) and on desktop, in Hebrew and English. Check: no horizontal scroll, no console errors, WhatsApp links open with the right message, the sticky bar doesn't cover text.
 
 ## Open items
-- Choose an analytics tool (Cloudflare Web Analytics token, or GA4 for click events), then update the privacy policy, which still names Vercel.
+- Choose an analytics tool (Cloudflare Web Analytics token, or GA4 for click events), then update the privacy policy, which currently says no measurement tool is running.
 - Lawyer or insurer review of the health declaration and legal pages.
 - Written consent from the three women in the testimonials.
 - New park photo and video shoot.
