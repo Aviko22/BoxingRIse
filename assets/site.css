@@ -1594,3 +1594,12 @@ html:not(.js) .rr-sun { opacity: 1; transform: none; }
   .ps .po-weeks { order: 5; }
 }
 @media (prefers-reduced-motion: reduce) { .ps-out { opacity: 1 !important; } }
+
+/* footer: minimal and centred */
+.site-foot { background: var(--black); }
+.foot-top { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 22px; }
+.foot-logo { margin-inline: auto; height: 46px; }
+.foot-tag { margin-inline: auto; }
+.foot-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 26px; }
+.foot-base { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.foot-legal { justify-content: center; }
