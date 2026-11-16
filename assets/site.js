@@ -518,3 +518,15 @@
   var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { on(); io.disconnect(); } }); }, { threshold: .6 });
   io.observe(t);
 })();
+
+
+/* preview: ?rv=1..6 compares review looks */
+(function () {
+  var q; try { q = new URLSearchParams(location.search).get('rv'); } catch (e) { return; }
+  if (q === null) return;
+  var root = document.documentElement, sw = document.createElement('nav'); sw.className = 'rv-sw'; sw.setAttribute('aria-label', 'preview');
+  function pick(n) { if (n === '0') root.removeAttribute('data-rv'); else root.setAttribute('data-rv', n); [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === n); }); try { history.replaceState(null, '', location.pathname + '?rv=' + n + (/desk=1/.test(location.search) ? '&desk=1' : '')); } catch (e) {} }
+  ['0', '1', '2', '3', '4', '5', '6'].forEach(function (n) { var b = document.createElement('button'); b.type = 'button'; b.value = n; b.textContent = n === '0' ? (root.lang === 'he' ? 'קיים' : 'Now') : n; b.addEventListener('click', function () { pick(n); }); sw.appendChild(b); });
+  document.body.appendChild(sw); pick(/^[1-6]$/.test(q) ? q : '0');
+  window.addEventListener('load', function () { setTimeout(function () { var r = document.getElementById('reviews'); if (r) window.scrollTo(0, r.getBoundingClientRect().top + scrollY - 60); }, 400); });
+})();
