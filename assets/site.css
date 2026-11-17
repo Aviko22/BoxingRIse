@@ -1673,3 +1673,12 @@ html[lang="en"] .reviews .rv-body::before { content: "“"; font-family: Georgia
 .reviews .h2 { text-align: center; }
 .reviews .h2::after { margin-inline: auto; }
 .reviews .tag { margin-inline: auto; }
+
+/* mobile header: menu button on the start side (right in Hebrew), logo centred, language at the end */
+@media (max-width: 999px) {
+  .head-row { display: grid; grid-template-columns: 1fr auto 1fr; }
+  .head-actions { display: contents; }
+  .m-burger { grid-column: 1; grid-row: 1; justify-self: start; }
+  .head-row > .logo { grid-column: 2; grid-row: 1; justify-self: center; }
+  .lang-switch { grid-column: 3; grid-row: 1; justify-self: end; }
+}

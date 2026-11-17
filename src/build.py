@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "202"  # bump to bust caches of css/js
+VER = "203"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -171,6 +171,35 @@ def floating(t):
 """
 
 
+LASTMOD = __import__("datetime").date.today().isoformat()
+
+
+def llms():
+    """Plain-text summary for AI assistants and answer engines (llms.txt). Facts only from content.py / config.json."""
+    t = EN
+    qa = "\n".join(f"- {q} {a}" for q, a in t["faq"])
+    return f"""# BoxingRise
+
+> {t["description"]}
+
+BoxingRise is private one-on-one boxing coaching for women, 18+, mostly beginners. Coach: Avi Anihovich (Aviko).
+Sessions are 60 minutes, outdoors, in Yarkon Park or a park near the client's home in Tel Aviv and central Israel.
+Coach background: {t["about_years"]} {t["about_years_label"]}; {"; ".join(t["about_facts"])}.
+Trial session: {CFG["trial_price"]} ILS. Payment: Bit, PayBox or cash. Booking is by WhatsApp: https://wa.me/{NUM}
+The site is in Hebrew (main) and English.
+
+## Pages
+- [Home, Hebrew]({SITE}/): the full offer, the coach, testimonials and FAQ
+- [Home, English]({SITE}/en/): the same in English
+- [Health declaration]({SITE}/health)
+- [Cancellation policy]({SITE}/cancellation)
+- [Privacy policy]({SITE}/privacy)
+
+## FAQ
+{qa}
+"""
+
+
 def schema(t, path):
     data = {
         "@context": "https://schema.org",
@@ -182,7 +211,10 @@ def schema(t, path):
         "logo": SITE + "/brand/icon-512.png",
         "telephone": "+" + NUM,
         "priceRange": "₪₪",
-        "founder": {"@type": "Person", "name": "Avi Anihovich", "alternateName": "Aviko"},
+        "founder": {"@type": "Person", "name": "Avi Anihovich", "alternateName": ["Aviko", "אבי אניחוביץ"],
+                    "jobTitle": "Boxing coach" if t["lang"] == "en" else "מאמן אגרוף",
+                    "description": " · ".join([t["about_years"] + " " + t["about_years_label"]] + t["about_facts"]),
+                    "knowsAbout": ["Boxing", "Muay Thai", "Japanese jiu-jitsu"]},
         "areaServed": [{"@type": "City", "name": "Tel Aviv-Yafo"}, {"@type": "AdministrativeArea", "name": "Central District, Israel"}],
         "address": {"@type": "PostalAddress", "addressLocality": "Tel Aviv-Yafo", "addressCountry": "IL"},
         "geo": {"@type": "GeoCoordinates", "latitude": 32.0995, "longitude": 34.8137},
@@ -193,7 +225,11 @@ def schema(t, path):
         "makesOffer": {"@type": "Offer", "name": "Trial session" if t["lang"] == "en" else "אימון ניסיון",
                        "price": str(CFG["trial_price"]), "priceCurrency": "ILS"},
     }
-    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
+    data["@id"] = SITE + "/#business"
+    faq = {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": t["lang"], "url": SITE + path,
+           "about": {"@id": SITE + "/#business"},
+           "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in t["faq"]]}
+    return "".join('<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + "</script>" for d in (data, faq))
 
 
 GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 2},
@@ -519,8 +555,9 @@ def main():
           f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message'], 'question': CFG['whatsapp_question'], 'analytics': {k: v for k, v in CFG.get('analytics', {}).items() if not k.startswith('_')}}, ensure_ascii=False)};\n")
     urls = ["/", "/en/"] + [legal_url(l, s) for s in PAGES for l in ("he", "en")]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
-         "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n"
+         "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{LASTMOD}</lastmod></url>\n" for u in urls) + "</urlset>\n"
     write("sitemap.xml", sm)
+    write("llms.txt", llms())
     write("robots.txt", ("User-agent: *\nDisallow: /\n" if CFG["noindex"] else "User-agent: *\nAllow: /\n") + f"\nSitemap: {SITE}/sitemap.xml\n")
     print("built", len(urls), "pages")
 
