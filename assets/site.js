@@ -518,3 +518,56 @@
   var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { on(); io.disconnect(); } }); }, { threshold: .6 });
   io.observe(t);
 })();
+
+
+/* gallery: viewer (tap a photo), plus preview switcher ?gal=1..3 */
+(function () {
+  var sec = document.getElementById('gallery'); if (!sec) return;
+  var list = sec.querySelector('.gal-list'), btns = [].slice.call(sec.querySelectorAll('.gal-btn'));
+  var rtl = document.documentElement.dir === 'rtl';
+  var view = document.createElement('div'); view.className = 'gal-view'; view.setAttribute('role', 'dialog'); view.setAttribute('aria-modal', 'true'); view.setAttribute('aria-label', sec.querySelector('h2').textContent);
+  view.innerHTML = '<img alt=""><button type="button" class="gal-x" aria-label="' + sec.dataset.close + '">✕</button>' +
+    '<button type="button" class="gal-prev" aria-label="' + sec.dataset.prev + '">' + (rtl ? '›' : '‹') + '</button>' +
+    '<button type="button" class="gal-next" aria-label="' + sec.dataset.next + '">' + (rtl ? '‹' : '›') + '</button><p class="gal-count" dir="ltr" aria-live="polite"></p>';
+  document.body.appendChild(view);
+  var vi = view.querySelector('img'), cnt = view.querySelector('.gal-count'), cur = 0, last = null;
+  function show(i) { cur = (i + btns.length) % btns.length; var b = btns[cur], im = b.querySelector('img'); vi.src = b.dataset.full; vi.alt = im ? im.alt : ''; cnt.textContent = (cur + 1) + ' / ' + btns.length; }
+  function open(i) { last = document.activeElement; show(i); view.classList.add('on'); document.documentElement.classList.add('gal-open'); view.querySelector('.gal-x').focus(); }
+  function close() { view.classList.remove('on'); document.documentElement.classList.remove('gal-open'); if (last) last.focus(); }
+  sec.addEventListener('click', function (ev) { var b = ev.target.closest('.gal-btn'); if (!b) return; var i = +b.dataset.i; open(isNaN(i) ? 0 : i); });
+  view.querySelector('.gal-x').addEventListener('click', close);
+  view.querySelector('.gal-prev').addEventListener('click', function () { show(cur - 1); });
+  view.querySelector('.gal-next').addEventListener('click', function () { show(cur + 1); });
+  view.addEventListener('click', function (ev) { if (ev.target === view) close(); });
+  document.addEventListener('keydown', function (ev) {
+    if (!view.classList.contains('on')) return;
+    if (ev.key === 'Escape') close();
+    else if (ev.key === 'ArrowRight') show(cur + (rtl ? -1 : 1));
+    else if (ev.key === 'ArrowLeft') show(cur + (rtl ? 1 : -1));
+  });
+  var sx = null; view.addEventListener('touchstart', function (ev) { sx = ev.touches[0].clientX; }, { passive: true });
+  view.addEventListener('touchend', function (ev) { if (sx === null) return; var dx = ev.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) show(cur + ((dx < 0) !== rtl ? 1 : -1)); });
+
+  /* layout 3 needs a doubled track for a seamless loop */
+  var track = null;
+  function setLayout(n) {
+    var root = document.documentElement;
+    if (n === '1') root.removeAttribute('data-gal'); else root.setAttribute('data-gal', n);
+    if (n === '3' && !track) {
+      track = document.createElement('div'); track.className = 'gal-track';
+      [].slice.call(list.children).forEach(function (li) { track.appendChild(li); });
+      [].slice.call(track.children).forEach(function (li) { var c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelector('button').tabIndex = -1; track.appendChild(c); });
+      list.appendChild(track);
+    } else if (n !== '3' && track) {
+      [].slice.call(track.children).forEach(function (li) { if (li.getAttribute('aria-hidden') === 'true') li.remove(); else list.appendChild(li); });
+      track.remove(); track = null;
+    }
+  }
+  var q; try { q = new URLSearchParams(location.search).get('gal'); } catch (e) {}
+  if (q === null || q === undefined) return;
+  var sw = document.createElement('nav'); sw.className = 'ga-sw'; sw.setAttribute('aria-label', 'preview');
+  function pick(n) { setLayout(n); [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === n); }); try { history.replaceState(null, '', location.pathname + '?gal=' + n + (/desk=1/.test(location.search) ? '&desk=1' : '')); } catch (e) {} }
+  ['1', '2', '3'].forEach(function (n) { var b = document.createElement('button'); b.type = 'button'; b.value = n; b.textContent = n; b.addEventListener('click', function () { pick(n); }); sw.appendChild(b); });
+  document.body.appendChild(sw); pick(/^[1-3]$/.test(q) ? q : '1');
+  window.addEventListener('load', function () { setTimeout(function () { window.scrollTo(0, sec.getBoundingClientRect().top + scrollY - 60); }, 400); });
+})();

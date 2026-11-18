@@ -425,3 +425,26 @@ EN["rr"] = ["READY TO", "RISE?"]
 
 HE["ps"]["out"] = "בסוף 8 השבועות יש לך בסיס אמיתי באגרוף קלאסי, יותר כוח וסיבולת, וביטחון בתנועה שלך."
 EN["ps"]["out"] = "After 8 weeks you have a real foundation in classic boxing, more strength and endurance, and confidence in how you move."
+
+
+# ---- gallery: real photos from sessions ----
+HE.update({
+    "tag_gal": "מהאימונים",
+    "gal_h": "ככה זה נראה באמת.",
+    "gal_lead": "תמונות אמיתיות מאימונים אישיים, אחד על אחד.",
+    "gal_open": "הגדלת תמונה",
+    "gal_close": "סגירה", "gal_prev": "התמונה הקודמת", "gal_next": "התמונה הבאה",
+    "gal_alts": ["מתאמנת מכה בכרית באימון אישי", "עבודה על כריות עם המאמן", "אימון אגרוף בפארק",
+                 "מתאמנת בעמידת אגרוף", "תרגול מכות ישרות על כריות", "המאמן אבי בפארק עם כריות",
+                 "אגרוף לכרית מקרוב", "מכה חזקה בכרית באימון", "אימון על כריות בחוץ"],
+})
+EN.update({
+    "tag_gal": "From sessions",
+    "gal_h": "This is what it really looks like.",
+    "gal_lead": "Real photos from private one-on-one sessions.",
+    "gal_open": "Enlarge photo",
+    "gal_close": "Close", "gal_prev": "Previous photo", "gal_next": "Next photo",
+    "gal_alts": ["A client punching a pad in a private session", "Pad work with the coach", "Boxing session in the park",
+                 "A client in boxing stance", "Practising straight punches on pads", "Coach Avi in the park with pads",
+                 "Close-up of a punch on a pad", "A strong punch on the pad", "Pad session outdoors"],
+})

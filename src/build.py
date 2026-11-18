@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "203"  # bump to bust caches of css/js
+VER = "204"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -232,8 +232,8 @@ def schema(t, path):
     return "".join('<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + "</script>" for d in (data, faq))
 
 
-GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 2},
-             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 1}}
+GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 2, "gal_h": 1},
+             "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 1, "gal_h": 1}}
 
 
 def hgold(t, key):
@@ -255,7 +255,21 @@ def hgold(t, key):
     return e(" ".join(w[:-n])) + ('<br>' if key == "batt_h" else ' ') + '<span class="g">' + e(" ".join(w[-n:])) + "</span>"
 
 
-TAGGED = {"what", "reviews", "trial", "program", "about", "voice", "faq", "final", "hero"}
+TAGGED = {"gal", "what", "reviews", "trial", "program", "about", "voice", "faq", "final", "hero"}
+
+
+GALLERY = ["gallery-2", "round-1", "hero-park2", "gallery-4", "round-2", "avi-park", "gallery-1", "round-3", "gallery-5"]
+
+
+def gallery(t):
+    """Real photos from sessions. Tap opens a simple viewer (site.js)."""
+    items = "".join(
+        f'<li class="gal-item"><button type="button" class="gal-btn" data-i="{i}" data-full="/media/opt/{n}-900.webp" aria-label="{e(t["gal_open"])} {i + 1}">'
+        + img(n, t["gal_alts"][i], "gal-img", "(max-width: 760px) 70vw, 30vw") + '</button></li>'
+        for i, n in enumerate(GALLERY))
+    return (f'<section class="sec gal" id="gallery" aria-labelledby="gal-h" data-close="{e(t["gal_close"])}" data-prev="{e(t["gal_prev"])}" data-next="{e(t["gal_next"])}"><div class="wrap">'
+            f'<div class="gal-head">{tag(t, "gal")}<h2 class="h2" id="gal-h">{hgold(t, "gal_h")}</h2><p class="lead">{e(t["gal_lead"])}</p></div>'
+            f'<ul class="gal-list" tabindex="0" aria-label="{e(t["gal_h"])}">{items}</ul></div></section>')
 
 
 def tag(t, key):
@@ -425,6 +439,7 @@ def home(t):
 
   {defend(t)}
   {reviews}
+  {gallery(t)}
 
   <section class="sec about alt ab3" id="about" aria-labelledby="about-h">
     {GRASS}
@@ -525,7 +540,7 @@ def optimise_images():
     from PIL import Image
     out = ROOT / "media" / "opt"
     out.mkdir(parents=True, exist_ok=True)
-    for name in ["avi-portrait", "avi", "avi-park", "avi-pro", "round-1", "round-2", "round-3", "gallery-1", "gallery-2", "gallery-4"]:
+    for name in ["avi-portrait", "avi", "avi-park", "avi-pro", "round-1", "round-2", "round-3", "gallery-1", "gallery-2", "gallery-4", "gallery-5", "hero-park2"]:
         im = Image.open(ROOT / "media" / f"{name}.jpg").convert("RGB")
         IMG_SIZES[name] = im.size
         for w in (480, 900):
