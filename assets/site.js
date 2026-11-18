@@ -520,11 +520,13 @@
 })();
 
 
-/* gallery: viewer (tap a photo), plus preview switcher ?gal=1..3 */
+/* gallery: scroll-driven film strip + tap-to-enlarge viewer */
 (function () {
   var sec = document.getElementById('gallery'); if (!sec) return;
-  var list = sec.querySelector('.gal-list'), btns = [].slice.call(sec.querySelectorAll('.gal-btn'));
+  var list = sec.querySelector('.gal-list'), items = [].slice.call(sec.querySelectorAll('.gal-item')), btns = items.map(function (li) { return li.querySelector('.gal-btn'); });
   var rtl = document.documentElement.dir === 'rtl';
+
+  /* viewer */
   var view = document.createElement('div'); view.className = 'gal-view'; view.setAttribute('role', 'dialog'); view.setAttribute('aria-modal', 'true'); view.setAttribute('aria-label', sec.querySelector('h2').textContent);
   view.innerHTML = '<img alt=""><button type="button" class="gal-x" aria-label="' + sec.dataset.close + '">✕</button>' +
     '<button type="button" class="gal-prev" aria-label="' + sec.dataset.prev + '">' + (rtl ? '›' : '‹') + '</button>' +
@@ -534,7 +536,7 @@
   function show(i) { cur = (i + btns.length) % btns.length; var b = btns[cur], im = b.querySelector('img'); vi.src = b.dataset.full; vi.alt = im ? im.alt : ''; cnt.textContent = (cur + 1) + ' / ' + btns.length; }
   function open(i) { last = document.activeElement; show(i); view.classList.add('on'); document.documentElement.classList.add('gal-open'); view.querySelector('.gal-x').focus(); }
   function close() { view.classList.remove('on'); document.documentElement.classList.remove('gal-open'); if (last) last.focus(); }
-  sec.addEventListener('click', function (ev) { var b = ev.target.closest('.gal-btn'); if (!b) return; var i = +b.dataset.i; open(isNaN(i) ? 0 : i); });
+  sec.addEventListener('click', function (ev) { var b = ev.target.closest('.gal-btn'); if (!b) return; open(+b.dataset.i || 0); });
   view.querySelector('.gal-x').addEventListener('click', close);
   view.querySelector('.gal-prev').addEventListener('click', function () { show(cur - 1); });
   view.querySelector('.gal-next').addEventListener('click', function () { show(cur + 1); });
@@ -548,26 +550,37 @@
   var sx = null; view.addEventListener('touchstart', function (ev) { sx = ev.touches[0].clientX; }, { passive: true });
   view.addEventListener('touchend', function (ev) { if (sx === null) return; var dx = ev.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) show(cur + ((dx < 0) !== rtl ? 1 : -1)); });
 
-  /* layout 3 needs a doubled track for a seamless loop */
-  var track = null;
-  function setLayout(n) {
-    var root = document.documentElement;
-    if (n === '1') root.removeAttribute('data-gal'); else root.setAttribute('data-gal', n);
-    if (n === '3' && !track) {
-      track = document.createElement('div'); track.className = 'gal-track';
-      [].slice.call(list.children).forEach(function (li) { track.appendChild(li); });
-      [].slice.call(track.children).forEach(function (li) { var c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelector('button').tabIndex = -1; track.appendChild(c); });
-      list.appendChild(track);
-    } else if (n !== '3' && track) {
-      [].slice.call(track.children).forEach(function (li) { if (li.getAttribute('aria-hidden') === 'true') li.remove(); else list.appendChild(li); });
-      track.remove(); track = null;
-    }
+  /* scroll-driven strip */
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  sec.classList.add('gal-on');
+  var stage = sec.querySelector('.wrap'), num = sec.querySelector('.gal-num'), bar = sec.querySelector('.gal-bar i');
+  var travel = 0, ticking = false, lastC = -1;
+  function size() {
+    travel = Math.max(0, list.scrollWidth - innerWidth);
+    sec.style.height = (innerHeight + travel * 1.15) + 'px';
+    update();
   }
-  var q; try { q = new URLSearchParams(location.search).get('gal'); } catch (e) {}
-  if (q === null || q === undefined) return;
-  var sw = document.createElement('nav'); sw.className = 'ga-sw'; sw.setAttribute('aria-label', 'preview');
-  function pick(n) { setLayout(n); [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === n); }); try { history.replaceState(null, '', location.pathname + '?gal=' + n + (/desk=1/.test(location.search) ? '&desk=1' : '')); } catch (e) {} }
-  ['1', '2', '3'].forEach(function (n) { var b = document.createElement('button'); b.type = 'button'; b.value = n; b.textContent = n; b.addEventListener('click', function () { pick(n); }); sw.appendChild(b); });
-  document.body.appendChild(sw); pick(/^[1-3]$/.test(q) ? q : '1');
-  window.addEventListener('load', function () { setTimeout(function () { window.scrollTo(0, sec.getBoundingClientRect().top + scrollY - 60); }, 400); });
+  function update() {
+    ticking = false;
+    var r = sec.getBoundingClientRect(), span = sec.offsetHeight - innerHeight;
+    var p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+    var x = p * travel; list.style.transform = 'translate3d(' + (rtl ? x : -x) + 'px,0,0)';
+    var mid = innerWidth / 2, best = 0, bd = 1e9;
+    items.forEach(function (li, i) {
+      var b = li.getBoundingClientRect(), c = b.left + b.width / 2, d = (c - mid) / (innerWidth * .55), a = Math.min(1, Math.abs(d));
+      var bt = btns[i].style;
+      bt.setProperty('--s', (1 - .2 * a).toFixed(3));
+      bt.setProperty('--ry', (Math.max(-1, Math.min(1, d)) * (innerWidth < 760 ? 0 : -14)).toFixed(2) + 'deg');
+      bt.setProperty('--b', (1 - .5 * a).toFixed(3));
+      bt.setProperty('--sa', (1 - .35 * a).toFixed(3));
+      if (Math.abs(c - mid) < bd) { bd = Math.abs(c - mid); best = i; }
+    });
+    if (best !== lastC) { if (items[lastC]) items[lastC].classList.remove('is-c'); items[best].classList.add('is-c'); lastC = best; num.textContent = (best + 1 < 10 ? '0' : '') + (best + 1); }
+    bar.style.setProperty('--p', p.toFixed(4));
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', size);
+  window.addEventListener('load', size);
+  size();
 })();

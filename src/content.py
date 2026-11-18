@@ -448,3 +448,6 @@ EN.update({
                  "A client in boxing stance", "Practising straight punches on pads", "Coach Avi in the park with pads",
                  "Close-up of a punch on a pad", "A strong punch on the pad", "Pad session outdoors"],
 })
+
+HE["gal_alts"] = ["מתאמנת מכה בכרית באימון אישי", "עבודה על כריות עם המאמן על הגג", "מתאמנת מחייכת באמצע אימון בפארק", "מתאמנת בעמידת אגרוף", "אימון כריות בזירה", "המאמן מחזיק כריות למתאמנת", "אימון אחד על אחד בפארק", "אגרוף לכרית מקרוב", "המאמן אבי בפארק עם כריות", "מתאמנת מרימה ידיים בסוף אימון"]
+EN["gal_alts"] = ["A client punching a pad in a private session", "Pad work with the coach on the roof", "A client smiling mid-session in the park", "A client in boxing stance", "Pad session in the ring", "The coach holding pads for a client", "One-on-one session in the park", "Close-up of a punch on a pad", "Coach Avi in the park with pads", "A client raising her arms at the end of a session"]

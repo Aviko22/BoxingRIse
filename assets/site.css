@@ -1684,46 +1684,58 @@ html[lang="en"] .reviews .rv-body::before { content: "“"; font-family: Georgia
 }
 
 
-/* ================= gallery: real photos from sessions ================= */
+/* ================= gallery: real photos from sessions =================
+   Scroll-driven: the section pins, vertical scroll slides the photos sideways,
+   the photo nearest the centre grows and lights up. Without JS (or with reduced
+   motion) it is a plain swipeable strip. */
+.gal { padding-bottom: 0; }
 .gal .wrap { display: flex; flex-direction: column; }
-.gal-head { max-width: 640px; margin-bottom: 30px; }
-.gal-head .lead { margin-top: 14px; }
-.gal-list { list-style: none; margin: 0; padding: 0; }
-.gal-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 18px; overflow: hidden; position: relative;
-  outline: 1.5px dashed rgba(212, 173, 87, .55); outline-offset: -8px; }
-.gal-btn:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
-.gal-btn picture, .gal-btn img { display: block; width: 100%; height: 100%; }
-.gal-img { object-fit: cover; aspect-ratio: 4 / 5; transition: transform .6s var(--ease), filter .4s ease; }
-.gal-btn:hover .gal-img { transform: scale(1.04); }
-.gal-btn::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; outline: inherit; outline-offset: -8px; }
-
-/* 1 · one strip you swipe (default) */
-.gal-list { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(220px, 27vw, 330px); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
-  margin-inline: calc(var(--pad) * -1); padding: 4px var(--pad) 18px; scrollbar-width: none; }
+.gal-head { max-width: 640px; margin-bottom: 26px; }
+.gal-head .lead { margin-top: 12px; }
+.gal-list { list-style: none; margin: 0; padding: 4px var(--pad) 18px; display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  margin-inline: calc(var(--pad) * -1); scrollbar-width: none; }
 .gal-list::-webkit-scrollbar { display: none; }
-.gal-item { scroll-snap-align: start; }
-@media (max-width: 759px) { .gal-list { grid-auto-columns: 72%; } }
+.gal-item { flex: 0 0 clamp(230px, 26vw, 340px); scroll-snap-align: center; }
+@media (max-width: 759px) { .gal-item { flex-basis: 70vw; } }
+.gal-btn { display: block; width: 100%; padding: 0; border: 0; background: #0d0c0a; cursor: zoom-in; border-radius: 20px; overflow: hidden; position: relative; }
+.gal-btn::after { content: ""; position: absolute; inset: 8px; border-radius: 14px; border: 1.5px dashed rgba(212, 173, 87, .5); pointer-events: none; transition: border-color .4s ease; }
+.gal-btn:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+.gal-btn picture, .gal-btn img { display: block; width: 100%; }
+.gal-img { aspect-ratio: 4 / 5; height: auto; object-fit: cover; }
+.gal-meter { display: none; }
 
-/* 2 · grid */
-[data-gal="2"] .gal-list { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: repeat(3, 1fr); overflow: visible; margin-inline: 0; padding: 0; gap: 14px; }
-[data-gal="2"] .gal-item:nth-child(3n+2) { transform: translateY(26px); }
-[data-gal="2"] .gal-list { padding-bottom: 26px; }
-@media (max-width: 759px) { [data-gal="2"] .gal-list { grid-template-columns: repeat(2, 1fr); gap: 10px; } [data-gal="2"] .gal-item:nth-child(3n+2) { transform: none; } [data-gal="2"] .gal-item:nth-child(2n) { transform: translateY(22px); } [data-gal="2"] .gal-item:last-child:nth-child(odd) { grid-column: 1 / -1; } [data-gal="2"] .gal-item:last-child:nth-child(odd) .gal-img { aspect-ratio: 16 / 10; } }
-
-/* 3 · slow moving film strip */
-[data-gal="3"] .gal-list { overflow: hidden; scroll-snap-type: none; margin-inline: calc(50% - 50vw); padding-inline: 0; width: 100vw; display: flex; gap: 16px; }
-[data-gal="3"] .gal-track { display: flex; gap: 16px; animation: gal-run 60s linear infinite; }
-[data-gal="3"] .gal-list:hover .gal-track, [data-gal="3"] .gal-list:focus-within .gal-track { animation-play-state: paused; }
-[data-gal="3"] .gal-item { flex: 0 0 clamp(200px, 22vw, 300px); }
-[dir="rtl"][data-gal="3"] .gal-track { animation-name: gal-run-rtl; }
-@keyframes gal-run { to { transform: translateX(calc(-50% - 8px)); } }
-@keyframes gal-run-rtl { to { transform: translateX(calc(50% + 8px)); } }
-@media (prefers-reduced-motion: reduce) { [data-gal="3"] .gal-track { animation: none; } [data-gal="3"] .gal-list { overflow-x: auto; } }
+/* pinned, scroll-driven version (JS adds .gal-on) */
+.gal.gal-on { padding: 0; }
+.gal.gal-on > .wrap { position: sticky; top: 0; height: 100vh; height: 100svh; justify-content: center; padding-top: 70px; padding-bottom: 24px; overflow: hidden; max-width: none; }
+.gal.gal-on .gal-head { width: 100%; max-width: 1200px; margin: 0 auto 2.2vh; text-align: center; }
+.gal.gal-on .gal-head .tag { margin-inline: auto; }
+.gal.gal-on .gal-head .h2 { text-align: center; font-size: clamp(34px, 5vw, 64px); }
+.gal.gal-on .gal-head .h2::after { margin-inline: auto; }
+.gal.gal-on .gal-head .lead { margin-inline: auto; }
+.gal.gal-on .gal-stage { position: relative; }
+.gal.gal-on .gal-list { overflow: visible; scroll-snap-type: none; margin: 0; padding: 3vh 0; width: max-content; gap: clamp(18px, 2.4vw, 34px); will-change: transform;
+  padding-inline: calc(50vw - min(15vw, 22vh)); perspective: 1400px; }
+.gal.gal-on .gal-item { flex-basis: min(30vw, 44vh); height: auto; }
+.gal.gal-on .gal-btn { transform: scale(var(--s, .82)) rotateY(var(--ry, 0deg)); filter: brightness(var(--b, .5)) saturate(var(--sa, .7)); transition: none; box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .9); }
+.gal.gal-on .gal-item.is-c .gal-btn { box-shadow: 0 30px 80px -24px rgba(255, 190, 90, .35); }
+.gal.gal-on .gal-item.is-c .gal-btn::after { border-color: rgba(241, 213, 142, .95); }
+@media (max-width: 759px) {
+  .gal.gal-on .gal-item { flex-basis: min(64vw, 46svh); }
+  .gal.gal-on .gal-list { padding-inline: calc(50vw - min(32vw, 23svh)); gap: 26px; }
+  .gal.gal-on > .wrap { padding-top: 64px; }
+  .gal.gal-on .gal-head .lead { display: none; }
+}
+.gal.gal-on .gal-meter { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 1.4vh; color: #cfc8bb; font: 700 14px var(--latin, var(--body)); letter-spacing: .14em; direction: ltr; }
+.gal.gal-on .gal-num { color: var(--gold-hi); min-width: 2ch; }
+.gal-bar { position: relative; width: min(240px, 46vw); height: 2px; background: rgba(255, 255, 255, .14); border-radius: 2px; overflow: hidden; }
+.gal-bar i { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, #b8862c, #f1d58e); }
+[dir="rtl"] .gal-bar i { transform-origin: right; }
 
 /* viewer */
-.gal-view { position: fixed; inset: 0; z-index: 1300; display: none; place-items: center; background: rgba(6, 5, 4, .94); padding: 64px 16px; }
-.gal-view.on { display: grid; }
-.gal-view img { max-width: min(92vw, 900px); max-height: 82vh; width: auto; height: auto; border-radius: 16px; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+.gal-view { position: fixed; inset: 0; z-index: 1300; display: none; place-items: center; background: rgba(6, 5, 4, .95); padding: 64px 16px; }
+.gal-view.on { display: grid; animation: gal-fade .25s ease; }
+@keyframes gal-fade { from { opacity: 0; } }
+.gal-view img { max-width: min(92vw, 820px); max-height: 82vh; width: auto; height: auto; border-radius: 16px; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
 .gal-view button { position: absolute; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 0; background: rgba(255,255,255,.1); color: #fff; font-size: 24px; line-height: 1; cursor: pointer; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.25); }
 .gal-view button:hover { background: rgba(212, 173, 87, .3); }
 .gal-view button:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
@@ -1732,7 +1744,3 @@ html[lang="en"] .reviews .rv-body::before { content: "“"; font-family: Georgia
 .gal-prev { inset-inline-start: 12px; } .gal-next { inset-inline-end: 12px; }
 .gal-count { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: #cfc8bb; font-size: 14px; letter-spacing: .08em; }
 html.gal-open { overflow: hidden; }
-
-.ga-sw { position: fixed; z-index: 1200; top: 74px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; padding: 6px 8px; border-radius: 999px; background: rgba(12,11,9,.96); border: 1px solid #c9a24b; width: max-content; max-width: 96vw; }
-.ga-sw button { display: grid; place-items: center; min-width: 38px; height: 38px; padding: 0 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.2); background: none; color: #f3efe6; font: 700 14px var(--body); cursor: pointer; }
-.ga-sw button.on { background: var(--metal); color: #120e05; border-color: transparent; }
