@@ -70,7 +70,8 @@ def placeholder(t, desc):
 def head(t, title, desc, path, alt_path, noindex):
     lang = t["lang"]
     other = "en" if lang == "he" else "he"
-    robots = '<meta name="robots" content="noindex, nofollow">' if noindex else '<meta name="robots" content="index, follow">'
+    robots = ('<meta name="robots" content="noindex, nofollow">' if noindex is True else
+              '<meta name="robots" content="noindex, follow">' if noindex == "legal" else '<meta name="robots" content="index, follow">')
     intro = (";try{var q=new URLSearchParams(location.search).get('intro'),d=document.documentElement;d.setAttribute('data-intro',q||'3');if(q||(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro')))d.classList.add('intro-on')}catch(e){}"
              if path in ('/', '/en', '/en/') else "")
     return f"""<!doctype html>
@@ -506,7 +507,7 @@ def legal_page(t, slug):
         elif kind == "form":
             body += health_form(lang)
     todo = ""
-    return todo + head(t, f"{page['title']} | BoxingRise", t["legal_desc"].format(page["title"]), path, alt, CFG["noindex"]) + "</head>\n<body class=\"legal\">\n" + header(t, False, alt) + f"""
+    return todo + head(t, f"{page['title']} | BoxingRise", t["legal_desc"].format(page["title"]), path, alt, CFG["noindex"] or "legal") + "</head>\n<body class=\"legal\">\n" + header(t, False, alt) + f"""
 <main id="main" class="legal-main">
   <div class="wrap narrow">
     <p class="crumb"><a href="{base(lang)}">{e(t['back_home'])}</a></p>
@@ -568,13 +569,13 @@ def main():
     write("404.html", not_found())
     write("config.js", "/* Single source: src/config.json. Edit there and run python3 src/build.py */\n"
           f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message'], 'question': CFG['whatsapp_question'], 'analytics': {k: v for k, v in CFG.get('analytics', {}).items() if not k.startswith('_')}}, ensure_ascii=False)};\n")
-    urls = ["/", "/en/"] + [legal_url(l, s) for s in PAGES for l in ("he", "en")]
+    urls = ["/", "/en/"]  # only the pages that bring clients; legal pages are noindex
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
          "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{LASTMOD}</lastmod></url>\n" for u in urls) + "</urlset>\n"
     write("sitemap.xml", sm)
     write("llms.txt", llms())
     write("robots.txt", ("User-agent: *\nDisallow: /\n" if CFG["noindex"] else "User-agent: *\nAllow: /\n") + f"\nSitemap: {SITE}/sitemap.xml\n")
-    print("built", len(urls), "pages")
+    print("built", len(urls) + 2 * len(PAGES), "pages")
 
 
 if __name__ == "__main__":
