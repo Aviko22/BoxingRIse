@@ -520,7 +520,7 @@
 })();
 
 
-/* gallery: scroll-driven modes + tap-to-enlarge viewer (preview ?gal=1..6) */
+/* gallery: parallax grid + tap-to-enlarge viewer */
 (function () {
   var sec = document.getElementById('gallery'); if (!sec) return;
   var list = sec.querySelector('.gal-list'), items = [].slice.call(sec.querySelectorAll('.gal-item')), btns = items.map(function (li) { return li.querySelector('.gal-btn'); });
@@ -551,113 +551,19 @@
   var sx = null; view.addEventListener('touchstart', function (ev) { sx = ev.touches[0].clientX; }, { passive: true });
   view.addEventListener('touchend', function (ev) { if (sx === null) return; var dx = ev.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) show(cur + ((dx < 0) !== rtl ? 1 : -1)); });
 
+  /* parallax grid: columns drift at different speeds while the page scrolls normally */
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var stage = sec.querySelector('.gal-stage'), num = sec.querySelector('.gal-num'), bar = sec.querySelector('.gal-bar i');
-  var glow = document.createElement('div'); glow.className = 'gal-glow'; stage.insertBefore(glow, stage.firstChild);
-  var mode = '1', travel = 0, ticking = false, lastC = -1;
-  var PINNED = { '1': 1, '2': 1, '5': 1, '6': 1 };
-
-  function reset() {
-    sec.style.height = ''; list.style.transform = '';
-    items.forEach(function (li, i) { li.style.cssText = ''; li.classList.remove('is-c'); btns[i].style.cssText = ''; var im = btns[i].querySelector('img'); if (im) im.style.cssText = ''; });
-    lastC = -1;
-  }
-  function setCenter(i) {
-    if (i === lastC) return;
-    if (items[lastC]) items[lastC].classList.remove('is-c');
-    items[i].classList.add('is-c'); lastC = i; num.textContent = (i + 1 < 10 ? '0' : '') + (i + 1);
-    if (mode === '5') { var im = btns[i].querySelector('img'); glow.style.backgroundImage = 'url("' + (im.currentSrc || im.src) + '")'; }
-  }
-  function size() {
-    if (PINNED[mode]) {
-      if (mode === '1') { travel = Math.max(0, list.scrollWidth - innerWidth); sec.style.height = (innerHeight + travel * 1.15) + 'px'; }
-      else sec.style.height = (innerHeight + (n - 1) * innerHeight * .55) + 'px';
-    }
-    update();
-  }
-  function prog() { var r = sec.getBoundingClientRect(), span = sec.offsetHeight - innerHeight; return span > 0 ? clamp(-r.top / span, 0, 1) : 0; }
-
-  var MODES = {
-    '1': function (p) { /* film strip, centre photo grows */
-      var x = p * travel; list.style.transform = 'translate3d(' + (rtl ? x : -x) + 'px,0,0)';
-      var mid = innerWidth / 2, best = 0, bd = 1e9;
-      items.forEach(function (li, i) {
-        var b = li.getBoundingClientRect(), c = b.left + b.width / 2, d = (c - mid) / (innerWidth * .55), a = Math.min(1, Math.abs(d)), bt = btns[i].style;
-        bt.setProperty('--s', (1 - .2 * a).toFixed(3));
-        bt.setProperty('--ry', (clamp(d, -1, 1) * (innerWidth < 760 ? 0 : -14)).toFixed(2) + 'deg');
-        bt.setProperty('--b', (1 - .5 * a).toFixed(3)); bt.setProperty('--sa', (1 - .35 * a).toFixed(3));
-        if (Math.abs(c - mid) < bd) { bd = Math.abs(c - mid); best = i; }
-      });
-      setCenter(best);
-    },
-    '2': function (p) { /* deck: top card flies away */
-      var k = p * (n - 1);
-      items.forEach(function (li, i) {
-        var t = clamp(k - i, 0, 1), d = i - k, s = li.style;
-        s.zIndex = n - i;
-        if (d < 0) { s.transform = 'translate3d(' + (dir * -1 * t * 115) + 'vw,' + (-t * 8) + 'vh,0) rotate(' + (dir * -1 * t * 22) + 'deg)'; s.opacity = (1 - t * .3).toFixed(2); }
-        else { var e = Math.min(d, 4); s.transform = 'translate3d(0,' + (e * 16) + 'px,0) scale(' + (1 - e * .05).toFixed(3) + ') rotate(' + ((i % 2 ? 1 : -1) * Math.min(d, 1) * 4).toFixed(2) + 'deg)'; s.opacity = d > 4 ? 0 : 1; }
-        btns[i].style.filter = 'brightness(' + (1 - Math.min(Math.max(d, 0), 3) * .18).toFixed(2) + ')';
-      });
-      setCenter(clamp(Math.round(k), 0, n - 1));
-    },
-    '5': function (p) { /* spotlight crossfade + slow zoom */
-      var k = p * (n - 1);
-      items.forEach(function (li, i) {
-        var d = Math.abs(k - i), o = clamp(1 - d * 1.7, 0, 1), s = li.style;
-        s.opacity = o.toFixed(3); s.zIndex = Math.round(o * 10);
-        s.transform = 'scale(' + (0.94 + 0.06 * o).toFixed(3) + ')';
-        btns[i].style.setProperty('--kz', (1.12 - 0.12 * clamp(1 - (k - i + 1) / 2, 0, 1)).toFixed(3));
-      });
-      setCenter(clamp(Math.round(k), 0, n - 1));
-    },
-    '6': function (p) { /* 3D ring */
-      var step = 360 / n, w = list.offsetWidth, R = (w / 2) / Math.tan(Math.PI / n) + 30, rot = p * (n - 1) * step;
-      items.forEach(function (li, i) {
-        var a = ((i * step - rot) % 360 + 540) % 360 - 180, f = 1 - Math.min(1, Math.abs(a) / 120);
-        li.style.transform = 'translateZ(' + (-R).toFixed(0) + 'px) rotateY(' + (dir * -1 * a).toFixed(2) + 'deg) translateZ(' + R.toFixed(0) + 'px)';
-        btns[i].style.filter = 'brightness(' + (.35 + .65 * f).toFixed(2) + ')';
-      });
-      setCenter(clamp(Math.round(p * (n - 1)), 0, n - 1));
-    },
-    '3': function () { /* parallax columns */
-      var cols = innerWidth < 760 ? 2 : 3, sp = cols === 3 ? [.0, -.22, -.08] : [0, -.18];
-      var r = sec.getBoundingClientRect(), off = (r.top + r.height / 2 - innerHeight / 2);
-      items.forEach(function (li, i) { li.style.transform = 'translate3d(0,' + clamp(off * sp[i % cols], -110, 110).toFixed(1) + 'px,0)'; });
-    },
-    '4': function () { /* two rows, opposite directions */
-      var r = sec.getBoundingClientRect(), off = (r.top + r.height / 2 - innerHeight / 2) * .35;
-      items.forEach(function (li, i) { li.style.transform = 'translate3d(' + ((i % 2 ? 1 : -1) * off).toFixed(1) + 'px,0,0)'; });
-    }
-  };
+  sec.classList.add('gal-px');
+  var ticking = false;
   function update() {
     ticking = false;
-    var p = PINNED[mode] ? prog() : 0;
-    MODES[mode](p);
-    bar.style.setProperty('--p', p.toFixed(4));
-  }
-  function setMode(m) {
-    reset(); mode = m;
-    for (var k = 1; k <= 6; k++) sec.classList.remove('gm-' + k);
-    sec.classList.add('gm-' + m);
-    sec.classList.toggle('gal-on', !!PINNED[m]);
-    size();
+    var cols = innerWidth < 760 ? 2 : 3, sp = cols === 3 ? [0, -.22, -.08] : [0, -.18];
+    var r = sec.getBoundingClientRect();
+    if (r.bottom < -200 || r.top > innerHeight + 200) return;
+    var off = r.top + r.height / 2 - innerHeight / 2;
+    items.forEach(function (li, i) { li.style.transform = 'translate3d(0,' + clamp(off * sp[i % cols], -110, 110).toFixed(1) + 'px,0)'; });
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  window.addEventListener('resize', size);
-  window.addEventListener('load', size);
-
-  var q = null; try { q = new URLSearchParams(location.search).get('gal'); } catch (e) {}
-  setMode(/^[1-6]$/.test(q) ? q : '1');
-  if (q === null) return;
-  var sw = document.createElement('nav'); sw.className = 'gal-sw'; sw.setAttribute('aria-label', 'preview');
-  function pick(m) {
-    setMode(m); [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === m); });
-    try { history.replaceState(null, '', location.pathname + '?gal=' + m + (/desk=1/.test(location.search) ? '&desk=1' : '')); } catch (e) {}
-    window.scrollTo(0, sec.getBoundingClientRect().top + scrollY - (PINNED[m] ? 0 : 80));
-  }
-  ['1', '2', '3', '4', '5', '6'].forEach(function (m) { var b = document.createElement('button'); b.type = 'button'; b.value = m; b.textContent = m; b.addEventListener('click', function () { pick(m); }); sw.appendChild(b); });
-  document.body.appendChild(sw); [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === mode); });
-  window.addEventListener('load', function () { setTimeout(function () { window.scrollTo(0, sec.getBoundingClientRect().top + scrollY - (PINNED[mode] ? 0 : 80)); }, 400); });
+  window.addEventListener('resize', update);
+  update();
 })();

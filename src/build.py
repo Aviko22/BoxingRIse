@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "206"  # bump to bust caches of css/js
+VER = "207"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -269,8 +269,7 @@ def gallery(t):
         for i, n in enumerate(GALLERY))
     return (f'<section class="sec gal" id="gallery" aria-labelledby="gal-h" data-close="{e(t["gal_close"])}" data-prev="{e(t["gal_prev"])}" data-next="{e(t["gal_next"])}"><div class="wrap">'
             f'<div class="gal-head">{tag(t, "gal")}<h2 class="h2" id="gal-h">{hgold(t, "gal_h")}</h2><p class="lead">{e(t["gal_lead"])}</p></div>'
-            f'<div class="gal-stage"><ul class="gal-list" tabindex="0" aria-label="{e(t["gal_h"])}">{items}</ul>'
-            f'<div class="gal-meter" aria-hidden="true"><span class="gal-num">01</span><span class="gal-bar"><i></i></span><span class="gal-tot">{len(GALLERY):02d}</span></div></div></div></section>')
+            f'<div class="gal-stage"><ul class="gal-list" tabindex="0" aria-label="{e(t["gal_h"])}">{items}</ul></div></div></section>')
 
 
 def tag(t, key):
