@@ -258,7 +258,7 @@ def hgold(t, key):
 TAGGED = {"gal", "what", "reviews", "trial", "program", "about", "voice", "faq", "final", "hero"}
 
 
-GALLERY = [f"gal-{i:02d}" for i in range(1, 7)]
+GALLERY = [f"galp-{i:02d}" for i in range(1, 7)]  # new names when photos change: /media is cached 30 days
 
 
 def gallery(t):
