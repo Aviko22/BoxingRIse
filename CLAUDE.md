@@ -26,6 +26,7 @@ Avi likes to choose: for a new visual idea, show several options (a preview swit
   - `src/legal.py`: legal pages and health declaration (drafts; a lawyer still needs to review them).
   - `src/build.py`: templates. Bump `VER` on every CSS/JS change (cache busting).
   - `assets/site.css`, `assets/site.js`: style and behaviour. New CSS usually goes at the end of the file, so check for later rules that override it (several hero rules use `!important`).
+- Media: when you replace a photo or video, give it a new file name: `/media/*` is cached in browsers for 30 days, so a reused name keeps showing the old file.
 - Media: `media/` (videos converted from iPhone HLG with the ffmpeg tonemap chain `zscale=t=linear:npl=203,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p`).
 - Respect `prefers-reduced-motion`, keep one H1 per page, alt text on every image, visible focus states, RTL for Hebrew and LTR for English.
 
