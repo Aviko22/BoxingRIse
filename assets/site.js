@@ -613,3 +613,21 @@
   window.addEventListener('resize', measure); window.addEventListener('load', measure);
   measure(); requestAnimationFrame(frame);
 })();
+
+/* BoxingRise 8 title: split into letters, play the entrance once when it comes into view */
+(function () {
+  var h = document.getElementById('prog-h'); if (!h || h.dataset.split) return;
+  var txt = h.textContent; h.dataset.split = '1'; h.setAttribute('aria-label', txt); h.classList.add('ps-ttl');
+  var html = '', i = 0;
+  for (var k = 0; k < txt.length; k++) {
+    var ch = txt[k];
+    if (ch === ' ') { html += '<span class="pc pc-sp" aria-hidden="true" style="--i:' + (i++) + '"></span>'; continue; }
+    var last = k === txt.length - 1 && /\d/.test(ch);
+    html += '<span class="pc' + (last ? ' pc-8' : '') + '" aria-hidden="true" style="--i:' + (i++) + '">' + ch + (last ? '' : '') + '</span>';
+  }
+  h.innerHTML = html;
+  var eight = h.querySelector('.pc-8'); if (eight) { var r = document.createElement('i'); r.className = 'pc-ring'; eight.appendChild(r); }
+  if (!('IntersectionObserver' in window)) { h.classList.add('ttl-go'); return; }
+  var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { h.classList.add('ttl-go'); io.disconnect(); } }); }, { threshold: .6 });
+  io.observe(h);
+})();

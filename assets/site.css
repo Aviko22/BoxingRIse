@@ -1754,3 +1754,45 @@ html.gal-open { overflow: hidden; }
   .ps-meta span[aria-hidden] { display: none; }
   .ps-meta > span:not([aria-hidden]) { padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(212, 173, 87, .45); background: rgba(212, 173, 87, .08); line-height: 1.3; }
 }
+
+/* ================= BoxingRise 8: everything centred + animated title ================= */
+.ps .ps-head { margin-inline: auto; text-align: center; }
+.ps .ps-head .tag { margin-inline: auto; }
+.ps .ps-head .h2 { text-align: center; }
+.ps .ps-head .h2::after { margin-inline: auto; }
+.ps .ps-meta { justify-content: center; }
+.ps .po-weeks { max-width: 760px; margin-inline: auto; }
+/* route, desktop: columns centred under their dots, the line runs from the first dot */
+@media (min-width: 900px) {
+  .ps-stop { align-items: center; text-align: center; }
+  .ps-rail { inset-inline-start: calc((100% - 132px - 96px) / 8 + 1px) !important; }
+}
+/* route, phones: one centred column, the line runs behind the dots */
+@media (max-width: 899px) {
+  .ps-route { justify-items: center; }
+  .ps-rail { inset-inline-start: calc(50% - 1px) !important; }
+  html[dir="rtl"] .ps-rail { inset-inline-start: auto !important; inset-inline-end: calc(50% - 1px) !important; }
+  .ps-stop { flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .ps-stop > div { position: relative; z-index: 1; padding: 6px 14px 8px; background: var(--black); border-radius: 12px; max-width: 19em; }
+  .ps-win { margin-inline: auto !important; }
+}
+
+/* title: letters drop in, a gold glow runs across, the 8 lands last with a ring */
+.ps-ttl { position: relative; }
+.ps-ttl .pc { display: inline-block; opacity: 0; transform: translateY(-.6em) scale(1.25); filter: blur(8px); }
+.ps-ttl .pc-sp { width: .28em; }
+.ps-ttl.ttl-go .pc { animation: pc-in .7s cubic-bezier(.2, .9, .25, 1.15) both, pc-glow 1.1s ease both; animation-delay: calc(var(--i) * 55ms), calc(750ms + var(--i) * 55ms); }
+@keyframes pc-in { 0% { opacity: 0; transform: translateY(-.6em) scale(1.25); filter: blur(8px); } 60% { opacity: 1; filter: blur(0); } 100% { opacity: 1; transform: none; filter: none; } }
+@keyframes pc-glow { 0%, 100% { text-shadow: none; } 40% { color: #fff7e0; text-shadow: 0 0 16px rgba(255, 214, 140, .95), 0 0 42px rgba(230, 180, 90, .55); } }
+.ps-ttl .pc-8 { position: relative; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; transform: scale(3); }
+.ps-ttl.ttl-go .pc-8 { animation: pc-slam .8s cubic-bezier(.3, 1.6, .4, 1) both, pc-8glow 2.6s ease-in-out infinite; animation-delay: 820ms, 2.2s; }
+@keyframes pc-slam { 0% { opacity: 0; transform: scale(3); filter: blur(10px); } 55% { opacity: 1; transform: scale(.88); filter: none; } 78% { transform: scale(1.07); } 100% { opacity: 1; transform: none; filter: none; } }
+@keyframes pc-8glow { 50% { filter: drop-shadow(0 0 14px rgba(240, 200, 120, .75)); } }
+.pc-ring { position: absolute; left: 50%; top: 52%; width: 1.1em; height: 1.1em; margin: -.55em 0 0 -.55em; border-radius: 50%; pointer-events: none; opacity: 0; box-shadow: 0 0 0 2px rgba(241, 213, 142, .9), 0 0 30px rgba(241, 213, 142, .6); }
+.ps-ttl.ttl-go .pc-ring { animation: pc-ring 1s ease-out 1.05s both; }
+@keyframes pc-ring { 0% { opacity: 1; transform: scale(.4); } 100% { opacity: 0; transform: scale(2.6); } }
+.ps-ttl.ttl-go { animation: pc-shake .35s ease 1.05s; }
+@keyframes pc-shake { 25% { transform: translateX(-3px); } 50% { transform: translateX(3px); } 75% { transform: translateX(-2px); } }
+.ps-ttl.h2::after { transform: scaleX(0); transition: transform .8s cubic-bezier(.2, .8, .2, 1) 1.3s; }
+.ps-ttl.ttl-go.h2::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) { .ps-ttl .pc, .ps-ttl .pc-8 { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; } .ps-ttl.h2::after { transform: none; } .pc-ring { display: none; } }
