@@ -520,7 +520,7 @@
 })();
 
 
-/* gallery: parallax grid + tap-to-enlarge viewer */
+/* gallery: endless film strip + tap-to-enlarge viewer */
 (function () {
   var sec = document.getElementById('gallery'); if (!sec) return;
   var list = sec.querySelector('.gal-list'), items = [].slice.call(sec.querySelectorAll('.gal-item')), btns = items.map(function (li) { return li.querySelector('.gal-btn'); });
@@ -551,68 +551,11 @@
   var sx = null; view.addEventListener('touchstart', function (ev) { sx = ev.touches[0].clientX; }, { passive: true });
   view.addEventListener('touchend', function (ev) { if (sx === null) return; var dx = ev.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) show(cur + ((dx < 0) !== rtl ? 1 : -1)); });
 
-  /* layouts (preview switcher ?gal=1..6). None of them pins the page. */
-  var stage = sec.querySelector('.gal-stage'), mode = '0', ticking = false, timer = null, io = null, big = null, bigI = 0;
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function teardown() {
-    clearInterval(timer); timer = null; if (io) { io.disconnect(); io = null; }
-    [].slice.call(list.querySelectorAll('[aria-hidden="true"]')).forEach(function (x) { x.remove(); });
-    items.forEach(function (li) { li.style.cssText = ''; li.classList.remove('in', 'on'); list.appendChild(li); });
-    [].slice.call(list.querySelectorAll('.gx-track')).forEach(function (x) { x.remove(); });
-    list.style.transform = ''; if (big) { big.remove(); big = null; }
-    for (var k = 1; k <= 6; k++) sec.classList.remove('gx-' + k);
-  }
-  function clone(li) { var c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelector('button').tabIndex = -1; return c; }
-  function track(lis, rev, dur) {
-    var t = document.createElement('div'); t.className = 'gx-track' + (rev ? ' rev' : ''); t.style.setProperty('--dur', dur + 's');
-    lis.forEach(function (li) { t.appendChild(li); }); lis.forEach(function (li) { t.appendChild(clone(li)); });
-    list.appendChild(t); return t;
-  }
-  function reveal() {
-    if (!('IntersectionObserver' in window) || reduce) { items.forEach(function (li) { li.classList.add('in'); }); return; }
-    io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: .15 });
-    items.forEach(function (li, i) { li.style.setProperty('--dl', ((i % (innerWidth < 760 ? 2 : 5)) * .09) + 's'); io.observe(li); });
-  }
-  function bigShow(i) {
-    bigI = (i + n) % n; var imgs = big.querySelectorAll('img');
-    var a = imgs[0].classList.contains('on') ? imgs[1] : imgs[0], b = a === imgs[0] ? imgs[1] : imgs[0];
-    var src = btns[bigI].querySelector('img'); a.src = btns[bigI].dataset.full; a.alt = src ? src.alt : '';
-    a.classList.remove('on'); void a.offsetWidth; a.classList.add('on'); b.classList.remove('on');
-    items.forEach(function (li, k) { li.classList.toggle('on', k === bigI); });
-  }
-  function setMode(m) {
-    teardown(); mode = m; sec.classList.add('gx-' + m);
-    if (m === '2') track(items.slice(), false, 70);
-    if (m === '6') { track(items.filter(function (_, i) { return i % 2 === 0; }), false, 55); track(items.filter(function (_, i) { return i % 2 === 1; }), true, 62); }
-    if (m === '3' || m === '5') reveal();
-    if (m === '4') {
-      big = document.createElement('div'); big.className = 'gx-big'; big.innerHTML = '<img alt=""><img alt="">';
-      big.addEventListener('click', function () { open(bigI); });
-      stage.insertBefore(big, list); bigShow(0);
-      if (!reduce) timer = setInterval(function () { bigShow(bigI + 1); }, 4500);
-    }
-    update();
-  }
-  /* thumbnails in layout 4 switch the big photo instead of opening the viewer */
-  sec.addEventListener('click', function (ev) {
-    if (mode !== '4') return; var b = ev.target.closest('.gal-btn'); if (!b) return;
-    ev.stopImmediatePropagation(); bigShow(+b.dataset.i || 0); clearInterval(timer); timer = reduce ? null : setInterval(function () { bigShow(bigI + 1); }, 4500);
-  }, true);
-  function update() {
-    ticking = false; if (mode !== '1' || reduce) return;
-    var r = sec.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
-    var p = clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1), range = Math.max(0, list.scrollWidth - list.parentNode.clientWidth);
-    var x = (p - .5) * range * 1.1; list.style.transform = 'translate3d(' + (rtl ? x : -x) + 'px,0,0)';
-  }
-  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  window.addEventListener('resize', update);
-
-  var q = null; try { q = new URLSearchParams(location.search).get('gal'); } catch (e) {}
-  setMode(/^[1-6]$/.test(q) ? q : '3');
-  if (q === null) return;
-  var sw = document.createElement('nav'); sw.className = 'gx-sw'; sw.setAttribute('aria-label', 'preview');
-  function pick(m) { setMode(m); [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === m); }); try { history.replaceState(null, '', location.pathname + '?gal=' + m + (/desk=1/.test(location.search) ? '&desk=1' : '')); } catch (e) {} }
-  ['1', '2', '3', '4', '5', '6'].forEach(function (m) { var b = document.createElement('button'); b.type = 'button'; b.value = m; b.textContent = m; b.addEventListener('click', function () { pick(m); }); sw.appendChild(b); });
-  document.body.appendChild(sw); [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === mode); });
-  window.addEventListener('load', function () { setTimeout(function () { window.scrollTo(0, sec.getBoundingClientRect().top + scrollY - 70); }, 400); });
+  /* endless film strip: items + a hidden copy drift by themselves; hover or focus pauses */
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  sec.classList.add('gx-2');
+  var t = document.createElement('div'); t.className = 'gx-track'; t.style.setProperty('--dur', '70s');
+  items.forEach(function (li) { t.appendChild(li); });
+  items.forEach(function (li) { var c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelector('button').tabIndex = -1; t.appendChild(c); });
+  list.appendChild(t);
 })();
