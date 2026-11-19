@@ -1736,3 +1736,21 @@ html[lang="en"] .reviews .rv-body::before { content: "“"; font-family: Georgia
 [dir="rtl"] .gal-prev { left: auto; right: 12px; } [dir="rtl"] .gal-next { right: auto; left: 12px; }
 .gal-count { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: #cfc8bb; font-size: 14px; letter-spacing: .08em; }
 html.gal-open { overflow: hidden; }
+
+/* English hero on phones: the 4-line headline pushed the button below the first screen.
+   Smaller, tighter headline and the copy starts a little higher over the shaded video. */
+@media (max-width: 999px) {
+  html[lang="en"] .hero .h1 { font-size: min(10.6vw, 46px) !important; line-height: .93; }
+  html[lang="en"] .hero { padding-top: calc(min(125vw, 58svh) - 128px); }
+  html[lang="en"] .hero .hero-sub { margin-top: 12px; }
+}
+@media (max-width: 999px) and (max-height: 620px) {
+  html[lang="en"] .hero { padding-top: calc(min(125vw, 50svh) - 66px); }
+}
+
+/* BoxingRise 8 facts on phones: small chips instead of dot-separated text, so a line never ends on a dot */
+@media (max-width: 759px) {
+  .ps-meta { gap: 8px; font-size: 15px; }
+  .ps-meta span[aria-hidden] { display: none; }
+  .ps-meta > span:not([aria-hidden]) { padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(212, 173, 87, .45); background: rgba(212, 173, 87, .08); line-height: 1.3; }
+}
