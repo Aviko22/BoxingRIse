@@ -451,3 +451,8 @@ EN.update({
 
 HE["gal_alts"] = ["מתאמנת מכה בכרית באימון אישי", "עבודה על כריות עם המאמן על הגג", "מתאמנת מחייכת באמצע אימון בפארק", "מתאמנת בעמידת אגרוף", "אימון כריות בזירה", "המאמן מחזיק כריות למתאמנת", "אימון אחד על אחד בפארק", "אגרוף לכרית מקרוב", "המאמן אבי בפארק עם כריות", "מתאמנת מרימה ידיים בסוף אימון"]
 EN["gal_alts"] = ["A client punching a pad in a private session", "Pad work with the coach on the roof", "A client smiling mid-session in the park", "A client in boxing stance", "Pad session in the ring", "The coach holding pads for a client", "One-on-one session in the park", "Close-up of a punch on a pad", "Coach Avi in the park with pads", "A client raising her arms at the end of a session"]
+
+HE["gal_alts"] = ["המאמן מחזיק כריות למתאמנת בפארק", "מכה ישרה לכרית, מקרוב", "מתאמנת מכה בכרית באימון אישי בפארק", "מתאמנת ומאמן בעמידת אגרוף מול כריות", "מתאמנת מכה בכרית מול המאמן", "אותה מתאמנת מרימה ידיים בסוף האימון"]
+EN["gal_alts"] = ["The coach holding pads for a client in the park", "A straight punch on the pad, close up", "A client punching a pad in a private session in the park", "Client and coach squared up with pads", "A client punching the pad in front of the coach", "The same client raising her arms at the end of the session"]
+HE.update({"gal_h": "ככה נראה אימון.", "gal_lead": "רגעים מאימונים אישיים, אחד על אחד בפארק."})
+EN.update({"gal_h": "This is what a session looks like.", "gal_lead": "Moments from one-on-one sessions in the park."})
