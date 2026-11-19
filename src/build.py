@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "217"  # bump to bust caches of css/js
+VER = "218"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -57,7 +57,7 @@ def media(name, alt, cls, sizes):
     if name not in CLIPS:
         return img(name, alt, cls, sizes)
     clip, w, h = CLIPS[name]
-    return (f'<video class="{cls} js-clip" muted loop playsinline preload="none" poster="/media/clip-{clip}.jpg?v={VER}" width="{w}" height="{h}" aria-label="{e(alt)}">'
+    return (f'<video class="{cls} js-clip" muted loop playsinline preload="none" data-poster="/media/clip-{clip}.webp?v={VER}" width="{w}" height="{h}" aria-label="{e(alt)}">'
             f'<source src="/media/clip-{clip}.mp4?v={VER}" type="video/mp4"></video>')
 
 
@@ -402,8 +402,8 @@ def home(t):
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-beams" aria-hidden="true"><i class="hb-src"></i><i class="hb b1"></i><i class="hb b2"></i><i class="hb b3"></i><i class="hb b4"></i><i class="hb b5"></i></div>
     <div class="hero-media" aria-hidden="true">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/media/hero-mont-m.jpg?v={VER}" data-poster-wide="/media/hero-mont-w.jpg?v={VER}"></video>
-      <script data-cfasync="false">(function(v){{if(!v)return;var w=matchMedia('(min-width: 1000px)').matches;if(w)v.poster=v.dataset.posterWide;if(document.documentElement.classList.contains('intro-on'))v.removeAttribute('autoplay');v.src='/media/hero-mont-'+(w?'w':'m')+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.querySelector('.hero-video'));</script>
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" data-poster="/media/hero-mont-m.jpg?v={VER}" data-poster-wide="/media/hero-mont-w.jpg?v={VER}"></video>
+      <script data-cfasync="false">(function(v){{if(!v)return;var w=matchMedia('(min-width: 1000px)').matches;v.poster=w?v.dataset.posterWide:v.dataset.poster;if(document.documentElement.classList.contains('intro-on'))v.removeAttribute('autoplay');v.src='/media/hero-mont-'+(w?'w':'m')+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.querySelector('.hero-video'));</script>
       <div class="hero-shade"></div>
       <div class="hero-fx"></div>
     </div>

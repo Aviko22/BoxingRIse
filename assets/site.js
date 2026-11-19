@@ -123,10 +123,18 @@
 
   /* ---------- Park clips: play only while on screen ---------- */
   var clips = document.querySelectorAll('.js-clip');
+  /* posters load only when the clip gets near the screen */
+  if (clips.length) {
+    var setPoster = function (v) { if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; };
+    if ('IntersectionObserver' in window) {
+      var pio = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { setPoster(x.target); pio.unobserve(x.target); } }); }, { rootMargin: '900px 0px' });
+      clips.forEach(function (v) { pio.observe(v); });
+    } else clips.forEach(setPoster);
+  }
   if (clips.length && !reduce && 'IntersectionObserver' in window) {
     var cio2 = new IntersectionObserver(function (en) {
       en.forEach(function (x) { var v = x.target; if (x.isIntersecting) { if (v.preload !== 'auto') v.preload = 'auto'; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); });
-    }, { rootMargin: '700px 0px' });
+    }, { rootMargin: '200px 0px' });
     clips.forEach(function (v) { cio2.observe(v); });
   }
 
@@ -578,7 +586,7 @@
       if (Math.abs(vel) > 5) { pos += vel * dt; vel *= Math.pow(.05, dt); }
       else if (!hover && now > idleUntil && !view.classList.contains('on')) pos += speed() * dt;
     }
-    pos = wrap(pos); paint(); requestAnimationFrame(frame);
+    pos = wrap(pos); paint(); if (onScreen) requestAnimationFrame(frame); else { running = false; last = 0; }
   }
   function go(dirn) { idleUntil = performance.now() + 2500; vel = 0; var base = Math.round(pos / step) * step; tween = { from: pos, to: base + dirn * step, t0: performance.now() }; }
   list.addEventListener('pointerenter', function (ev) { if (ev.pointerType === 'mouse') hover = true; });
@@ -592,7 +600,7 @@
     var dx = ev.clientX - drag.x, dy = ev.clientY - drag.y;
     if (!drag.axis) { if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return; drag.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; if (drag.axis === 'x') { list.classList.add('drag'); try { list.setPointerCapture(ev.pointerId); } catch (e) {} } }
     if (drag.axis !== 'x') return;
-    moved = true; pos = drag.p + (rtl ? dx : -dx);
+    moved = true; pos = wrap(drag.p + (rtl ? dx : -dx)); paint();
     var now = performance.now(), dtm = now - drag.lt; if (dtm > 0) vel = (rtl ? 1 : -1) * (ev.clientX - drag.lx) / dtm * 1000; drag.lx = ev.clientX; drag.lt = now;
   });
   function end() { if (!drag) return; drag = null; list.classList.remove('drag'); idleUntil = performance.now() + 2500; if (Math.abs(vel) > 2500) vel = Math.sign(vel) * 2500; }
@@ -601,7 +609,7 @@
   list.addEventListener('click', function (ev) { if (moved) { ev.stopImmediatePropagation(); ev.preventDefault(); moved = false; } }, true);
   list.addEventListener('wheel', function (ev) {
     if (Math.abs(ev.deltaX) <= Math.abs(ev.deltaY)) return;
-    ev.preventDefault(); tween = null; vel = 0; pos += (rtl ? -1 : 1) * ev.deltaX; idleUntil = performance.now() + 2500;
+    ev.preventDefault(); tween = null; vel = 0; pos = wrap(pos + (rtl ? -1 : 1) * ev.deltaX); paint(); idleUntil = performance.now() + 2500;
   }, { passive: false });
   var prev = document.createElement('button'), next = document.createElement('button');
   prev.type = next.type = 'button'; prev.className = 'gx-nav gx-prev'; next.className = 'gx-nav gx-next';
@@ -611,6 +619,8 @@
   prev.addEventListener('click', function () { go(-1); }); next.addEventListener('click', function () { go(1); });
   list.appendChild(prev); list.appendChild(next);
   window.addEventListener('resize', measure); window.addEventListener('load', measure);
+  var onScreen = true, running = true;
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; if (onScreen && !running) { running = true; requestAnimationFrame(frame); } }, { rootMargin: '100px 0px' }).observe(list);
   measure(); requestAnimationFrame(frame);
 })();
 

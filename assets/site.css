@@ -1796,3 +1796,6 @@ html.gal-open { overflow: hidden; }
 .ps-ttl.h2::after { transform: scaleX(0); transition: transform .8s cubic-bezier(.2, .8, .2, 1) 1.3s; }
 .ps-ttl.ttl-go.h2::after { transform: scaleX(1); }
 @media (prefers-reduced-motion: reduce) { .ps-ttl .pc, .ps-ttl .pc-8 { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; } .ps-ttl.h2::after { transform: none; } .pc-ring { display: none; } }
+
+/* performance: glow on the BoxingRise 8 "8" breathes a few times, then rests (filter animations repaint) */
+.ps-ttl.ttl-go .pc-8 { animation-iteration-count: 1, 4; }
