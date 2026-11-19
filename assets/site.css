@@ -1708,11 +1708,17 @@ html[lang="en"] .reviews .rv-body::before { content: "“"; font-family: Georgia
 
 /* endless film strip: one row drifting slowly by itself (JS adds .gx-2 and the doubled track) */
 .gal.gx-2 .gal-list { overflow: hidden; scroll-snap-type: none; display: block; margin-inline: calc(50% - 50vw); padding: 6px 0 24px; width: 100vw; }
-.gx-track { display: flex; gap: 18px; width: max-content; animation: gx-run var(--dur, 70s) linear infinite; }
-[dir="rtl"] .gx-track { animation-name: gx-run-rtl; }
-.gal.gx-2 .gal-list:hover .gx-track, .gx-track:focus-within { animation-play-state: paused; }
-@keyframes gx-run { to { transform: translateX(calc(-50% - 9px)); } }
-@keyframes gx-run-rtl { to { transform: translateX(calc(50% + 9px)); } }
+.gx-track { display: flex; gap: 18px; width: max-content; will-change: transform; }
+.gal.gx-2 .gal-list { cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; position: relative; }
+.gal.gx-2 .gal-list.drag { cursor: grabbing; }
+.gal.gx-2 .gal-list img { -webkit-user-drag: none; pointer-events: none; }
+.gx-nav { position: absolute; top: 50%; z-index: 2; display: grid; place-items: center; width: 48px; height: 48px; margin-top: -36px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(12, 11, 9, .72); color: #fff; font-size: 26px; line-height: 1; box-shadow: inset 0 0 0 1.5px rgba(212, 173, 87, .7); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: background .2s ease; }
+.gx-nav:hover { background: rgba(212, 173, 87, .35); }
+.gx-nav:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+.gx-prev { left: max(12px, calc(50vw - 640px)); } .gx-next { right: max(12px, calc(50vw - 640px)); }
+[dir="rtl"] .gx-prev { left: auto; right: max(12px, calc(50vw - 640px)); } [dir="rtl"] .gx-next { right: auto; left: max(12px, calc(50vw - 640px)); }
+@media (max-width: 759px) { .gx-nav { width: 40px; height: 40px; font-size: 22px; } }
 .gal.gx-2 .gal-item { flex: 0 0 clamp(240px, 24vw, 340px); }
 @media (max-width: 759px) { .gal.gx-2 .gal-item { flex-basis: 60vw; } }
 
@@ -1726,6 +1732,7 @@ html[lang="en"] .reviews .rv-body::before { content: "“"; font-family: Georgia
 .gal-view button:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
 .gal-x { top: 14px; inset-inline-end: 14px; }
 .gal-prev, .gal-next { top: 50%; margin-top: -24px; }
-.gal-prev { inset-inline-start: 12px; } .gal-next { inset-inline-end: 12px; }
+.gal-prev { left: 12px; } .gal-next { right: 12px; }
+[dir="rtl"] .gal-prev { left: auto; right: 12px; } [dir="rtl"] .gal-next { right: auto; left: 12px; }
 .gal-count { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: #cfc8bb; font-size: 14px; letter-spacing: .08em; }
 html.gal-open { overflow: hidden; }

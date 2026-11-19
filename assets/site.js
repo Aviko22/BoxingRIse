@@ -530,8 +530,8 @@
   /* viewer */
   var view = document.createElement('div'); view.className = 'gal-view'; view.setAttribute('role', 'dialog'); view.setAttribute('aria-modal', 'true'); view.setAttribute('aria-label', sec.querySelector('h2').textContent);
   view.innerHTML = '<img alt=""><button type="button" class="gal-x" aria-label="' + sec.dataset.close + '">✕</button>' +
-    '<button type="button" class="gal-prev" aria-label="' + sec.dataset.prev + '">' + (rtl ? '›' : '‹') + '</button>' +
-    '<button type="button" class="gal-next" aria-label="' + sec.dataset.next + '">' + (rtl ? '‹' : '›') + '</button><p class="gal-count" dir="ltr" aria-live="polite"></p>';
+    '<button type="button" class="gal-prev" dir="ltr" aria-label="' + sec.dataset.prev + '">' + (rtl ? '›' : '‹') + '</button>' +
+    '<button type="button" class="gal-next" dir="ltr" aria-label="' + sec.dataset.next + '">' + (rtl ? '‹' : '›') + '</button><p class="gal-count" dir="ltr" aria-live="polite"></p>';
   document.body.appendChild(view);
   var vi = view.querySelector('img'), cnt = view.querySelector('.gal-count'), cur = 0, last = null;
   function show(i) { cur = (i + n) % n; var b = btns[cur], im = b.querySelector('img'); vi.src = b.dataset.full; vi.alt = im ? im.alt : ''; cnt.textContent = (cur + 1) + ' / ' + n; }
@@ -554,8 +554,62 @@
   /* endless film strip: items + a hidden copy drift by themselves; hover or focus pauses */
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   sec.classList.add('gx-2');
-  var t = document.createElement('div'); t.className = 'gx-track'; t.style.setProperty('--dur', '70s');
+  var t = document.createElement('div'); t.className = 'gx-track';
   items.forEach(function (li) { t.appendChild(li); });
-  items.forEach(function (li) { var c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelector('button').tabIndex = -1; t.appendChild(c); });
+  var clones = items.map(function (li) { var c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelector('button').tabIndex = -1; t.appendChild(c); return c; });
   list.appendChild(t);
+  [].forEach.call(list.querySelectorAll('img'), function (im) { im.draggable = false; });
+
+  /* position in px along the strip; runs by itself, can be dragged, swiped, wheeled or stepped */
+  var pos = 0, half = 1, step = 300, vel = 0, last = 0, hover = false, drag = null, moved = false, tween = null, idleUntil = 0;
+  function measure() {
+    half = Math.abs(clones[0].getBoundingClientRect().left - items[0].getBoundingClientRect().left) || 1;
+    step = items[0].getBoundingClientRect().width + 18;
+  }
+  function wrap(v) { return ((v % half) + half) % half; }
+  function paint() { t.style.transform = 'translate3d(' + (rtl ? pos : -pos) + 'px,0,0)'; }
+  var speed = function () { return half / 70; };
+  function frame(now) {
+    var dt = last ? Math.min(.05, (now - last) / 1000) : 0; last = now;
+    if (tween) {
+      var k = Math.min(1, (now - tween.t0) / 450), e = 1 - Math.pow(1 - k, 3);
+      pos = tween.from + (tween.to - tween.from) * e; if (k >= 1) tween = null;
+    } else if (!drag) {
+      if (Math.abs(vel) > 5) { pos += vel * dt; vel *= Math.pow(.05, dt); }
+      else if (!hover && now > idleUntil && !view.classList.contains('on')) pos += speed() * dt;
+    }
+    pos = wrap(pos); paint(); requestAnimationFrame(frame);
+  }
+  function go(dirn) { idleUntil = performance.now() + 2500; vel = 0; var base = Math.round(pos / step) * step; tween = { from: pos, to: base + dirn * step, t0: performance.now() }; }
+  list.addEventListener('pointerenter', function (ev) { if (ev.pointerType === 'mouse') hover = true; });
+  list.addEventListener('pointerleave', function () { hover = false; });
+  list.addEventListener('pointerdown', function (ev) {
+    if (ev.button !== undefined && ev.button !== 0) return;
+    drag = { x: ev.clientX, y: ev.clientY, p: pos, lx: ev.clientX, lt: performance.now(), id: ev.pointerId, axis: null }; moved = false; tween = null; vel = 0;
+  });
+  window.addEventListener('pointermove', function (ev) {
+    if (!drag || ev.pointerId !== drag.id) return;
+    var dx = ev.clientX - drag.x, dy = ev.clientY - drag.y;
+    if (!drag.axis) { if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return; drag.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; if (drag.axis === 'x') { list.classList.add('drag'); try { list.setPointerCapture(ev.pointerId); } catch (e) {} } }
+    if (drag.axis !== 'x') return;
+    moved = true; pos = drag.p + (rtl ? dx : -dx);
+    var now = performance.now(), dtm = now - drag.lt; if (dtm > 0) vel = (rtl ? 1 : -1) * (ev.clientX - drag.lx) / dtm * 1000; drag.lx = ev.clientX; drag.lt = now;
+  });
+  function end() { if (!drag) return; drag = null; list.classList.remove('drag'); idleUntil = performance.now() + 2500; if (Math.abs(vel) > 2500) vel = Math.sign(vel) * 2500; }
+  window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
+  /* a drag is not a tap: swallow the click that follows it */
+  list.addEventListener('click', function (ev) { if (moved) { ev.stopImmediatePropagation(); ev.preventDefault(); moved = false; } }, true);
+  list.addEventListener('wheel', function (ev) {
+    if (Math.abs(ev.deltaX) <= Math.abs(ev.deltaY)) return;
+    ev.preventDefault(); tween = null; vel = 0; pos += (rtl ? -1 : 1) * ev.deltaX; idleUntil = performance.now() + 2500;
+  }, { passive: false });
+  var prev = document.createElement('button'), next = document.createElement('button');
+  prev.type = next.type = 'button'; prev.className = 'gx-nav gx-prev'; next.className = 'gx-nav gx-next';
+  prev.setAttribute('aria-label', sec.dataset.prev); next.setAttribute('aria-label', sec.dataset.next);
+  prev.textContent = rtl ? '›' : '‹'; next.textContent = rtl ? '‹' : '›';
+  prev.dir = next.dir = 'ltr';
+  prev.addEventListener('click', function () { go(-1); }); next.addEventListener('click', function () { go(1); });
+  list.appendChild(prev); list.appendChild(next);
+  window.addEventListener('resize', measure); window.addEventListener('load', measure);
+  measure(); requestAnimationFrame(frame);
 })();
