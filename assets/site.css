@@ -1799,6 +1799,3 @@ html.gal-open { overflow: hidden; }
 
 /* performance: glow on the BoxingRise 8 "8" breathes a few times, then rests (filter animations repaint) */
 .ps-ttl.ttl-go .pc-8 { animation-iteration-count: 1, 4; }
-
-/* about: the gold second line is a sentence, keep it a size smaller than the name */
-.about .h2 .g { font-size: .72em; line-height: 1.12; display: inline-block; margin-top: .12em; }

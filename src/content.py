@@ -454,21 +454,3 @@ EN["gal_alts"] = ["A client punching a pad in a private session", "Pad work with
 
 HE["gal_alts"] = ["המאמן מחזיק כריות למתאמנת בפארק", "מכה ישרה לכרית, מקרוב", "מתאמנת מכה בכרית באימון אישי בפארק", "מתאמנת ומאמן בעמידת אגרוף מול כריות", "מתאמנת מכה בכרית מול המאמן", "אותה מתאמנת מרימה ידיים בסוף האימון"]
 EN["gal_alts"] = ["The coach holding pads for a client in the park", "A straight punch on the pad, close up", "A client punching a pad in a private session in the park", "Client and coach squared up with pads", "A client punching the pad in front of the coach", "The same client raising her arms at the end of the session"]
-
-# ---- about: trained and coached in Israel and Thailand (Avi, Nov 2026) ----
-HE.update({
-    "about_h": "אני אבי. התאמנתי בישראל ובתאילנד.",
-    "about": ["",
-              "טכניקה נכונה נבנית לאט, בסבלנות, עם מאמן שמסביר כל תנועה.",
-              "בשתי המדינות גם נתתי אימונים אישיים. את חלק מהמתאמנות שלי את רואה בגלריה.",
-              "היום אני מביא את זה אלייך: בפארק, אחד על אחד, בקצב שלך. בלי צעקות ובלי לחץ."],
-    "about_facts": ["5 שנים אגרוף קלאסי", "10 שנים מואי תאי", "חגורה שחורה בג׳ו־ג׳יטסו", "אימנתי בישראל ובתאילנד"],
-})
-EN.update({
-    "about_h": "I'm Avi. Trained in Israel and Thailand.",
-    "about": ["",
-              "Good technique is built slowly, with patience, and a coach who explains every move.",
-              "I've also coached private sessions in both countries. Some of my clients are in the gallery.",
-              "Now I bring that to you: in the park, one on one, at your pace. No shouting, no pressure."],
-    "about_facts": ["5 years of classic boxing", "10 years of Muay Thai", "Jiu-jitsu black belt", "Coached in Israel and Thailand"],
-})
