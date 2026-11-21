@@ -454,3 +454,7 @@ EN["gal_alts"] = ["A client punching a pad in a private session", "Pad work with
 
 HE["gal_alts"] = ["המאמן מחזיק כריות למתאמנת בפארק", "מכה ישרה לכרית, מקרוב", "מתאמנת מכה בכרית באימון אישי בפארק", "מתאמנת ומאמן בעמידת אגרוף מול כריות", "מתאמנת מכה בכרית מול המאמן", "אותה מתאמנת מרימה ידיים בסוף האימון"]
 EN["gal_alts"] = ["The coach holding pads for a client in the park", "A straight punch on the pad, close up", "A client punching a pad in a private session in the park", "Client and coach squared up with pads", "A client punching the pad in front of the coach", "The same client raising her arms at the end of the session"]
+
+# about: credentials without years (the big "30" above carries the number)
+HE["about_facts"] = ["אגרוף קלאסי", "מואי תאי", "חגורה שחורה בג׳ו־ג׳יטסו יפני"]
+EN["about_facts"] = ["Classic boxing", "Muay Thai", "Japanese jiu-jitsu black belt"]
