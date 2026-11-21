@@ -314,7 +314,7 @@ def voice(t):
     rows = "".join(f'<li class="vc-p"><p class="vc-in">{"״" if t["lang"]=="he" else "“"}{e(a)}{"״" if t["lang"]=="he" else "”"}</p><p class="vc-out">{e(b)}</p></li>' for a, b in t["voice"])
     return (f'<section class="sec voice cream" id="start" aria-labelledby="vc-h"><div class="wrap vc-wrap">'
             f'<div class="vc-head">{tag(t, "voice")}<h2 class="h2" id="vc-h">{hgold(t, "voice_h")}</h2><p class="lead">{e(t["voice_lead"])}</p>'
-            f'{btn(t, t["cta_trial"], "btn btn-gold magnetic")}</div><ul class="vc-list">{rows}</ul></div></section>')
+            f'</div><ul class="vc-list">{rows}</ul></div></section>')
 
 
 def defend(t):
