@@ -237,20 +237,29 @@ GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for
              "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 1, "gal_h": 1}}
 
 
+def nodot(x):
+    """Headings and short display lines drop a closing full stop."""
+    return x[:-1] if x.endswith(".") and not x.endswith("..") else x
+
+
 def hgold(t, key):
-    """Heading with its last words in gold (brand language)."""
+    """Heading with its last words in gold (brand language). No closing full stops."""
+    return _hgold(t, key)
+
+
+def _hgold(t, key):
     text = t[key]
     if key == "trial_h":
         a, _, z = text.partition(", ")
-        return f'{e(a)},<br><span class="g">{e(z)}</span>'
+        return f'{e(a)},<br><span class="g">{e(nodot(z))}</span>'
     if key == "voice_h" and "? " in text:
         a, _, z = text.partition("? ")
-        return f'{e(a)}?<br><span class="g">{e(z)}</span>'
+        return f'{e(a)}?<br><span class="g">{e(nodot(z))}</span>'
     if key in ("what_h", "about_h", "final_h", "voice_h", "def_h"):
         a, _, z = text.partition(". ")
-        return f'{e(a)}.<br><span class="g">{e(z)}</span>'
+        return f'{e(a)}<br><span class="g">{e(nodot(z))}</span>'
     n = GOLD_TAIL[t["lang"]].get(key, 0)
-    w = text.split()
+    w = nodot(text).split()
     if not n or n >= len(w):
         return e(text)
     return e(" ".join(w[:-n])) + ('<br>' if key == "batt_h" else ' ') + '<span class="g">' + e(" ".join(w[-n:])) + "</span>"
@@ -342,7 +351,7 @@ def offer8(t):
     weeks = "".join(f'<li><b>{e(t["week_word"])} <span dir="ltr">{i}</span> · {e(h)}</b> <span>{e(d)}</span></li>' for i, (h, d, m) in enumerate(t["weeks"], 1))
     return (f'<section class="sec ps" id="program" aria-labelledby="prog-h"><div class="wrap">'
             f'<div class="ps-head">{tag(t, "program")}<h2 class="h2 prog-title" id="prog-h" dir="ltr">{e(t["prog_h"])}</h2>'
-            f'<p class="ps-line">{e(v["line"])}</p><p class="ps-meta">{meta}</p></div>'
+            f'<p class="ps-line">{e(nodot(v["line"]))}</p><p class="ps-meta">{meta}</p></div>'
             f'<ol class="ps-route"><i class="ps-rail" aria-hidden="true"><i></i><u class="ps-spark"></u></i>{stops}<li class="ps-win" aria-hidden="true"><span class="ps-win-glow"></span><img class="ps-win-img" src="/media/win-boxer.png?v={VER}" alt="" width="360" height="340" loading="lazy"></li></ol>'
             f'<p class="ps-out">{e(v["out"])}</p>'
             f'<details class="po-weeks"><summary><span>{e(v["weeks_btn"])}</span><span class="qa-x" aria-hidden="true"></span></summary><ol>{weeks}</ol></details>'
@@ -357,7 +366,7 @@ def rr_letters(word):
 def home(t):
     lang = t["lang"]
     path, alt = ("/", "/en/") if lang == "he" else ("/en/", "/")
-    h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in line.split()) + "</span>" for line in t["hero_h1"])
+    h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in nodot(line).split()) + "</span>" for line in t["hero_h1"])
     pains = "".join(f'<li><span class="pl">{e(p)}</span></li>' for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
     rounds = "".join(f'<li class="round"><figure>{media(i, alt, "round-img", "(max-width: 760px) 80vw, 30vw")}<figcaption><h4>{e(h)}</h4><p>{e(p)}</p></figcaption></figure></li>' for n, (i, h, p, alt) in enumerate(t["rounds"], 1))
@@ -411,7 +420,7 @@ def home(t):
     <div class="wrap hero-inner">
       {tag(t, 'hero')}
       <p class="h1">{h1}</p>
-      <h1 class="hero-sub" id="hero-h">{e(t['hero_sub']).replace('. ', '.<br>', 1)}</h1>
+      <h1 class="hero-sub" id="hero-h">{e(nodot(t['hero_sub'])).replace('. ', '<br>', 1)}</h1>
       <div class="hero-cta"><a class="btn btn-gold btn-lg magnetic js-wa" href="{wa_href(t['lang'])}" target="_blank" rel="noopener"><span>{e(t['cta_trial'])}</span><span class="sr-only"> {e(t['new_tab'])}</span></a></div>
     </div>
   </section>
@@ -427,7 +436,7 @@ def home(t):
     <div class="wrap what-grid">
       <div class="what-side">
         <div class="h2-wrap">{tag(t, 'what')}<h2 class="h2" id="what-h">{hgold(t, 'what_h')}</h2></div>
-        <div class="what-desc"><p class="what-kick">{'<br>'.join(e(x) for x in t['what_kick'])}</p><p class="lead">{e(t['what_lead'])}</p></div>
+        <div class="what-desc"><p class="what-kick">{'<br>'.join(e(nodot(x)) for x in t['what_kick'])}</p><p class="lead">{e(t['what_lead'])}</p></div>
         <dl class="facts reveal">{facts}</dl>
       </div>
       <div class="what-main">

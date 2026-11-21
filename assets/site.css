@@ -1799,3 +1799,6 @@ html.gal-open { overflow: hidden; }
 
 /* performance: glow on the BoxingRise 8 "8" breathes a few times, then rests (filter animations repaint) */
 .ps-ttl.ttl-go .pc-8 { animation-iteration-count: 1, 4; }
+
+/* hero subtitle: balanced line breaks, no lone last word */
+.hero-sub { text-wrap: balance; }
