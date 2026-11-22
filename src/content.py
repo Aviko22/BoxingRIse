@@ -484,3 +484,34 @@ EN["about_qa"] = [
     ("How did it all start?", "I started martial arts at 13, and at 22 I earned my black belt in Japanese jiu-jitsu. From there I moved to Muay Thai, and today I train in classic boxing and teach it."),
     ("What's my motto?", "\"You don't have to be a fighter. You just have to start.\"|I love the moment someone lands her first punch on the pad and says with a smile: \"Wait, was that me?\""),
 ]
+
+# ---- copy polish (Nov 2026) ----
+def _faq(L, fixes):
+    L["faq"] = [(fixes.get(q, (q, a))[0], fixes.get(q, (q, a))[1]) for q, a in L["faq"]]
+
+HE["what_kick"] = []
+HE["gal_lead"] = "תמונות מאימונים אמיתיים, עם מתאמנות אמיתיות."
+HE["voice"] = [("אני לא בכושר מספיק.", "בשביל זה מתאמנים. הכושר מגיע מעצמו."),
+               ("יהיה לי מביך להתחיל מאפס.", "רק את ואני, בלי קהל. אף אחד לא מסתכל."),
+               ("אין לי זמן לעצמי.", "שעה אחת בשבוע, בפארק קרוב אלייך.")]
+HE["rounds"] = [(i, h, "תרגילי כוח בין הסבבים, כדי שהגוף יתחזק." if h == "כוח וכושר" else p, a) for i, h, p, a in HE["rounds"]]
+HE["def_note"] = HE["def_note"].replace("קורס קרב מגע", "קורס הגנה עצמית")
+HE["what_facts"] = [(n, "ניסיון קודם" if l == "ניסיון נדרש" else l) for n, l in HE["what_facts"]]
+_faq(HE, {
+    "חייבת להתאגרף עם מישהו?": ("צריך להתאגרף מול מישהי אחרת?", "לא. אין ספארינג חובה. עובדים על כריות, טכניקה ותנועה."),
+    "מה קורה אחרי אימון הניסיון?": ("מה קורה אחרי אימון הניסיון?", "אם זה מתאים לך, נבנה יחד את ההמשך: תוכנית BoxingRise 8 או אימונים בודדים. אם לא, בלי שום בעיה ובלי שום התחייבות."),
+    "כמה זמן נמשך אימון?": ("כמה זמן נמשך אימון?", "שעה."),
+})
+
+EN["what_kick"] = []
+EN["gal_lead"] = "Photos from real sessions, with real clients."
+EN["voice"] = [("I'm not fit enough.", "That's what training is for. The fitness comes by itself."),
+               ("I'd feel awkward starting from zero.", "Just you and me, no audience. Nobody is watching."),
+               ("I have no time for myself.", "One hour a week, in a park near you.")]
+EN["rounds"] = [(i, h, "Strength work between boxing rounds, so your body gets stronger." if h == "Strength & fitness" else p, a) for i, h, p, a in EN["rounds"]]
+EN["what_facts"] = [(n, "previous experience" if l == "experience needed" else l) for n, l in EN["what_facts"]]
+_faq(EN, {
+    "Do I have to spar?": ("Do I have to box against someone else?", "No. There's no required sparring. We work on pads, technique and movement."),
+    "What happens after the trial?": ("What happens after the trial?", "If it's right for you, we plan what's next together: the BoxingRise 8 program or single sessions. If not, no problem and no commitment."),
+    "How long is a session?": ("How long is a session?", "One hour."),
+})
