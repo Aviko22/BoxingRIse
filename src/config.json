@@ -2,7 +2,8 @@
   "whatsapp_number": "972502734456",
   "whatsapp_message": {
     "he": "היי אבי, אשמח לקבוע אימון ניסיון ב־49 ₪",
-    "en": "Hi Avi, I'd like to book a BoxingRise trial session (49 ILS)"
+    "en": "Hi Avi, I'd like to book a BoxingRise trial session (49 ILS)",
+    "ru": "Привет, Ави! Хочу записаться на пробную тренировку BoxingRise за 49 ₪"
   },
   "site_url": "https://boxingrise.com",
   "trial_price": 49,
@@ -15,7 +16,8 @@
   },
   "whatsapp_question": {
     "he": "היי אבי, יש לי שאלה לפני שאני קובעת אימון ניסיון:",
-    "en": "Hi Avi, I have a question before I book a trial:"
+    "en": "Hi Avi, I have a question before I book a trial:",
+    "ru": "Привет, Ави! У меня вопрос перед пробной тренировкой:"
   },
   "analytics": {
     "_note": "provider: none | cloudflare | ga4. Loads only after the visitor accepts the banner. With none, no banner is shown.",

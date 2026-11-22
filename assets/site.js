@@ -641,3 +641,17 @@
   var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { h.classList.add('ttl-go'); io.disconnect(); } }); }, { threshold: .6 });
   io.observe(h);
 })();
+
+/* language menu */
+(function () {
+  var b = document.querySelector('.lm-btn'), l = document.getElementById('lm-list'); if (!b || !l) return;
+  function close(focus) { b.setAttribute('aria-expanded', 'false'); l.classList.remove('open'); setTimeout(function () { if (b.getAttribute('aria-expanded') === 'false') l.hidden = true; }, 200); if (focus) b.focus(); }
+  function open() { l.hidden = false; void l.offsetWidth; l.classList.add('open'); b.setAttribute('aria-expanded', 'true'); var a = l.querySelector('a[aria-current]') || l.querySelector('a'); if (a) a.focus({ preventScroll: true }); }
+  b.addEventListener('click', function (ev) { ev.stopPropagation(); b.getAttribute('aria-expanded') === 'true' ? close() : open(); });
+  document.addEventListener('click', function (ev) { if (b.getAttribute('aria-expanded') === 'true' && !ev.target.closest('.lang-menu')) close(); });
+  document.addEventListener('keydown', function (ev) {
+    if (b.getAttribute('aria-expanded') !== 'true') return;
+    if (ev.key === 'Escape') close(true);
+    if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') { ev.preventDefault(); var a = [].slice.call(l.querySelectorAll('a')), i = a.indexOf(document.activeElement); a[(i + (ev.key === 'ArrowDown' ? 1 : a.length - 1)) % a.length].focus(); }
+  });
+})();
