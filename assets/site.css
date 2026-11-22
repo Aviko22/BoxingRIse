@@ -1805,3 +1805,12 @@ html.gal-open { overflow: hidden; }
 
 /* BoxingRise 8: the gold bar sits clearly below the title (it used to cut through the g) */
 .ps .ps-head .h2::after { margin-top: clamp(22px, 2.4vw, 32px); }
+
+/* mobile menu: sunrise look — warm light rising from the bottom, items centred with small gold bars */
+@media (max-width: 999px) {
+  .m-menu { background: radial-gradient(90% 55% at 50% 108%, rgba(255, 206, 128, .5) 0%, rgba(232, 160, 70, .22) 35%, rgba(201, 140, 60, .07) 60%, transparent 78%), #0b0a08; }
+  .m-menu ul { margin-top: 2vh; }
+  .m-menu li { border-bottom: 0; text-align: center; }
+  .m-menu a:not(.btn) { padding: 14px 2px; font-size: 38px; }
+  .m-menu li + li::before { content: ""; display: block; width: 36px; height: 2px; margin: 0 auto; border-radius: 2px; background: var(--metal); opacity: .7; }
+}
