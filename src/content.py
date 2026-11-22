@@ -476,3 +476,11 @@ EN["about_qa"] = [
     ("What's my favourite moment?", "When someone lands her first punch on the pad, looks at me and says with a smile: \"Wait, was that me?\""),
     ("What matters to me when we train?", "That you feel free to ask, to try, and to laugh when something doesn't land. I show, you try, and we fine-tune it together at your pace. That's how confidence is built, one move at a time."),
 ]
+HE["about_qa"] = [
+    ("איך הכול התחיל?", "התחלתי אומנויות לחימה בגיל 13, ובגיל 22 קיבלתי חגורה שחורה בג׳ו־ג׳יטסו יפני. משם עברתי לאגרוף תאילנדי, והיום אני מתאמן באגרוף קלאסי ומלמד אותו."),
+    ("מה המוטו שלי?", "״לא צריך להיות לוחמת. צריך רק להתחיל.״|אני אוהב את הרגע שבו מישהי נותנת את המכה הראשונה על הכרית ואומרת בחיוך: ״רגע, זה הייתי אני?״"),
+]
+EN["about_qa"] = [
+    ("How did it all start?", "I started martial arts at 13, and at 22 I earned my black belt in Japanese jiu-jitsu. From there I moved to Muay Thai, and today I train in classic boxing and teach it."),
+    ("What's my motto?", "\"You don't have to be a fighter. You just have to start.\"|I love the moment someone lands her first punch on the pad and says with a smile: \"Wait, was that me?\""),
+]

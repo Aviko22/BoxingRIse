@@ -1822,3 +1822,13 @@ html.gal-open { overflow: hidden; }
 .aq-a { margin: 0; font-size: 17px; line-height: 1.65; color: var(--text); }
 html[lang="en"] .aq-q { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; }
 #about-h .g { display: inline-block; margin-top: .15em; font-size: .56em; line-height: 1.15; }
+/* about Q&A: bigger, two blocks */
+.about-qa { gap: 30px; margin-top: 30px; }
+.aq { padding-inline-start: 18px; }
+.aq-q { font-size: 18px; margin-bottom: 10px; }
+html[lang="en"] .aq-q { font-size: 15px; }
+.aq-a { font-size: 19px; line-height: 1.6; }
+.aq-motto { margin: 0 0 12px; font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.15; color: var(--white); }
+html[lang="en"] .aq-motto { font-weight: 400; font-size: clamp(30px, 3vw, 40px); letter-spacing: .01em; }
+@media (max-width: 759px) { .aq-a { font-size: 18px; } }
+html[lang="he"] .aq-motto { font-size: clamp(34px, 3.6vw, 46px); line-height: 1.1; }
