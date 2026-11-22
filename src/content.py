@@ -458,3 +458,7 @@ EN["gal_alts"] = ["The coach holding pads for a client in the park", "A straight
 # about: credentials without years (the big "30" above carries the number)
 HE["about_facts"] = ["אגרוף קלאסי", "מואי תאי", "חגורה שחורה בג׳ו־ג׳יטסו יפני"]
 EN["about_facts"] = ["Classic boxing", "Muay Thai", "Japanese jiu-jitsu black belt"]
+
+# header menu (option 1, Nov 2026)
+HE["nav"] = [("#what", "האימון"), ("#program", "התוכנית"), ("#about", "המאמן"), ("#reviews", "המלצות"), ("#faq", "שאלות נפוצות")]
+EN["nav"] = [("#what", "The session"), ("#program", "Program"), ("#about", "Coach"), ("#reviews", "Reviews"), ("#faq", "FAQ")]
