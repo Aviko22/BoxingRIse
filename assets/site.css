@@ -1834,8 +1834,8 @@ html.gal-open { overflow: hidden; }
 /* phones: language button sits at the end of the header; the list opens from that edge */
 @media (max-width: 999px) {
   .lang-menu { grid-column: 3; grid-row: 1; justify-self: end; }
-  .lm-btn { padding: 0 10px; }
-  .lm-btn .lm-globe { display: none; }
+  .lm-btn { padding: 0 11px 0 10px; gap: 5px; }
+  .lm-btn .lm-globe { width: 15px; height: 15px; }
 }
 
 /* BoxingRise 8 title ring must never widen the page */
