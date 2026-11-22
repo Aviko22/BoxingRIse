@@ -1814,3 +1814,29 @@ html.gal-open { overflow: hidden; }
   .m-menu a:not(.btn) { padding: 14px 2px; font-size: 38px; }
   .m-menu li + li::before { content: ""; display: block; width: 36px; height: 2px; margin: 0 auto; border-radius: 2px; background: var(--metal); opacity: .7; }
 }
+
+/* language menu: one button, opens the three languages */
+.lang-menu { position: relative; }
+.lm-btn { gap: 6px; padding: 0 12px; cursor: pointer; font: inherit; font-weight: 700; font-size: 15px; border: 0; background: none; color: var(--text); }
+.lm-btn .lm-globe { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; opacity: .85; }
+.lm-btn[aria-expanded="true"] { box-shadow: inset 0 0 0 1.5px var(--gold-hi); color: var(--gold-hi); }
+.lm-btn:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+.lm-list { position: absolute; top: calc(100% + 10px); inset-inline-end: 0; z-index: 120; min-width: 170px; margin: 0; padding: 6px; list-style: none;
+  background: rgba(14, 12, 9, .97); border: 1px solid rgba(212, 173, 87, .45); border-radius: 16px; box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .8);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: 0; transform: translateY(-6px); transition: opacity .2s ease, transform .25s var(--ease); }
+.lm-list.open { opacity: 1; transform: none; }
+.lm-list[hidden] { display: none; }
+.lm-list a { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 11px; color: #f3efe6; text-decoration: none; font: 600 16px/1.2 var(--body); }
+.lm-list a:hover, .lm-list a:focus-visible { background: rgba(212, 173, 87, .14); outline: none; }
+.lm-list a[aria-current] { color: var(--gold-hi); }
+.lm-list a[aria-current]::after { content: "✓"; margin-inline-start: auto; font-size: 14px; }
+.lm-code { display: inline-grid; place-items: center; min-width: 30px; height: 24px; border-radius: 7px; font-size: 12px; font-weight: 700; letter-spacing: .04em; color: #120e05; background: var(--metal); }
+/* phones: language button sits at the end of the header; the list opens from that edge */
+@media (max-width: 999px) {
+  .lang-menu { grid-column: 3; grid-row: 1; justify-self: end; }
+  .lm-btn { padding: 0 10px; }
+  .lm-btn .lm-globe { display: none; }
+}
+
+/* BoxingRise 8 title ring must never widen the page */
+.ps { overflow-x: clip; }

@@ -15,7 +15,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "224"  # bump to bust caches of css/js
+VER = "225"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -123,7 +123,7 @@ def header(t, home, alt_href=None):
     <a class="logo" href="{base(t['lang'])}" aria-label="BoxingRise"><img src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468"></a>
     <nav class="main-nav" aria-label="{'ניווט ראשי' if t['lang']=='he' else 'Main'}"><ul>{nav}</ul></nav>
     <div class="head-actions">
-      <span class="langs">{"".join(f'<a class="lang-switch" href="{u}" hreflang="{c}" lang="{c}"><span aria-hidden="true">{l}</span><span class="sr-only">{n}</span></a>' for c, l, u, n in LANGS if c != t["lang"])}</span>
+      {lang_menu(t)}
       {btn(t, t['cta_short'], 'btn btn-gold btn-sm head-cta')}
       <button type="button" class="m-burger" aria-expanded="false" aria-controls="m-menu" aria-label="{'תפריט' if t['lang']=='he' else 'Menu'}"><i></i><i></i><i></i></button>
     </div>
@@ -237,6 +237,18 @@ def schema(t, path):
 
 
 LANGS = [("he", "עב", "/", "עברית"), ("en", "EN", "/en/", "English"), ("ru", "RU", "/ru/", "Русский")]
+
+
+def lang_menu(t):
+    """Language button: shows the current language, opens a small list of all three."""
+    cur = next(x for x in LANGS if x[0] == t["lang"])
+    label = {"he": "שפה", "en": "Language", "ru": "Язык"}[t["lang"]]
+    items = "".join(
+        f'<li><a href="{u}" hreflang="{c}" lang="{c}"' + (' aria-current="true"' if c == t["lang"] else "") +
+        f'><span class="lm-code" aria-hidden="true">{l}</span><span>{n}</span></a></li>' for c, l, u, n in LANGS)
+    return (f'<div class="lang-menu"><button type="button" class="lang-switch lm-btn" aria-expanded="false" aria-controls="lm-list" aria-label="{label}: {cur[3]}">'
+            f'<svg class="lm-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>'
+            f'<span aria-hidden="true">{cur[1]}</span></button><ul class="lm-list" id="lm-list" hidden>{items}</ul></div>')
 GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 2, "gal_h": 1},
              "ru": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 1, "gal_h": 1},
              "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 1, "gal_h": 1}}
