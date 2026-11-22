@@ -8,13 +8,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 from content import HE, EN          # noqa: E402
+from content_ru import RU            # noqa: E402  (draft)
 from legal import PAGES, HEALTH_FORM, UPDATED  # noqa: E402
 
 CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "223"  # bump to bust caches of css/js
+VER = "224"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -26,7 +27,7 @@ def wa_href(lang, question=False):
 
 
 def base(lang):
-    return "/" if lang == "he" else "/en/"
+    return {"he": "/", "ru": "/ru/"}.get(lang, "/en/")
 
 
 def legal_url(lang, slug):
@@ -70,6 +71,7 @@ def placeholder(t, desc):
 def head(t, title, desc, path, alt_path, noindex):
     lang = t["lang"]
     other = "en" if lang == "he" else "he"
+    if lang == "ru": noindex = True  # draft: keep the Russian page out of search until it is reviewed
     robots = ('<meta name="robots" content="noindex, nofollow">' if noindex is True else
               '<meta name="robots" content="noindex, follow">' if noindex == "legal" else '<meta name="robots" content="index, follow">')
     intro = (";try{var q=new URLSearchParams(location.search).get('intro'),d=document.documentElement;d.setAttribute('data-intro',q||'3');if(q||(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro')))d.classList.add('intro-on')}catch(e){}"
@@ -105,6 +107,7 @@ def head(t, title, desc, path, alt_path, noindex):
   {('<link rel="preload" as="image" href="/media/hero-mont-m.jpg?v=' + VER + '" media="(max-width: 999px)" fetchpriority="high"><link rel="preload" as="image" href="/media/hero-mont-w.jpg?v=' + VER + '" media="(min-width: 1000px)" fetchpriority="high">') if path in ('/', '/en') else ''}
   {'<link rel="preload" href="/fonts/assistant-800.woff" as="font" type="font/woff" crossorigin>' if t["lang"] == "he" else '<link rel="preload" href="/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>'}
   <link rel="stylesheet" href="/assets/site.css?v={VER}">
+  {('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap"><link rel="stylesheet" href="/assets/ru.css?v=' + VER + '">') if lang == "ru" else ''}
   <script data-cfasync="false" src="/config.js?v={VER}" defer></script>
   <script data-cfasync="false" src="/assets/site.js?v={VER}" defer></script>
 """
@@ -120,7 +123,7 @@ def header(t, home, alt_href=None):
     <a class="logo" href="{base(t['lang'])}" aria-label="BoxingRise"><img src="/brand/logo.webp" alt="BoxingRise" width="1202" height="468"></a>
     <nav class="main-nav" aria-label="{'ניווט ראשי' if t['lang']=='he' else 'Main'}"><ul>{nav}</ul></nav>
     <div class="head-actions">
-      <a class="lang-switch" href="{href}" hreflang="{'en' if t['lang']=='he' else 'he'}" lang="{'en' if t['lang']=='he' else 'he'}"><span aria-hidden="true">{lab}</span><span class="sr-only">{e(name)}</span></a>
+      <span class="langs">{"".join(f'<a class="lang-switch" href="{u}" hreflang="{c}" lang="{c}"><span aria-hidden="true">{l}</span><span class="sr-only">{n}</span></a>' for c, l, u, n in LANGS if c != t["lang"])}</span>
       {btn(t, t['cta_short'], 'btn btn-gold btn-sm head-cta')}
       <button type="button" class="m-burger" aria-expanded="false" aria-controls="m-menu" aria-label="{'תפריט' if t['lang']=='he' else 'Menu'}"><i></i><i></i><i></i></button>
     </div>
@@ -233,7 +236,9 @@ def schema(t, path):
     return "".join('<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + "</script>" for d in (data, faq))
 
 
+LANGS = [("he", "עב", "/", "עברית"), ("en", "EN", "/en/", "English"), ("ru", "RU", "/ru/", "Русский")]
 GOLD_TAIL = {"he": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 2, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 2, "gal_h": 1},
+             "ru": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 1, "gal_h": 1},
              "en": {"final_h": 2, "faq_h": 1, "trial_h": 2, "reviews_h": 3, "for_h": 2, "pain_h": 0, "about_h": 0, "batt_h": 1, "gal_h": 1}}
 
 
@@ -365,7 +370,7 @@ def rr_letters(word):
 
 def home(t):
     lang = t["lang"]
-    path, alt = ("/", "/en/") if lang == "he" else ("/en/", "/")
+    path, alt = {"he": ("/", "/en/"), "ru": ("/ru/", "/")}.get(lang, ("/en/", "/"))
     h1 = "".join(f'<span class="h1-line">' + " ".join(f'<span class="w"><span>{e(w)}</span></span>' for w in nodot(line).split()) + "</span>" for line in t["hero_h1"])
     pains = "".join(f'<li><span class="pl">{e(p)}</span></li>' for p in t["pain"])
     facts = "".join(f'<div class="fact"><dt>{e(l)}</dt><dd><span class="num" data-count="{n}" dir="ltr">{e(n)}</span></dd></div>' for n, l in t["what_facts"])
@@ -562,6 +567,34 @@ def optimise_images():
 
 
 # ---------------------------------------------------------------- write
+def en_rules_as(css, lang):
+    """Copy every rule whose selector mentions html[lang="en"] (keeping its @media wrapper) for another LTR language."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    out, i, n = [], 0, len(css)
+    def block(j):  # j at "{"; return index after matching "}"
+        d = 0
+        for k in range(j, n):
+            if css[k] == "{": d += 1
+            elif css[k] == "}":
+                d -= 1
+                if d == 0: return k + 1
+        return n
+    def rules(chunk):
+        return [m.group(0).strip().replace('html[lang="en"]', f'html[lang="{lang}"]')
+                for m in re.finditer(r'[^{}]*html\[lang="en"\][^{}]*\{[^{}]*\}', chunk)]
+    while i < n:
+        j = css.find("{", i)
+        if j < 0: break
+        sel = css[i:j].strip(); k = block(j)
+        if sel.startswith("@media") or sel.startswith("@supports"):
+            inner = rules(css[j + 1:k - 1])
+            if inner: out.append(sel + " { " + " ".join(inner) + " }")
+        elif 'html[lang="en"]' in sel:
+            out += rules(css[i:k])
+        i = k
+    return out
+
+
 def write(rel, text):
     p = ROOT / rel
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -572,6 +605,13 @@ def main():
     optimise_images()
     write("index.html", home(HE))
     write("en/index.html", home(EN))
+    write("ru/index.html", home(RU))
+    css = open(ROOT / "assets/site.css", encoding="utf-8").read()
+    ru_rules = en_rules_as(css, "ru")
+    write("assets/ru.css", "/* generated by build.py from the English rules + Cyrillic fonts (draft) */\n"
+          + "\n".join(r.strip() for r in ru_rules) + "\n"
+          'html[lang="ru"] { --display: "Roboto Condensed", sans-serif; --latin: "Roboto Condensed", sans-serif; --body: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }\n'
+          'html[lang="ru"] .h1, html[lang="ru"] .h2, html[lang="ru"] .final-h, html[lang="ru"] .m-menu a:not(.btn) { font-weight: 700; letter-spacing: -.005em; }\n')
     for slug in PAGES:
         write(f"{slug}.html", legal_page(HE, slug))
         write(f"en/{slug}.html", legal_page(EN, slug))
