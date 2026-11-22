@@ -1805,3 +1805,59 @@ html.gal-open { overflow: hidden; }
 
 /* BoxingRise 8: the gold bar sits clearly below the title (it used to cut through the g) */
 .ps .ps-head .h2::after { margin-top: clamp(22px, 2.4vw, 32px); }
+
+/* ================= mobile menu looks (preview ?mm=1..6) ================= */
+.mm-sw { position: fixed; z-index: 1200; left: 50%; bottom: calc(118px + env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; gap: 4px; padding: 6px 8px; border-radius: 999px; background: rgba(12,11,9,.96); border: 1px solid #c9a24b; width: max-content; }
+.mm-sw button { display: grid; place-items: center; min-width: 36px; height: 36px; padding: 0 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.2); background: none; color: #f3efe6; font: 700 14px var(--body); cursor: pointer; }
+.mm-sw button.on { background: var(--metal); color: #120e05; border-color: transparent; }
+@media (max-width: 999px) {
+  .m-menu ul { counter-reset: mm; }
+  .m-menu li { counter-increment: mm; }
+
+  /* 1 · numbered: small gold numbers, gold hairlines, a glow on the open item */
+  [data-mm="1"] .m-menu { background: radial-gradient(120% 60% at 100% 0%, rgba(212, 173, 87, .12), transparent 60%), #0b0a08; }
+  [data-mm="1"] .m-menu li { border-bottom-color: rgba(212, 173, 87, .22); }
+  [data-mm="1"] .m-menu a:not(.btn) { display: flex; align-items: baseline; gap: 16px; }
+  [data-mm="1"] .m-menu a:not(.btn)::before { content: "0" counter(mm); font: 700 14px/1 var(--latin, var(--body)); letter-spacing: .12em; color: var(--gold-hi); min-width: 2.2ch; }
+
+  /* 2 · sunrise: warm light rising from the bottom, items centred */
+  [data-mm="2"] .m-menu { background: radial-gradient(90% 55% at 50% 108%, rgba(255, 206, 128, .5) 0%, rgba(232, 160, 70, .22) 35%, rgba(201, 140, 60, .07) 60%, transparent 78%), #0b0a08; }
+  [data-mm="2"] .m-menu li { border-bottom: 0; text-align: center; }
+  [data-mm="2"] .m-menu a:not(.btn) { padding: 14px 2px; font-size: 38px; }
+  [data-mm="2"] .m-menu ul { margin-top: 2vh; }
+  [data-mm="2"] .m-menu li + li::before { content: ""; display: block; width: 36px; height: 2px; margin: 0 auto; border-radius: 2px; background: var(--metal); opacity: .7; }
+
+  /* 3 · gold: the whole menu in brand gold, black type */
+  [data-mm="3"] .m-menu { background: linear-gradient(160deg, #f3dc9c 0%, #d9b45f 45%, #a87d2c 100%); }
+  [data-mm="3"] .m-menu li { border-bottom-color: rgba(18, 14, 5, .18); }
+  [data-mm="3"] .m-menu a:not(.btn) { color: #120e05; }
+  [data-mm="3"] .m-menu-foot .btn { background: #0b0a08; color: #f1d58e; box-shadow: 0 16px 36px -14px rgba(0, 0, 0, .6); }
+  [data-mm="3"] .m-menu-foot .btn::before, [data-mm="3"] .m-menu-foot .btn::after { border-color: rgba(241, 213, 142, .45); }
+  html[data-mm="3"].menu-open .m-burger { background: rgba(0, 0, 0, .8); }
+  html[data-mm="3"].menu-open .lang-switch { color: #120e05; border-color: rgba(18, 14, 5, .45); }
+  html[data-mm="3"].menu-open .head-row > .logo img { filter: brightness(0); }
+
+  /* 4 · photo: a training photo behind, darkened */
+  [data-mm="4"] .m-menu { background: linear-gradient(180deg, rgba(11, 10, 8, .78) 0%, rgba(11, 10, 8, .62) 40%, rgba(11, 10, 8, .92) 100%), url("/media/hero-mont-m.jpg") center 30% / cover no-repeat, #0b0a08; }
+  [data-mm="4"] .m-menu li { border-bottom-color: rgba(255, 255, 255, .16); }
+  [data-mm="4"] .m-menu a:not(.btn) { text-shadow: 0 2px 20px rgba(0, 0, 0, .6); }
+
+  /* 5 · tape labels: each item is one of the torn tape tags you like */
+  [data-mm="5"] .m-menu { background: radial-gradient(100% 50% at 50% 0%, rgba(212, 173, 87, .1), transparent 70%), #0b0a08; }
+  [data-mm="5"] .m-menu ul { display: grid; gap: 18px; justify-items: start; margin-top: 2vh; }
+  [data-mm="5"] .m-menu li { border-bottom: 0; }
+  [data-mm="5"] .m-menu a:not(.btn) { display: inline-block; padding: 8px 22px 9px 24px; background: var(--tape); color: #17140f; font-size: 30px;
+    clip-path: polygon(0 8%, 4% 0, 9% 10%, 14% 0, 20% 8%, 100% 0, 100% 92%, 96% 100%, 91% 90%, 86% 100%, 80% 92%, 0 100%); transform: rotate(-2deg); }
+  [data-mm="5"] .m-menu li:nth-child(even) a:not(.btn) { transform: rotate(1.6deg); }
+  [data-mm="5"] .m-menu li:nth-child(3n) a:not(.btn) { transform: rotate(-.8deg); }
+
+  /* 6 · leather card: a stitched panel that slides in from the side, the page shows behind */
+  [data-mm="6"] .m-menu { background: rgba(0, 0, 0, .55); padding: 84px 14px max(14px, env(safe-area-inset-bottom)); }
+  [data-mm="6"] .m-menu > nav, [data-mm="6"] .m-menu-foot { background: var(--leather); }
+  [data-mm="6"] .m-menu > nav { border-radius: 26px 26px 0 0; padding: 16px 26px 4px; outline: 1.5px dashed var(--stitch); outline-offset: -9px; transform: translateY(24px); transition: transform .45s var(--ease); }
+  [data-mm="6"] .m-menu-foot { margin-top: 0; padding: 18px 26px 26px; border-radius: 0 0 26px 26px; }
+  [data-mm="6"] .m-menu.open > nav { transform: none; }
+  [data-mm="6"] .m-menu li { border-bottom-color: rgba(212, 173, 87, .16); }
+  [data-mm="6"] .m-menu li:last-child { border-bottom: 0; }
+  [data-mm="6"] .m-menu a:not(.btn) { font-size: 28px; padding: 15px 2px; }
+}

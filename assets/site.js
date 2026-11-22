@@ -641,3 +641,13 @@
   var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { h.classList.add('ttl-go'); io.disconnect(); } }); }, { threshold: .6 });
   io.observe(h);
 })();
+
+/* preview: ?mm=1..6 compares mobile menu looks (opens the menu) */
+(function () {
+  var q; try { q = new URLSearchParams(location.search).get('mm'); } catch (e) { return; }
+  if (q === null) return;
+  var root = document.documentElement, b = document.querySelector('.m-burger'), sw = document.createElement('nav'); sw.className = 'mm-sw'; sw.setAttribute('aria-label', 'preview');
+  function pick(n) { if (n === '0') root.removeAttribute('data-mm'); else root.setAttribute('data-mm', n); [].forEach.call(sw.children, function (x) { x.classList.toggle('on', x.value === n); }); try { history.replaceState(null, '', location.pathname + '?mm=' + n); } catch (e) {} if (b && b.getAttribute('aria-expanded') !== 'true') b.click(); }
+  ['0', '1', '2', '3', '4', '5', '6'].forEach(function (n) { var x = document.createElement('button'); x.type = 'button'; x.value = n; x.textContent = n === '0' ? (root.lang === 'he' ? 'קיים' : 'Now') : n; x.addEventListener('click', function (ev) { ev.stopPropagation(); pick(n); }); sw.appendChild(x); });
+  document.body.appendChild(sw); setTimeout(function () { pick(/^[1-6]$/.test(q) ? q : '1'); }, 600);
+})();
