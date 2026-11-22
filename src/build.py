@@ -14,7 +14,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "223"  # bump to bust caches of css/js
+VER = "224"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -282,6 +282,12 @@ def gallery(t):
             f'<div class="gal-stage"><ul class="gal-list" tabindex="0" aria-label="{e(t["gal_h"])}">{items}</ul></div></div></section>')
 
 
+def about_qa(t):
+    """Coach story as three short questions and answers (Avi's own text)."""
+    return '<div class="about-qa">' + "".join(
+        f'<div class="aq"><h3 class="aq-q">{e(q)}</h3><p class="aq-a">{e(a)}</p></div>' for q, a in t["about_qa"]) + '</div>'
+
+
 def tag(t, key):
     if key not in TAGGED:
         return ""
@@ -458,8 +464,7 @@ def home(t):
       <div class="about-text">
         {tag(t, 'about')}<h2 class="h2" id="about-h">{hgold(t, 'about_h')}</h2>
         <p class="about-years"><span class="num" data-count="{t['about_years']}" dir="ltr">{t['about_years']}</span><span>{e(t['about_years_label'])}</span></p>
-        {about}
-        <ul class="about-facts">{creds}</ul>
+        {about_qa(t) if t.get("about_qa") else about + f'<ul class="about-facts">{creds}</ul>'}
       </div>
     </div>
   </section>

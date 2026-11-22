@@ -1814,3 +1814,11 @@ html.gal-open { overflow: hidden; }
   .m-menu a:not(.btn) { padding: 14px 2px; font-size: 38px; }
   .m-menu li + li::before { content: ""; display: block; width: 36px; height: 2px; margin: 0 auto; border-radius: 2px; background: var(--metal); opacity: .7; }
 }
+
+/* about: questions and answers */
+.about-qa { display: grid; gap: 22px; margin-top: 26px; }
+.aq { padding-inline-start: 16px; border-inline-start: 2px solid rgba(212, 173, 87, .5); }
+.aq-q { margin: 0 0 6px; font: 700 15px/1.3 var(--body); letter-spacing: .02em; color: var(--gold-hi); }
+.aq-a { margin: 0; font-size: 17px; line-height: 1.65; color: var(--text); }
+html[lang="en"] .aq-q { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; }
+#about-h .g { display: inline-block; margin-top: .15em; font-size: .56em; line-height: 1.15; }

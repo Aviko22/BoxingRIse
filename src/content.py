@@ -462,3 +462,17 @@ EN["about_facts"] = ["Classic boxing", "Muay Thai", "Japanese jiu-jitsu black be
 # header menu (option 1, Nov 2026)
 HE["nav"] = [("#what", "האימון"), ("#program", "התוכנית"), ("#about", "המאמן"), ("#reviews", "המלצות"), ("#faq", "שאלות נפוצות")]
 EN["nav"] = [("#what", "The session"), ("#program", "Program"), ("#about", "Coach"), ("#reviews", "Reviews"), ("#faq", "FAQ")]
+
+# ---- about: Avi's own story as questions and answers (preview) ----
+HE["about_h"] = "אני אבי. המאמן מאחורי BoxingRise"
+HE["about_qa"] = [
+    ("איך הכול התחיל?", "התחלתי אומנויות לחימה בגיל 13, והגעתי לחגורה שחורה בג׳ו־ג׳יטסו יפני בגיל 22. משם עברתי לאגרוף תאילנדי, ועד היום אני מתאמן באגרוף קלאסי, בארץ ובתאילנד. אגרוף קלאסי הוא מה שאני הכי אוהב ללמד. שינוי קטן בעמידה או בתנועה יכול לשנות לגמרי איך המכה מרגישה."),
+    ("מה הרגע שאני הכי אוהב?", "כשמישהי נותנת את המכה הראשונה על הכרית, מסתכלת עליי ואומרת בחיוך: ״רגע, זה הייתי אני?״"),
+    ("מה חשוב לי באימון איתך?", "שתרגישי בנוח לשאול, לנסות ולצחוק כשמשהו מתפספס. אני מדגים, את מנסה, ואנחנו מדייקים יחד בקצב שלך. ככה בונים ביטחון, תנועה אחת בכל פעם."),
+]
+EN["about_h"] = "I'm Avi. The coach behind BoxingRise"
+EN["about_qa"] = [
+    ("How did it all start?", "I started martial arts at 13 and earned my black belt in Japanese jiu-jitsu at 22. From there I moved to Muay Thai, and to this day I train in classic boxing, in Israel and in Thailand. Classic boxing is what I love teaching most. A small change in your stance or movement can completely change how a punch feels."),
+    ("What's my favourite moment?", "When someone lands her first punch on the pad, looks at me and says with a smile: \"Wait, was that me?\""),
+    ("What matters to me when we train?", "That you feel free to ask, to try, and to laugh when something doesn't land. I show, you try, and we fine-tune it together at your pace. That's how confidence is built, one move at a time."),
+]
