@@ -55,5 +55,6 @@ html[lang="ru"] .reviews .rv-body::before { content: "“"; font-family: Georgia
 html[lang="ru"] .aq-q { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; }
 html[lang="ru"] .aq-q { font-size: 15px; }
 html[lang="ru"] .aq-motto { font-weight: 400; font-size: clamp(30px, 3vw, 40px); letter-spacing: .01em; }
+html[lang="ru"] .about-story .as-close, html[lang="ru"] .about-story .as-close { font-weight: 400; font-size: clamp(30px, 3.2vw, 42px); }
 html[lang="ru"] { --display: "Roboto Condensed", sans-serif; --latin: "Roboto Condensed", sans-serif; --body: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
 html[lang="ru"] .h1, html[lang="ru"] .h2, html[lang="ru"] .final-h, html[lang="ru"] .m-menu a:not(.btn) { font-weight: 700; letter-spacing: -.005em; }

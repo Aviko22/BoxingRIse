@@ -515,3 +515,15 @@ _faq(EN, {
     "What happens after the trial?": ("What happens after the trial?", "If it's right for you, we plan what's next together: the BoxingRise 8 program or single sessions. If not, no problem and no commitment."),
     "How long is a session?": ("How long is a session?", "One hour."),
 })
+
+# ---- about: story version (option 1, Nov 2026) ----
+HE["about_story"] = [
+    "התחלתי בגיל 13, בג׳ו־ג׳יטסו יפני, ומאז לא הפסקתי: חגורה שחורה, יותר מעשור של מואי תאי, ובשנים האחרונות אגרוף קלאסי, בארץ ובתאילנד.",
+    "אבל מה שמחזיק אותי שם זה לא הטכניקה. אגרוף נותן לי את ההרגשה הכי טובה בעולם: ראש נקי, גוף חזק, וביטחון שנשאר גם אחרי שהכפפות יורדות.",
+    "את ההרגשה הזו אני רוצה לתת לך.",
+]
+EN["about_story"] = [
+    "I started at 13, in Japanese jiu-jitsu, and never stopped: a black belt, more than a decade of Muay Thai, and in recent years classic boxing, in Israel and in Thailand.",
+    "But what keeps me there isn't the technique. Boxing gives me the best feeling in the world: a clear head, a strong body, and confidence that stays long after the gloves come off.",
+    "That's the feeling I want to give you.",
+]

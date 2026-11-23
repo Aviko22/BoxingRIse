@@ -1857,3 +1857,12 @@ html[lang="he"] .aq-motto { font-size: clamp(34px, 3.6vw, 46px); line-height: 1.
 
 /* BoxingRise 8 title ring must never widen the page */
 .ps { overflow-x: clip; }
+
+/* about: story paragraphs + gold closing line */
+.about-story { margin-top: 26px; display: grid; gap: 16px; }
+.about-story p { margin: 0; font-size: 19px; line-height: 1.65; color: var(--text); max-width: 36em; }
+.about-story .as-close { margin-top: 6px; font-family: var(--display); font-weight: 800; font-size: clamp(28px, 3vw, 38px); line-height: 1.15; color: var(--gold-hi); }
+html[lang="en"] .about-story .as-close, html[lang="ru"] .about-story .as-close { font-weight: 400; font-size: clamp(30px, 3.2vw, 42px); }
+html[lang="ru"] .about-story .as-close { font-weight: 700; font-size: clamp(26px, 2.8vw, 36px); }
+@media (max-width: 759px) { .about-story p { font-size: 18px; } }
+html[lang="he"] .about-story .as-close { font-size: clamp(32px, 3.4vw, 44px); }
