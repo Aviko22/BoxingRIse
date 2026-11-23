@@ -527,3 +527,25 @@ EN["about_story"] = [
     "But what keeps me there isn't the technique. Boxing gives me the best feeling in the world: a clear head, a strong body, and confidence that stays long after the gloves come off.",
     "That's the feeling I want to give you.",
 ]
+
+
+# ---- shop draft (Hebrew only for now; designs and copy written by Claude, prices not set yet) ----
+HE["nav"] = HE["nav"] + [("/shop", "חנות")]
+SHOP = {
+    "title": "חנות", "tag": "החנות",
+    "h": "חולצות BoxingRise",
+    "lead": "חולצות שעיצבנו לאימון ולחיים שאחריו. בוחרת עיצוב ומידה, ומזמינה בוואטסאפ.",
+    "how": ["בוחרת עיצוב ומידה", "שולחת הזמנה בוואטסאפ", "אני חוזר אלייך לתיאום תשלום ומשלוח"],
+    "price": "מחיר יעודכן בקרוב",
+    "size_l": "מידה", "order": "להזמנה בוואטסאפ",
+    "msg": "היי אבי, אני רוצה להזמין חולצת BoxingRise: {name}, מידה {size}",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "items": [
+        ("rise", "RISE", "שחורה · הדפס זהב"),
+        ("he", "קמה. מתאגרפת. עולה.", "שחורה · הדפס שמנת וזהב"),
+        ("mark", "הלוגו הקטן", "שחורה · לוגו על החזה"),
+        ("hands", "Hands up, chin down", "שמנת · הדפס שחור וזהב"),
+        ("sun", "הזריחה", "שחורה · הדפס זהב"),
+        ("tape", "אגרוף בפארק", "שמנת · סגנון סלוטייפ"),
+    ],
+}

@@ -15,7 +15,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "231"  # bump to bust caches of css/js
+VER = "232"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -113,7 +113,7 @@ def head(t, title, desc, path, alt_path, noindex):
 def header(t, home, alt_href=None):
     lab, href, name = t["lang_switch"]
     href = alt_href or href
-    nav = "".join(f'<li><a href="{(base(t["lang"]) if not home else "")}{h}">{e(x)}</a></li>' for h, x in t["nav"])
+    nav = "".join(f'<li><a href="{h if h.startswith("/") else (base(t["lang"]) if not home else "") + h}">{e(x)}</a></li>' for h, x in t["nav"])
     return f"""<a class="skip" href="#main">{e(t['skip'])}</a>
 <header class="site-head" id="top">
   <div class="wrap head-row">
@@ -138,7 +138,7 @@ def footer(t):
     lab, href, name = t["lang_switch"]
     links = "".join(f'<li><a href="{legal_url(lang, s)}">{e(x)}</a></li>' for s, x in t["legal_nav"])
     root = "/" if lang == "he" else "/en/"
-    nav = "".join(f'<li><a href="{root}{h}">{e(x)}</a></li>' for h, x in t["nav"])
+    nav = "".join(f'<li><a href="{h if h.startswith("/") else root + h}">{e(x)}</a></li>' for h, x in t["nav"])
     return f"""<footer class="site-foot">
   <div class="wrap foot-top">
     <div class="foot-brand">
@@ -566,6 +566,34 @@ def legal_page(t, slug):
 """ + footer(t) + floating(t) + "</body>\n</html>\n"
 
 
+def shop_page():
+    from content import SHOP as S
+    from urllib.parse import quote
+    t = HE
+    cards = ""
+    for k, name, sub in S["items"]:
+        sizes = "".join(f'<button type="button" class="sz{" on" if z == "M" else ""}" aria-pressed="{"true" if z == "M" else "false"}">{z}</button>' for z in S["sizes"])
+        href = f"https://wa.me/{NUM}?text=" + quote(S["msg"].format(name=name, size="M"))
+        cards += (f'<article class="tee" data-name="{e(name)}">'
+                  f'<div class="tee-img"><img src="/media/shop/tee-{k}-900.webp" srcset="/media/shop/tee-{k}-480.webp 480w, /media/shop/tee-{k}-900.webp 900w" sizes="(max-width: 760px) 100vw, 33vw" width="900" height="1125" alt="חולצת BoxingRise – {e(name)}" loading="lazy" decoding="async"></div>'
+                  f'<div class="tee-body"><h2 class="tee-name" dir="auto">{e(name)}</h2><p class="tee-sub">{e(sub)}</p><p class="tee-price">{e(S["price"])}</p>'
+                  f'<div class="tee-sizes" role="group" aria-label="{e(S["size_l"])}">{sizes}</div>'
+                  f'<a class="btn btn-gold tee-order" href="{href}" target="_blank" rel="noopener">{ICON_WA}<span>{e(S["order"])}</span></a></div></article>')
+    how = "".join(f'<li><b>{i + 1}</b><span>{e(x)}</span></li>' for i, x in enumerate(S["how"]))
+    tmpl = e(S["msg"])
+    return head(t, f"{S['title']} | BoxingRise", S["lead"], "/shop", "/shop", True) + "</head>\n<body class=\"shop-page\">\n" + header(t, False) + f"""
+<main id="main" class="shop-main">
+  <section class="sec shop-hero"><div class="wrap">
+    <span class="tag">{e(S['tag'])}</span>
+    <h1 class="h2 shop-h">{e(S['h'])}</h1>
+    <p class="shop-lead">{e(S['lead'])}</p>
+    <ol class="shop-how">{how}</ol>
+  </div></section>
+  <section class="sec shop-grid-sec"><div class="wrap"><div class="shop-grid" data-num="{NUM}" data-msg="{tmpl}">{cards}</div></div></section>
+</main>
+""" + footer(t) + floating(t) + "</body>\n</html>\n"
+
+
 def not_found():
     t = HE
     return head(t, "הדף לא נמצא | BoxingRise", "הדף לא נמצא – BoxingRise", "/404", "/404", True) + "</head>\n<body class=\"legal\">\n" + header(t, False) + f"""
@@ -648,6 +676,7 @@ def main():
     for slug in PAGES:
         write(f"{slug}.html", legal_page(HE, slug))
         write(f"en/{slug}.html", legal_page(EN, slug))
+    write("shop.html", shop_page())
     write("404.html", not_found())
     write("config.js", "/* Single source: src/config.json. Edit there and run python3 src/build.py */\n"
           f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message'], 'question': CFG['whatsapp_question'], 'analytics': {k: v for k, v in CFG.get('analytics', {}).items() if not k.startswith('_')}}, ensure_ascii=False)};\n")

@@ -1,0 +1,57 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:"Bebas";src:url(/fonts/bebas-neue.woff2)}
+@font-face{font-family:"AsD";src:url(/fonts/assistant-800.woff)}
+@font-face{font-family:"Oswald";src:url(/fonts/oswald.woff);font-weight:200 700}
+@font-face{font-family:"Heebo";src:url(/fonts/heebo.woff);font-weight:100 900}
+html,body{margin:0;background:#16130e}
+.card{width:1000px;height:1250px;position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 35%,#2a241b 0%,#16130e 60%,#0e0c09 100%)}
+.card::after{content:"";position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>")}
+svg.tee{position:absolute;left:0;top:0;width:1000px;height:1250px}
+.print{position:absolute;left:310px;width:380px;top:330px;height:460px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center}
+.ink{mix-blend-mode:normal}
+</style></head><body>
+<div class="card" id="c"><svg class="tee" viewBox="0 0 1000 1250">
+<defs>
+<linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset=".2" stop-color="#000" stop-opacity="0"/><stop offset=".82" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>
+<radialGradient id="hl" cx=".5" cy=".3" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".10"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<filter id="ds" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".55"/></filter>
+<filter id="fold"><feTurbulence type="fractalNoise" baseFrequency=".004 .012" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 -.07"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+<filter id="bl" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="22"/></filter><clipPath id="tc"><path id="tp" d="M380 170 C420 205 580 205 620 170 L760 225 C800 240 830 262 850 300 L935 470 L815 535 L770 445 L772 1090 C700 1110 300 1110 228 1090 L230 445 L185 535 L65 470 L150 300 C170 262 200 240 240 225 Z"/></clipPath>
+</defs>
+<g filter="url(#ds)"><use href="#tp" fill="var(--tee)"/></g>
+<g clip-path="url(#tc)">
+<rect width="1000" height="1250" fill="var(--tee)"/>
+<rect width="1000" height="1250" fill="url(#hl)"/>
+<use href="#tp" fill="none" stroke="#000" stroke-opacity=".45" stroke-width="70" filter="url(#bl)"/>
+<rect width="1000" height="1250" filter="url(#fold)"/>
+<path d="M230 445 L230 330" stroke="#000" stroke-opacity=".18" stroke-width="3" fill="none"/>
+<path d="M770 445 L770 330" stroke="#000" stroke-opacity=".18" stroke-width="3" fill="none"/>
+<path d="M380 170 C420 222 580 222 620 170" stroke="var(--rib)" stroke-width="22" fill="none"/>
+<path d="M370 166 C420 232 580 232 630 166" stroke="#000" stroke-opacity=".25" stroke-width="2" fill="none"/>
+<path d="M228 1078 C300 1098 700 1098 772 1078" stroke="#000" stroke-opacity=".2" stroke-width="2" fill="none"/>
+</g>
+</svg><div class="print" id="p"></div></div>
+<script>
+const D={
+rise:{tee:'#121110',rib:'#0b0a09',html:`<div style="font:400 30px Oswald;letter-spacing:.5em;color:#c9a24b;margin:10px 0 0 .5em">BOXINGRISE</div>
+<div style="font:400 250px/0.85 Bebas;background:linear-gradient(135deg,#f1d58e,#c9a24b 45%,#9a7428);-webkit-background-clip:text;color:transparent;margin-top:18px">RISE</div>
+<div style="width:120px;height:4px;background:#c9a24b;margin:26px 0 18px"></div>
+<div style="font:500 22px Oswald;letter-spacing:.35em;color:#e9dfc8;margin-left:.35em">TEL AVIV · ONE ON ONE</div>`},
+he:{tee:'#121110',rib:'#0b0a09',html:`<div dir="rtl" style="font:800 92px/1.02 AsD;color:#f3ead6;margin-top:40px">קמה.<br>מתאגרפת.<br><span style="background:linear-gradient(135deg,#f1d58e,#c9a24b 45%,#9a7428);-webkit-background-clip:text;color:transparent">עולה.</span></div>
+<div style="font:400 22px Oswald;letter-spacing:.45em;color:#c9a24b;margin:34px 0 0 .45em">BOXINGRISE</div>`},
+mark:{tee:'#121110',rib:'#0b0a09',pos:'left:560px;top:330px;width:150px;height:auto',html:`<img src="/brand/logo-mark.png" style="width:130px;filter:sepia(1) saturate(2.2) hue-rotate(-8deg) brightness(.95)"><div style="font:500 13px Oswald;letter-spacing:.35em;color:#c9a24b;margin-top:8px;margin-left:.35em">BOXINGRISE</div>`},
+hands:{tee:'#e9e1cf',rib:'#ddd3bd',html:`<div style="font:400 124px/0.9 Bebas;white-space:nowrap;color:#15120d;margin-top:30px">HANDS UP<br><span style="color:#a77a22">CHIN DOWN</span></div>
+<div style="width:90px;height:4px;background:#15120d;margin:30px 0 16px"></div>
+<div style="font:500 20px Oswald;letter-spacing:.4em;color:#15120d;margin-left:.4em">BOXINGRISE</div>`},
+sun:{tee:'#121110',rib:'#0b0a09',html:`<svg viewBox="0 0 380 210" width="380" style="margin-top:20px"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6dc95"/><stop offset="1" stop-color="#b8862b"/></linearGradient></defs>
+${Array.from({length:13},(_,i)=>{const a=Math.PI*(i/12);const x1=190-Math.cos(a)*118,y1=190-Math.sin(a)*118,x2=190-Math.cos(a)*178,y2=190-Math.sin(a)*178;return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#c9a24b" stroke-width="7" stroke-linecap="round"/>`}).join('')}
+<path d="M88 190 A102 102 0 0 1 292 190 Z" fill="url(#g)"/><rect x="20" y="196" width="340" height="6" rx="3" fill="#c9a24b"/></svg>
+<div style="font:400 96px/1 Bebas;letter-spacing:.06em;color:#f3ead6;margin-top:18px">BOXING<span style="color:#d9b45e">RISE</span></div>
+<div style="font:400 18px Oswald;letter-spacing:.3em;white-space:nowrap;color:#c9a24b;margin:8px 0 0 .3em">EVERY ROUND A SUNRISE</div>`},
+tape:{tee:'#e9e1cf',rib:'#ddd3bd',html:`<div dir="rtl" style="margin-top:70px;background:#15120d;color:#efe7d6;font:800 64px/1.25 AsD;white-space:nowrap;padding:6px 34px 10px;transform:rotate(-3deg);clip-path:polygon(2% 0,100% 4%,98% 100%,0 94%)">אגרוף בפארק</div>
+<div dir="rtl" style="margin-top:26px;background:#b8862b;color:#15120d;font:800 46px/1.3 AsD;padding:4px 24px 8px;transform:rotate(2deg);clip-path:polygon(0 6%,98% 0,100% 92%,3% 100%)">רק את והכפפות</div>
+<div style="font:500 20px Oswald;letter-spacing:.4em;color:#15120d;margin:40px 0 0 .4em">BOXINGRISE</div>`}
+};
+const k=location.hash.slice(1),d=D[k],c=document.getElementById('c'),p=document.getElementById('p');
+c.style.setProperty('--tee',d.tee);c.style.setProperty('--rib',d.rib);p.innerHTML=d.html;if(d.pos)p.style.cssText+=';'+d.pos;
+</script></body></html>

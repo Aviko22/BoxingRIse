@@ -664,3 +664,19 @@
   var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { el.classList.add('ac-go'); io.disconnect(); } }, { threshold: .8 });
   io.observe(el);
 })();
+
+/* shop: size buttons update the WhatsApp order message */
+(function () {
+  var g = document.querySelector('.shop-grid'); if (!g) return;
+  var num = g.dataset.num, tmpl = g.dataset.msg;
+  g.querySelectorAll('.tee').forEach(function (card) {
+    var a = card.querySelector('.tee-order'), name = card.dataset.name;
+    card.querySelectorAll('.sz').forEach(function (b) {
+      b.addEventListener('click', function () {
+        card.querySelectorAll('.sz').forEach(function (x) { x.classList.remove('on'); x.setAttribute('aria-pressed', 'false'); });
+        b.classList.add('on'); b.setAttribute('aria-pressed', 'true');
+        a.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(tmpl.replace('{name}', name).replace('{size}', b.textContent));
+      });
+    });
+  });
+})();
