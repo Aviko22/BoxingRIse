@@ -416,6 +416,7 @@
 /* rise: section titles rise into place with a gold line under them */
 (function () {
   var hs = document.querySelectorAll('main .h2');
+  hs.forEach(function (h) { var a = getComputedStyle(h).textAlign; if (a === 'center') h.style.setProperty('--bar-o', 'center'); });
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!('IntersectionObserver' in window) || reduce) { hs.forEach(function (h) { h.classList.add('rs-in'); }); return; }
   var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('rs-in'); io.unobserve(x.target); } }); }, { threshold: .4 });

@@ -1874,3 +1874,26 @@ html[lang="he"] .about-story .as-close { font-size: clamp(32px, 3.4vw, 44px); }
 .as-close.ac-go::before { opacity: 1; transform: none; }
 html:not(.js) .as-close { color: var(--gold-hi); }
 @media (prefers-reduced-motion: reduce) { .as-close { transition: none; color: var(--gold-hi); } .as-close::before { transition: none; opacity: 1; transform: none; } }
+
+/* BoxingRise 8 title on phones: no blur on the letters (iOS clipped the g's tail while each letter was blurred, so it flickered),
+   extra room under each letter for descenders, and the title itself no longer rises while its letters drop in */
+.ps-ttl .pc { filter: none; padding: .1em 0 .25em; margin: -.1em 0 -.25em; backface-visibility: hidden; }
+@keyframes pc-in { 0% { opacity: 0; transform: translateY(-.45em) scale(1.18); } 55% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+@keyframes pc-slam { 0% { opacity: 0; transform: scale(2.6); } 55% { opacity: 1; transform: scale(.9); } 78% { transform: scale(1.06); } 100% { opacity: 1; transform: none; } }
+.js main .h2.ps-ttl:not(.rs-in) { opacity: 1; transform: none; }
+.ps-ttl.ttl-go { animation: none; }
+
+/* gold bars under section titles: drawn from the heading's own edge (or from the centre on centred titles), then a light runs across once */
+main .h2::after, main .h2.rs-in::after, .ps-ttl.h2::after {
+  width: 72px; opacity: 0; transform: scaleX(0); transform-origin: var(--bar-o, right);
+  background: linear-gradient(90deg, #9a7428 0%, #c9a24b 30%, #f1d58e 42%, #fff4d6 50%, #f1d58e 58%, #c9a24b 70%, #9a7428 100%);
+  background-size: 300% 100%; background-position: 100% 0;
+  transition: transform .9s cubic-bezier(.65, 0, .25, 1) .3s, opacity .25s ease .3s;
+}
+html[dir="ltr"] main .h2::after { transform-origin: var(--bar-o, left); }
+main .h2.rs-in::after { opacity: 1; transform: scaleX(1); animation: bar-shine 1.3s ease-in-out 1.15s both; }
+main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1.3s; }
+.ps-ttl.ttl-go.h2.rs-in::after { opacity: 1; transform: scaleX(1); animation-delay: 2.2s; }
+.ps-ttl.h2:not(.ttl-go)::after { opacity: 0; transform: scaleX(0); }
+@keyframes bar-shine { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { main .h2::after, main .h2.rs-in::after { opacity: 1; transform: none; transition: none; animation: none; background-position: 50% 0; } }
