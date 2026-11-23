@@ -665,18 +665,99 @@
   io.observe(el);
 })();
 
-/* shop: size buttons update the WhatsApp order message */
+/* shop (draft): sizes update the WhatsApp message; four ways to show front and back (?sv=1..4) */
 (function () {
   var g = document.querySelector('.shop-grid'); if (!g) return;
-  var num = g.dataset.num, tmpl = g.dataset.msg;
-  g.querySelectorAll('.tee').forEach(function (card) {
-    var a = card.querySelector('.tee-order'), name = card.dataset.name;
+  var num = g.dataset.num, tmpl = g.dataset.msg, cards = [].slice.call(g.querySelectorAll('.tee'));
+  var sv = (location.search.match(/[?&]sv=(\d)/) || [])[1] || '1';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.body.classList.add('sv-' + sv);
+  document.querySelectorAll('.sv-switch a').forEach(function (a) { if (a.dataset.sv === sv) a.classList.add('on'); });
+  function order(card) {
+    var a = card.querySelector('.tee-order'), on = card.querySelector('.sz.on');
+    a.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(tmpl.replace('{name}', card.dataset.name).replace('{size}', on ? on.textContent : 'M'));
+  }
+  function sizes(card) {
     card.querySelectorAll('.sz').forEach(function (b) {
       b.addEventListener('click', function () {
         card.querySelectorAll('.sz').forEach(function (x) { x.classList.remove('on'); x.setAttribute('aria-pressed', 'false'); });
-        b.classList.add('on'); b.setAttribute('aria-pressed', 'true');
-        a.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(tmpl.replace('{name}', name).replace('{size}', b.textContent));
+        b.classList.add('on'); b.setAttribute('aria-pressed', 'true'); order(card);
       });
     });
-  });
+  }
+  function side(el, back) {
+    el.classList.toggle('is-back', back);
+    el.querySelectorAll('.ts').forEach(function (b) { var on = (b.dataset.side === 'back') === back; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  }
+  cards.forEach(sizes);
+
+  if (sv === '1' || sv === '4') {
+    cards.forEach(function (c) {
+      var st = c.querySelector('.tee-stage');
+      st.addEventListener('click', function (ev) {
+        var b = ev.target.closest('.ts'); var back = b ? b.dataset.side === 'back' : !c.classList.contains('is-back');
+        c.classList.add('turning'); setTimeout(function () { c.classList.remove('turning'); }, 900); side(c, back);
+      });
+    });
+  }
+
+  if (sv === '2') {
+    cards.forEach(function (c) {
+      var st = c.querySelector('.tee-stage'), box = c.querySelector('.tee-3d'), ang = 0, start = null, a0 = 0, moved = false;
+      var hint = document.createElement('span'); hint.className = 'tee-hint'; hint.innerHTML = '<i></i>גררי לסיבוב'; st.appendChild(hint);
+      function set(a, settle) { ang = a; box.classList.toggle('settle', !!settle); box.style.transform = 'rotateY(' + a + 'deg)'; }
+      function snap() { var t = Math.round(ang / 180) * 180; set(t, true); var back = Math.abs(t / 180) % 2 === 1; side(c, back); c.classList.remove('is-back'); }
+      st.addEventListener('pointerdown', function (ev) { if (ev.target.closest('.ts')) return; start = ev.clientX; a0 = ang; moved = false; c.classList.add('touched'); st.setPointerCapture(ev.pointerId); });
+      st.addEventListener('pointermove', function (ev) { if (start === null) return; var dx = ev.clientX - start; if (Math.abs(dx) > 4) moved = true; set(a0 + dx * (document.dir === 'rtl' ? -.9 : .9)); });
+      function end() { if (start === null) return; start = null; if (!moved) set(ang + 180); snap(); }
+      st.addEventListener('pointerup', end); st.addEventListener('pointercancel', end);
+      c.querySelectorAll('.ts').forEach(function (b) { b.addEventListener('click', function () { var back = b.dataset.side === 'back'; var t = Math.round(ang / 360) * 360 + (back ? 180 : 0); set(t, true); side(c, back); c.classList.remove('is-back'); c.classList.add('touched'); }); });
+      /* a small turn when the card first comes into view, so it's clear the shirt moves */
+      if (!reduce && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); setTimeout(function () { if (c.classList.contains('touched')) return; set(-28, true); setTimeout(function () { set(0, true); }, 700); }, 300); } }, { threshold: .6 });
+        io.observe(st);
+      }
+    });
+  }
+
+  if (sv === '3') {
+    var show = document.querySelector('.shop-show'); show.hidden = false;
+    var first = cards[0];
+    show.innerHTML = '<div class="ss-stage">' + first.querySelector('.tee-3d').outerHTML + '<i class="tee-floor"></i>' + first.querySelector('.tee-sides').outerHTML + '</div>' +
+      '<div class="ss-info"><div class="ss-body"></div><div class="ss-thumbs" role="group" aria-label="עיצובים"></div></div>';
+    var stage = show.querySelector('.ss-stage'), body = show.querySelector('.ss-body'), thumbs = show.querySelector('.ss-thumbs'), cur = null;
+    cards.forEach(function (c, i) {
+      var t = document.createElement('button'); t.type = 'button'; t.setAttribute('aria-label', c.dataset.name);
+      t.innerHTML = '<img src="/media/shop2/' + c.dataset.k + '-front-480.webp" alt="">'; thumbs.appendChild(t);
+      t.addEventListener('click', function () { pick(i); });
+    });
+    function pick(i) {
+      var c = cards[i]; if (cur === c) return; cur = c;
+      thumbs.querySelectorAll('button').forEach(function (b, j) { b.classList.toggle('on', j === i); });
+      var imgs = stage.querySelectorAll('.face'), k = c.dataset.k;
+      imgs[0].src = '/media/shop2/' + k + '-front-900.webp'; imgs[0].srcset = ''; imgs[1].src = '/media/shop2/' + k + '-back-900.webp'; imgs[1].srcset = '';
+      side(stage, false); stage.classList.remove('ss-swap'); void stage.offsetWidth; stage.classList.add('ss-swap');
+      body.innerHTML = ''; var b = c.querySelector('.tee-body').cloneNode(true); body.appendChild(b); b.classList.add('ss-body-in');
+      var fake = { querySelector: b.querySelector.bind(b), querySelectorAll: b.querySelectorAll.bind(b), dataset: c.dataset }; sizes(fake); order(fake);
+    }
+    stage.addEventListener('click', function (ev) {
+      var b = ev.target.closest('.ts'); var back = b ? b.dataset.side === 'back' : !stage.classList.contains('is-back');
+      side(stage, back); stage.classList.remove('sweep'); void stage.offsetWidth; stage.classList.add('sweep');
+    });
+    pick(0);
+  }
+
+  if (sv === '4') {
+    var dots = document.createElement('div'); dots.className = 'sv-dots'; dots.innerHTML = cards.map(function () { return '<i></i>'; }).join(''); g.after(dots);
+    var timer, center = null;
+    function update() {
+      var mid = g.getBoundingClientRect().left + g.clientWidth / 2, best = null, bd = 1e9;
+      cards.forEach(function (c) { var r = c.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - mid); if (d < bd) { bd = d; best = c; } });
+      if (best === center) return; center = best;
+      cards.forEach(function (c, i) { c.classList.toggle('center', c === best); dots.children[i].classList.toggle('on', c === best); if (c !== best) side(c, false); });
+      clearTimeout(timer); if (!reduce) timer = setTimeout(function loop() { if (center !== best || best.matches(':hover')) return; side(best, !best.classList.contains('is-back')); timer = setTimeout(loop, 2600); }, 1400);
+    }
+    g.addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener('resize', update); update();
+  }
 })();

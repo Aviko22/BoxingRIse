@@ -15,7 +15,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "232"  # bump to bust caches of css/js
+VER = "234"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -570,17 +570,22 @@ def shop_page():
     from content import SHOP as S
     from urllib.parse import quote
     t = HE
+    def pic(k, f, cls):
+        return (f'<img class="{cls}" src="/media/shop2/{k}-{f}-900.webp" srcset="/media/shop2/{k}-{f}-480.webp 480w, /media/shop2/{k}-{f}-900.webp 900w" '
+                f'sizes="(max-width: 760px) 92vw, 33vw" width="900" height="1125" alt="" loading="lazy" decoding="async">')
     cards = ""
     for k, name, sub in S["items"]:
         sizes = "".join(f'<button type="button" class="sz{" on" if z == "M" else ""}" aria-pressed="{"true" if z == "M" else "false"}">{z}</button>' for z in S["sizes"])
         href = f"https://wa.me/{NUM}?text=" + quote(S["msg"].format(name=name, size="M"))
-        cards += (f'<article class="tee" data-name="{e(name)}">'
-                  f'<div class="tee-img"><img src="/media/shop/tee-{k}-900.webp" srcset="/media/shop/tee-{k}-480.webp 480w, /media/shop/tee-{k}-900.webp 900w" sizes="(max-width: 760px) 100vw, 33vw" width="900" height="1125" alt="חולצת BoxingRise – {e(name)}" loading="lazy" decoding="async"></div>'
+        cards += (f'<article class="tee" data-k="{k}" data-name="{e(name)}">'
+                  f'<div class="tee-stage" role="img" aria-label="חולצת BoxingRise – {e(name)}, קדימה ואחורה"><div class="tee-3d">{pic(k, "front", "face f-front")}{pic(k, "back", "face f-back")}</div><i class="tee-floor" aria-hidden="true"></i>'
+                  f'<div class="tee-sides" role="group"><button type="button" class="ts on" data-side="front">{e(S["front"])}</button><button type="button" class="ts" data-side="back">{e(S["back"])}</button></div></div>'
                   f'<div class="tee-body"><h2 class="tee-name" dir="auto">{e(name)}</h2><p class="tee-sub">{e(sub)}</p><p class="tee-price">{e(S["price"])}</p>'
                   f'<div class="tee-sizes" role="group" aria-label="{e(S["size_l"])}">{sizes}</div>'
                   f'<a class="btn btn-gold tee-order" href="{href}" target="_blank" rel="noopener">{ICON_WA}<span>{e(S["order"])}</span></a></div></article>')
     how = "".join(f'<li><b>{i + 1}</b><span>{e(x)}</span></li>' for i, x in enumerate(S["how"]))
     tmpl = e(S["msg"])
+    opts = "".join(f'<a href="?sv={i}" data-sv="{i}">{i}. {e(x)}</a>' for i, x in enumerate(["היפוך", "סיבוב בגרירה", "תצוגה גדולה", "קרוסלה"], 1))
     return head(t, f"{S['title']} | BoxingRise", S["lead"], "/shop", "/shop", True) + "</head>\n<body class=\"shop-page\">\n" + header(t, False) + f"""
 <main id="main" class="shop-main">
   <section class="sec shop-hero"><div class="wrap">
@@ -589,8 +594,9 @@ def shop_page():
     <p class="shop-lead">{e(S['lead'])}</p>
     <ol class="shop-how">{how}</ol>
   </div></section>
-  <section class="sec shop-grid-sec"><div class="wrap"><div class="shop-grid" data-num="{NUM}" data-msg="{tmpl}">{cards}</div></div></section>
+  <section class="sec shop-grid-sec"><div class="wrap"><div class="shop-show" hidden></div><div class="shop-grid" data-num="{NUM}" data-msg="{tmpl}">{cards}</div></div></section>
 </main>
+<nav class="sv-switch" aria-label="אפשרויות תצוגה (טיוטה)"><span>תצוגה:</span>{opts}</nav>
 """ + footer(t) + floating(t) + "</body>\n</html>\n"
 
 

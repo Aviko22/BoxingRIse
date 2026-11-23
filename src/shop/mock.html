@@ -1,0 +1,121 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:"Bebas";src:url(/fonts/bebas-neue.woff2)}
+@font-face{font-family:"AsD";src:url(/fonts/assistant-800.woff)}
+@font-face{font-family:"Oswald";src:url(/fonts/oswald.woff);font-weight:200 700}
+@font-face{font-family:"Kar";src:url(/fonts/karantina-bold.woff)}
+html,body{margin:0;background:transparent}
+svg{display:block}
+</style></head><body>
+<svg id="s" width="1000" height="1250" viewBox="0 0 1000 1250" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+/* Shirt mockup renderer for the BoxingRise shop draft.
+   #<design>-<front|back>[-bg]  renders one face. Fabric folds come from one height map that both lights the shirt
+   and bends the print, so the print sits in the fabric instead of floating on top. */
+const GOLD='url(#gold)';
+const BODY_F='M372 150 C410 196 590 196 628 150 L775 205 C820 222 846 248 864 290 L948 478 C952 488 948 497 938 501 L826 546 C816 550 806 546 802 536 L772 452 C770 640 776 860 784 1086 C786 1102 776 1112 760 1114 C600 1128 400 1128 240 1114 C224 1112 214 1102 216 1086 C224 860 230 640 228 452 L198 536 C194 546 184 550 174 546 L62 501 C52 497 48 488 52 478 L136 290 C154 248 180 222 225 205 Z';
+const BODY_B='M380 150 C430 166 570 166 620 150 L775 205 C820 222 846 248 864 290 L948 478 C952 488 948 497 938 501 L826 546 C816 550 806 546 802 536 L772 452 C770 640 776 860 784 1086 C786 1102 776 1112 760 1114 C600 1128 400 1128 240 1114 C224 1112 214 1102 216 1086 C224 860 230 640 228 452 L198 536 C194 546 184 550 174 546 L62 501 C52 497 48 488 52 478 L136 290 C154 248 180 222 225 205 Z';
+/* height map strokes: [path, width, opacity(+ ridge / - crease)] */
+const FOLDS0=[
+ ['M236 470 C300 560 330 640 338 760',46,.55],['M764 470 C700 560 672 650 664 770',46,.55],
+ ['M250 500 C310 590 350 680 360 800',14,-.6],['M750 500 C690 590 650 690 640 810',14,-.6],
+ ['M300 1000 C380 1050 470 1062 520 1050',40,.45],['M560 1010 C620 1040 690 1050 740 1030',36,.4],
+ ['M330 1040 C420 1080 520 1086 600 1072',10,-.5],
+ ['M140 300 C170 360 190 420 200 500',30,.5],['M860 300 C830 360 810 420 800 500',30,.5],
+ ['M110 420 C140 450 160 470 185 520',10,-.55],['M890 420 C860 450 840 470 815 520',10,-.55],
+ ['M420 300 C460 420 470 560 450 700',60,.25],['M600 320 C560 440 560 580 590 720',60,.22],
+ ['M270 860 C340 900 420 910 470 900',20,-.35],['M720 880 C660 910 600 916 560 905',20,-.3],
+];
+const FOLDS=FOLDS0.map(([p,w,o])=>[p,w*1.4,o*.95]);
+const D={
+ rise:{tee:'#1c1b19',name:'RISE',
+  front:`<g transform="translate(600 330)"><image href="/brand/logo-mark.png" width="96" height="71" style="filter:url(#tint)"/><text x="48" y="96" font-family="Oswald" font-weight="500" font-size="12" letter-spacing="4" fill="#d6b25c" text-anchor="middle">BOXINGRISE</text></g>`,
+  back:`<g transform="translate(500 330)">
+   <text y="0" font-family="Oswald" font-weight="500" font-size="22" letter-spacing="12" fill="#d6b25c" text-anchor="middle">BOXINGRISE · TEL AVIV</text>
+   ${[...Array(15)].map((_,i)=>{const a=Math.PI*(i/14),r1=150,r2=i%2?205:230;return `<line x1="${-Math.cos(a)*r1}" y1="${270-Math.sin(a)*r1}" x2="${-Math.cos(a)*r2}" y2="${270-Math.sin(a)*r2}" stroke="${GOLD}" stroke-width="${i%2?5:9}" stroke-linecap="round"/>`}).join('')}
+   <path d="M-130 270 A130 130 0 0 1 130 270 Z" fill="${GOLD}"/>
+   ${[0,1,2,3].map(i=>`<rect x="-150" y="${206+i*16}" width="300" height="${6-i}" fill="#141312"/>`).join('')}
+   <text y="470" font-family="Bebas" font-size="250" fill="#f1e8d4" text-anchor="middle" letter-spacing="6">RISE</text>
+   <text y="520" font-family="Oswald" font-weight="400" font-size="20" letter-spacing="10" fill="#d6b25c" text-anchor="middle">ONE ON ONE · IN THE PARK</text></g>`},
+ he:{tee:'#1c1b19',name:'קמה. מתאגרפת. עולה.',
+  front:`<g transform="translate(640 340)" direction="rtl"><text font-family="AsD" font-size="34" fill="#f1e8d4" text-anchor="middle">קמה. מתאגרפת.</text><text y="40" font-family="AsD" font-size="34" fill="${GOLD}" text-anchor="middle">עולה.</text></g>`,
+  back:`<g transform="translate(500 330)" direction="rtl">
+   <g transform="rotate(-4)"><rect x="-270" y="0" width="540" height="150" fill="#efe7d6"/><text y="118" font-family="AsD" font-size="128" fill="#141312" text-anchor="middle">קמה.</text></g>
+   <g transform="translate(0 175) rotate(2.5)"><rect x="-300" y="0" width="600" height="150" fill="#efe7d6"/><text y="118" font-family="AsD" font-size="120" fill="#141312" text-anchor="middle">מתאגרפת.</text></g>
+   <g transform="translate(0 350) rotate(-2)"><rect x="-250" y="0" width="500" height="150" fill="${GOLD}"/><text y="118" font-family="AsD" font-size="128" fill="#141312" text-anchor="middle">עולה.</text></g>
+   <text y="580" font-family="Oswald" font-size="20" letter-spacing="12" fill="#d6b25c" text-anchor="middle" direction="ltr">BOXINGRISE</text></g>`},
+ hands:{tee:'#e8e0cd',name:'Hands up, chin down',
+  front:`<g transform="translate(610 335)"><text font-family="Bebas" font-size="40" fill="#141312" text-anchor="middle">HANDS UP</text><text y="36" font-family="Bebas" font-size="40" fill="#a2741c" text-anchor="middle">CHIN DOWN</text></g>`,
+  back:`<g transform="translate(500 320)">
+   ${[0,1,2].map(i=>`<rect x="-300" y="${i*175+40}" width="600" height="10" fill="#141312" opacity=".9"/>`).join('')}
+   <rect x="-310" y="20" width="16" height="400" fill="#141312"/><rect x="294" y="20" width="16" height="400" fill="#141312"/>
+   <text y="190" font-family="Bebas" font-size="190" fill="#141312" text-anchor="middle" letter-spacing="2">HANDS UP</text>
+   <text y="365" font-family="Bebas" font-size="190" fill="#a2741c" text-anchor="middle" letter-spacing="2">CHIN DOWN</text>
+   <text y="490" font-family="Oswald" font-weight="500" font-size="20" letter-spacing="12" fill="#141312" text-anchor="middle">BOXINGRISE · RULE NO. 1</text></g>`},
+ yarkon:{tee:'#1c1b19',name:'Yarkon Park Boxing',
+  front:`<g transform="translate(610 345)"><text font-family="Oswald" font-weight="600" font-size="22" letter-spacing="3" fill="#f1e8d4" text-anchor="middle">YARKON</text><text y="26" font-family="Oswald" font-weight="400" font-size="14" letter-spacing="5" fill="#d6b25c" text-anchor="middle">PARK BOXING</text></g>`,
+  back:`<g transform="translate(500 300)">
+   <defs><path id="arc" d="M-260 260 A260 260 0 0 1 260 260"/></defs>
+   <text font-family="Bebas" font-size="96" fill="#f1e8d4" letter-spacing="8"><textPath href="#arc" startOffset="50%" text-anchor="middle">YARKON PARK</textPath></text>
+   <circle cx="0" cy="300" r="120" fill="${GOLD}"/>
+   ${[0,1,2,3,4].map(i=>`<rect x="-130" y="${312+i*20}" width="260" height="${4+i*1.6}" fill="#141312"/>`).join('')}
+   <path d="M-40 300 C-30 250 -10 225 0 215 C10 225 30 250 40 300 Z" fill="#141312"/><rect x="-4" y="290" width="8" height="120" fill="#141312"/>
+   <path d="M0 230 C-50 200 -100 205 -130 225 M0 230 C50 200 100 205 130 225 M0 245 C-40 235 -80 250 -100 275 M0 245 C40 235 80 250 100 275" stroke="#141312" stroke-width="12" fill="none" stroke-linecap="round"/>
+   <text y="500" font-family="Bebas" font-size="110" fill="#f1e8d4" text-anchor="middle" letter-spacing="18">BOXING</text>
+   <text y="548" font-family="Oswald" font-size="20" letter-spacing="12" fill="#d6b25c" text-anchor="middle">TEL AVIV · BOXINGRISE</text></g>`},
+ eight:{tee:'#1c1b19',name:'BoxingRise 8',
+  front:`<g transform="translate(610 360)"><circle r="34" fill="none" stroke="${GOLD}" stroke-width="4"/><text y="16" font-family="Bebas" font-size="48" fill="${GOLD}" text-anchor="middle">8</text></g>`,
+  back:`<g transform="translate(500 560)">
+   <circle r="230" fill="none" stroke="${GOLD}" stroke-width="10"/><circle r="200" fill="none" stroke="#d6b25c" stroke-width="2" stroke-dasharray="4 10"/>
+   <text y="150" font-family="Bebas" font-size="430" fill="${GOLD}" text-anchor="middle">8</text>
+   <text y="-250" font-family="Bebas" font-size="62" fill="#f1e8d4" text-anchor="middle" letter-spacing="10">BOXINGRISE</text>
+   <text y="300" font-family="Oswald" font-weight="500" font-size="24" letter-spacing="12" fill="#f1e8d4" text-anchor="middle">8 WEEKS · 16 SESSIONS</text></g>`},
+ tape:{tee:'#e8e0cd',name:'אגרוף בפארק',
+  front:`<g transform="translate(610 340) rotate(-4)"><rect x="-70" y="-26" width="140" height="38" fill="#141312"/><text y="4" font-family="AsD" font-size="24" fill="#efe7d6" text-anchor="middle" direction="rtl">אגרוף בפארק</text></g>`,
+  back:`<g transform="translate(500 330)" direction="rtl">
+   <g transform="rotate(-5)"><path d="M-330 0 L330 8 L326 170 L-326 160 Z" fill="#141312"/><text y="125" font-family="AsD" font-size="100" fill="#efe7d6" text-anchor="middle">אגרוף בפארק</text></g>
+   <g transform="translate(20 210) rotate(3)"><path d="M-240 0 L240 -6 L244 96 L-236 104 Z" fill="${GOLD}"/><text y="76" font-family="AsD" font-size="66" fill="#141312" text-anchor="middle">רק את והכפפות</text></g>
+   <g transform="translate(0 420)"><rect x="-120" y="-6" width="240" height="3" fill="#141312"/><text y="40" font-family="Oswald" font-weight="500" font-size="22" letter-spacing="12" fill="#141312" text-anchor="middle" direction="ltr">BOXINGRISE</text></g></g>`},
+};
+const [key,face,bg]=location.hash.slice(1).split('-');const d=D[key];const body=face==='back'?BODY_B:BODY_F;
+const light=d.tee>'#8';
+const folds=FOLDS.map(([p,w,o])=>`<path d="${p}" stroke="#fff" stroke-opacity="${o>0?o:0}" stroke-width="${w}" fill="none" stroke-linecap="round"/>${o<0?`<path d="${p}" stroke="#000" stroke-opacity="${-o}" stroke-width="${w}" fill="none" stroke-linecap="round"/>`:''}`).join('');
+document.getElementById('s').innerHTML=`<defs>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc95"/><stop offset=".5" stop-color="#cfa449"/><stop offset="1" stop-color="#9a7428"/></linearGradient>
+<filter id="tint"><feColorMatrix values="0 0 0 0 .84  0 0 0 0 .70  0 0 0 0 .36  0 0 0 1 0"/></filter>
+<clipPath id="clip"><path d="${body}"/></clipPath>
+<filter id="hm" x="0" y="0" width="1000" height="1250" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="16"/></filter>
+<filter id="lit" x="0" y="0" width="1000" height="1250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency=".006 .01" numOctaves="2" seed="4" result="t"/>
+ <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .5 0 0 0 .25" result="ta"/>
+ <feGaussianBlur in="SourceGraphic" stdDeviation="26" result="sb"/><feComposite in="sb" in2="ta" operator="arithmetic" k2="1" k3=".6" result="h"/>
+ <feDiffuseLighting in="h" surfaceScale="7" diffuseConstant=".62" lighting-color="#fff" result="l"><feDistantLight azimuth="235" elevation="52"/></feDiffuseLighting>
+ <feComposite in="l" in2="SourceGraphic" operator="in"/>
+</filter>
+<filter id="bend" x="0" y="0" width="1000" height="1250" filterUnits="userSpaceOnUse">
+ <feTurbulence type="fractalNoise" baseFrequency=".006 .01" numOctaves="2" seed="4" result="t"/>
+ <feDisplacementMap in="SourceGraphic" in2="t" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+ <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="9" result="n"/>
+ <feColorMatrix in="n" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -.45 1.12" result="na"/>
+ <feComposite in="d" in2="na" operator="in"/>
+</filter>
+<filter id="weave" x="0" y="0" width="1000" height="1250" filterUnits="userSpaceOnUse"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="2"/><feColorMatrix values="0 0 0 0 ${light?1:0}  0 0 0 0 ${light?1:0}  0 0 0 0 ${light?1:0}  0 0 0 .5 -.2"/></filter>
+<filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="26"/></filter>
+</defs>
+${bg?'<rect width="1000" height="1250" fill="#1a1712"/>':''}
+<ellipse cx="500" cy="1140" rx="330" ry="34" fill="#000" opacity=".45" filter="url(#sh)"/>
+<g clip-path="url(#clip)">
+ <rect width="1000" height="1250" fill="${d.tee}"/>
+ ${face==='front'?`<path d="M372 150 C410 196 590 196 628 150 L560 150 C540 168 460 168 440 150 Z" fill="#000" opacity=".55"/>`:''}
+ <g filter="url(#bend)" style="opacity:${light?.96:.94}"><g transform="${face==='back'?'translate(500 300) scale(.82) translate(-500 -300)':''}">${face==='back'?d.back:d.front}</g></g>
+ <rect width="1000" height="1250" filter="url(#weave)" opacity=".5"/>
+ <g filter="url(#lit)" style="mix-blend-mode:hard-light;opacity:1"><rect width="1000" height="1250" fill="#fff" fill-opacity=".5"/>${folds}</g>
+ 
+ <path d="${body}" fill="none" stroke="#000" stroke-opacity="${light?.25:.6}" stroke-width="40" filter="url(#hm)"/>
+ ${face==='front'?`<path d="M372 150 C410 196 590 196 628 150" stroke="${light?'#d9d0bb':'#0e0d0c'}" stroke-width="24" fill="none"/><path d="M360 146 C410 212 590 212 640 146" stroke="#000" stroke-opacity=".3" stroke-width="2" fill="none"/>`
+  :`<path d="M380 150 C430 166 570 166 620 150" stroke="${light?'#d9d0bb':'#0e0d0c'}" stroke-width="18" fill="none"/>`}
+ <path d="M232 1080 C400 1096 600 1096 768 1080" stroke="#000" stroke-opacity=".22" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
+ <path d="M186 520 L66 474" stroke="#000" stroke-opacity=".22" stroke-width="2" fill="none" stroke-dasharray="6 5"/><path d="M814 520 L934 474" stroke="#000" stroke-opacity=".22" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
+ <path d="M226 210 C240 300 236 380 230 452" stroke="#000" stroke-opacity=".3" stroke-width="2" fill="none"/><path d="M774 210 C760 300 764 380 770 452" stroke="#000" stroke-opacity=".3" stroke-width="2" fill="none"/>
+</g>`;
+document.title='ready';
+</script></body></html>
