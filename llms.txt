@@ -11,6 +11,7 @@ The site is in Hebrew (main) and English.
 ## Pages
 - [Home, Hebrew](https://boxingrise.com/): the full offer, the coach, testimonials and FAQ
 - [Home, English](https://boxingrise.com/en/): the same in English
+- [Home, Russian](https://boxingrise.com/ru/): the same in Russian
 - [Health declaration](https://boxingrise.com/health)
 - [Cancellation policy](https://boxingrise.com/cancellation)
 - [Privacy policy](https://boxingrise.com/privacy)

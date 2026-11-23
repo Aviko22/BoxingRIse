@@ -71,7 +71,6 @@ def placeholder(t, desc):
 def head(t, title, desc, path, alt_path, noindex):
     lang = t["lang"]
     other = "en" if lang == "he" else "he"
-    if lang == "ru": noindex = True  # draft: keep the Russian page out of search until it is reviewed
     robots = ('<meta name="robots" content="noindex, nofollow">' if noindex is True else
               '<meta name="robots" content="noindex, follow">' if noindex == "legal" else '<meta name="robots" content="index, follow">')
     intro = (";try{var q=new URLSearchParams(location.search).get('intro'),d=document.documentElement;d.setAttribute('data-intro',q||'3');if(q||(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('br-intro')))d.classList.add('intro-on')}catch(e){}"
@@ -87,9 +86,7 @@ def head(t, title, desc, path, alt_path, noindex):
   <meta name="description" content="{e(desc)}">
   {robots}
   <link rel="canonical" href="{SITE}{path}">
-  <link rel="alternate" hreflang="{lang}" href="{SITE}{path}">
-  <link rel="alternate" hreflang="{other}" href="{SITE}{alt_path}">
-  <link rel="alternate" hreflang="x-default" href="{SITE}{path if lang == 'he' else alt_path}">
+  {alternates(path, alt_path, lang, other)}
   <meta name="theme-color" content="#000000">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="BoxingRise">
@@ -195,6 +192,7 @@ The site is in Hebrew (main) and English.
 ## Pages
 - [Home, Hebrew]({SITE}/): the full offer, the coach, testimonials and FAQ
 - [Home, English]({SITE}/en/): the same in English
+- [Home, Russian]({SITE}/ru/): the same in Russian
 - [Health declaration]({SITE}/health)
 - [Cancellation policy]({SITE}/cancellation)
 - [Privacy policy]({SITE}/privacy)
@@ -237,6 +235,15 @@ def schema(t, path):
 
 
 LANGS = [("he", "עב", "/", "עברית"), ("en", "EN", "/en/", "English"), ("ru", "RU", "/ru/", "Русский")]
+
+
+def alternates(path, alt_path, lang, other):
+    """hreflang links. Home pages list all three languages; legal pages exist in he/en only."""
+    if path in ("/", "/en/", "/ru/"):
+        pairs = [("he", "/"), ("en", "/en/"), ("ru", "/ru/"), ("x-default", "/")]
+    else:
+        pairs = [(lang, path), (other, alt_path), ("x-default", path if lang == "he" else alt_path)]
+    return "\n  ".join(f'<link rel="alternate" hreflang="{c}" href="{SITE}{u}">' for c, u in pairs)
 
 
 def lang_menu(t):
@@ -637,7 +644,7 @@ def main():
     write("404.html", not_found())
     write("config.js", "/* Single source: src/config.json. Edit there and run python3 src/build.py */\n"
           f"window.BR_CONFIG = {json.dumps({'whatsapp': NUM, 'message': CFG['whatsapp_message'], 'question': CFG['whatsapp_question'], 'analytics': {k: v for k, v in CFG.get('analytics', {}).items() if not k.startswith('_')}}, ensure_ascii=False)};\n")
-    urls = ["/", "/en/"]  # only the pages that bring clients; legal pages are noindex
+    urls = ["/", "/en/", "/ru/"]  # only the pages that bring clients; legal pages are noindex
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
          "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{LASTMOD}</lastmod></url>\n" for u in urls) + "</urlset>\n"
     write("sitemap.xml", sm)
