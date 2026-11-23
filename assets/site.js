@@ -656,24 +656,10 @@
   });
 })();
 
-/* about closing line: split into words, mark the last word, animate once in view (+ preview ?ac=1..5) */
+/* about closing line: light it up once it is in view */
 (function () {
-  var el = document.querySelector('.as-close'); if (!el || el.dataset.split) return;
-  var txt = el.textContent.trim(), words = txt.split(/\s+/); el.dataset.split = '1'; el.setAttribute('aria-label', txt);
-  var last = words.length - 1, trail = (words[last].match(/[.!?]+$/) || [''])[0]; words[last] = words[last].slice(0, words[last].length - trail.length);
-  el.innerHTML = words.map(function (w, i) {
-    var inner = i === last ? '<span class="ac-key">' + w + '<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 C 25 2, 55 12, 98 5"/></svg></span>' + trail : w;
-    return '<span class="aw" aria-hidden="true" style="--i:' + i + '">' + inner + (i < last ? ' ' : '') + '</span>';
-  }).join('');
-  el.style.setProperty('--n', last);
-  var root = document.documentElement; if (!root.dataset.ac) root.dataset.ac = '2';
-  function go() { el.classList.remove('ac-go'); void el.offsetWidth; el.classList.add('ac-go'); }
-  if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { go(); io.disconnect(); } }, { threshold: .8 }); io.observe(el); } else go();
-  var q = null; try { q = new URLSearchParams(location.search).get('ac'); } catch (e) {}
-  if (q === null) return;
-  var sw = document.createElement('nav'); sw.className = 'ac-sw'; sw.setAttribute('aria-label', 'preview');
-  function pick(n) { root.dataset.ac = n; [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.value === n); }); try { history.replaceState(null, '', location.pathname + '?ac=' + n + (/desk=1/.test(location.search) ? '&desk=1' : '')); } catch (e) {} setTimeout(go, 50); }
-  ['1', '2', '3', '4', '5'].forEach(function (n) { var b = document.createElement('button'); b.type = 'button'; b.value = n; b.textContent = n; b.addEventListener('click', function () { pick(n); }); sw.appendChild(b); });
-  document.body.appendChild(sw); pick(/^[1-5]$/.test(q) ? q : '1');
-  window.addEventListener('load', function () { setTimeout(function () { window.scrollTo(0, el.getBoundingClientRect().top + scrollY - innerHeight * .45); setTimeout(go, 300); }, 500); });
+  var el = document.querySelector('.as-close'); if (!el) return;
+  if (!('IntersectionObserver' in window)) { el.classList.add('ac-go'); return; }
+  var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { el.classList.add('ac-go'); io.disconnect(); } }, { threshold: .8 });
+  io.observe(el);
 })();
