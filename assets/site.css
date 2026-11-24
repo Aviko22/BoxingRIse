@@ -1897,3 +1897,18 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
 .ps-ttl.h2:not(.ttl-go)::after { opacity: 0; transform: scaleX(0); }
 @keyframes bar-shine { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { main .h2::after, main .h2.rs-in::after { opacity: 1; transform: none; transition: none; animation: none; background-position: 50% 0; } }
+
+/* ===== hero: lighter, video fills the hero, dark shade only behind the text ===== */
+.hero-video { filter: sepia(.12) saturate(1.08) brightness(1.14) contrast(1.02) !important; }
+.hero .h1, .hero-sub { text-shadow: 0 2px 18px rgba(0,0,0,.55); }
+@media (max-width: 999px) {
+  .hero-media { inset: 0 !important; height: auto !important; }
+  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.35) 0%, rgba(11,10,8,0) 14%, rgba(11,10,8,0) 36%, rgba(11,10,8,.62) 54%, rgba(11,10,8,.86) 72%, var(--black) 100%) !important; }
+}
+@media (min-width: 1000px) {
+  .hero-media { width: 100% !important; -webkit-mask-image: none !important; mask-image: none !important; }
+  .hero-video { object-position: 18% 50% !important; }
+  html[dir="ltr"] .hero-video { object-position: 82% 50% !important; }
+  .hero-media .hero-shade { background: linear-gradient(to left, rgba(11,10,8,.92) 0%, rgba(11,10,8,.8) 30%, rgba(11,10,8,.45) 46%, rgba(11,10,8,0) 62%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
+  html[dir="ltr"] .hero-media .hero-shade { background: linear-gradient(to right, rgba(11,10,8,.92) 0%, rgba(11,10,8,.8) 30%, rgba(11,10,8,.45) 46%, rgba(11,10,8,0) 62%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
+}
