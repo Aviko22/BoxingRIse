@@ -490,7 +490,7 @@ def _faq(L, fixes):
     L["faq"] = [(fixes.get(q, (q, a))[0], fixes.get(q, (q, a))[1]) for q, a in L["faq"]]
 
 HE["what_kick"] = []
-HE["gal_lead"] = "תמונות מאימונים אמיתיים, עם מתאמנות אמיתיות."
+HE["gal_lead"] = "קצת תמונות מהאימונים."
 HE["voice"] = [("אני לא בכושר מספיק.", "בשביל זה מתאמנים. הכושר מגיע מעצמו."),
                ("יהיה לי מביך להתחיל מאפס.", "רק את ואני, בלי קהל. אף אחד לא מסתכל."),
                ("אין לי זמן לעצמי.", "שעה אחת בשבוע, בפארק קרוב אלייך.")]
@@ -504,7 +504,7 @@ _faq(HE, {
 })
 
 EN["what_kick"] = []
-EN["gal_lead"] = "Photos from real sessions, with real clients."
+EN["gal_lead"] = "A few photos from our sessions."
 EN["voice"] = [("I'm not fit enough.", "That's what training is for. The fitness comes by itself."),
                ("I'd feel awkward starting from zero.", "Just you and me, no audience. Nobody is watching."),
                ("I have no time for myself.", "One hour a week, in a park near you.")]
