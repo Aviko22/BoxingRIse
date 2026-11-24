@@ -1897,3 +1897,31 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
 .ps-ttl.h2:not(.ttl-go)::after { opacity: 0; transform: scaleX(0); }
 @keyframes bar-shine { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { main .h2::after, main .h2.rs-in::after { opacity: 1; transform: none; transition: none; animation: none; background-position: 50% 0; } }
+
+/* ===== hero lighter: preview options (?hl=1..3) ===== */
+html.hl1 .hero-video, html.hl2 .hero-video, html.hl3 .hero-video { filter: sepia(.12) saturate(1.08) brightness(1.14) contrast(1.02) !important; }
+/* 1: charcoal instead of black */
+html.hl1 .hero { background: linear-gradient(180deg, #3a352e 0%, #3a352e 82%, var(--black) 100%) !important; }
+html.hl1 .hero-media .hero-shade { background: linear-gradient(180deg, rgba(46,42,36,.3) 0%, rgba(46,42,36,0) 18%, rgba(58,53,46,0) 70%, #3a352e 100%) !important; }
+@media (min-width: 1000px) { html.hl1 .hero-media .hero-shade { background: linear-gradient(180deg, rgba(46,42,36,.3) 0%, transparent 20%, transparent 85%, rgba(46,42,36,.6) 100%) !important; } }
+/* 2: warm brown-gold glow behind the text */
+html.hl2 .hero { background: radial-gradient(80% 55% at 50% 80%, #6b5434 0%, #3e3121 50%, #1d1811 85%, var(--black) 100%) !important; }
+html.hl2 .hero-media .hero-shade { background: linear-gradient(180deg, rgba(62,49,33,.3) 0%, rgba(62,49,33,0) 18%, rgba(62,49,33,0) 66%, #4a3a27 100%) !important; }
+@media (min-width: 1000px) {
+  html.hl2 .hero { background: radial-gradient(55% 80% at 82% 45%, #6b5434 0%, #3e3121 50%, #1d1811 100%) !important; }
+  html.hl2 .hero-media .hero-shade { background: linear-gradient(180deg, rgba(29,24,17,.35) 0%, transparent 20%, transparent 85%, rgba(29,24,17,.6) 100%) !important; }
+}
+/* 3: the video fills the whole hero, a soft shade only behind the text */
+@media (max-width: 999px) {
+  html.hl3 .hero-media { inset: 0 !important; height: auto !important; }
+  html.hl3 .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.3) 0%, rgba(11,10,8,0) 14%, rgba(11,10,8,0) 42%, rgba(11,10,8,.55) 62%, rgba(11,10,8,.8) 85%, var(--black) 100%) !important; }
+}
+@media (min-width: 1000px) {
+  html.hl3 .hero-media { width: 100% !important; -webkit-mask-image: none !important; mask-image: none !important; }
+  html.hl3 .hero-video { object-position: 18% 50% !important; }
+  html.hl3 .hero-media .hero-shade { background: linear-gradient(to left, rgba(15,13,10,.82) 0%, rgba(15,13,10,.55) 32%, rgba(15,13,10,0) 55%), linear-gradient(180deg, rgba(15,13,10,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
+  html[dir="ltr"].hl3 .hero-media .hero-shade { background: linear-gradient(to right, rgba(15,13,10,.82) 0%, rgba(15,13,10,.55) 32%, rgba(15,13,10,0) 55%), linear-gradient(180deg, rgba(15,13,10,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
+}
+.hl-switch { position: fixed; z-index: 9999; top: 76px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; padding: 5px; background: rgba(0,0,0,.82); border: 1px solid rgba(201,162,75,.5); border-radius: 999px; font: 600 13px/1 Heebo, sans-serif; }
+.hl-switch a { color: #e8dcc0; text-decoration: none; padding: 8px 10px; border-radius: 999px; white-space: nowrap; }
+.hl-switch a.on { background: #c9a24b; color: #000; }

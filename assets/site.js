@@ -664,3 +664,13 @@
   var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { el.classList.add('ac-go'); io.disconnect(); } }, { threshold: .8 });
   io.observe(el);
 })();
+
+/* hero lighter preview switcher (?hl=0..3) */
+(function () {
+  var m = location.search.match(/[?&]hl=(\d)/); if (!m) return;
+  var cur = m[1]; if (cur !== '0') document.documentElement.classList.add('hl' + cur);
+  var names = ['היום', '1. אפור פחם', '2. זוהר חום', '3. וידאו רחב'];
+  var nav = document.createElement('nav'); nav.className = 'hl-switch'; nav.setAttribute('aria-label', 'אפשרויות תצוגה');
+  names.forEach(function (n, i) { var a = document.createElement('a'); a.href = location.pathname + '?hl=' + i + (location.search.indexOf('desk=1') > -1 ? '&desk=1' : ''); a.textContent = n; if (String(i) === cur) a.className = 'on'; nav.appendChild(a); });
+  document.body.appendChild(nav);
+})();
