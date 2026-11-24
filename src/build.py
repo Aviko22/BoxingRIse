@@ -15,7 +15,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "235"  # bump to bust caches of css/js
+VER = "236"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -101,7 +101,7 @@ def head(t, title, desc, path, alt_path, noindex):
   <link rel="icon" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preload" href="/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
-  {('<link rel="preload" as="image" href="/media/hero-mont-m.jpg?v=' + VER + '" media="(max-width: 999px)" fetchpriority="high"><link rel="preload" as="image" href="/media/hero-mont-w.jpg?v=' + VER + '" media="(min-width: 1000px)" fetchpriority="high">') if path in ('/', '/en') else ''}
+  {('<link rel="preload" as="image" href="/media/hero-mont2-m.jpg?v=' + VER + '" media="(max-width: 999px)" fetchpriority="high"><link rel="preload" as="image" href="/media/hero-mont2-w.jpg?v=' + VER + '" media="(min-width: 1000px)" fetchpriority="high">') if path in ('/', '/en') else ''}
   {'<link rel="preload" href="/fonts/assistant-800.woff" as="font" type="font/woff" crossorigin>' if t["lang"] == "he" else '<link rel="preload" href="/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>'}
   <link rel="stylesheet" href="/assets/site.css?v={VER}">
   {('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap"><link rel="stylesheet" href="/assets/ru.css?v=' + VER + '">') if lang == "ru" else ''}
@@ -451,8 +451,8 @@ def home(t):
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-beams" aria-hidden="true"><i class="hb-src"></i><i class="hb b1"></i><i class="hb b2"></i><i class="hb b3"></i><i class="hb b4"></i><i class="hb b5"></i></div>
     <div class="hero-media" aria-hidden="true">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto" data-poster="/media/hero-mont-m.jpg?v={VER}" data-poster-wide="/media/hero-mont-w.jpg?v={VER}"></video>
-      <script data-cfasync="false">(function(v){{if(!v)return;var w=matchMedia('(min-width: 1000px)').matches;v.poster=w?v.dataset.posterWide:v.dataset.poster;if(document.documentElement.classList.contains('intro-on'))v.removeAttribute('autoplay');v.src='/media/hero-mont-'+(w?'w':'m')+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.querySelector('.hero-video'));</script>
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" data-poster="/media/hero-mont2-m.jpg?v={VER}" data-poster-wide="/media/hero-mont2-w.jpg?v={VER}"></video>
+      <script data-cfasync="false">(function(v){{if(!v)return;var w=matchMedia('(min-width: 1000px)').matches;v.poster=w?v.dataset.posterWide:v.dataset.poster;if(document.documentElement.classList.contains('intro-on'))v.removeAttribute('autoplay');v.src='/media/hero-mont2-'+(w?'w':'m')+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.querySelector('.hero-video'));</script>
       <div class="hero-shade"></div>
       <div class="hero-fx"></div>
     </div>
