@@ -56,7 +56,7 @@
   /* safety net: if the inline loader did not run (blocked or rewritten by an optimiser), set the source here */
   if (hv && !hv.getAttribute('src') && !hv.querySelector('source')) {
     var wideV = window.matchMedia('(min-width: 1000px)').matches;
-    hv.src = '/media/hero-mont2-' + (wideV ? 'w' : 'm') + '.mp4';
+    hv.src = wideV ? '/media/hero-mont3-w.mp4' : '/media/hero-mont2-m.mp4';
     if (!document.documentElement.classList.contains('intro-on')) { var hp = hv.play(); if (hp && hp.catch) hp.catch(function () {}); }
   }
   if (hv && hv.dataset.posterWide && window.matchMedia('(min-width: 1000px)').matches) hv.poster = hv.dataset.posterWide;
@@ -665,20 +665,3 @@
   io.observe(el);
 })();
 
-/* phone hero: a soft, blurred copy of the video fills the space under the sharp one and fades into the next section */
-(function () {
-  var v = document.querySelector('.hero-video'), m = document.querySelector('.hero-media');
-  if (!v || !m || !window.matchMedia('(max-width: 999px)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var src = v.currentSrc || v.getAttribute('src') || (v.querySelector('source') && v.querySelector('source').src);
-  var a = document.createElement('video');
-  a.className = 'hero-video-amb'; a.muted = true; a.loop = true; a.playsInline = true; a.autoplay = true;
-  a.setAttribute('muted', ''); a.setAttribute('playsinline', ''); a.setAttribute('aria-hidden', 'true'); a.preload = 'auto';
-  if (v.poster) a.poster = v.poster;
-  m.insertBefore(a, m.firstChild);
-  function start() { if (!a.src) a.src = v.currentSrc || src; var p = a.play(); if (p && p.catch) p.catch(function () {}); }
-  function sync() { if (Math.abs(a.currentTime - v.currentTime) > .25) { try { a.currentTime = v.currentTime; } catch (e) {} } }
-  v.addEventListener('playing', function () { start(); sync(); });
-  if (!v.paused) start();
-  setInterval(sync, 2000);
-})();
