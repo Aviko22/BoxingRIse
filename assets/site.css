@@ -1904,13 +1904,20 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
 .hero .h1-line + .h1-line, .hero .h1-line + .h1-line * { text-shadow: none !important; }
 .hero .h1-line + .h1-line { filter: drop-shadow(0 2px 6px rgba(0,0,0,.75)) drop-shadow(0 0 18px rgba(0,0,0,.45)); }
 @media (max-width: 999px) {
-  .hero-media { inset: 0 0 auto 0 !important; height: min(150vw, 88svh) !important; }
+  .hero-media { inset: 0 0 auto 0 !important; height: calc(100% + 26vh) !important; -webkit-mask-image: linear-gradient(180deg, #000 66%, transparent 100%) !important; mask-image: linear-gradient(180deg, #000 66%, transparent 100%) !important; }
+  .hero-media .hero-video { position: absolute; inset: 0 0 auto 0; height: 125vw !important; transform: none !important; z-index: 1; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 72%, transparent 100%); }
+  .hero-video-amb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(22px) saturate(1.1) brightness(.55); transform: scale(1.15); pointer-events: none; }
+  .hero-media .hero-shade { z-index: 2; }
+  .hero { overflow: visible !important; }
+  .hero-beams { overflow: hidden; }
+  .hero-fx { inset: 0 !important; }
+  .hero + .sec { z-index: 1; }
   .hero { min-height: 0 !important; padding-bottom: 44px !important; }
   .hero { background: transparent !important; }
   .hero + .sec { background-image: none !important; }
   .hero-beams { -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 96%); mask-image: linear-gradient(180deg, #000 62%, transparent 96%); }
   .hero-fx { -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 80%); mask-image: linear-gradient(180deg, #000 55%, transparent 80%); }
-  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.35) 0%, rgba(11,10,8,0) 14%, rgba(11,10,8,0) 40%, rgba(11,10,8,.6) 62%, rgba(11,10,8,.88) 84%, var(--black) 100%) !important; }
+  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.35) 0%, rgba(11,10,8,0) 10%, rgba(11,10,8,0) 32%, rgba(11,10,8,.5) 44%, rgba(11,10,8,.6) 62%, rgba(11,10,8,.3) 85%, rgba(11,10,8,0) 100%) !important; }
 }
 @media (min-width: 1000px) {
   .hero { background: #14110d !important; }
