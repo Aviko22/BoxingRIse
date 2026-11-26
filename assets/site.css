@@ -1965,3 +1965,22 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
 /* ===== hero--full (default): the full-bleed hero with the 9 s park cut (10:9 desktop, 9:16 phone),
    cropped so faces, gloves and pads stay clear of the headline. Natural colour: no filter. ===== */
 .hero.hero--full .hero-video { filter: none !important; }
+
+/* ===== phone readability: secondary text was 13-15px; raise it on phones only (desktop unchanged) ===== */
+@media (max-width: 999px) {
+  .tag { font-size: 14px; }
+  .facts dt { font-size: 16px; }
+  .df-note { font-size: 16px; }
+  .rv figcaption span { font-size: 15px !important; }
+  .about-text p.tag, .about-text p.tag:first-of-type { font-size: 14px; }
+  .rv-more summary { font-size: 15px; }
+  .rv-more p { font-size: 17px; line-height: 1.65; }
+  .ps-meta span { font-size: 16px; }
+  .ps-stop small { font-size: 15px; }
+  .po-weeks li b { font-size: 17px; }
+  .po-weeks li span { font-size: 16px; line-height: 1.55; }
+  .final-note { font-size: 16px; }
+  .foot-tag { font-size: 16px; }
+  .foot-legal a, .foot-legal .linklike { font-size: 15px; }
+  .foot-base { font-size: 14px; color: #a39c90; }
+}
