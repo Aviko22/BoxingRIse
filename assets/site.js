@@ -59,7 +59,7 @@
     var splitV = /[?&]hero=split\b/.test(location.search);
     var heroEl = document.querySelector('.hero');
     if (heroEl) heroEl.classList.add(splitV ? 'hero--split' : 'hero--full');
-    hv.src = splitV ? (wideV ? '/media/hero-v3-1080.mp4' : '/media/hero-v3-720.mp4') : (wideV ? '/media/hero-v4-w.mp4' : '/media/hero-v4-m.mp4');
+    hv.src = splitV ? (wideV ? '/media/hero-v3-1080.mp4' : '/media/hero-v3-720.mp4') : (wideV ? '/media/hero-v5-w.mp4' : '/media/hero-v5-m.mp4');
     if (!document.documentElement.classList.contains('intro-on') && !reduce) { var hp = hv.play(); if (hp && hp.catch) hp.catch(function () {}); }
   }
   var hero = document.querySelector('.hero');
