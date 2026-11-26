@@ -56,10 +56,12 @@
   /* safety net: if the inline loader did not run (blocked or rewritten by an optimiser), set the source here */
   if (hv && !hv.getAttribute('src') && !hv.querySelector('source')) {
     var wideV = window.matchMedia('(min-width: 1000px)').matches;
-    hv.src = wideV ? '/media/hero-mont3-w.mp4' : '/media/hero-mont2-m.mp4';
-    if (!document.documentElement.classList.contains('intro-on')) { var hp = hv.play(); if (hp && hp.catch) hp.catch(function () {}); }
+    var fullV = /[?&]hero=full\b/.test(location.search);
+    var heroEl = document.querySelector('.hero');
+    if (heroEl) heroEl.classList.add(fullV ? 'hero--full' : 'hero--split');
+    hv.src = fullV ? (wideV ? '/media/hero-v2-w.mp4' : '/media/hero-v2-m.mp4') : (wideV ? '/media/hero-v3-1080.mp4' : '/media/hero-v3-720.mp4');
+    if (!document.documentElement.classList.contains('intro-on') && !reduce) { var hp = hv.play(); if (hp && hp.catch) hp.catch(function () {}); }
   }
-  if (hv && hv.dataset.posterWide && window.matchMedia('(min-width: 1000px)').matches) hv.poster = hv.dataset.posterWide;
   var hero = document.querySelector('.hero');
   if (hero) {
     hero.querySelectorAll('.h1 .w > span').forEach(function (s, i) { s.style.setProperty('--i', i); });

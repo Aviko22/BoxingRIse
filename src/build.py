@@ -15,7 +15,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "248"  # bump to bust caches of css/js
+VER = "249"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -101,7 +101,7 @@ def head(t, title, desc, path, alt_path, noindex):
   <link rel="icon" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preload" href="/fonts/heebo.woff" as="font" type="font/woff" crossorigin>
-  {('<link rel="preload" as="image" href="/media/hero-mont2-m.jpg?v=' + VER + '" media="(max-width: 999px)" fetchpriority="high"><link rel="preload" as="image" href="/media/hero-mont3-w.jpg?v=' + VER + '" media="(min-width: 1000px)" fetchpriority="high">') if path in ('/', '/en') else ''}
+  {('<link rel="preload" as="image" href="/media/hero-v3-poster.jpg?v=' + VER + '" fetchpriority="high">') if path in ('/', '/en') else ''}
   {'<link rel="preload" href="/fonts/assistant-800.woff" as="font" type="font/woff" crossorigin>' if t["lang"] == "he" else '<link rel="preload" href="/fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>'}
   <link rel="stylesheet" href="/assets/site.css?v={VER}">
   {('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap"><link rel="stylesheet" href="/assets/ru.css?v=' + VER + '">') if lang == "ru" else ''}
@@ -451,8 +451,8 @@ def home(t):
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-beams" aria-hidden="true"><i class="hb-src"></i><i class="hb b1"></i><i class="hb b2"></i><i class="hb b3"></i><i class="hb b4"></i><i class="hb b5"></i></div>
     <div class="hero-media" aria-hidden="true">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto" data-poster="/media/hero-mont2-m.jpg?v={VER}" data-poster-wide="/media/hero-mont3-w.jpg?v={VER}"></video>
-      <script data-cfasync="false">(function(v){{if(!v)return;var w=matchMedia('(min-width: 1000px)').matches;v.poster=w?v.dataset.posterWide:v.dataset.poster;if(document.documentElement.classList.contains('intro-on'))v.removeAttribute('autoplay');v.src=(w?'/media/hero-mont3-w':'/media/hero-mont2-m')+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.querySelector('.hero-video'));</script>
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/media/hero-v3-poster.jpg?v={VER}"></video>
+      <script data-cfasync="false">(function(v){{if(!v)return;var w=matchMedia('(min-width: 1000px)').matches,full=/[?&]hero=full\\b/.test(location.search),h=document.querySelector('.hero');if(h)h.classList.add(full?'hero--full':'hero--split');var src=full?(w?'/media/hero-v2-w':'/media/hero-v2-m'):(w?'/media/hero-v3-1080':'/media/hero-v3-720');v.poster=(full?(w?'/media/hero-v2-w.jpg':'/media/hero-v2-m.jpg'):'/media/hero-v3-poster.jpg')+'?v={VER}';if(document.documentElement.classList.contains('intro-on')||matchMedia('(prefers-reduced-motion: reduce)').matches)v.removeAttribute('autoplay');v.src=src+'.mp4?v={VER}';if(!v.hasAttribute('autoplay')){{v.pause();return;}}var p=v.play();p&&p.catch&&p.catch(function(){{}});}})(document.querySelector('.hero-video'));</script>
       <div class="hero-shade"></div>
       <div class="hero-fx"></div>
     </div>
