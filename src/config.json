@@ -21,8 +21,8 @@
   },
   "analytics": {
     "_note": "provider: none | cloudflare | ga4. Loads only after the visitor accepts the banner. With none, no banner is shown.",
-    "provider": "none",
+    "provider": "ga4",
     "cloudflare_token": "",
-    "ga4_id": ""
+    "ga4_id": "G-5ZWKF4YLCX"
   }
 }
