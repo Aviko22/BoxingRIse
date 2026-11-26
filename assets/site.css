@@ -1904,13 +1904,14 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
 .hero .h1-line + .h1-line, .hero .h1-line + .h1-line * { text-shadow: none !important; }
 .hero .h1-line + .h1-line { filter: drop-shadow(0 2px 6px rgba(0,0,0,.75)) drop-shadow(0 0 18px rgba(0,0,0,.45)); }
 @media (max-width: 999px) {
-  .hero-media { inset: 0 0 auto 0 !important; height: min(150vw, 88svh) !important; }
+  .hero-media { inset: 0 !important; height: auto !important; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 72%, transparent 100%); will-change: opacity; }
+  .hero-media .hero-video { object-position: 50% 18% !important; }
   .hero { min-height: 0 !important; padding-bottom: 44px !important; }
   .hero { background: transparent !important; }
   .hero + .sec { background-image: none !important; }
   .hero-beams { -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 96%); mask-image: linear-gradient(180deg, #000 62%, transparent 96%); }
   .hero-fx { -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 80%); mask-image: linear-gradient(180deg, #000 55%, transparent 80%); }
-  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.35) 0%, rgba(11,10,8,0) 14%, rgba(11,10,8,0) 40%, rgba(11,10,8,.6) 62%, rgba(11,10,8,.88) 84%, var(--black) 100%) !important; }
+  .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11,10,8,.35) 0%, rgba(11,10,8,0) 14%, rgba(11,10,8,0) 42%, rgba(11,10,8,.55) 58%, rgba(11,10,8,.7) 80%, rgba(11,10,8,.6) 100%) !important; }
 }
 @media (min-width: 1000px) {
   .hero { background: #14110d !important; }

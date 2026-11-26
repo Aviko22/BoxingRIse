@@ -665,3 +665,17 @@
   io.observe(el);
 })();
 
+
+/* phone hero: as the next section scrolls in, the video fades out */
+(function () {
+  var hero = document.querySelector('.hero'), m = hero && hero.querySelector('.hero-media');
+  if (!m || !window.matchMedia('(max-width: 999px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tick = false;
+  function upd() {
+    tick = false;
+    var h = hero.offsetHeight, p = Math.min(1, Math.max(0, window.scrollY / (h * .85)));
+    m.style.opacity = String(1 - p * .85);
+  }
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+  upd();
+})();
