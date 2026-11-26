@@ -11,7 +11,7 @@ Everything on the page serves that goal. There is no online payment or booking s
 - Women only, 18+, mostly beginners. Hebrew copy addresses her in the feminine form (את, בואי, קובעת).
 - Warm, short, confident. No macho tone, no kicks or crowds, no exaggerated promises. Self-defence copy stays realistic ("not a combat course, but a real foundation").
 - **Never invent** testimonials, names, photos, prices, qualifications, locations or results. Ask Avi.
-- Confirmed facts: 30 years in martial arts and combat sports (10 Muay Thai, 5 classic boxing, black belt in Japanese jiu-jitsu). Locations: Yarkon Park, or a park near her home in the centre. 60-minute sessions. Payment by Bit, PayBox or cash. Three real testimonials (Victoria, Maria, Neta).
+- Confirmed facts: 30 years in martial arts and combat sports (10 Muay Thai, 5 classic boxing, black belt in Japanese jiu-jitsu). Locations: Yarkon Park, or a park near her home in the centre. 60-minute sessions. Payment by Bit, PayBox or cash. Three real testimonials, shown in this order: Victoria, Oksana, Maria (names confirmed by Avi; the photo files are still named review-victoria/maria/neta by position).
 
 ## Look
 Black and gold luxury with a warm park feel. Hebrew headings: "Assistant Display" (`fonts/assistant-800.woff`); English headings: Bebas Neue; body: Heebo. Gold accents, never gold everywhere.

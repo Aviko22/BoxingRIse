@@ -128,8 +128,8 @@ HE = {
 
     "reviews": [
         ("ויקטוריה", "הגעתי בלי שום רקע ובלי ביטחון, וכבר באימון הראשון אבי גרם לי להרגיש הכי בנוח בעולם – יצאתי ממנו עוצמתית, משוחררת ועם טעם של עוד!"),
-        ("מריה", "אחרי שנים בחדרי כושר, האימונים האישיים עם אבי הביאו אותי לכושר ולחיטוב הכי חזק שהייתי בהם – אנרגיה מטורפת וסבלנות מקצועית שאין כמותה."),
-        ("נטע", "שעת אימון אצל אבי היא הזמן היחיד ביום שבו אני משחררת את כל הסטרס, מתנתקת מהעולם וחוזרת הביתה מחוזקת בראש ובגוף."),
+        ("אוקסנה", "אחרי שנים בחדרי כושר, האימונים האישיים עם אבי הביאו אותי לכושר ולחיטוב הכי חזק שהייתי בהם – אנרגיה מטורפת וסבלנות מקצועית שאין כמותה."),
+        ("מריה", "שעת אימון אצל אבי היא הזמן היחיד ביום שבו אני משחררת את כל הסטרס, מתנתקת מהעולם וחוזרת הביתה מחוזקת בראש ובגוף."),
     ],
     "reviews_h": "ככה הן יוצאות מהאימון.",
     "review_more": "להמלצה המלאה",
@@ -316,8 +316,8 @@ EN = {
 
     "reviews": [
         ("Victoria", "I came with no background and no confidence, and from the very first session Avi made me feel completely at ease. I walked out feeling powerful, free, and wanting more!"),
-        ("Maria", "After years in gyms, my private sessions with Avi got me into the fittest, most toned shape I've ever been in. Crazy energy and professional patience like no one else."),
-        ("Neta", "My hour of training with Avi is the only time in my day when I let all the stress go, disconnect from the world, and come home stronger in body and mind."),
+        ("Oksana", "After years in gyms, my private sessions with Avi got me into the fittest, most toned shape I've ever been in. Crazy energy and professional patience like no one else."),
+        ("Maria", "My hour of training with Avi is the only time in my day when I let all the stress go, disconnect from the world, and come home stronger in body and mind."),
     ],
     "reviews_h": "This is how they leave a session.",
     "review_more": "Read the full review",
