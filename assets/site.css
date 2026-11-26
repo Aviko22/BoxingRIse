@@ -1919,3 +1919,19 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
   .hero-media .hero-shade { background: radial-gradient(ellipse 34% 50% at 78% 52%, rgba(11,10,8,.8) 0%, rgba(11,10,8,.58) 52%, rgba(11,10,8,0) 100%), linear-gradient(to left, rgba(11,10,8,.6) 0%, rgba(11,10,8,0) 22%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
   html[dir="ltr"] .hero-media .hero-shade { background: radial-gradient(ellipse 34% 50% at 22% 52%, rgba(11,10,8,.8) 0%, rgba(11,10,8,.58) 52%, rgba(11,10,8,0) 100%), linear-gradient(to right, rgba(11,10,8,.6) 0%, rgba(11,10,8,0) 22%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
 }
+
+/* desktop hero: the video runs past the hero and fades out under the next section */
+@media (min-width: 1000px) {
+  .hero { overflow: visible !important; background: transparent !important; }
+  .hero-beams { overflow: hidden; }
+  .hero-media { bottom: -30vh !important; height: auto !important;
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, #000 14%), linear-gradient(180deg, #000 58%, transparent 100%) !important;
+    mask-image: linear-gradient(to left, transparent 0%, #000 14%), linear-gradient(180deg, #000 58%, transparent 100%) !important;
+    -webkit-mask-composite: source-in !important; mask-composite: intersect !important; }
+  html[dir="ltr"] .hero-media {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%), linear-gradient(180deg, #000 58%, transparent 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0%, #000 14%), linear-gradient(180deg, #000 58%, transparent 100%) !important; }
+  .hero-media .hero-shade { background: radial-gradient(ellipse 34% 38% at 78% 40%, rgba(11,10,8,.8) 0%, rgba(11,10,8,.58) 52%, rgba(11,10,8,0) 100%), linear-gradient(to left, rgba(11,10,8,.6) 0%, rgba(11,10,8,0) 22%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 16%) !important; }
+  html[dir="ltr"] .hero-media .hero-shade { background: radial-gradient(ellipse 34% 38% at 22% 40%, rgba(11,10,8,.8) 0%, rgba(11,10,8,.58) 52%, rgba(11,10,8,0) 100%), linear-gradient(to right, rgba(11,10,8,.6) 0%, rgba(11,10,8,0) 22%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 16%) !important; }
+  .hero + .sec { z-index: 1; background-image: none !important; }
+}
