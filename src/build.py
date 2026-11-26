@@ -15,7 +15,7 @@ CFG = json.loads((ROOT / "src" / "config.json").read_text(encoding="utf-8"))
 NUM = CFG["whatsapp_number"]
 WA_DISPLAY = "0" + NUM[3:5] + "-" + NUM[5:8] + "-" + NUM[8:] if NUM.startswith("972") else NUM
 SITE = CFG["site_url"]
-VER = "252"  # bump to bust caches of css/js
+VER = "253"  # bump to bust caches of css/js
 
 e = html.escape
 
@@ -292,14 +292,16 @@ def _hgold(t, key):
 TAGGED = {"gal", "what", "reviews", "trial", "program", "about", "voice", "faq", "final", "hero"}
 
 
-GALLERY = [f"galv-{i:02d}" for i in range(1, 7)]  # new names when photos change: /media is cached 30 days
+# display order; she in green (02) and her arms-up victory photo (04) close the gallery.
+# gal_alts stay in photo-number order (galv-01 = gal_alts[0]), so reordering never mixes up the alt text.
+GALLERY = [f"galv-{i:02d}" for i in (1, 3, 5, 6, 2, 4)]  # new names when photos change: /media is cached 30 days
 
 
 def gallery(t):
     """Real photos from sessions. Tap opens a simple viewer (site.js)."""
     items = "".join(
         f'<li class="gal-item"><button type="button" class="gal-btn" data-i="{i}" data-full="/media/opt/{n}-900.webp" aria-label="{e(t["gal_open"])} {i + 1}">'
-        + img(n, t["gal_alts"][i], "gal-img", "(max-width: 760px) 70vw, 30vw") + '</button></li>'
+        + img(n, t["gal_alts"][int(n[-2:]) - 1], "gal-img", "(max-width: 760px) 70vw, 30vw") + '</button></li>'
         for i, n in enumerate(GALLERY))
     return (f'<section class="sec gal" id="gallery" aria-labelledby="gal-h" data-close="{e(t["gal_close"])}" data-prev="{e(t["gal_prev"])}" data-next="{e(t["gal_next"])}"><div class="wrap">'
             f'<div class="gal-head">{tag(t, "gal")}<h2 class="h2" id="gal-h">{hgold(t, "gal_h")}</h2><p class="lead">{e(t["gal_lead"])}</p></div>'
