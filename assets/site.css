@@ -1900,7 +1900,9 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
 
 /* ===== hero: lighter, video fills the hero, dark shade only behind the text ===== */
 .hero-video { filter: sepia(.12) saturate(1.08) brightness(1.14) contrast(1.02) !important; }
-.hero .h1, .hero-sub { text-shadow: 0 2px 18px rgba(0,0,0,.55); }
+.hero .h1, .hero-sub { text-shadow: 0 2px 22px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.45); }
+.hero .h1-line + .h1-line, .hero .h1-line + .h1-line * { text-shadow: none !important; }
+.hero .h1-line + .h1-line { filter: drop-shadow(0 2px 6px rgba(0,0,0,.75)) drop-shadow(0 0 18px rgba(0,0,0,.45)); }
 @media (max-width: 999px) {
   .hero-media { inset: 0 0 auto 0 !important; height: min(150vw, 88svh) !important; }
   .hero { min-height: 0 !important; padding-bottom: 44px !important; }
@@ -1914,6 +1916,6 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
   .hero { background: #14110d !important; }
   .hero-media { width: 92% !important; -webkit-mask-image: linear-gradient(to left, transparent 0%, #000 14%) !important; mask-image: linear-gradient(to left, transparent 0%, #000 14%) !important; }
   html[dir="ltr"] .hero-media { -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%) !important; mask-image: linear-gradient(to right, transparent 0%, #000 14%) !important; }
-  .hero-media .hero-shade { background: linear-gradient(to left, rgba(11,10,8,.72) 0%, rgba(11,10,8,.42) 22%, rgba(11,10,8,0) 40%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
-  html[dir="ltr"] .hero-media .hero-shade { background: linear-gradient(to right, rgba(11,10,8,.72) 0%, rgba(11,10,8,.42) 22%, rgba(11,10,8,0) 40%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
+  .hero-media .hero-shade { background: radial-gradient(ellipse 34% 50% at 78% 52%, rgba(11,10,8,.8) 0%, rgba(11,10,8,.58) 52%, rgba(11,10,8,0) 100%), linear-gradient(to left, rgba(11,10,8,.6) 0%, rgba(11,10,8,0) 22%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
+  html[dir="ltr"] .hero-media .hero-shade { background: radial-gradient(ellipse 34% 50% at 22% 52%, rgba(11,10,8,.8) 0%, rgba(11,10,8,.58) 52%, rgba(11,10,8,0) 100%), linear-gradient(to right, rgba(11,10,8,.6) 0%, rgba(11,10,8,0) 22%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
 }
