@@ -1912,8 +1912,8 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
 }
 @media (min-width: 1000px) {
   .hero { background: #14110d !important; }
-  .hero-media { width: 80% !important; -webkit-mask-image: linear-gradient(to left, transparent 0%, #000 22%) !important; mask-image: linear-gradient(to left, transparent 0%, #000 22%) !important; }
-  html[dir="ltr"] .hero-media { -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%) !important; mask-image: linear-gradient(to right, transparent 0%, #000 22%) !important; }
-  .hero-media .hero-shade { background: linear-gradient(to left, rgba(11,10,8,.85) 0%, rgba(11,10,8,.6) 25%, rgba(11,10,8,0) 50%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
-  html[dir="ltr"] .hero-media .hero-shade { background: linear-gradient(to right, rgba(11,10,8,.85) 0%, rgba(11,10,8,.6) 25%, rgba(11,10,8,0) 50%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
+  .hero-media { width: 92% !important; -webkit-mask-image: linear-gradient(to left, transparent 0%, #000 14%) !important; mask-image: linear-gradient(to left, transparent 0%, #000 14%) !important; }
+  html[dir="ltr"] .hero-media { -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%) !important; mask-image: linear-gradient(to right, transparent 0%, #000 14%) !important; }
+  .hero-media .hero-shade { background: linear-gradient(to left, rgba(11,10,8,.72) 0%, rgba(11,10,8,.42) 22%, rgba(11,10,8,0) 40%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
+  html[dir="ltr"] .hero-media .hero-shade { background: linear-gradient(to right, rgba(11,10,8,.72) 0%, rgba(11,10,8,.42) 22%, rgba(11,10,8,0) 40%), linear-gradient(180deg, rgba(11,10,8,.35) 0%, transparent 20%, transparent 82%, var(--black) 100%) !important; }
 }
