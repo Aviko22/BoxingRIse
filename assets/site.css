@@ -1937,9 +1937,8 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
   .hero + .sec { z-index: 1; background-image: none !important; }
 }
 
-/* ===== hero--split (default): vertical 4:5 video beside the text on desktop, above it on phones.
-   The text never sits on the video, natural colour (no filter), no parallax.
-   ?hero=full keeps the previous full-bleed layout for comparison. ===== */
+/* ===== hero--split (?hero=split, for comparison): vertical 4:5 video beside the text on desktop,
+   above it on phones. Natural colour (no filter), no parallax. ===== */
 .hero.hero--split .hero-video { filter: none !important; transform: none !important; object-position: 50% 50% !important; }
 .hero.hero--split .hero-media::after { display: none !important; }
 @media (min-width: 1000px) {
@@ -1962,3 +1961,7 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
   .hero.hero--split .hero-media .hero-shade { background: linear-gradient(180deg, rgba(11, 10, 8, .4) 0%, rgba(11, 10, 8, 0) 16%, rgba(11, 10, 8, 0) 80%, rgba(11, 10, 8, .6) 100%) !important; }
   .hero.hero--split { padding-top: calc(min(125vw, 60svh) - 8px) !important; }
 }
+
+/* ===== hero--full (default): the full-bleed hero with the 9 s park cut (10:9 desktop, 9:16 phone),
+   cropped so faces, gloves and pads stay clear of the headline. Natural colour: no filter. ===== */
+.hero.hero--full .hero-video { filter: none !important; }

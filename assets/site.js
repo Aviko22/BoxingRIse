@@ -56,10 +56,10 @@
   /* safety net: if the inline loader did not run (blocked or rewritten by an optimiser), set the source here */
   if (hv && !hv.getAttribute('src') && !hv.querySelector('source')) {
     var wideV = window.matchMedia('(min-width: 1000px)').matches;
-    var fullV = /[?&]hero=full\b/.test(location.search);
+    var splitV = /[?&]hero=split\b/.test(location.search);
     var heroEl = document.querySelector('.hero');
-    if (heroEl) heroEl.classList.add(fullV ? 'hero--full' : 'hero--split');
-    hv.src = fullV ? (wideV ? '/media/hero-v2-w.mp4' : '/media/hero-v2-m.mp4') : (wideV ? '/media/hero-v3-1080.mp4' : '/media/hero-v3-720.mp4');
+    if (heroEl) heroEl.classList.add(splitV ? 'hero--split' : 'hero--full');
+    hv.src = splitV ? (wideV ? '/media/hero-v3-1080.mp4' : '/media/hero-v3-720.mp4') : (wideV ? '/media/hero-v4-w.mp4' : '/media/hero-v4-m.mp4');
     if (!document.documentElement.classList.contains('intro-on') && !reduce) { var hp = hv.play(); if (hp && hp.catch) hp.catch(function () {}); }
   }
   var hero = document.querySelector('.hero');
