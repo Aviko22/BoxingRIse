@@ -1984,3 +1984,7 @@ main .h2.ps-ttl::after, main .h2.ps-ttl.rs-in::after { transition-delay: 1.3s, 1
   .foot-legal a, .foot-legal .linklike { font-size: 15px; }
   .foot-base { font-size: 14px; color: #a39c90; }
 }
+
+/* gallery: no page zoom or sideways slide from the viewer or the strip (older Safari ignores overflow: clip) */
+.gal { overflow-x: hidden; overflow-x: clip; }
+.gal-view { touch-action: none; overscroll-behavior: contain; }

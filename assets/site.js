@@ -547,7 +547,10 @@
   var vi = view.querySelector('img'), cnt = view.querySelector('.gal-count'), cur = 0, last = null;
   function show(i) { cur = (i + n) % n; var b = btns[cur], im = b.querySelector('img'); vi.src = b.dataset.full; vi.alt = im ? im.alt : ''; cnt.textContent = (cur + 1) + ' / ' + n; }
   function open(i) { last = document.activeElement; show(i); view.classList.add('on'); document.documentElement.classList.add('gal-open'); view.querySelector('.gal-x').focus(); }
-  function close() { view.classList.remove('on'); document.documentElement.classList.remove('gal-open'); if (last) last.focus(); }
+  /* a pinch-zoom inside the viewer must not leave the page zoomed (which lets it slide sideways) */
+  var vp = document.querySelector('meta[name="viewport"]'), vpc = vp && vp.getAttribute('content');
+  function resetZoom() { if (!vp) return; vp.setAttribute('content', vpc + ', maximum-scale=1'); setTimeout(function () { vp.setAttribute('content', vpc); }, 300); }
+  function close() { view.classList.remove('on'); document.documentElement.classList.remove('gal-open'); resetZoom(); if (last) last.focus({ preventScroll: true }); if (window.scrollX) window.scrollTo(0, window.scrollY); }
   sec.addEventListener('click', function (ev) { var b = ev.target.closest('.gal-btn'); if (!b) return; open(+b.dataset.i || 0); });
   view.querySelector('.gal-x').addEventListener('click', close);
   view.querySelector('.gal-prev').addEventListener('click', function () { show(cur - 1); });
